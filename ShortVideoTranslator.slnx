@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ShortVideoTranslator.Api/ShortVideoTranslator.Api.csproj" />
+  <Project Path="ShortVideoTranslator.Business/ShortVideoTranslator.Business.csproj" />
+  <Project Path="ShortVideoTranslator.Data/ShortVideoTranslator.Data.csproj" />
+</Solution>
