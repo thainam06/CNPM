@@ -7,13 +7,18 @@ public class SpeechService
 {
     private readonly string _modelPath;
 
+
     public SpeechService()
     {
         _modelPath = Path.Combine(
-            Directory.GetCurrentDirectory(),
+            AppContext.BaseDirectory,
+            "..", "..", "..", "..",
             "models",
             "ggml-base.bin");
+
+        _modelPath = Path.GetFullPath(_modelPath);
     }
+
 
     public async Task<List<SpeechSegment>>
         TranscribeAsync(string audioPath)
