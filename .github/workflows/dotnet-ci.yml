@@ -32,6 +32,21 @@ jobs:
       - name: Run unit tests
         run: dotnet test ShortVideoTranslator.Tests/ShortVideoTranslator.Tests.csproj --configuration Release --no-restore
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: ShortVideoTranslator.Frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: ShortVideoTranslator.Frontend
+        run: npm ci
+
+      - name: Check frontend
+        working-directory: ShortVideoTranslator.Frontend
+        run: npm run lint && npm test && npm run build
+
       - name: Publish Backend API
         run: dotnet publish ShortVideoTranslator.Api/ShortVideoTranslator.Api.csproj --configuration Release --no-restore --output ./publish
 

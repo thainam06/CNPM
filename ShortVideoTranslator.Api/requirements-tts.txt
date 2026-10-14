@@ -1,0 +1,2 @@
+# Pin the tested Edge-TTS handshake implementation for reproducible local demos.
+edge-tts==7.3.1
