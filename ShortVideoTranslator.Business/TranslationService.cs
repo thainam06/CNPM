@@ -7,13 +7,17 @@ namespace ShortVideoTranslator.Business;
 
 public record TranslationResult(string Text, string Language, string Provider, bool IsMachineTranslation);
 public class TranslationUnavailableException(string message, Exception? inner = null) : Exception(message, inner);
+public interface ISampleNarrationCatalog
+{
+    TranslationResult? Find(string source, string language);
+}
 public class TranslationOptions
 {
     public bool Enabled { get; set; } = true;
     public int TimeoutSeconds { get; set; } = 25;
 }
 
-public class TranslationService(HttpClient client, TranslationOptions options)
+public class TranslationService(HttpClient client, TranslationOptions options, ISampleNarrationCatalog? samples = null)
 {
     private readonly ConcurrentDictionary<(string Text, string Language), TranslationResult> _cache = new();
     private readonly SemaphoreSlim _gate = new(1, 1);
@@ -24,6 +28,8 @@ public class TranslationService(HttpClient client, TranslationOptions options)
         NarrationLanguages.Validate(language);
         cancellationToken.ThrowIfCancellationRequested();
         if (language == "vi") return new(text, language, "original", false);
+        // Exact source match only. Edited content must use a new translation, never a stale sample.
+        if (samples?.Find(text, language) is { } prepared) return prepared;
         if (!options.Enabled) throw new TranslationUnavailableException("Dịch đa ngôn ngữ chưa sẵn sàng: dịch vụ đang tắt.");
         var key = (text, language);
         if (_cache.TryGetValue(key, out var cached)) return cached;

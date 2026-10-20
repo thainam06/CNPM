@@ -1,4 +1,6 @@
 import { planAudioCache } from './cachePolicy';
+export { narrationKey as audioKey } from './narrationKey.js';
+import { narrationKey as audioKey } from './narrationKey.js';
 let database;
 let audioWrites = Promise.resolve();
 function db() {
@@ -32,7 +34,7 @@ export async function clearOffline() {
 export function saveOfflineAudio(key, blob, language) {
   const job = audioWrites.catch(() => {}).then(async () => {
     const index = await offlineGet('audio-index') || {};
-    const plan = planAudioCache(index, { key, language });
+    const plan = planAudioCache(index, { key, language }, Date.now(), localStorage.getItem('smarttour-language'));
     const database = await db();
     const write = (removed) => new Promise((resolve, reject) => {
       const transaction = database.transaction('assets', 'readwrite');
@@ -64,15 +66,36 @@ export async function readOfflineAudio(key) {
   }
   return blob;
 }
-export async function audioKey(text, language) {
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v1:${language}:${text}`));
-  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
-}
 export function offlineNotice(message) { window.dispatchEvent(new CustomEvent('smarttour-offline', { detail: message })); }
+export function offlineAssetsChanged(catalog = false) { window.dispatchEvent(new CustomEvent('smarttour-assets-changed', { detail: { catalog } })); }
+export function commitOfflineBundle(staged, signal) {
+  const job = audioWrites.catch(() => {}).then(async () => {
+    if (signal?.aborted) throw new DOMException('Đã hủy tải gói.', 'AbortError');
+    let index = await offlineGet('audio-index') || {}; const removed = new Set();
+    for (const asset of staged.audio) {
+      const plan = planAudioCache(index, asset, Date.now(), localStorage.getItem('smarttour-language'));
+      index = plan.entries; plan.removed.forEach(key => removed.add(key));
+    }
+    const database = await db();
+    if (signal?.aborted) throw new DOMException('Đã hủy tải gói.', 'AbortError');
+    await new Promise((resolve, reject) => {
+      const transaction = database.transaction('assets', 'readwrite'); const assets = transaction.objectStore('assets');
+      const cancel = () => { try { transaction.abort(); } catch { /* Transaction already complete. */ } };
+      signal?.addEventListener('abort', cancel, { once: true });
+      for (const key of removed) { assets.delete(`audio:${key}`); assets.delete(`translation:${key}`); }
+      for (const [key, value] of staged.entries) assets.put(value, key);
+      assets.put(index, 'audio-index');
+      transaction.oncomplete = () => { signal?.removeEventListener('abort', cancel); resolve(); };
+      transaction.onabort = transaction.onerror = () => { signal?.removeEventListener('abort', cancel); reject(signal?.aborted ? new DOMException('Đã hủy tải gói.', 'AbortError') : transaction.error); };
+    });
+    offlineAssetsChanged(true);
+  });
+  audioWrites = job; return job;
+}
 
 export async function downloadAudioPack(language, places, request, progress) {
   const manifest = await (await request(`/narration/pack-manifest?language=${language}`)).json();
-  const wanted = new Map(await Promise.all(places.map(async place => [await audioKey(place.description, language), place])));
+  const wanted = new Map(await Promise.all(places.map(async place => [await audioKey(place.description, language, place.narrationRevisions?.[language]), place])));
   const files = manifest.files.filter(file => wanted.has(file.key));
   if (!files.length) throw new Error('Chưa có MP3 tạo sẵn cho ngôn ngữ này. Admin cần tạo audio trước khi tải gói.');
   await offlineSet('places:district1', places);
@@ -83,7 +106,7 @@ export async function downloadAudioPack(language, places, request, progress) {
     const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await blob.arrayBuffer())), byte => byte.toString(16).padStart(2, '0')).join('');
     if (hash !== asset.sha256 || blob.size !== asset.bytes) throw new Error('MP3 tải xuống không khớp checksum. Gói chưa được hoàn tất.');
     await saveOfflineAudio(asset.key, blob, language);
-    await offlineSet(`translation:${asset.key}`, { text: asset.text, language, provider: language === 'vi' ? 'original' : 'MyMemory', isMachineTranslation: language !== 'vi' });
+    await offlineSet(`translation:${asset.key}`, { text: asset.text, language, provider: asset.provider || (language === 'vi' ? 'original' : 'MyMemory'), isMachineTranslation: language !== 'vi' && asset.provider !== 'reviewed' });
     progress(index + 1, files.length);
   }
   const missing = places.length - files.length;

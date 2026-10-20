@@ -16,3 +16,9 @@ test('a language never exceeds 300 audio files and refreshing a file retains it'
   assert.deepEqual(refreshed.removed, []);
   assert.equal(refreshed.entries.file0.accessedAt, 400);
 });
+
+
+test('prefetching a fourth language never evicts the active language pack', () => {
+  const result = planAudioCache({ a: { language: 'vi', accessedAt: 1 }, b: { language: 'en', accessedAt: 3 }, c: { language: 'ja', accessedAt: 2 } }, { key: 'd', language: 'fr' }, 4, 'vi');
+  assert.ok(result.entries.a); assert.ok(result.entries.d); assert.deepEqual(result.removed, ['c']);
+});

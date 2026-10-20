@@ -64,14 +64,15 @@ public class AdminController(PlatformService platform) : ControllerBase
     [HttpGet("analytics"), Permission("analytics:view")]
     public IActionResult Analytics() => Ok(platform.Store.Read(s => new {
         places = s.Places.Count, activePlaces = s.Places.Count(p => p.IsActive), users = s.Users.Count,
-        pendingReviews = s.Reviews.Count(r => r.Status == "pending"), events = s.Events.Count,
-        consentedOnlineDevices = s.Events.Where(e => e.CreatedAt > DateTimeOffset.UtcNow.AddMinutes(-5)).Select(e => e.DeviceId).Distinct().Count(),
-        byPlace = s.Events.Where(e => e.PlaceId != null).GroupBy(e => e.PlaceId).Select(g => new { placeId = g.Key, count = g.Count() }).ToArray(),
-        byKind = s.Events.GroupBy(e => e.Kind).Select(g => new { kind = g.Key, count = g.Count() }).ToArray()
+        pendingReviews = s.Reviews.Count(r => r.Status == "pending"), events = s.Events.Count(e => e.Kind != "heartbeat"),
+        consentedOnlineDevices = s.AnalyticsHeartbeats.Where(e => e.LastSeen > DateTimeOffset.UtcNow.AddMinutes(-5)).Select(e => e.DeviceId).Distinct().Count(),
+        pendingAnalytics = s.PendingAnalytics.Count,
+        byPlace = s.Events.Where(e => e.Kind != "heartbeat" && e.PlaceId != null).GroupBy(e => e.PlaceId).Select(g => new { placeId = g.Key, count = g.Count() }).ToArray(),
+        byKind = s.Events.Where(e => e.Kind != "heartbeat").GroupBy(e => e.Kind).Select(g => new { kind = g.Key, count = g.Count() }).ToArray()
     }));
     [HttpGet("analytics/export"), Permission("analytics:export")]
     public IActionResult Export() => File(System.Text.Encoding.UTF8.GetBytes("createdAt,kind,placeId,language\n" +
-        string.Join('\n', platform.Store.Read(s => s.Events).Select(e => $"{e.CreatedAt:O},{e.Kind},{e.PlaceId},{e.Language}"))), "text/csv", "smarttour-events.csv");
+        string.Join('\n', platform.Store.Read(s => s.Events.Where(e => e.Kind != "heartbeat").ToArray()).Select(e => $"{e.CreatedAt:O},{e.Kind},{e.PlaceId},{e.Language}"))), "text/csv", "smarttour-events.csv");
     [HttpGet("backup"), Permission("system:backup")]
     public IActionResult Backup() => Ok(platform.Store.Read(s => new { s.Places, s.Menus, s.Version, s.UpdatedAt }));
     [HttpGet("places/{id:int}/menu"), Permission("menu:read")]
