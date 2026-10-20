@@ -41,7 +41,9 @@
     "mapHint": "Chọn một điểm trên bản đồ để xem chi tiết và nghe thuyết minh.",
     "mapAll": "Xem toàn khu vực",
     "mapMissing": "Chưa có tọa độ xác minh.",
-    "tripLanguage": "Ngôn ngữ hành trình"
+    "tripLanguage": "Ngôn ngữ hành trình",
+    "categories": "Danh mục địa điểm",
+    "allCategories": "Tất cả"
   },
   "en": {
     "intro": "About",
@@ -85,7 +87,9 @@
     "mapHint": "Select a place on the map to explore its story.",
     "mapAll": "View the whole area",
     "mapMissing": "Verified coordinates are not available.",
-    "tripLanguage": "Journey language"
+    "tripLanguage": "Journey language",
+    "categories": "Place categories",
+    "allCategories": "All"
   },
   "zh": {
     "intro": "介绍",
@@ -129,7 +133,9 @@
     "mapHint": "在地图上选择一个地点，查看详情并聆听讲解。",
     "mapAll": "查看整个区域",
     "mapMissing": "尚无经过核实的坐标。",
-    "tripLanguage": "旅程语言"
+    "tripLanguage": "旅程语言",
+    "categories": "地点类别",
+    "allCategories": "全部"
   },
   "ja": {
     "intro": "紹介",
@@ -173,7 +179,9 @@
     "mapHint": "地図からスポットを選んで詳細と解説を確認できます。",
     "mapAll": "全エリアを表示",
     "mapMissing": "確認済みの座標はまだありません。",
-    "tripLanguage": "旅の言語"
+    "tripLanguage": "旅の言語",
+    "categories": "スポットのカテゴリ",
+    "allCategories": "すべて"
   },
   "ko": {
     "intro": "소개",
@@ -217,7 +225,9 @@
     "mapHint": "지도에서 장소를 선택해 상세 정보와 해설을 확인하세요.",
     "mapAll": "전체 지역 보기",
     "mapMissing": "확인된 좌표가 아직 없습니다.",
-    "tripLanguage": "여행 언어"
+    "tripLanguage": "여행 언어",
+    "categories": "장소 유형",
+    "allCategories": "전체"
   },
   "fr": {
     "intro": "Présentation",
@@ -261,6 +271,8 @@
     "mapHint": "Sélectionnez un lieu sur la carte pour découvrir son histoire.",
     "mapAll": "Voir toute la zone",
     "mapMissing": "Les coordonnées vérifiées ne sont pas disponibles.",
-    "tripLanguage": "Langue du voyage"
+    "tripLanguage": "Langue du voyage",
+    "categories": "Catégories de lieux",
+    "allCategories": "Tous"
   }
 }

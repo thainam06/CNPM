@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { uiText } from './i18n';
+import { clusterPlaces } from './mapClusters';
 import { downloadMapPack, getMapPack, removeMapPack } from './mapPack';
 const OfflineMap = lazy(() => import('./OfflineMap'));
 
@@ -20,7 +21,7 @@ function CloudMap({ places, selectedId, onSelect, language = 'vi', onUnavailable
   useEffect(() => { callback.current = onSelect; }, [onSelect]);
   useEffect(() => { unavailable.current = onUnavailable; }, [onUnavailable]);
   useEffect(() => {
-    const map = L.map(container.current, { scrollWheelZoom: false }).fitBounds(districtBounds);
+    const map = L.map(container.current, { scrollWheelZoom: false, zoomAnimation: false }).fitBounds(districtBounds);
     instance.current = map;
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
@@ -31,18 +32,36 @@ function CloudMap({ places, selectedId, onSelect, language = 'vi', onUnavailable
   }, []);
   useEffect(() => {
     if (!instance.current || !layers.current) return;
+    const map = instance.current;
+    const render = () => {
     layers.current.clearLayers();
-    const valid = places.filter(place => place.locationVerified && Number.isFinite(place.latitude) && Number.isFinite(place.longitude));
-    for (const place of valid) {
+    for (const group of clusterPlaces(places, p => map.latLngToContainerPoint([p.latitude, p.longitude]), map.getZoom(), selectedId)) {
+      if (group.places.length > 1) {
+        const count = group.places.length;
+        const icon = L.divIcon({ className: 'map-cluster-wrap', html: `<button type="button" class="map-cluster" aria-label="${count} địa điểm, phóng to">${count}</button>`, iconSize: [42, 42] });
+        const marker = L.marker([group.latitude, group.longitude], { icon, keyboard: false }).addTo(layers.current);
+        const button = marker.getElement().querySelector('button');
+        button.title = group.places.map(p => p.name).join(' · ');
+        L.DomEvent.disableClickPropagation(button);
+        button.addEventListener('click', () => map.fitBounds(group.places.map(p => [p.latitude, p.longitude]), { padding: [40, 40], maxZoom: 17, animate: false }));
+        continue;
+      }
+      const place = group.places[0];
       const popup = document.createElement('div');
       const title = document.createElement('strong'); title.textContent = place.name; popup.append(title);
       const address = document.createElement('p'); address.textContent = place.address || ''; popup.append(address);
       const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Xem chi tiết & nghe thuyết minh';
       button.addEventListener('click', () => callback.current(place.id)); popup.append(document.createElement('br'), button);
-      const marker = L.circleMarker([place.latitude, place.longitude], { radius: place.id === selectedId ? 11 : 8, color: '#fff', weight: 3, fillColor: place.id === selectedId ? '#dd7d22' : '#b95420', fillOpacity: 1 }).bindPopup(popup).addTo(layers.current);
+      const marker = L.circleMarker([place.latitude, place.longitude], { radius: place.id === selectedId ? 11 : 8, color: '#fff', weight: 3, fillColor: place.id === selectedId ? '#dd7d22' : '#b95420', fillOpacity: 1 }).bindPopup(popup, { autoPan: false }).addTo(layers.current);
       marker.on('click', () => callback.current(place.id));
-      if (place.id === selectedId) { instance.current.setView([place.latitude, place.longitude], 16); marker.openPopup(); }
+      const pin = marker.getElement(); pin.setAttribute('tabindex', '0'); pin.setAttribute('role', 'button'); pin.setAttribute('aria-label', place.name);
+      pin.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); callback.current(place.id); marker.openPopup(); } });
     }
+    };
+    // Panning preserves distances between pins. Rebuilding during a pan/focus move
+    // can detach the clicked button before its click is delivered.
+    render(); map.on('zoomend resize', render);
+    return () => map.off('zoomend resize', render);
   }, [places, selectedId]);
   function showAll() {
     instance.current?.fitBounds(located.length ? L.latLngBounds(located.map(place => [place.latitude, place.longitude])).pad(.25) : districtBounds, { maxZoom: 16 });
@@ -68,10 +87,11 @@ export default function HomeMap(props) {
   const downloading = useRef(null);
   useEffect(() => {
     let active = true;
-    getMapPack().then(value => { if (active) { setPack(value); setReady(true); } });
+    const inspect = () => getMapPack().then(value => { if (active) { setPack(value); setReady(true); } });
+    inspect(); window.addEventListener('smarttour-assets-changed', inspect);
     const lost = () => setOffline(true); const restored = () => setOffline(false);
     window.addEventListener('offline', lost); window.addEventListener('online', restored);
-    return () => { active = false; downloading.current?.abort(); window.removeEventListener('offline', lost); window.removeEventListener('online', restored); };
+    return () => { active = false; downloading.current?.abort(); window.removeEventListener('smarttour-assets-changed', inspect); window.removeEventListener('offline', lost); window.removeEventListener('online', restored); };
   }, []);
   useEffect(() => {
     if (mode !== 'hybrid' || offline || !cloudFailed) return;
