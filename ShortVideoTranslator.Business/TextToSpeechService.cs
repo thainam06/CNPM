@@ -116,7 +116,7 @@ public class TextToSpeechService
             byte[] audio = await File.ReadAllBytesAsync(outputPath, cancellationToken);
 
             if (audio.Length == 0)
-                throw new Exception("File âm thanh rỗng.");
+                throw new InvalidOperationException("File âm thanh rỗng.");
 
             return audio;
         }

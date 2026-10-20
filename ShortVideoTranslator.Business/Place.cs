@@ -8,7 +8,10 @@ public record Place(int Id, string Name, string Category, string Description,
     string? ImageSourceUrl = null, int ImageFocusY = 25,
     string? AddressSourceUrl = null, string? LocationSourceUrl = null,
     string AudioStatus = "missing", bool ActivationRequested = false, string? ReadyEnglishHash = null,
-    string Region = "district1");
+    string Region = "district1", Dictionary<string, string>? NarrationRevisions = null,
+    PlacePhoto[]? Images = null);
+
+public record PlacePhoto(string Url, string Caption, string Credit, string SourceUrl, int FocusY = 50);
 
 public static class TourRegion
 {

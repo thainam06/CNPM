@@ -1,5 +1,5 @@
 import { apiRequest } from './api';
-import { offlineGet, offlineSet } from './offline';
+import { offlineGet, offlineSet, offlineAssetsChanged } from './offline';
 
 export const mapPackKey = 'map-pack:district1';
 export async function getMapPack() { return offlineGet(mapPackKey); }
@@ -16,9 +16,10 @@ export async function downloadMapPack(signal, progress) {
   // One transaction activates blob + manifest together; failed downloads cannot replace a working pack.
   const pack = { blob, manifest, downloadedAt: Date.now() };
   await offlineSet(mapPackKey, pack);
+  offlineAssetsChanged();
   return pack;
 }
-export async function removeMapPack() { await offlineSet(mapPackKey, null); }
+export async function removeMapPack() { await offlineSet(mapPackKey, null); offlineAssetsChanged(); }
 
 export function offlineMapStyle(sourceUrl) {
   return { version: 8, sources: { basemap: { type: 'vector', url: sourceUrl, attribution: '© OpenStreetMap contributors · Protomaps' } }, layers: [

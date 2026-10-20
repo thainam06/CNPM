@@ -47,6 +47,8 @@ html { scroll-behavior: smooth; }
 .tool-actions button { background: #fff3e5; border: 1px solid #e1cbb5; color: #b95420; border-radius: 9px; padding: 10px 14px; cursor: pointer; font-size: 12px; }
 .consent { display: flex; align-items: center; gap: 10px; font-size: 12px; margin-top: 20px; color: #786456; }
 .place-photo { margin: 0; }
+.offline-bundle-tools { margin-top: 20px; padding: 20px; border: 1px solid #ead5bb; border-radius: 16px; background: #fffaf2; }
+.offline-bundle-tools h4 { margin: 0 0 10px; color: #8a441f; font-size: 18px; }
 .address-box { display: flex; gap: 14px; padding: 18px; border-radius: 13px; background: #fff7eb; border: 1px solid #eedcc6; margin: 20px 0 26px; }
 .address-box > span { font-size: 24px; }
 .address-box small { color: #b95420; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
@@ -476,3 +478,7 @@ button:disabled { opacity: .55; cursor: wait; }
 .offline-map-pin { border:0; background:#fffaf2; border-radius:50%; font-size:25px; padding:4px; cursor:pointer; box-shadow:0 2px 8px #67422350; }
 .maplibregl-popup-content { color:#4b382d; border-radius:12px; }
 .maplibregl-popup-content button { color:#a54a1e; border:1px solid #e1cbb5; background:#fff8ee; border-radius:8px; padding:8px; cursor:pointer; }
+/* Count pins share the same accessible expand action in online and offline maps. */
+.map-cluster { width:42px; height:42px; border-radius:50%; border:3px solid #fff3dc; background:#bd531b; color:white; font-weight:800; box-shadow:0 2px 12px #79411b55; cursor:pointer; padding:0; }
+.map-cluster:focus-visible { outline:3px solid #472c20; outline-offset:3px; }
+.app .description, .app .translated-content p { white-space:pre-line; }

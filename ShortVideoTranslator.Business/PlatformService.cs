@@ -167,6 +167,15 @@ public class PlatformService(IPlatformStore store)
             throw new PlatformException(400, "Tọa độ không hợp lệ; cần đủ vĩ độ và kinh độ.");
         if (p.TriggerRadius is < 10 or > 1000 || p.AudioPriority is < 0 or > 100) throw new PlatformException(400, "Bán kính cần 10–1000 mét, ưu tiên 0–100.");
         if (p.ImageFocusY is < 0 or > 100) throw new PlatformException(400, "Trọng tâm ảnh cần từ 0 đến 100 phần trăm.");
+        if (p.Images?.Length > 6) throw new PlatformException(400, "Tối đa 6 ảnh bổ sung cho một địa điểm.");
+        foreach (var photo in p.Images ?? [])
+        {
+            if (photo == null || string.IsNullOrWhiteSpace(photo.Caption) || photo.Caption.Length > 200 || string.IsNullOrWhiteSpace(photo.Credit) || photo.Credit.Length > 500 || photo.FocusY is < 0 or > 100)
+                throw new PlatformException(400, "Ảnh bổ sung cần chú thích, nguồn/tác giả và trọng tâm hợp lệ.");
+            if (string.IsNullOrWhiteSpace(photo.Url) || photo.Url.Length > 2000 || (!photo.Url.StartsWith("/api/media/", StringComparison.Ordinal) && (!Uri.TryCreate(photo.Url, UriKind.Absolute, out var imageUri) || imageUri.Scheme != "https")) ||
+                string.IsNullOrWhiteSpace(photo.SourceUrl) || photo.SourceUrl.Length > 2000 || !Uri.TryCreate(photo.SourceUrl, UriKind.Absolute, out var sourceUri) || sourceUri.Scheme != "https")
+                throw new PlatformException(400, "Ảnh bổ sung cần URL ảnh và trang nguồn HTTPS hợp lệ.");
+        }
         foreach (var url in new[] { p.SourceUrl, p.ImageUrl, p.ImageSourceUrl, p.AddressSourceUrl, p.LocationSourceUrl })
             if (!string.IsNullOrWhiteSpace(url) && !(url.StartsWith("/api/media/", StringComparison.Ordinal) && url == p.ImageUrl) &&
                 (!Uri.TryCreate(url, UriKind.Absolute, out var parsed) || parsed.Scheme != "https"))
@@ -195,7 +204,7 @@ public class PlatformService(IPlatformStore store)
         var requested = place.IsActive;
         var nextId = Math.Max(s.NextPlaceId, s.Places.Select(p => p.Id).DefaultIfEmpty(0).Max() + 1);
         var saved = place with { Id = create ? nextId : place.Id, UpdatedAt = DateTimeOffset.UtcNow,
-            ReadyEnglishHash = ready ? hash : null, AudioStatus = ready ? "ready" : "missing",
+            ReadyEnglishHash = ready ? hash : null, AudioStatus = ready ? "ready" : "missing", NarrationRevisions = null,
             IsActive = requested && (place.IsDemo || ready), ActivationRequested = requested && !place.IsDemo && !ready };
         if (create) s.NextPlaceId = nextId + 1;
         if (create) s.Places.Add(saved); else s.Places[index] = saved;
@@ -211,12 +220,28 @@ public class PlatformService(IPlatformStore store)
         foreach (var review in s.Reviews.Where(r => r.Status == "pending" && r.Place?.Id == id).ToArray())
         {
             s.Reviews.Remove(review); s.Reviews.Add(review with { Status = "rejected", AdminNote = "Địa điểm đã bị xóa.", ReviewedAt = DateTimeOffset.UtcNow });
+            s.Notifications.Add(new(Id(), review.UserId, "Đề xuất không được tiếp tục xử lý vì địa điểm đã bị xóa.", false, DateTimeOffset.UtcNow, review.Id, id));
         }
         s.Version++; s.UpdatedAt = DateTimeOffset.UtcNow; Audit(s, actor, "poi.delete", id.ToString()); return true;
     });
     public void RequireOwner(string id)
     {
         if (User(id) is not { Enabled: true, Verified: true } || !HasPermission(id, "owner:access")) throw new PlatformException(403, "Chủ quán cần được Admin duyệt trước khi quản lý nội dung.");
+    }
+    public Review ResubmitRegistration(string actor, string note)
+    {
+        if (string.IsNullOrWhiteSpace(note) || note.Length > 1000) throw new PlatformException(400, "Ghi chú gửi Admin cần từ 1 đến 1000 ký tự.");
+        return store.Write(s => {
+            var user = s.Users.FirstOrDefault(u => u.Id == actor);
+            if (user is not { Enabled: true, Verified: false, Role: "poi_owner", MustChangePassword: false } ||
+                !s.Roles.Any(r => r.Name == user.Role && r.Permissions.Contains("owner:access")))
+                throw new PlatformException(403, "Chỉ chủ quán chưa được xác minh mới gửi yêu cầu xem xét lại.");
+            var previous = s.Reviews.Where(r => r.UserId == actor && r.Kind == "registration").ToArray();
+            if (previous.Any(r => r.Status == "pending") || !previous.Any(r => r.Status == "rejected"))
+                throw new PlatformException(409, "Cần có lần đăng ký bị từ chối và không còn yêu cầu đang chờ duyệt.");
+            var review = new Review(Id(), "registration", actor, "pending", null, CreatedAt: DateTimeOffset.UtcNow, ApplicantNote: note.Trim());
+            s.Reviews.Add(review); Audit(s, actor, "owner.resubmit", review.Id); return review;
+        });
     }
     public Review Submit(string actor, Place place)
     {
@@ -237,6 +262,7 @@ public class PlatformService(IPlatformStore store)
             var index = s.Reviews.FindIndex(r => r.Id == id);
             if (index < 0) throw new PlatformException(404, "Không tìm thấy yêu cầu.");
             var review = s.Reviews[index];
+            int? relatedPlaceId = review.Place?.Id > 0 ? review.Place.Id : null;
             if (review.Status != "pending") throw new PlatformException(409, "Yêu cầu đã được xử lý.");
             if (approve && review.Kind == "registration")
             {
@@ -248,10 +274,12 @@ public class PlatformService(IPlatformStore store)
             {
                 if (place.Id != 0 && s.Places.FirstOrDefault(p => p.Id == place.Id)?.UpdatedAt != review.ExpectedPlaceVersion)
                     throw new PlatformException(409, "Địa điểm đã thay đổi từ lúc gửi đề xuất; yêu cầu chủ quán gửi lại.");
-                SavePlaceInState(s, actor, place with { IsActive = true }, place.Id == 0);
+                var saved = SavePlaceInState(s, actor, place with { IsActive = true }, place.Id == 0);
+                relatedPlaceId = saved.Id;
             }
             s.Reviews[index] = review with { Status = approve ? "approved" : "rejected", AdminNote = note.Trim(), ReviewedAt = DateTimeOffset.UtcNow };
-            s.Notifications.Add(new(Id(), review.UserId, $"Yêu cầu {review.Kind} đã {(approve ? "được duyệt" : "bị từ chối")}. {note}", false, DateTimeOffset.UtcNow));
+            var subject = review.Kind == "registration" ? "Đăng ký chủ quán" : $"Đề xuất địa điểm {review.Place?.Name}";
+            s.Notifications.Add(new(Id(), review.UserId, $"{subject} đã {(approve ? "được duyệt" : "bị từ chối")}. {note.Trim()}", false, DateTimeOffset.UtcNow, review.Id, relatedPlaceId));
             Audit(s, actor, approve ? "review.approve" : "review.reject", id); return true;
         });
     }

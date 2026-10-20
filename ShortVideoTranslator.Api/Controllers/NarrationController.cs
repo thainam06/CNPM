@@ -52,7 +52,9 @@ public class NarrationController : ControllerBase
         try
         {
             var language = request.Language ?? "vi";
+            if (request.Revision != null && request.Revision != _assets.CurrentRevision(request.Text, language)) return Conflict(new { message = "Bản dịch đã thay đổi. Tải lại danh sách địa điểm trước khi nghe." });
             var asset = await _assets.GenerateAsync(request.Text, language, cancellationToken);
+            if (request.Revision != null && asset.Key != _assets.CurrentKeyFor(request.Text, language)) return Conflict(new { message = "Bản dịch vừa được cập nhật. Tải lại danh sách địa điểm." });
             Response.Headers["X-Audio-Url"] = asset.AudioUrl;
             return PhysicalFile(_assets.AudioPath(asset.Key)!, "audio/mpeg", "narration.mp3", enableRangeProcessing: true);
         }
@@ -90,9 +92,10 @@ public class NarrationController : ControllerBase
         {
             var language = request.Language ?? "vi";
             NarrationLanguages.ValidateText(request.Text); NarrationLanguages.Validate(language);
+            if (request.Revision != null && request.Revision != _assets.CurrentRevision(request.Text, language)) return Conflict(new { message = "Bản dịch đã thay đổi. Tải lại danh sách địa điểm." });
             var cached = _assets.Find(request.Text, language);
-            return Ok(cached == null ? await _translation.TranslateAsync(request.Text, language, cancellationToken)
-                : new TranslationResult(cached.Text, language, language == "vi" ? "original" : "MyMemory (cached audio)", language != "vi"));
+            return Ok(cached == null ? _assets.ReviewedText(request.Text, language) ?? await _translation.TranslateAsync(request.Text, language, cancellationToken)
+                : new TranslationResult(cached.Text, language, cached.Provider ?? (language == "vi" ? "original" : "MyMemory (cached audio)"), language != "vi" && cached.Provider != "reviewed"));
         }
         catch (ArgumentException ex) { return BadRequest(new { message = ex.Message }); }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { return new EmptyResult(); }
@@ -107,7 +110,7 @@ public class NarrationController : ControllerBase
     public IActionResult Audio(string key)
     {
         var asset = _assets.FindByKey(key); if (asset == null) return NotFound();
-        var isPublic = _places.GetAll().Any(p => NarrationAssetService.KeyFor(p.Description, asset.Language) == key);
+        var isPublic = _places.GetAll().Any(p => _assets.CurrentKeyFor(p.Description, asset.Language) == key);
         if (!isPublic && !_platform.HasPermission(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "", "poi:update")) return NotFound();
         var path = _assets.AudioPath(key)!;
         Response.Headers.CacheControl = isPublic ? "public,max-age=31536000,immutable" : "private,no-store";
@@ -131,4 +134,5 @@ public class SpeechRequest
 {
     public string Text { get; set; } = "";
     public string? Language { get; set; } = "vi";
+    public string? Revision { get; set; }
 }

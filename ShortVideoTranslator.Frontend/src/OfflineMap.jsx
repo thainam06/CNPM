@@ -4,6 +4,7 @@ import { FileSource, PMTiles, Protocol } from 'pmtiles';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import { offlineMapStyle } from './mapPack';
+import { clusterPlaces } from './mapClusters';
 
 const protocol = new Protocol();
 maplibregl.setWorkerUrl(workerUrl);
@@ -39,18 +40,34 @@ export default function OfflineMap({ pack, places, selectedId, onSelect }) {
   }, [pack]);
   useEffect(() => {
     if (!instance.current) return;
+    const map = instance.current;
+    const render = () => {
     markers.current.forEach(marker => marker.remove()); markers.current = [];
-    for (const place of places.filter(p => p.locationVerified && Number.isFinite(p.latitude) && Number.isFinite(p.longitude))) {
+    for (const group of clusterPlaces(places, p => map.project([p.longitude, p.latitude]), map.getZoom(), selectedId)) {
+      if (group.places.length > 1) {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'map-cluster'; button.textContent = String(group.places.length);
+        button.setAttribute('aria-label', `${group.places.length} địa điểm, phóng to`);
+        button.title = group.places.map(p => p.name).join(' · ');
+        button.onclick = () => {
+          map.fitBounds(group.places.reduce((bounds, place) => bounds.extend([place.longitude, place.latitude]), new maplibregl.LngLatBounds()), { padding: 40, maxZoom: 17, duration: 0 });
+          render();
+        };
+        markers.current.push(new maplibregl.Marker({ element: button }).setLngLat([group.longitude, group.latitude]).addTo(map));
+        continue;
+      }
+      const place = group.places[0];
       const button = document.createElement('button'); button.type = 'button'; button.className = 'offline-map-pin';
       button.textContent = '📍'; button.setAttribute('aria-label', place.name); button.title = place.name;
       const popup = document.createElement('div'); const title = document.createElement('strong'); title.textContent = place.name; popup.append(title);
       const address = document.createElement('p'); address.textContent = place.address || ''; popup.append(address);
       const detail = document.createElement('button'); detail.textContent = 'Xem chi tiết & nghe thuyết minh'; detail.onclick = () => callback.current(place.id); popup.append(detail);
       const marker = new maplibregl.Marker({ element: button }).setLngLat([place.longitude, place.latitude])
-        .setPopup(new maplibregl.Popup({ offset: 24 }).setDOMContent(popup)).addTo(instance.current);
+        .setPopup(new maplibregl.Popup({ offset: 24, focusAfterOpen: false }).setDOMContent(popup)).addTo(instance.current);
       button.addEventListener('click', () => callback.current(place.id)); markers.current.push(marker);
-      if (place.id === selectedId) marker.togglePopup();
     }
+    };
+    render(); map.on('zoomend resize', render);
+    return () => map.off('zoomend resize', render);
   }, [places, selectedId, pack]);
   return <><div ref={container} className="home-map" aria-label="Bản đồ vector Quận 1 offline" role="region" />
     <small>Gói Quận 1 · {pack.manifest.version} · {(pack.blob.size / 1024 / 1024).toFixed(1)} MB. Bản đồ giản lược đường, công trình và sông; không cần tải font hoặc sprite bên ngoài.</small>

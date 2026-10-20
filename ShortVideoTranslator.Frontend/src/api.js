@@ -40,10 +40,10 @@ export async function apiRequest(path, options = {}, allowRefresh = true) {
 }
 
 export const readApi = async (path, signal) => (await apiRequest(path, { signal })).json();
-export async function mutateApi(path, method = 'POST', body = {}) {
-  const { token } = await readApi('/auth/csrf');
+export async function mutateApi(path, method = 'POST', body = {}, signal) {
+  const { token } = await readApi('/auth/csrf', signal);
   const form = body instanceof FormData;
-  const response = await apiRequest(path, { method, headers: { 'X-CSRF-Token': token, ...(form ? {} : { 'Content-Type': 'application/json' }) }, body: form ? body : JSON.stringify(body) });
+  const response = await apiRequest(path, { method, signal, headers: { 'X-CSRF-Token': token, ...(form ? {} : { 'Content-Type': 'application/json' }) }, body: form ? body : JSON.stringify(body) });
   return response.status === 204 ? null : response.json();
 }
 
@@ -74,10 +74,10 @@ export async function getPlace(id, signal) {
     if (!place) throw error; return place;
   }
 }
-export async function translate(text, language, signal) {
-  const key = await audioKey(text, language);
+export async function translate(text, language, signal, revision = '') {
+  const key = await audioKey(text, language, revision);
   try {
-    const data = await (await apiRequest('/narration/translate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language }), signal })).json();
+    const data = await (await apiRequest('/narration/translate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, revision }), signal })).json();
     await offlineSet(`translation:${key}`, data).catch(() => {}); return data;
   } catch (error) {
     if (!canFallback(error)) throw error;
@@ -87,12 +87,12 @@ export async function translate(text, language, signal) {
     throw error;
   }
 }
-export async function createSpeech(text, language, signal) {
-  const key = await audioKey(text, language);
+export async function createSpeech(text, language, signal, revision = '') {
+  const key = await audioKey(text, language, revision);
   const cached = await readOfflineAudio(key);
   if (signal?.aborted) throw new DOMException('Đã hủy yêu cầu.', 'AbortError');
   if (cached) return cached;
-  const blob = await (await apiRequest('/narration/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language }), signal })).blob();
+  const blob = await (await apiRequest('/narration/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, revision }), signal })).blob();
   if (signal?.aborted) throw new DOMException('Đã hủy yêu cầu.', 'AbortError');
   await saveOfflineAudio(key, blob, language).catch(() => {}); return blob;
 }

@@ -8,12 +8,14 @@ public record UserView(string Id, string Username, string DisplayName, string Ro
 public record PlatformRole(string Name, string[] Permissions, bool BuiltIn = false);
 public record Review(string Id, string Kind, string UserId, string Status, Place? Place,
     string AdminNote = "", DateTimeOffset? CreatedAt = null, DateTimeOffset? ReviewedAt = null,
-    DateTimeOffset? ExpectedPlaceVersion = null);
-public record OwnerNotification(string Id, string UserId, string Message, bool Read, DateTimeOffset CreatedAt);
+    DateTimeOffset? ExpectedPlaceVersion = null, string ApplicantNote = "");
+public record OwnerNotification(string Id, string UserId, string Message, bool Read, DateTimeOffset CreatedAt,
+    string? ReviewId = null, int? PlaceId = null);
 public record AuditEntry(string Id, string ActorId, string Action, string Resource, DateTimeOffset CreatedAt);
 public record RefreshSession(string Hash, string UserId, string SecurityStamp, DateTimeOffset ExpiresAt);
 public record MenuItem(string Id, int PlaceId, string Name, string Description, decimal? Price);
 public record AnalyticsEvent(string Id, string DeviceId, string Kind, int? PlaceId, string Language, DateTimeOffset CreatedAt);
+public record AnalyticsHeartbeat(string DeviceId, DateTimeOffset LastSeen);
 public record AudioTaskState(string Id, int PlaceId, string[] Languages, string Status, int Completed,
     string? Error, string RequestedBy, DateTimeOffset CreatedAt, DateTimeOffset UpdatedAt, string? SourceHash = null, DateTimeOffset? HeartbeatAt = null);
 public record DeletedPlace(int Id, DateTimeOffset DeletedAt);
@@ -22,6 +24,8 @@ public record OwnerIdentity(string UserId, string Ciphertext, DateTimeOffset Exp
 
 public class PlatformState
 {
+    public List<TranslationDraft> TranslationDrafts { get; set; } = [];
+    public List<ApprovedTranslation> ApprovedTranslations { get; set; } = [];
     public List<Place> Places { get; set; } = [];
     public List<DeletedPlace> DeletedPlaces { get; set; } = [];
     public int NextPlaceId { get; set; } = 4;
@@ -32,6 +36,9 @@ public class PlatformState
     public List<AuditEntry> Audit { get; set; } = [];
     public List<MenuItem> Menus { get; set; } = [];
     public List<AnalyticsEvent> Events { get; set; } = [];
+    public List<AnalyticsEvent> PendingAnalytics { get; set; } = [];
+    public List<AnalyticsHeartbeat> AnalyticsHeartbeats { get; set; } = [];
+    public Dictionary<string, DateTimeOffset> AnalyticsRevocations { get; set; } = [];
     public List<RuntimeLocation> RuntimeLocations { get; set; } = [];
     public List<OwnerIdentity> OwnerIdentities { get; set; } = [];
     public Dictionary<string, DateTimeOffset> RuntimeRevocations { get; set; } = [];

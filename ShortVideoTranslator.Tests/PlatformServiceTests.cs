@@ -46,7 +46,7 @@ public class PlatformServiceTests : IDisposable
     {
         var original = _store.Read(s => s.Places[0]);
         Assert.Throws<InvalidOperationException>(() => _store.Write<int>(s => { s.Places.Clear(); throw new InvalidOperationException(); }));
-        Assert.Equal(original, _store.Read(s => s.Places[0]));
+        Assert.Equivalent(original, _store.Read(s => s.Places[0]));
         _service.SavePlace(Admin(), new(0, "Test place", "Demo", "Demo content"), true);
         Assert.Equal(6, new JsonPlatformStore(Path.Combine(_folder, "platform.json")).Read(s => s.Places.Count));
     }
@@ -154,7 +154,7 @@ public class PlatformServiceTests : IDisposable
         existing = _service.SavePlace(actor, existing with { Name = "Edited district one record" });
         _store.Write(s => { s.Places = s.Places.Take(3).ToList(); s.SampleDataVersion = 3; s.NextPlaceId = 42; return true; });
         var path = Path.Combine(_folder, "platform.json"); var expanded = new JsonPlatformStore(path);
-        Assert.Equal(existing, expanded.GetById(existing.Id)); Assert.Equal(5, expanded.GetAll().Count);
+        Assert.Equivalent(existing, expanded.GetById(existing.Id)); Assert.Equal(5, expanded.GetAll().Count);
         Assert.Contains(expanded.GetAll(), p => p.Id == 42 && p.Name == "Phố đi bộ Nguyễn Huệ");
         Assert.Contains(expanded.GetAll(), p => p.Id == 43 && p.Name == "Nhà hát Thành phố");
         Assert.Equal(5, new JsonPlatformStore(path).GetAll().Count);

@@ -43,6 +43,31 @@ public sealed class JsonPlatformStore : IPlatformStore, IPlaceRepository
             _state.NextPlaceId = next; _state.SampleDataVersion = 4;
             _state.Version++; _state.UpdatedAt = now; Write(_ => true);
         }
+        if (_state.SampleDataVersion < 5)
+        {
+            var now = DateTimeOffset.UtcNow;
+            _state.Places = _state.Places.Select(p => {
+                var sample = new DemoPlaceRepository().GetAll().FirstOrDefault(d => d.Name == p.Name && d.ImageUrl == p.ImageUrl);
+                return TourRegion.Includes(p) && p.IsDemo && p.Images == null && sample?.Images is { Length: > 0 }
+                    ? p with { Images = sample.Images, UpdatedAt = now } : p;
+            }).ToList();
+            _state.SampleDataVersion = 5; _state.Version++; _state.UpdatedAt = now; Write(_ => true);
+        }
+        if (_state.SampleDataVersion < 6)
+        {
+            var now = DateTimeOffset.UtcNow; var changed = false;
+            _state.Places = _state.Places.Select(p => {
+                var narration = DemoNarrations.All.FirstOrDefault(item => item.Name == p.Name && item.PreviousText == p.Description);
+                // Upgrade untouched system samples only. Keep owner/editor text, visibility and all media.
+                if (!TourRegion.Includes(p) || !p.IsDemo || p.OwnerId != null || narration == null) return p;
+                changed = true;
+                return p with { Description = narration.Texts["vi"], SourceUrl = narration.SourceUrl,
+                    ReadyEnglishHash = null, AudioStatus = "missing", UpdatedAt = now };
+            }).ToList();
+            _state.SampleDataVersion = 6;
+            if (changed) { _state.Version++; _state.UpdatedAt = now; }
+            Write(_ => true);
+        }
     }
     private static PlatformState Copy(PlatformState state) => JsonSerializer.Deserialize<PlatformState>(JsonSerializer.Serialize(state, Json), Json)!;
     public T Read<T>(Func<PlatformState, T> query) { lock (_sync) return query(Copy(_state)); }
@@ -59,7 +84,11 @@ public sealed class JsonPlatformStore : IPlatformStore, IPlaceRepository
             return result;
         }
     }
-    public IReadOnlyList<Place> GetAll() => Read(s => s.Places.Where(p => p.IsActive && TourRegion.Includes(p)).Select(PublicPlace).ToArray());
+    public IReadOnlyList<Place> GetAll() => Read(s => s.Places.Where(p => p.IsActive && TourRegion.Includes(p)).Select(p => {
+        var hash = PlatformService.ContentHash(p.Description);
+        var revisions = s.ApprovedTranslations.Where(t => t.SourceHash == hash).ToDictionary(t => t.Language, t => t.Revision);
+        return PublicPlace(p) with { NarrationRevisions = revisions.Count == 0 ? null : revisions };
+    }).ToArray());
     public Place? GetById(int id) => GetAll().FirstOrDefault(p => p.Id == id);
     private static Place PublicPlace(Place p) => p.LocationVerified ? p : p with { Latitude = null, Longitude = null };
 }

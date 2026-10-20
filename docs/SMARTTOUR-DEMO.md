@@ -1,8 +1,18 @@
 # SmartTour Guide — hướng dẫn demo
 
+Hướng dẫn 11 mục quản trị và thứ tự trình bày: [ADMIN-GUIDE.md](ADMIN-GUIDE.md). Cổng chủ quán có thông báo chưa đọc/chi tiết quyết định và form gửi lại hồ sơ bị từ chối; chỉ quản lý địa điểm sau khi Admin duyệt.
+
 Giữ nguyên Solution và namespace ShortVideoTranslator. Các API video/Whisper cũ vẫn còn nguyên. Nhánh làm việc: `feature/api`; không tự commit, push hoặc merge.
 
+Mới: Admin → **Kiểm tra hệ thống** để xem kho dữ liệu, bản đồ, MP3 và các dịch vụ còn thiếu cấu hình. Trong form sửa địa điểm có **Trợ lý AI biên tập**, hạn mức, provider fallback và preview cần người rà soát. Máy hiện chưa cấu hình AI/weather thật nên nút tạo báo chưa sẵn sàng. Hướng dẫn và giới hạn: [AI-ADVISOR.md](AI-ADVISOR.md). AI không bắt buộc để demo khám phá, CRUD, bản đồ và thuyết minh MP3 sẵn có.
+
 ## Chạy trên Windows
+
+Bổ sung18/10: màn hình đầu chọn ngôn ngữ và xem readiness backend/catalog/top3MP3; có thể xem trước khi phần dịch chưa sẵn sàng. Nhấn nút ngôn ngữ ở header để mở lại. GPS vẫn cần opt-in riêng.
+
+Bản đồ online/offline gom ghim gần nhau thành nút số lượng; nhấn để phóng to. Admin/owner có6ngôn ngữ cho menu, trạng thái, nhãn biểu mẫu và thao tác chung. Ghi chú dài/AI/lỗi backend còn tiếng Việt, có thông báo rõ; không đổi ngôn ngữ dữ liệu nguồn.
+
+Analytics chỉ gửi khi khách đồng ý: batch25, gửi30giây/lần khi tab hiện, heartbeat60giây, worker2giây; view/play không cộng heartbeat. Dashboard có queue và thiết bị hoạt động5phút. Tắt consent xóa queue local và dữ liệu server; mất mạng thì lưu yêu cầu xóa để gửi lại. Không có GPS trong analytics. Chi tiết kiểm thử: VERIFICATION.md.
 
 Yêu cầu: .NET SDK10, Node.js24, Python 3.14 với edge-tts 7.3.1 đã kiểm thử và kết nối Internet. Cài bằng `py -3.14 -m pip install -r ShortVideoTranslator.Api/requirements-tts.txt`; không gọi script edge-tts qua PATH vì máy này dùng `py -m edge_tts`.
 
@@ -22,16 +32,30 @@ npm run dev
 
 Mở http://localhost:5173. Backend: http://localhost:5132. Vite proxy `/api` sang backend. `API_PROXY_TARGET` thay đổi đích proxy; `VITE_API_BASE_URL` đặt URL backend công khai khi build frontend cho deployment. Không đặt khóa bí mật vào biến `VITE_*`. Khi deploy dùng cùng origin với reverse proxy `/api`, hoặc cấu hình `Cors:AllowedOrigins` phù hợp.
 
+Ảnh chi tiết: Chợ Bến Thành, Dinh Độc Lập và Bưu điện Trung tâm có thêm góc chụp; bấm thumbnail dưới ảnh để đổi, xem năm/tác giả/nguồn ngay dưới ảnh. Admin → Địa điểm → Sửa → **Ảnh bổ sung** để thêm/sửa/bỏ tối đa6ảnh, sau đó Lưu địa điểm. Ảnh bìa được quản lý riêng. Bỏ ảnh trong biểu mẫu chỉ có hiệu lực sau khi lưu; không xóa file media gốc đang dùng ở nơi khác.
+
+Gallery có nhiều ảnh tự chuyển3giây/ảnh, có nút trước/sau và bật/tạm dừng; tạm ngưng khi rê chuột/focus vào gallery, cuộn gallery ra khỏi vùng xem hoặc ẩn trang. Chế độ giảm chuyển động của thiết bị mặc định tắt tự chuyển. Cả5địa điểm hiện có2ảnh để chuyển. Bưu điện dùng ảnh bên trong làm bìa, mặt tiền2019 màu vàng là ảnh tiếp theo; Nguyễn Huệ dùng bìa26/02/2025 và ảnh đêm04/12/2024, Nhà hát Thành phố thêm ảnh đêm2019. Ảnh Nguyễn Huệ live lưu qua Media API để hiển thị ổn định; khi chuyển máy giữ App_Data/media cùng platform.json. Các ảnh cũ của Nguyễn Huệ đã được thay theo yêu cầu, không coi ảnh tham khảo là hiện trạng hôm nay.
+
 ## Các endpoint
 
 | Method | Route | Hành vi |
 | --- | --- | --- |
-| GET | `/api/places` | Danh sách ba địa điểm demo |
+| GET | `/api/places` | Danh sách năm địa điểm demo Quận 1 |
 | GET | `/api/places/{id}` | Chi tiết; 404 khi không tồn tại |
 | POST | `/api/narration/translate` | Nhận `{ "text": "nội dung tiếng Việt", "language": "en" }`; trả `text`, `language`, `provider`, `isMachineTranslation` |
 | POST | `/api/narration/speech` | Cùng request; backend dịch nguồn tiếng Việt rồi tạo MP3 với giọng đúng ngôn ngữ |
 
 Ngôn ngữ: `vi`, `en`, `zh`, `ja`, `ko`, `fr`. Nguồn đầu vào luôn là tiếng Việt. Không gửi bản dịch trở lại `/speech`, tránh dịch hai lần.
+
+## Demo Admin biên tập bản dịch
+
+Mở `/admin` → **Bản dịch thuyết minh**. Chọn địa điểm/ngôn ngữ, đọc nguồn Việt bên trái. Có thể lấy bản dịch hiện tại để sửa; dịch vụ máy chưa sẵn sàng thì nhập bản dịch đã được kiểm tra bằng tay. Lưu bản nháp trước, sau đó nhấn **Duyệt & tạo MP3**. Bản nháp không thay thuyết minh công khai; TTS phải thành công mới chuyển phiên bản. Nghe bản đang dùng ở cuối trang. Đã có ví dụ tiếng Anh Chợ Bến Thành được duyệt và thử phát thật trên máy này.
+
+Đọc/lưu cần `poi:update`; duyệt/thu hồi cần thêm cả `content:moderate`, `content:publish`. Thu hồi trở về bản máy khi sẵn sàng; không xóa gói offline đã tải. Bản tiếng Anh duy nhất của địa điểm chính thức đang công khai được bảo vệ khỏi thu hồi làm mất gate. Nguồn Việt đổi thì bản duyệt cũ hết hiệu lực; lỗi409 yêu cầu tải lại, tránh ghi đè người khác.
+
+API quản trị: GET `/api/admin/translations`, GET/PUT `/api/admin/translations/{id}/{language}`, POST `.../approve` và `.../withdraw`. PUT nhận `{text,sourceHash,expectedVersion}`; approve nhận `{version}` của bản nháp; withdraw nhận `{version}` của bản công khai. Cookie mutation cần CSRF; Bearer dùng quyền tương tự.
+
+Trang khách tải lại để nhận `place.narrationRevisions[language]`. RPC translate/speech gửi thêm `revision` (chuỗi rỗng nếu chưa có bản duyệt); server trả409 khi catalog cũ. Bản duyệt dùng cache v2 riêng, provider=`reviewed`, không gọi dịch máy lại. Hai địa điểm có nguồn Việt giống hệt dùng chung bản dịch được duyệt. Gói offline cũ giữ phiên bản đã tải cho đến khi được cập nhật.
 
 ## Dịch và giọng đọc
 
@@ -47,8 +71,8 @@ Ngôn ngữ: `vi`, `en`, `zh`, `ja`, `ko`, `fr`. Nguồn đầu vào luôn là t
 
 ## Kịch bản trình diễn
 
-1. Mở trang, xem ba địa điểm được tải qua API.
-2. Tìm `vinh khanh` để kiểm tra tìm kiếm không dấu; xóa bộ lọc.
+1. Mở trang, xem năm địa điểm Quận 1 được tải qua API.
+2. Tìm `nguyen hue` để kiểm tra tìm kiếm không dấu; xóa bộ lọc.
 3. Chọn địa điểm, chọn Tiếng Việt, nhấn Nghe thuyết minh; thử dừng và phát lại.
 4. Chọn English, chờ nội dung đã dịch rồi nghe. Thử các ngôn ngữ khác.
 5. Đổi địa điểm hoặc ngôn ngữ khi đang tạo âm thanh: yêu cầu cũ phải bị hủy.
@@ -102,3 +126,12 @@ Ngày14/10/2026 đã xác nhận3 tác vụ Admin completed 6/6 (vi/en/zh/ja/ko/
 Trang khám phá chỉ phục vụ Quận1: Chợ Bến Thành, Dinh Độc Lập, Bưu điện Trung tâm Sài Gòn, Phố đi bộ Nguyễn Huệ và Nhà hát Thành phố. Giữ nhãn demo cho các giới thiệu ngắn có nguồn; không thay bằng bài lịch sử chưa kiểm chứng. Khi mở dữ liệu cũ, migration gán bản ghi cũ khu vực district4, giữ toàn bộ nội dung/tài khoản/review/menu, rồi thêm năm địa điểm mới bằng IDs chưa sử dụng (migration phiên bản4 bổ sung hai nơi cho kho đã có ba nơi Quận1). Admin vẫn thấy kho cũ nhưng trạng thái ghi rõ ngoài phạm vi. Không đổi khu vực bản ghi cũ nếu địa điểm thực tế không thuộc Quận1.
 
 Bộ nhớ catalog/map của district1 độc lập nên không hiện lại danh sách hoặc gói Quận4. Nguồn địa chỉ, ảnh, giấy phép và tọa độ: [DISTRICT1-SOURCES.md](DISTRICT1-SOURCES.md). “Quận1” là cách gọi khu vực du lịch quen thuộc; địa chỉ phường mới chỉ ghi khi nguồn chính thức xác nhận. Khung xem map quanh các công trình không được coi là ranh giới hành chính.
+
+
+## Tải gói khám phá offline đầy đủ
+
+Dùng production `npm run build` + `npm run preview`. Chờ giao diện được Service Worker lưu, rồi nhấn **Tải gói offline đầy đủ** trong tiện ích khám phá. Gói gồm danh sách Quận1, giao diện đúng ngôn ngữ, bản đồ PMTiles, ảnh PNG/JPEG/WebP và MP3/bản dịch. Giới hạn 300 địa điểm, ảnh8MB/file và60MB/gói, bản đồ100MB. MP3 tạo sẵn cần đủ mọi địa điểm; thiếu thì báo rõ để Admin tạo audio.
+
+Có tiến độ và hủy tải. Staging nằm trong RAM; commit IDB nguyên tử sau xác minh checksum/ETag. Lỗi mạng, khác phiên bản hoặc không đủ dung lượng sẽ giữ nguyên gói đang dùng. Ảnh ngoài cần HTTPS/CORS; không dùng ảnh fallback để báo gói đủ. Digest ảnh tính sau khi nhận byte, tách với checksum MP3/map do backend cung cấp.
+
+Nút **Kiểm tra gói trên thiết bị** kiểm tra thành phần/digest, báo cần sửa sau khi gói bị xóa, hỏng, LRU evict audio hoặc danh sách/map khác phiên bản. Ngôn ngữ đang dùng được pin khi LRU dọn gói khác. Ảnh dùng objectURL từ IDB và revoke khi thay ảnh/unmount. Chế độ Offline chỉ áp dụng bản đồ trang chủ; iframe chi tiết vẫn cần mạng.

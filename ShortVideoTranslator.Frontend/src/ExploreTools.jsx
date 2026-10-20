@@ -1,16 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { apiRequest } from './api';
-import { clearOffline, downloadAudioPack } from './offline';
+import { clearOffline, downloadAudioPack, offlineAssetsChanged } from './offline';
 import { GeofenceEngine } from './geofence';
 import { nearbyHotset, cacheLocalization } from './localization';
 import { canShareRuntime } from './runtimePolicy';
 import { uiBundleReady } from './i18n';
+import OfflineBundleTools from './OfflineBundleTools';
+import { setAnalyticsConsent } from './analytics';
 
-export default function ExploreTools({ places, language, onEnter, onLanguageReadiness }) {
+export default function ExploreTools({ places, language, onEnter, onLanguageReadiness, preparationRetry = 0 }) {
   const [gps, setGps] = useState(false);
   const [position, setPosition] = useState(null);
   const [message, setMessage] = useState('');
   const [working, setWorking] = useState(false);
+  const [bundleWorking, setBundleWorking] = useState(false);
   const [hotsetRetry, setHotsetRetry] = useState(0);
   const [shellReady, setShellReady] = useState(false);
   const [consent, setConsent] = useState(() => localStorage.getItem('smarttour-consent') === 'yes');
@@ -47,7 +50,7 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
       } finally { if (!controller.signal.aborted) setWorking(false); }
     };
     prepare(); return () => controller.abort();
-  }, [language, places, hotsetRetry]);
+  }, [language, places, hotsetRetry, preparationRetry]);
   useEffect(() => () => sharingAbort.current?.abort(), []);
   useEffect(() => {
     if (!canShareRuntime({ consent: runtimeConsent, gps, position, sessionId: runtimeSession }) || !navigator.onLine || Date.now() - lastShare.current < 30000) return;
@@ -93,8 +96,10 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
     };
     const watch = navigator.geolocation.watchPosition(result => {
       if (Date.now() - lastAt < 5000) return;
-      last = { latitude: result.coords.latitude, longitude: result.coords.longitude, accuracy: result.coords.accuracy, observedAt: Date.now() };
-      lastAt = Date.now(); setPosition(last); reconcile();
+      const observedAt = result.timestamp;
+      if (!Number.isFinite(observedAt) || Date.now() - observedAt > 30000 || observedAt > Date.now() + 5000) return;
+      last = { latitude: result.coords.latitude, longitude: result.coords.longitude, accuracy: result.coords.accuracy, observedAt };
+      lastAt = observedAt; setPosition(last); reconcile();
     }, error => { setMessage(error.code === 1 ? 'Chưa được cấp quyền vị trí. Bạn vẫn có thể chọn địa điểm thủ công.' : 'Không lấy được vị trí. Vui lòng thử lại.'); setGps(false); }, { enableHighAccuracy: true, maximumAge: 30000, timeout: 15000 });
     const interval = setInterval(reconcile, 5000);
     return () => { controller.abort(); navigator.geolocation.clearWatch(watch); clearInterval(interval); };
@@ -108,12 +113,9 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
   }
   function prepareLanguage() { setHotsetRetry(value => value + 1); }
   async function toggleConsent(value) {
-    setConsent(value); localStorage.setItem('smarttour-consent', value ? 'yes' : 'no');
-    if (!value) {
-      const deviceId = localStorage.getItem('smarttour-device');
-      if (deviceId) try { await apiRequest('/analytics/forget', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ deviceId }) }); setMessage('Đã tắt thống kê và xóa các sự kiện đã lưu cho thiết bị này.'); }
-      catch { setMessage('Đã tắt thống kê trên thiết bị. Chưa xóa được sự kiện ở server vì mất kết nối.'); }
-    }
+    setConsent(value);
+    try { await setAnalyticsConsent(value); if (!value) setMessage('Đã tắt thống kê và xóa sự kiện của phiên này.'); }
+    catch { setMessage('Đã dừng thống kê. Yêu cầu xóa được lưu để gửi lại khi có mạng.'); }
   }
   async function toggleRuntime(value) {
     sharingAbort.current?.abort();
@@ -130,15 +132,16 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
   }
   return <section className="explore-tools" aria-label="Tiện ích khám phá"><div><h3>Khám phá theo cách của bạn</h3><p>GPS mặc định chỉ dùng trên thiết bị. Chia sẻ vị trí với Admin cần đồng ý riêng bên dưới. Offline phát MP3 đã tải; tạo audio mới cần Internet.</p></div><div className="tool-actions">
     <button type="button" onClick={() => { if (!navigator.geolocation) { setMessage('Trình duyệt không hỗ trợ vị trí.'); return; } setMessage(''); setGps(!gps); }}>{gps ? 'Tắt định vị' : 'Bật định vị & thuyết minh gần bạn'}</button>
-    <button type="button" disabled={working} onClick={prepareLanguage}>Chuẩn bị ngôn ngữ · {language}</button>
-    <button type="button" disabled={working} onClick={savePack}>Tải audio offline · {language}</button>
-    <button type="button" disabled={working} onClick={async () => { try { await clearOffline(); setMessage('Đã xóa dữ liệu và audio offline trên thiết bị.'); } catch { setMessage('Không xóa được dữ liệu offline.'); } }}>Xóa dữ liệu offline</button>
+    <button type="button" disabled={working || bundleWorking} onClick={prepareLanguage}>Chuẩn bị ngôn ngữ · {language}</button>
+    <button type="button" disabled={working || bundleWorking} onClick={savePack}>Tải audio offline · {language}</button>
+    <button type="button" disabled={working || bundleWorking} onClick={async () => { try { await clearOffline(); offlineAssetsChanged(); setHotsetRetry(value => value + 1); setMessage('Đã xóa dữ liệu và audio offline trên thiết bị.'); } catch { setMessage('Không xóa được dữ liệu offline.'); } }}>Xóa dữ liệu offline</button>
   </div><label className="consent"><input type="checkbox" checked={consent} onChange={event => toggleConsent(event.target.checked)} />Cho phép thống kê ẩn danh lượt xem/nghe (không gửi vị trí)</label>
     <label className="consent"><input type="checkbox" checked={runtimeConsent} onChange={event => toggleRuntime(event.target.checked)} />Đồng ý gửi vị trí làm tròn khoảng 100 m tới Admin SmartTour để giám sát demo; lưu tối đa 24 giờ, không gắn tài khoản. Mặc định tắt mỗi lần mở trang.</label>
     {runtimeSession && <button type="button" onClick={() => toggleRuntime(false)}>Xóa vị trí đã chia sẻ</button>}
     {gps && <p role="status">{position ? `Độ chính xác GPS: khoảng ${Math.round(position.accuracy)} m.` : 'Đang lấy vị trí…'} {!places.some(place => place.locationVerified) && 'Chưa có địa điểm có tọa độ xác minh để kích hoạt tự động.'}</p>}
     {shellReady && <p className="pwa-ready">✓ Giao diện đã được lưu để mở lại khi mất mạng. Audio cần được tải trước.</p>}
     {message && <p className="notice" role="status">{message}</p>}
+    <OfflineBundleTools key={language} language={language} shellReady={shellReady} onWorkingChange={setBundleWorking} />
   </section>;
 }
 

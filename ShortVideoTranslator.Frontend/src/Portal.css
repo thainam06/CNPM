@@ -1,5 +1,5 @@
 .portal { min-height: 100vh; color: #4b382d; background: #faf6f0; }
-.portal-header { min-height: 76px; background: #fffdf9; border-bottom: 1px solid #e9ddd0; display: flex; align-items: center; gap: 24px; padding: 18px 4%; }
+.portal-header { min-height: 76px; background: #fffdf9; border-bottom: 1px solid #e9ddd0; display: flex; flex-wrap:wrap; align-items: center; gap: 24px; padding: 18px 4%; }
 .portal-header a { text-decoration: none; color: #b95420; }
 .portal-header a:last-child { margin-left: auto; font-size: 13px; }
 .portal-brand { font-weight: 800; font-size: 21px; }
@@ -37,6 +37,14 @@
 .portal td button { padding: 7px 10px; font-size: 12px; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.translation-audio { margin-top: 24px; padding: 18px; background: #fff3e5; border: 1px solid #e9ddd0; border-radius: 12px; }
+.translation-audio p { overflow-wrap: anywhere; }
+.gallery-editor { min-width: 0; border: 1px solid #e9ddd0; border-radius: 12px; padding: 18px; margin: 20px 0; }
+.ai-advisor { border: 1px solid #e9ddd0; background: #fff8ee; padding: 20px; margin: 20px 0; border-radius: 12px; }
+.ai-advisor p { line-height: 1.7; overflow-wrap: anywhere; white-space: pre-wrap; }
+.ai-preview { margin-top: 18px; padding-top: 14px; border-top: 1px solid #e9ddd0; }
+.gallery-editor fieldset { min-width: 0; border: 1px solid #e9ddd0; border-radius: 9px; padding: 14px; margin-bottom: 14px; }
+.translation-audio audio { display: block; width: 100%; max-width: 560px; margin-top: 14px; }
 .portal .checkbox-label { display: flex; align-items: center; gap: 8px; margin: 12px 0; }
 .checkbox-label input { accent-color: #b95420; }
 .permission-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -53,3 +61,18 @@
 .portal progress { max-width: 110px; accent-color: #b95420; }
 @media (max-width: 1000px) { .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .permission-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .portal-header { flex-wrap: wrap; gap: 10px; } .portal-header span { display: none; } .portal-layout { display: block; } .portal-sidebar { flex-direction: row; flex-wrap: wrap; padding: 12px; border-right: none; } .portal-sidebar small { display: none; } .portal-main { padding: 18px; } .portal-card { padding: 18px; } .form-grid, .permission-grid { grid-template-columns: 1fr; } .login-card { margin: 25px 16px; padding: 24px; } .portal h1 { font-size: 25px; } }
+.portal-header > a:not(.portal-brand) { margin-left:auto; font-size:13px; }
+.portal .portal-language { display:flex; align-items:center; gap:8px; font-size:13px; margin:0; }
+.portal .portal-language select { width:auto; min-width:110px; margin:0; padding:7px 10px; border:1px solid #d7bfa9; border-radius:8px; background:#fffaf2; color:#573722; }
+.portal-locale-note { background:#fff1d9; color:#6d4528; border-bottom:1px solid #e5cdb0; margin:0; padding:10px 24px; font-size:13px; }
+.notification-bell button { display:flex; align-items:center; gap:7px; white-space:nowrap; }
+.notification-count { display:inline-flex; align-items:center; justify-content:center; min-width:25px; min-height:25px; border-radius:50%; padding:3px; background:#b95420; color:white; font-size:12px; }
+.notification-list { display:grid; gap:14px; margin-top:20px; }
+.notification-item { margin:0; border-left:4px solid #e2d2c1; }
+.notification-item.unread { border-left-color:#cb611e; background:#fff7e9; }
+.notification-state { font-size:12px; color:#80664f; margin-bottom:10px; }
+.notification-message { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.8; }
+.notification-item .notification-message { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.notification-detail { margin-top:18px; }
+.notification-place { border-top:1px solid #e9ddd0; margin-top:20px; padding-top:12px; }
+.registration-history { padding:12px 0; border-bottom:1px solid #e9ddd0; margin-bottom:14px; }

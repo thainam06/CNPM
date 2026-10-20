@@ -1,6 +1,6 @@
 # Nguồn dữ liệu demo Quận 1 — đối chiếu 14/10/2026
 
-Năm giới thiệu ngắn dùng để demo chức năng; chưa phải bài thuyết minh lịch sử đầy đủ. Không tự đưa giá vé, lịch biểu diễn hoặc giờ mở cửa vào dữ liệu. “Quận 1” chỉ phạm vi du lịch quen thuộc; không suy đoán tên phường mới.
+Đã thay năm giới thiệu một câu bằng bài thuyết minh ba đoạn ngày 18/10/2026. Nội dung, nguồn đối chiếu lịch sử/kiến trúc và giới hạn bản dịch xem [NARRATION-CONTENT.md](NARRATION-CONTENT.md). Giữ nhãn demo; không tự đưa giá vé, lịch biểu diễn hoặc giờ mở cửa vào dữ liệu. “Quận 1” chỉ phạm vi du lịch quen thuộc; không suy đoán tên phường mới. Bảng dưới giữ các nguồn địa chỉ/tọa độ và lịch sử ảnh đã dùng.
 
 | Địa điểm | Nội dung và địa chỉ | Tọa độ tham khảo |
 |---|---|---|
@@ -16,8 +16,31 @@ Tọa độ là chuyển đổi DMS từ nguồn dẫn, không phải cổng và
 |---|---|---|
 | [Ben Thanh market 2.jpg](https://commons.wikimedia.org/wiki/File:Ben_Thanh_market_2.jpg) | Riza, [CC BY2.0](https://creativecommons.org/licenses/by/2.0/) | Mặt tiền chợ |
 | [2019-09-13 Dinh Thống Nhất.jpg](https://commons.wikimedia.org/wiki/File:2019-09-13_Dinh_Th%E1%BB%91ng_Nh%E1%BA%A5t.jpg) | LWYang, [CC BY2.0](https://creativecommons.org/licenses/by/2.0/) | Mặt tiền dinh |
-| [The Central Post Office.jpg](https://commons.wikimedia.org/wiki/File:The_Central_Post_Office.jpg) | Ngô Trung, [CC BY-SA3.0](https://creativecommons.org/licenses/by-sa/3.0/) | Mặt tiền bưu điện |
-| [Nguyen Hue Street 2020.jpg](https://commons.wikimedia.org/wiki/File:Nguyen_Hue_Street_2020.jpg) | Timback, [CC BY-SA4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Khu vực tượng đài trên phố Nguyễn Huệ; không phải ảnh toàn tuyến |
+| [Interior of the Saigon Central Post Office 2014.jpg](https://commons.wikimedia.org/wiki/File:Interior_of_the_Saigon_Central_Post_Office_2014.jpg) | Ekrem Canli, [CC BY-SA3.0](https://creativecommons.org/licenses/by-sa/3.0/) | Bìa mới bưu điện, ảnh bên trong năm2014 |
+| [Liberty Central Saigon Citypoint 3.jpg](https://commons.wikimedia.org/wiki/File:Liberty_Central_Saigon_Citypoint_3.jpg) | Andre Hospers, [CC BY-SA4.0](https://creativecommons.org/licenses/by-sa/4.0/) | Bìa Nguyễn Huệ mới, khu vực tượng đài và trụ sở UBND; chụp26/02/2025, không phải ảnh toàn tuyến |
 | [HCM-City Oper.jpg](https://commons.wikimedia.org/wiki/File:HCM-City_Oper.jpg) | Andre Lettau, [CC BY-SA3.0](https://creativecommons.org/licenses/by-sa/3.0/) | Ảnh năm2003, không coi là hiện trạng hôm nay |
 
 Ảnh được dẫn trực tiếp từ Commons, cắt khung bằng CSS khi hiển thị; ghi tác giả/giấy phép/nguồn và tên địa điểm trên ảnh chi tiết. Bản đồ từ [Protomaps build20261013](https://build.protomaps.com/20261013.pmtiles), tuân thủ [ODbL Produced Work và attribution](https://docs.protomaps.com/basemaps/downloads). Không dùng ảnh địa điểm khác để minh họa.
+
+## Ảnh bổ sung — 15/10/2026
+
+| Địa điểm / góc chụp | Nguồn / tác giả / giấy phép | Ghi chú |
+|---|---|---|
+| Bên trong Chợ Bến Thành | [Inside Ben Thanh market.jpg](https://commons.wikimedia.org/wiki/File:Inside_Ben_Thanh_market.jpg), Stephan Ridgway, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | Ảnh năm2008, không coi là hiện trạng hôm nay; original3264×1832 |
+| Dinh Độc Lập nhìn từ khuôn viên | [Independence Palace(Reunification Palace).JPG](https://commons.wikimedia.org/wiki/File:Independence_Palace(Reunification_Palace).JPG), Rudolph.A.Furtado, [CC0](https://creativecommons.org/publicdomain/zero/1.0/) | Ảnh năm2013, bản nguồn đã cắt bởi Nkon21; original1286×789 |
+| Bên trong Bưu điện Trung tâm Sài Gòn | [Interior of the Saigon Central Post Office 2014.jpg](https://commons.wikimedia.org/wiki/File:Interior_of_the_Saigon_Central_Post_Office_2014.jpg), Ekrem Canli, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | Ảnh năm2014, dùng thumbnail1280px; ghi chú năm và cắt khung trên giao diện |
+
+Ba URL trả200/image/jpeg và đã mở thành công trong gallery trình duyệt. Ảnh được dẫn từ Commons, không tải lại vào repository. Thư viện ảnh giữ ảnh bìa, có nút chọn góc khác và luôn hiển thị tên địa điểm; lỗi nguồn ảnh có placeholder, phần đọc/nghe vẫn dùng được. Ảnh tham khảo cũ không chứng minh hiện trạng.
+
+Theo yêu cầu đổi ảnh bưu điện: ảnh bên trong2014 được chọn làm bìa; ảnh ngoài cũ `The_Central_Post_Office.jpg` được thay bằng [20190923 Saigon Central Post Office-1.jpg](https://commons.wikimedia.org/wiki/File:20190923_Saigon_Central_Post_Office-1.jpg), Balon Greyjoy, [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), mặt tiền năm2019. Xác minh metadata bằng Commons imageinfo API, thumbnail1280px trả200/image/jpeg và browser naturalWidth1280. Không dùng ảnh Suicasmo20190922 vì URL đang trả429; không đưa ảnh lỗi vào dữ liệu. Hai ảnh hiện tại tự chuyển khi xem chi tiết; nguồn/năm/cắt khung được ghi riêng cho mỗi ảnh.
+
+Hai địa điểm còn lại bổ sung cùng ngày: [Nguyen Hue Pedestrian Boulevard (37021598281).jpg](https://commons.wikimedia.org/wiki/File:Nguyen_Hue_Pedestrian_Boulevard_(37021598281).jpg), Terrazzo, [CC BY2.0](https://creativecommons.org/licenses/by/2.0/), ảnh2017; và [Saigon Opera House 20190921-1.jpg](https://commons.wikimedia.org/wiki/File:Saigon_Opera_House_20190921-1.jpg), Suicasmo, [CC BY-SA4.0](https://creativecommons.org/licenses/by-sa/4.0/), ảnh nhà hát về đêm2019. Cả hai dùng thumbnail1280px, HEAD200/image/jpeg và naturalWidth1280 trên trình duyệt. Giữ ảnh bìa trước đó, thêm vào gallery, không coi ảnh cũ là hiện trạng hôm nay.
+
+## Cập nhật Nguyễn Huệ bằng ảnh gần đây hơn — 15/10/2026
+
+Theo yêu cầu mới, thay ảnh bìa2020 và ảnh phụ2017 của Nguyễn Huệ bằng hai ảnh:
+
+- Ban ngày: [Liberty Central Saigon Citypoint 3.jpg](https://commons.wikimedia.org/wiki/File:Liberty_Central_Saigon_Citypoint_3.jpg), Andre Hospers, CC BY-SA4.0, chụp26/02/2025 theo nguồn/Exif. Dù tên file nhắc khách sạn, ảnh thực tế và category thể hiện tượng đài, khu vực đầu tuyến Nguyễn Huệ và trụ sở UBND; đã kiểm tra bằng mắt trước khi dùng. Chú thích đúng góc chụp, không gọi là toàn tuyến.
+- Ban đêm: [04-12-24 Nguyen Hue Street, Ho Chi Minh City.jpg](https://commons.wikimedia.org/wiki/File:04-12-24_Nguyen_Hue_Street,_Ho_Chi_Minh_City.jpg), Xuanphuocle, [CC0](https://creativecommons.org/publicdomain/zero/1.0/), chụp04/12/2024. Đài phun nước/bùng binh Cây Liễu tại khu vực Nguyễn Huệ–Lê Lợi.
+
+Ngày chụp được lấy từ metadata, không nhầm với ngày upload/sửa trang. Không gọi đây là ảnh mới nhất2026 hoặc hiện trạng hôm nay. Không dùng ảnh Nguyễn Huệ ở Lào Cai lẫn vào TP.HCM. Hai ảnh mới đã tải bản gốc JPEG qua HTTPS để làm tài nguyên website, kiểm tra chữ ký/kích thước và nhìn ảnh; upload qua Media API hiện có, ghi tác giả/giấy phép/nguồn và cắt khung trên UI. Live dùng bản local trong App_Data/media ignored vì trình duyệt gặp429 ở nguồn trực tiếp; seed giữ URL Commons gốc. Khi chuyển máy cần giữ App_Data/media cùng platform.json, hoặc tải từ hai nguồn và upload lại qua Admin. Không commit ảnh hoặc dữ liệu runtime trong đợt này.

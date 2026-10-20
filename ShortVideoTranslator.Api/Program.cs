@@ -12,6 +12,8 @@ using ShortVideoTranslator.Api.Services;
 using ShortVideoTranslator.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+// OpenWeather authenticates in its query string; never log that URL/API key.
+builder.Logging.AddFilter("System.Net.Http.HttpClient.WeatherContext", LogLevel.None);
 // Options are resolved after test/host configuration has been applied.
 builder.Services.AddSingleton(services => {
     var configuration = services.GetRequiredService<IConfiguration>();
@@ -45,6 +47,7 @@ builder.Services.AddSingleton(_ => new JsonPlatformStore(Path.Combine(builder.Co
 builder.Services.AddSingleton<IPlatformStore>(s => s.GetRequiredService<JsonPlatformStore>());
 builder.Services.AddSingleton<IPlaceRepository>(s => s.GetRequiredService<JsonPlatformStore>());
 builder.Services.AddSingleton<PlatformService>();
+builder.Services.AddSingleton<TranslationReviewService>();
 builder.Services.AddAntiforgery(options => {
     options.HeaderName = "X-CSRF-Token";
     options.Cookie.Name = "SmartTour.Csrf";
@@ -95,10 +98,11 @@ builder.Services.AddRateLimiter(options => {
 });
 builder.Services.AddScoped<ShortVideoTranslator.Business.PlaceService>();
 builder.Services.AddSingleton(builder.Configuration.GetSection("Translation").Get<ShortVideoTranslator.Business.TranslationOptions>() ?? new());
+builder.Services.AddSingleton<ISampleNarrationCatalog, DemoNarrations>();
 builder.Services.AddHttpClient("Translation", client => client.Timeout = Timeout.InfiniteTimeSpan);
 builder.Services.AddSingleton(services => new ShortVideoTranslator.Business.TranslationService(
     services.GetRequiredService<IHttpClientFactory>().CreateClient("Translation"),
-    services.GetRequiredService<ShortVideoTranslator.Business.TranslationOptions>()));
+    services.GetRequiredService<ShortVideoTranslator.Business.TranslationOptions>(), services.GetRequiredService<ISampleNarrationCatalog>()));
 builder.Services.AddScoped<
     ShortVideoTranslator.Business.FfmpegService>();
 builder.Services.AddScoped<
@@ -106,7 +110,14 @@ builder.Services.AddScoped<
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddSingleton<
     ShortVideoTranslator.Business.TextToSpeechService>();
-builder.Services.AddHttpClient("AiAdvisor", client => client.Timeout = TimeSpan.FromSeconds(30));
+builder.Services.AddHttpClient("AiAdvisor", client => { client.Timeout = TimeSpan.FromSeconds(30); client.MaxResponseContentBufferSize = 128 * 1024; }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false });
+builder.Services.AddHttpClient("WeatherContext", client => { client.Timeout = TimeSpan.FromSeconds(5); client.MaxResponseContentBufferSize = 64 * 1024; }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false });
+builder.Services.AddSingleton<AiAdvisorService>();
+builder.Services.AddSingleton<AiQuotaService>();
+builder.Services.AddSingleton<WeatherContextService>();
+builder.Services.AddSingleton<SystemReadinessService>();
+builder.Services.AddSingleton<AnalyticsQueue>();
+if (builder.Configuration.GetValue("Analytics:WorkerEnabled", true)) builder.Services.AddHostedService<AnalyticsWorker>();
 builder.Services.AddSingleton(builder.Configuration.GetSection("TextToSpeech").Get<ShortVideoTranslator.Business.TextToSpeechOptions>() ?? new());
 builder.Services.AddOpenApi();
 builder.Services.AddSingleton<NarrationAssetService>();
