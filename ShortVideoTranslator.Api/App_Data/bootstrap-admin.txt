@@ -1,0 +1,4 @@
+SmartTour local admin
+Username: admin
+Password: 1234567
+Updated at user request for local demo. Do not publish this file.

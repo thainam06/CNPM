@@ -1,0 +1,3934 @@
+{
+  "translationDrafts": [
+    {
+      "id": "c5585659c3214146a842542eef79979a",
+      "placeId": 4,
+      "language": "en",
+      "sourceHash": "27737f2ead031e7a3591c2ac0f929e85748846d8fe7d2ff97a14293036211619",
+      "text": "Welcome to Ben Thanh Market, a familiar stop when exploring central Saigon. Start by looking for the clock tower above the southern entrance. It is a useful landmark amid the busy streets.\n\nThe market at its present location opened in 1914. Earlier Ben Thanh markets stood near the river landing. This move recalls the city\u0027s growth through waterborne trade. Inside, stalls offer handicrafts, souvenirs, food products and prepared dishes.\n\nWalk slowly through the aisles and notice the colours and the way vendors present their goods. Before buying or ordering food, ask about prices and portion sizes. A small gift, a polite conversation or a new flavour can become a memorable part of your visit. Keep the aisles clear for other visitors and people working here.",
+      "version": "e4cdd3bdf81c4e62867978048a8d150a",
+      "status": "approved",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "updatedAt": "2026-10-20T02:47:55.3447182+00:00",
+      "publishedRevision": "e4cdd3bdf81c4e62867978048a8d150a"
+    }
+  ],
+  "approvedTranslations": [
+    {
+      "sourceHash": "3c94e47161121fe0ac91a6ea28590ecbd34cd7e2d4a0f58445e4ed32dbdf0a1a",
+      "language": "en",
+      "text": "Ben Thanh Market is in central District 1, where visitors can enjoy sightseeing, shopping, and exploring Saigon cuisine.",
+      "revision": "d87f8ac9ad364270b1d034a8c2d00b7c",
+      "reviewerId": "310a58c36034411babf0b74bde72e0d8",
+      "approvedAt": "2026-10-15T01:57:25.0026492+00:00"
+    },
+    {
+      "sourceHash": "27737f2ead031e7a3591c2ac0f929e85748846d8fe7d2ff97a14293036211619",
+      "language": "en",
+      "text": "Welcome to Ben Thanh Market, a familiar stop when exploring central Saigon. Start by looking for the clock tower above the southern entrance. It is a useful landmark amid the busy streets.\n\nThe market at its present location opened in 1914. Earlier Ben Thanh markets stood near the river landing. This move recalls the city\u0027s growth through waterborne trade. Inside, stalls offer handicrafts, souvenirs, food products and prepared dishes.\n\nWalk slowly through the aisles and notice the colours and the way vendors present their goods. Before buying or ordering food, ask about prices and portion sizes. A small gift, a polite conversation or a new flavour can become a memorable part of your visit. Keep the aisles clear for other visitors and people working here.",
+      "revision": "e4cdd3bdf81c4e62867978048a8d150a",
+      "reviewerId": "310a58c36034411babf0b74bde72e0d8",
+      "approvedAt": "2026-10-20T02:48:04.4613425+00:00"
+    }
+  ],
+  "places": [
+    {
+      "id": 4,
+      "name": "Ch\u1EE3 B\u1EBFn Th\u00E0nh",
+      "category": "Ch\u1EE3 truy\u1EC1n th\u1ED1ng",
+      "description": "Ch\u1EE3 B\u1EBFn Th\u00E0nh l\u00E0 m\u1ED9t \u0111i\u1EC3m ti\u1EBFp c\u1EADn \u0111\u1EDDi s\u1ED1ng th\u01B0\u01A1ng m\u1EA1i c\u1EE7a S\u00E0i G\u00F2n: \u1EDF \u0111\u00E2y, ki\u1EBFn tr\u00FAc ng\u00F4i ch\u1EE3, c\u00E1c nh\u00F3m h\u00E0ng v\u00E0 c\u00E1ch mua b\u00E1n c\u00F9ng t\u1EA1o n\u00EAn tr\u1EA3i nghi\u1EC7m tham quan. T\u1EEB khu v\u1EF1c c\u1EEDa Nam tr\u00EAn \u0111\u01B0\u1EDDng L\u00EA L\u1EE3i, th\u00E1p \u0111\u1ED3ng h\u1ED3 l\u00E0 chi ti\u1EBFt gi\u00FAp nh\u1EADn di\u1EC7n c\u00F4ng tr\u00ECnh v\u00E0 \u0111\u1ECBnh h\u01B0\u1EDBng tr\u01B0\u1EDBc khi \u0111i v\u00E0o c\u00E1c l\u1ED1i h\u00E0ng.\n\nCh\u1EE3 t\u1EA1i v\u1ECB tr\u00ED hi\u1EC7n nay \u0111\u01B0\u1EE3c kh\u00E1nh th\u00E0nh v\u00E0o n\u0103m 1914. Tr\u01B0\u1EDBc \u0111\u00F3, ch\u1EE3 B\u1EBFn Th\u00E0nh t\u1EEBng n\u1EB1m \u1EDF khu v\u1EF1c g\u1EA7n b\u1EBFn s\u00F4ng. S\u1EF1 d\u1ECBch chuy\u1EC3n \u1EA5y g\u1EE3i l\u1EA1i qu\u00E1 tr\u00ECnh th\u00E0nh ph\u1ED1 l\u1EDBn l\u00EAn t\u1EEB ho\u1EA1t \u0111\u1ED9ng giao th\u01B0\u01A1ng \u0111\u01B0\u1EDDng th\u1EE7y. B\u00EAn trong ch\u1EE3 l\u00E0 nhi\u1EC1u gian h\u00E0ng, t\u1EEB h\u00E0ng th\u1EE7 c\u00F4ng, qu\u00E0 l\u01B0u ni\u1EC7m \u0111\u1EBFn th\u1EF1c ph\u1EA9m v\u00E0 m\u00F3n \u0103n.\n\n\u0110\u1EC3 hi\u1EC3u r\u00F5 h\u01A1n v\u1EC1 ng\u00F4i ch\u1EE3, c\u00F3 th\u1EC3 quan s\u00E1t theo hai l\u1EDBp. B\u00EAn ngo\u00E0i l\u00E0 h\u00ECnh kh\u1ED1i c\u00F4ng tr\u00ECnh v\u00E0 th\u00E1p \u0111\u1ED3ng h\u1ED3; b\u00EAn trong l\u00E0 nh\u1EEFng l\u1ED1i \u0111i n\u1ED1i c\u00E1c nh\u00F3m h\u00E0ng, n\u01A1i kh\u00E1ch d\u1EC5 b\u1EAFt g\u1EB7p th\u1EF1c ph\u1EA9m, \u0111\u1ED3 kh\u00F4, h\u00E0ng th\u1EE7 c\u00F4ng v\u00E0 qu\u00E0 l\u01B0u ni\u1EC7m. S\u1EF1 chuy\u1EC3n \u0111\u1ED5i gi\u1EEFa m\u1EB7t ti\u1EC1n d\u1EC5 nh\u1EADn bi\u1EBFt v\u00E0 kh\u00F4ng gian mua b\u00E1n nhi\u1EC1u chi ti\u1EBFt gi\u00FAp chuy\u1EBFn tham quan c\u00F3 chi\u1EC1u s\u00E2u h\u01A1n m\u1ED9t \u0111i\u1EC3m ch\u1EE5p \u1EA3nh.\n\nGi\u00E1 tr\u1ECB tr\u1EA3i nghi\u1EC7m c\u00F2n n\u1EB1m \u1EDF c\u00E1c trao \u0111\u1ED5i tr\u1EF1c ti\u1EBFp gi\u1EEFa ng\u01B0\u1EDDi b\u00E1n v\u00E0 ng\u01B0\u1EDDi mua. H\u00E3y ch\u00FA \u00FD c\u00E1ch h\u00E0ng h\u00F3a \u0111\u01B0\u1EE3c gi\u1EDBi thi\u1EC7u, c\u00E1ch s\u1EA3n ph\u1EA9m \u0111\u01B0\u1EE3c s\u1EAFp x\u1EBFp v\u00E0 nh\u1EEFng kh\u00E1c bi\u1EC7t gi\u1EEFa c\u00E1c gian h\u00E0ng. Vi\u1EC7c l\u1EF1a ch\u1ECDn m\u1ED9t m\u00F3n \u0103n hay m\u00F3n qu\u00E0 n\u00EAn d\u1EF1a tr\u00EAn th\u00F4ng tin v\u1EC1 gi\u00E1, th\u00E0nh ph\u1EA7n v\u00E0 nhu c\u1EA7u c\u1EE7a ch\u00EDnh b\u1EA1n; b\u00E0i thuy\u1EBFt minh kh\u00F4ng thay th\u1EBF vi\u1EC7c h\u1ECFi r\u00F5 t\u1EA1i qu\u1EA7y.\n\nM\u1ED9t l\u1ED9 tr\u00ECnh quan s\u00E1t ph\u00F9 h\u1EE3p l\u00E0 nh\u1EADn di\u1EC7n c\u1EEDa v\u00E0o, t\u00ECm hi\u1EC3u m\u1ED9t nh\u00F3m h\u00E0ng r\u1ED3i d\u00E0nh th\u1EDDi gian cho khu v\u1EF1c \u1EA9m th\u1EF1c n\u1EBFu c\u00F3 nhu c\u1EA7u. Tr\u01B0\u1EDBc khi mua ho\u1EB7c g\u1ECDi m\u00F3n, n\u00EAn x\u00E1c nh\u1EADn gi\u00E1 v\u00E0 kh\u1EA9u ph\u1EA7n; khi di chuy\u1EC3n, gi\u1EEF l\u1ED1i \u0111i th\u00F4ng tho\u00E1ng \u0111\u1EC3 vi\u1EC7c tham quan v\u00E0 bu\u00F4n b\u00E1n c\u00F9ng di\u1EC5n ra thu\u1EADn ti\u1EC7n.",
+      "isDemo": true,
+      "address": "C\u1EEDa Nam, \u0111\u01B0\u1EDDng L\u00EA L\u1EE3i, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.7725222222,
+      "longitude": 106.6980194444,
+      "sourceUrl": "https://vietnamtourism.vn/index.php/tourism/items/511",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/91/Ben_Thanh_market_2.jpg",
+      "imageNote": "Ch\u1EE3 B\u1EBFn Th\u00E0nh \u2014 Riza / Wikimedia Commons, CC BY 2.0. \u1EA2nh \u0111\u01B0\u1EE3c c\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:49:18.4398889+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Ben_Thanh_market_2.jpg",
+      "imageFocusY": 35,
+      "addressSourceUrl": "https://www.congbao.hochiminhcity.gov.vn/tin-tuc-tong-hop/uy-ban-nhan-dan-thanh-pho-ho-chi-minh-ban-hanh-quyet-%C4%91inh-so-5300-q%C4%91-ubnd-ve-viec-xep-hang-di-tich-cap-thanh-pho-%C4%91oi-voi-cho-ben-thanh",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Ben_Thanh_Market",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "16b2337d56c23ef6aa6026ed8a9a8db6227b83940540f61541e161216e7b0eec",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Inside_Ben_Thanh_market.jpg",
+          "caption": "Kh\u00F4ng gian b\u00EAn trong Ch\u1EE3 B\u1EBFn Th\u00E0nh \u00B7 \u1EA3nh n\u0103m 2008",
+          "credit": "Stephan Ridgway / Wikimedia Commons \u00B7 CC BY 2.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Inside_Ben_Thanh_market.jpg",
+          "focusY": 50
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Dinh \u0110\u1ED9c L\u1EADp",
+      "category": "Di t\u00EDch l\u1ECBch s\u1EED",
+      "description": "Dinh \u0110\u1ED9c L\u1EADp, t\u1EA1i s\u1ED1 m\u1ED9t tr\u0103m ba m\u01B0\u01A1i l\u0103m Nam K\u1EF3 Kh\u1EDFi Ngh\u0129a, l\u00E0 \u0111i\u1EC3m tham quan k\u1EBFt h\u1EE3p t\u00ECm hi\u1EC3u l\u1ECBch s\u1EED v\u1EDBi quan s\u00E1t ki\u1EBFn tr\u00FAc. C\u00F4ng tr\u00ECnh c\u1EA7n \u0111\u01B0\u1EE3c nh\u00ECn trong c\u1EA3 t\u1ED5ng th\u1EC3 khu\u00F4n vi\u00EAn, c\u00E1ch t\u1ED5 ch\u1EE9c kh\u00F4ng gian v\u00E0 ch\u1EE9c n\u0103ng c\u1EE7a c\u00E1c ph\u00F2ng, thay v\u00EC ch\u1EC9 qua h\u00ECnh \u1EA3nh m\u1EB7t ti\u1EC1n quen thu\u1ED9c.\n\nT\u00F2a dinh hi\u1EC7n nay do ki\u1EBFn tr\u00FAc s\u01B0 Ng\u00F4 Vi\u1EBFt Th\u1EE5 thi\u1EBFt k\u1EBF, \u0111\u01B0\u1EE3c kh\u1EDFi c\u00F4ng n\u0103m 1962 v\u00E0 kh\u00E1nh th\u00E0nh n\u0103m 1966. C\u00F4ng tr\u00ECnh k\u1EBFt h\u1EE3p c\u00E1ch t\u1ED5 ch\u1EE9c kh\u00F4ng gian hi\u1EC7n \u0111\u1EA1i v\u1EDBi nh\u1EEFng \u00FD t\u01B0\u1EDFng t\u1EEB v\u0103n h\u00F3a \u00C1 \u0110\u00F4ng. Khi nh\u00ECn m\u1EB7t ti\u1EC1n, h\u00E3y ch\u00FA \u00FD l\u1EDBp r\u00E8m hoa \u0111\u00E1 \u1EDF t\u1EA7ng hai, v\u1EDBi h\u00ECnh d\u00E1ng g\u1EE3i nh\u1EEFng \u0111\u1ED1t tr\u00FAc. Dinh c\u0169ng g\u1EAFn v\u1EDBi s\u1EF1 ki\u1EC7n ng\u00E0y ba m\u01B0\u01A1i th\u00E1ng t\u01B0 n\u0103m 1975 v\u00E0 \u0111\u01B0\u1EE3c x\u1EBFp h\u1EA1ng di t\u00EDch qu\u1ED1c gia \u0111\u1EB7c bi\u1EC7t v\u00E0o n\u0103m 2009.\n\nTrang gi\u1EDBi thi\u1EC7u c\u1EE7a \u0111\u01A1n v\u1ECB qu\u1EA3n l\u00FD gi\u1EA3i th\u00EDch m\u1EB7t b\u1EB1ng t\u1ED5ng th\u1EC3 theo h\u00ECnh ch\u1EEF C\u00E1t, g\u1EAFn v\u1EDBi \u00FD ni\u1EC7m t\u1ED1t l\u00E0nh trong v\u0103n h\u00F3a \u00C1 \u0110\u00F4ng, v\u00E0 x\u00E1c \u0111\u1ECBnh Ph\u00F2ng Tr\u00ECnh Qu\u1ED1c th\u01B0 \u1EDF v\u1ECB tr\u00ED trung t\u00E2m. Nh\u1EEFng th\u00F4ng tin n\u00E0y cung c\u1EA5p th\u00EAm m\u1ED9t c\u00E1ch \u0111\u1ECDc c\u00F4ng tr\u00ECnh: t\u1EEB h\u00ECnh kh\u1ED1i b\u00EAn ngo\u00E0i \u0111i v\u00E0o tr\u1EADt t\u1EF1 c\u1EE7a c\u00E1c kh\u00F4ng gian, r\u1ED3i li\u00EAn h\u1EC7 v\u1EDBi nghi th\u1EE9c v\u00E0 ho\u1EA1t \u0111\u1ED9ng t\u1EEBng di\u1EC5n ra t\u1EA1i \u0111\u00E2y.\n\nKhi tham quan, n\u00EAn n\u1ED1i ba l\u1EDBp th\u00F4ng tin: ki\u1EBFn tr\u00FAc, c\u00F4ng n\u0103ng v\u00E0 b\u1ED1i c\u1EA3nh l\u1ECBch s\u1EED. C\u00F3 th\u1EC3 b\u1EAFt \u0111\u1EA7u b\u1EB1ng vi\u1EC7c quan s\u00E1t t\u1EF7 l\u1EC7 m\u1EB7t ti\u1EC1n, ti\u1EBFp \u0111\u1EBFn \u0111\u1ECDc bi\u1EC3n gi\u1EDBi thi\u1EC7u t\u1EA1i c\u00E1c ph\u00F2ng \u0111\u01B0\u1EE3c m\u1EDF, sau \u0111\u00F3 \u0111\u1ED1i chi\u1EBFu v\u1EDBi t\u01B0 li\u1EC7u tr\u01B0ng b\u00E0y. \u0110\u00E2y l\u00E0 g\u1EE3i \u00FD t\u00ECm hi\u1EC3u, kh\u00F4ng ph\u1EA3i cam k\u1EBFt m\u1ECDi ph\u00F2ng ho\u1EB7c tuy\u1EBFn tham quan \u0111\u1EC1u m\u1EDF v\u00E0o th\u1EDDi \u0111i\u1EC3m b\u1EA1n \u0111\u1EBFn.\n\nH\u00E3y d\u00E0nh th\u1EDDi gian \u0111\u1ECDc b\u1EA3ng gi\u1EDBi thi\u1EC7u v\u00E0 \u0111i theo tuy\u1EBFn \u0111ang \u0111\u01B0\u1EE3c h\u01B0\u1EDBng d\u1EABn t\u1EA1i di t\u00EDch. Khi r\u1EDDi m\u1ED9t ph\u00F2ng tr\u01B0ng b\u00E0y, c\u00F3 th\u1EC3 ghi nh\u1EDB c\u00F4ng n\u0103ng c\u1EE7a ph\u00F2ng v\u00E0 m\u1ED9t chi ti\u1EBFt ki\u1EBFn tr\u00FAc n\u1ED5i b\u1EADt. C\u00E1ch k\u1EBFt n\u1ED1i th\u00F4ng tin \u1EA5y s\u1EBD gi\u00FAp chuy\u1EBFn tham quan h\u00ECnh th\u00E0nh m\u1ED9t c\u00E2u chuy\u1EC7n c\u00F3 tr\u00ECnh t\u1EF1, \u0111\u1ED3ng th\u1EDDi c\u1EA7n gi\u1EEF g\u00ECn hi\u1EC7n v\u1EADt v\u00E0 kh\u00F4ng t\u1EF1 \u00FD \u0111i v\u00E0o khu v\u1EF1c h\u1EA1n ch\u1EBF.",
+      "isDemo": true,
+      "address": "135 Nam K\u1EF3 Kh\u1EDFi Ngh\u0129a, ph\u01B0\u1EDDng B\u1EBFn Th\u00E0nh, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.77705,
+      "longitude": 106.6953694444,
+      "sourceUrl": "https://dinhdoclap.gov.vn/kien-truc-dinh-doc-lap/",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/2019-09-13_Dinh_Th%E1%BB%91ng_Nh%E1%BA%A5t.jpg",
+      "imageNote": "Dinh \u0110\u1ED9c L\u1EADp \u2014 LWYang / Wikimedia Commons, CC BY 2.0. \u1EA2nh \u0111\u01B0\u1EE3c c\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:51:18.3546801+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:2019-09-13_Dinh_Th%E1%BB%91ng_Nh%E1%BA%A5t.jpg",
+      "imageFocusY": 50,
+      "addressSourceUrl": "https://dinhdoclap.gov.vn/so-do-dinh-doc-lap/",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Independence_Palace",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "fadac2ea8be5cf6bf854ade860bb1cd25871c1765084b915cf38928ad50047f9",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Independence_Palace%28Reunification_Palace%29.JPG",
+          "caption": "Dinh \u0110\u1ED9c L\u1EADp nh\u00ECn t\u1EEB khu\u00F4n vi\u00EAn \u00B7 \u1EA3nh n\u0103m 2013",
+          "credit": "Rudolph.A.Furtado / Wikimedia Commons \u00B7 CC0 1.0; b\u1EA3n ngu\u1ED3n \u0111\u00E3 c\u1EAFt b\u1EDFi Nkon21, c\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Independence_Palace(Reunification_Palace).JPG",
+          "focusY": 50
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "B\u01B0u \u0111i\u1EC7n Trung t\u00E2m S\u00E0i G\u00F2n",
+      "category": "Ki\u1EBFn tr\u00FAc",
+      "description": "B\u01B0u \u0111i\u1EC7n Trung t\u00E2m S\u00E0i G\u00F2n, t\u1EA1i s\u1ED1 hai C\u00F4ng x\u00E3 Paris, l\u00E0 m\u1ED9t \u0111i\u1EC3m t\u00ECm hi\u1EC3u l\u1ECBch s\u1EED li\u00EAn l\u1EA1c v\u00E0 ki\u1EBFn tr\u00FAc \u0111\u00F4 th\u1ECB. Tr\u1EA3i nghi\u1EC7m t\u1EA1i \u0111\u00E2y c\u00F3 th\u1EC3 b\u1EAFt \u0111\u1EA7u t\u1EEB m\u1EB7t ti\u1EC1n, ti\u1EBFp t\u1EE5c qua kh\u00F4ng gian s\u1EA3nh v\u00E0 k\u1EBFt th\u00FAc \u1EDF nh\u1EEFng b\u1EA3n \u0111\u1ED3 l\u1ECBch s\u1EED, qua \u0111\u00F3 h\u00ECnh dung vai tr\u00F2 c\u1EE7a th\u01B0 t\u00EDn v\u00E0 \u0111i\u1EC7n b\u00E1o trong vi\u1EC7c k\u1EBFt n\u1ED1i c\u00E1c \u0111\u1ECBa ph\u01B0\u01A1ng.\n\nT\u00F2a nh\u00E0 \u0111\u01B0\u1EE3c x\u00E2y d\u1EF1ng trong giai \u0111o\u1EA1n t\u1EEB n\u0103m 1886 \u0111\u1EBFn n\u0103m 1891. B\u00EAn trong, ph\u1EA7n m\u00E1i v\u00F2m v\u00E0 kh\u00F4ng gian s\u1EA3nh t\u1EA1o n\u00EAn m\u1ED9t g\u00F3c nh\u00ECn kh\u00E1c v\u1EDBi m\u1EB7t ti\u1EC1n b\u00EAn ngo\u00E0i. Theo gi\u1EDBi thi\u1EC7u c\u1EE7a B\u01B0u \u0111i\u1EC7n Vi\u1EC7t Nam, c\u00F4ng tr\u00ECnh c\u00F2n l\u01B0u gi\u1EEF hai b\u1EA3n \u0111\u1ED3 l\u1ECBch s\u1EED: m\u1ED9t b\u1EA3n th\u1EC3 hi\u1EC7n S\u00E0i G\u00F2n v\u00E0 v\u00F9ng ph\u1EE5 c\u1EADn n\u0103m 1892, b\u1EA3n c\u00F2n l\u1EA1i th\u1EC3 hi\u1EC7n m\u1EA1ng l\u01B0\u1EDBi \u0111i\u1EC7n t\u00EDn \u1EDF mi\u1EC1n Nam Vi\u1EC7t Nam v\u00E0 Campuchia n\u0103m 1936.\n\nHai b\u1EA3n \u0111\u1ED3 \u0111\u01B0a ra hai g\u00F3c nh\u00ECn b\u1ED5 sung cho nhau. B\u1EA3n \u0111\u1ED3 S\u00E0i G\u00F2n v\u00E0 v\u00F9ng ph\u1EE5 c\u1EADn h\u01B0\u1EDBng s\u1EF1 ch\u00FA \u00FD v\u00E0o kh\u00F4ng gian \u0111\u00F4 th\u1ECB; b\u1EA3n \u0111\u1ED3 \u0111i\u1EC7n t\u00EDn g\u1EE3i c\u00E1ch c\u00E1c \u0111i\u1EC3m li\u00EAn l\u1EA1c \u0111\u01B0\u1EE3c n\u1ED1i th\u00E0nh m\u1EA1ng l\u01B0\u1EDBi. Khi \u0111\u1EB7t c\u1EA1nh nhau, ch\u00FAng gi\u00FAp ng\u01B0\u1EDDi xem li\u00EAn h\u1EC7 c\u00E2u chuy\u1EC7n c\u1EE7a m\u1ED9t t\u00F2a nh\u00E0 v\u1EDBi s\u1EF1 v\u1EADn h\u00E0nh c\u1EE7a m\u1ED9t h\u1EC7 th\u1ED1ng giao ti\u1EBFp r\u1ED9ng h\u01A1n.\n\n\u0110\u1EC3 quan s\u00E1t c\u00F3 tr\u00ECnh t\u1EF1, h\u00E3y nh\u00ECn t\u1ED5ng th\u1EC3 s\u1EA3nh v\u00E0 m\u00E1i v\u00F2m tr\u01B0\u1EDBc, sau \u0111\u00F3 m\u1EDBi d\u1EEBng \u1EDF c\u00E1c chi ti\u1EBFt v\u00E0 b\u1EA3n \u0111\u1ED3 khi \u0111i\u1EC1u ki\u1EC7n t\u1EA1i ch\u1ED7 cho ph\u00E9p. C\u00F3 th\u1EC3 t\u1EF1 \u0111\u1EB7t c\u00E2u h\u1ECFi: ng\u01B0\u1EDDi g\u1EEDi tin c\u1EA7n \u0111i qua nh\u1EEFng b\u01B0\u1EDBc n\u00E0o tr\u01B0\u1EDBc khi xu\u1EA5t hi\u1EC7n \u0111i\u1EC7n tho\u1EA1i th\u00F4ng minh? C\u00E1ch ti\u1EBFp c\u1EADn n\u00E0y gi\u00FAp c\u00E1c chi ti\u1EBFt ki\u1EBFn tr\u00FAc g\u1EAFn v\u1EDBi c\u00F4ng n\u0103ng, \u0111\u1ED3ng th\u1EDDi c\u1EA7n gi\u1EEF l\u1ED1i giao d\u1ECBch th\u00F4ng tho\u00E1ng.\n\nN\u1EBFu ch\u1EE5p \u1EA3nh, h\u00E3y ch\u1ECDn v\u1ECB tr\u00ED kh\u00F4ng ch\u1EAFn l\u1ED1i v\u00E0 quan s\u00E1t h\u01B0\u1EDBng d\u1EABn trong s\u1EA3nh. Ho\u1EA1t \u0111\u1ED9ng tham quan c\u1EA7n nh\u01B0\u1EDDng ch\u1ED7 cho ng\u01B0\u1EDDi \u0111ang s\u1EED d\u1EE5ng d\u1ECBch v\u1EE5 b\u01B0u ch\u00EDnh. Khi k\u1EBFt th\u00FAc, c\u00F3 th\u1EC3 nh\u00ECn l\u1EA1i m\u1EB7t ti\u1EC1n \u0111\u1EC3 li\u00EAn h\u1EC7 di\u1EC7n m\u1EA1o c\u00F4ng tr\u00ECnh v\u1EDBi kh\u00F4ng gian v\u00E0 ch\u1EE9c n\u0103ng v\u1EEBa t\u00ECm hi\u1EC3u b\u00EAn trong.",
+      "isDemo": true,
+      "address": "2 C\u00F4ng x\u00E3 Paris, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.78,
+      "longitude": 106.7,
+      "sourceUrl": "https://vnpost.vn/vi/bai-viet/buu-dien-trung-tam-thanh-pho-ho-chi-minh-mot-diem-den-hap-dan",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Interior_of_the_Saigon_Central_Post_Office_2014.jpg/1280px-Interior_of_the_Saigon_Central_Post_Office_2014.jpg",
+      "imageNote": "Kh\u00F4ng gian b\u00EAn trong B\u01B0u \u0111i\u1EC7n Trung t\u00E2m S\u00E0i G\u00F2n \u00B7 \u1EA3nh n\u0103m 2014 \u2014 Ekrem Canli / Wikimedia Commons \u00B7 CC BY-SA 3.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:51:25.1588874+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Interior_of_the_Saigon_Central_Post_Office_2014.jpg",
+      "imageFocusY": 50,
+      "addressSourceUrl": "https://www.lonelyplanet.com/points-of-interest/central-post-office/1410705",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Saigon_Central_Post_Office",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "4952fddba972b2230f11871ad6062870df81d909119d645eaf84579c56a44c37",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/20190923_Saigon_Central_Post_Office-1.jpg/1280px-20190923_Saigon_Central_Post_Office-1.jpg",
+          "caption": "M\u1EB7t ti\u1EC1n B\u01B0u \u0111i\u1EC7n Trung t\u00E2m S\u00E0i G\u00F2n \u00B7 \u1EA3nh n\u0103m 2019",
+          "credit": "Balon Greyjoy / Wikimedia Commons \u00B7 CC0 1.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:20190923_Saigon_Central_Post_Office-1.jpg",
+          "focusY": 45
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Ph\u1ED1 \u0111i b\u1ED9 Nguy\u1EC5n Hu\u1EC7",
+      "category": "Kh\u00F4ng gian c\u00F4ng c\u1ED9ng",
+      "description": "Ph\u1ED1 \u0111i b\u1ED9 Nguy\u1EC5n Hu\u1EC7 l\u00E0 kh\u00F4ng gian c\u00F4ng c\u1ED9ng gi\u00FAp c\u1EA3m nh\u1EADn trung t\u00E2m Th\u00E0nh ph\u1ED1 H\u1ED3 Ch\u00ED Minh theo m\u1ED9t tr\u1EE5c nh\u00ECn r\u1ED9ng. T\u1EEB khu v\u1EF1c tr\u1EE5 s\u1EDF \u1EE6y ban Nh\u00E2n d\u00E2n th\u00E0nh ph\u1ED1 h\u01B0\u1EDBng v\u1EC1 s\u00F4ng S\u00E0i G\u00F2n, ng\u01B0\u1EDDi tham quan c\u00F3 th\u1EC3 theo d\u00F5i s\u1EF1 li\u00EAn k\u1EBFt gi\u1EEFa qu\u1EA3ng tr\u01B0\u1EDDng, c\u00E1c m\u1EB7t \u0111\u1EE9ng \u0111\u00F4 th\u1ECB v\u00E0 ho\u1EA1t \u0111\u1ED9ng th\u01B0\u1EDDng ng\u00E0y c\u1EE7a ng\u01B0\u1EDDi \u0111i b\u1ED9.\n\nTr\u01B0\u1EDBc khi tr\u1EDF th\u00E0nh \u0111\u1EA1i l\u1ED9, khu v\u1EF1c n\u00E0y t\u1EEBng l\u00E0 k\u00EAnh Ch\u1EE3 V\u1EA3i. N\u0103m 1887, con k\u00EAnh \u0111\u01B0\u1EE3c l\u1EA5p \u0111\u1EC3 h\u00ECnh th\u00E0nh tuy\u1EBFn \u0111\u01B0\u1EDDng. Kh\u00F4ng gian ph\u1ED1 \u0111i b\u1ED9 m\u1EDF c\u1EEDa \u0111\u00F3n ng\u01B0\u1EDDi d\u00E2n v\u00E0o th\u00E1ng t\u01B0 n\u0103m 2015. Theo gi\u1EDBi thi\u1EC7u c\u1EE7a c\u01A1 quan du l\u1ECBch, ph\u1EA7n qu\u1EA3ng tr\u01B0\u1EDDng t\u1EEB \u0111\u01B0\u1EDDng L\u00EA L\u1EE3i \u0111\u1EBFn \u0111\u01B0\u1EDDng T\u00F4n \u0110\u1EE9c Th\u1EAFng c\u00F3 l\u1ED1i \u0111i b\u1ED9 \u1EDF gi\u1EEFa, c\u00F2n ph\u01B0\u01A1ng ti\u1EC7n v\u1EABn l\u01B0u th\u00F4ng \u1EDF hai b\u00EAn.\n\nC\u00F3 th\u1EC3 t\u00ECm hi\u1EC3u tuy\u1EBFn ph\u1ED1 theo ba \u0111i\u1EC3m nh\u00ECn: nh\u00ECn d\u1ECDc tr\u1EE5c \u0111\u1EC3 nh\u1EADn ra chi\u1EC1u s\u00E2u c\u1EE7a kh\u00F4ng gian; nh\u00ECn sang hai b\u00EAn \u0111\u1EC3 quan s\u00E1t c\u00E1c m\u1EB7t \u0111\u1EE9ng c\u00F4ng tr\u00ECnh; v\u00E0 nh\u00ECn g\u1EA7n \u0111\u1EC3 ch\u00FA \u00FD c\u00E1ch ng\u01B0\u1EDDi d\u00E2n s\u1EED d\u1EE5ng qu\u1EA3ng tr\u01B0\u1EDDng. T\u01B0\u1EE3ng \u0111\u00E0i Ch\u1EE7 t\u1ECBch H\u1ED3 Ch\u00ED Minh \u1EDF khu v\u1EF1c \u0111\u1EA7u tuy\u1EBFn l\u00E0 m\u1ED9t \u0111i\u1EC3m nh\u1EADn di\u1EC7n trong h\u00E0nh tr\u00ECnh n\u00E0y. Khi quan s\u00E1t, c\u1EA7n \u0111\u1EE9ng t\u1EA1i n\u01A1i ph\u00F9 h\u1EE3p v\u00E0 kh\u00F4ng c\u1EA3n tr\u1EDF d\u00F2ng ng\u01B0\u1EDDi.\n\nC\u00E2u chuy\u1EC7n Nguy\u1EC5n Hu\u1EC7 cho th\u1EA5y s\u1EF1 thay \u0111\u1ED5i c\u00E1ch s\u1EED d\u1EE5ng c\u00F9ng m\u1ED9t kh\u00F4ng gian \u0111\u00F4 th\u1ECB: t\u1EEB tuy\u1EBFn k\u00EAnh ph\u1EE5c v\u1EE5 giao th\u01B0\u01A1ng \u0111\u1EBFn \u0111\u1EA1i l\u1ED9, r\u1ED3i kh\u00F4ng gian \u01B0u ti\u00EAn ng\u01B0\u1EDDi \u0111i b\u1ED9. \u0110\u00E2y l\u00E0 m\u1ED9t c\u00E1ch li\u00EAn h\u1EC7 c\u00E1c m\u1ED1c l\u1ECBch s\u1EED v\u1EDBi tr\u1EA3i nghi\u1EC7m tr\u01B0\u1EDBc m\u1EAFt. Ho\u1EA1t \u0111\u1ED9ng v\u00E0 c\u00E1ch b\u1ED1 tr\u00ED t\u1EA1i qu\u1EA3ng tr\u01B0\u1EDDng c\u00F3 th\u1EC3 thay \u0111\u1ED5i theo s\u1EF1 ki\u1EC7n, v\u00EC v\u1EADy n\u00EAn xem h\u01B0\u1EDBng d\u1EABn th\u1EF1c t\u1EBF thay v\u00EC m\u1EB7c \u0111\u1ECBnh \u1EA3nh c\u0169 ph\u1EA3n \u00E1nh \u0111\u00FAng ng\u00E0y tham quan.\n\nKhi mu\u1ED1n chuy\u1EC3n t\u1EEB qu\u1EA3ng tr\u01B0\u1EDDng sang c\u00E1c c\u00F4ng tr\u00ECnh ho\u1EB7c h\u00E0ng qu\u00E1n hai b\u00EAn, h\u00E3y ch\u00FA \u00FD ph\u01B0\u01A1ng ti\u1EC7n v\u00E0 s\u1EED d\u1EE5ng v\u1ECB tr\u00ED qua \u0111\u01B0\u1EDDng ph\u00F9 h\u1EE3p. Gi\u1EEF s\u1EA1ch c\u1EA3nh quan, h\u1EA1n ch\u1EBF d\u1EEBng gi\u1EEFa d\u00F2ng ng\u01B0\u1EDDi v\u00E0 xem th\u00F4ng tin c\u1EE7a \u0111\u01A1n v\u1ECB t\u1ED5 ch\u1EE9c n\u1EBFu c\u00F3 ho\u1EA1t \u0111\u1ED9ng \u0111ang di\u1EC5n ra. M\u1ED9t l\u01B0\u1EE3t \u0111i d\u1ECDc tuy\u1EBFn r\u1ED3i nh\u00ECn l\u1EA1i t\u1EEB h\u01B0\u1EDBng ng\u01B0\u1EE3c l\u1EA1i s\u1EBD t\u1EA1o th\u00EAm g\u00F3c quan s\u00E1t v\u1EC1 c\u00F9ng m\u1ED9t kh\u00F4ng gian.",
+      "isDemo": true,
+      "address": "\u0110\u01B0\u1EDDng Nguy\u1EC5n Hu\u1EC7, \u0111o\u1EA1n L\u00EA L\u1EE3i \u2013 T\u00F4n \u0110\u1EE9c Th\u1EAFng, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.7741111111,
+      "longitude": 106.7036194444,
+      "sourceUrl": "https://vietnamtourism.vn/index.php/tourism/items/2905/2",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "/api/media/0aa64af9f35c446f8b70ac891f87cc7f.jpg",
+      "imageNote": "Khu v\u1EF1c t\u01B0\u1EE3ng \u0111\u00E0i tr\u00EAn ph\u1ED1 Nguy\u1EC5n Hu\u1EC7, ch\u1EE5p 26/02/2025 \u2014 Andre Hospers / Wikimedia Commons, CC BY-SA 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:51:17.8584805+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Liberty_Central_Saigon_Citypoint_3.jpg",
+      "imageFocusY": 55,
+      "addressSourceUrl": "https://vietnamtourism.vn/index.php/tourism/items/2905/2",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Nguyen_Hue_Boulevard,_Ho_Chi_Minh_City",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "49db60122c2f77cfc1810bb554dfa2e05ded41f3a1b5e6385b88fb82ec539728",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "/api/media/58c2f19a49f844389967f9249ef69601.jpg",
+          "caption": "\u0110\u00E0i phun n\u01B0\u1EDBc t\u1EA1i khu v\u1EF1c Nguy\u1EC5n Hu\u1EC7 \u2013 L\u00EA L\u1EE3i v\u1EC1 \u0111\u00EAm \u00B7 ch\u1EE5p 04/12/2024",
+          "credit": "Xuanphuocle / Wikimedia Commons \u00B7 CC0 1.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:04-12-24_Nguyen_Hue_Street,_Ho_Chi_Minh_City.jpg",
+          "focusY": 50
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Nh\u00E0 h\u00E1t Th\u00E0nh ph\u1ED1",
+      "category": "V\u0103n h\u00F3a \u0026 ngh\u1EC7 thu\u1EADt",
+      "description": "Nh\u00E0 h\u00E1t Th\u00E0nh ph\u1ED1, t\u1EA1i s\u1ED1 b\u1EA3y C\u00F4ng tr\u01B0\u1EDDng Lam S\u01A1n, l\u00E0 m\u1ED9t \u0111\u1ECBa \u0111i\u1EC3m \u0111\u1EC3 t\u00ECm hi\u1EC3u m\u1ED1i li\u00EAn h\u1EC7 gi\u1EEFa ki\u1EBFn tr\u00FAc v\u00E0 ngh\u1EC7 thu\u1EADt bi\u1EC3u di\u1EC5n \u1EDF S\u00E0i G\u00F2n. C\u00F4ng tr\u00ECnh c\u00F3 th\u1EC3 \u0111\u01B0\u1EE3c ti\u1EBFp c\u1EADn qua b\u1ED1 c\u1EE5c m\u1EB7t ti\u1EC1n, c\u00E1ch t\u1ED5 ch\u1EE9c l\u1ED1i v\u00E0o v\u00E0 ch\u1EE9c n\u0103ng s\u00E2n kh\u1EA5u; m\u1ED7i g\u00F3c nh\u00ECn b\u1ED5 sung cho c\u00E2u chuy\u1EC7n v\u1EC1 m\u1ED9t thi\u1EBFt ch\u1EBF v\u0103n h\u00F3a trong trung t\u00E2m \u0111\u00F4 th\u1ECB.\n\nNh\u00E0 h\u00E1t \u0111\u01B0\u1EE3c x\u00E2y d\u1EF1ng t\u1EEB n\u0103m 1898 v\u00E0 kh\u00E1nh th\u00E0nh v\u00E0o ng\u00E0y m\u1ED9t th\u00E1ng m\u1ED9t n\u0103m 1900. M\u1EB7t ti\u1EC1n c\u00F3 nhi\u1EC1u chi ti\u1EBFt trang tr\u00ED, t\u01B0\u1EE3ng v\u00E0 ph\u00F9 \u0111i\u00EAu. Khi quan s\u00E1t, b\u1EA1n c\u00F3 th\u1EC3 l\u1EA7n l\u01B0\u1EE3t nh\u00ECn t\u1EEB c\u00E1c b\u1EADc th\u1EC1m l\u00EAn h\u1EC7 c\u1EEDa v\u00E0 ph\u1EA7n m\u00E1i \u0111\u1EC3 c\u1EA3m nh\u1EADn b\u1ED1 c\u1EE5c c\u1EE7a c\u00F4ng tr\u00ECnh. Theo c\u01A1 s\u1EDF d\u1EEF li\u1EC7u ng\u00E0nh du l\u1ECBch, n\u01A1i \u0111\u00E2y t\u1ED5 ch\u1EE9c c\u00E1c ho\u1EA1t \u0111\u1ED9ng s\u00E2n kh\u1EA5u, \u00E2m nh\u1EA1c v\u00E0 nh\u1EEFng s\u1EF1 ki\u1EC7n v\u0103n h\u00F3a.\n\nKhi quan s\u00E1t m\u1EB7t ti\u1EC1n, n\u00EAn \u0111i t\u1EEB t\u1ED5ng th\u1EC3 \u0111\u1EBFn chi ti\u1EBFt: nh\u1EADn di\u1EC7n tr\u1EE5c ch\u00EDnh v\u00E0 c\u00E1c b\u1EADc th\u1EC1m, sau \u0111\u00F3 nh\u00ECn c\u00E1ch c\u1EEDa v\u00E0o, t\u01B0\u1EE3ng trang tr\u00ED v\u00E0 ph\u00F9 \u0111i\u00EAu c\u00F9ng t\u1EA1o n\u00EAn \u0111i\u1EC3m nh\u1EA5n. So s\u00E1nh hai ph\u00EDa c\u00F4ng tr\u00ECnh gi\u00FAp c\u1EA3m nh\u1EADn nh\u1ECBp \u0111i\u1EC7u b\u1ED1 c\u1EE5c v\u00E0 c\u00E1ch c\u00E1c chi ti\u1EBFt li\u00EAn k\u1EBFt th\u00E0nh m\u1ED9t m\u1EB7t \u0111\u1EE9ng th\u1ED1ng nh\u1EA5t.\n\nM\u1ED9t nh\u00E0 h\u00E1t c\u00F2n \u0111\u01B0\u1EE3c hi\u1EC3u qua ho\u1EA1t \u0111\u1ED9ng bi\u1EC3u di\u1EC5n. N\u1EBFu c\u00F3 d\u1EF1 \u0111\u1ECBnh xem ch\u01B0\u01A1ng tr\u00ECnh, h\u00E3y t\u00ECm th\u00F4ng tin t\u1EEB \u0111\u01A1n v\u1ECB t\u1ED5 ch\u1EE9c \u0111\u1EC3 bi\u1EBFt n\u1ED9i dung, th\u1EDDi \u0111i\u1EC3m v\u00E0 h\u00ECnh th\u1EE9c v\u00E9. N\u1EBFu ch\u1EC9 d\u1EEBng b\u00EAn ngo\u00E0i, v\u1EABn c\u00F3 th\u1EC3 quan s\u00E1t c\u00E1ch c\u00F4ng tr\u00ECnh hi\u1EC7n di\u1EC7n trong qu\u1EA3ng tr\u01B0\u1EDDng v\u00E0 li\u00EAn h\u1EC7 ki\u1EBFn tr\u00FAc v\u1EDBi nhu c\u1EA7u g\u1EB7p g\u1EE1 v\u0103n h\u00F3a. B\u00E0i gi\u1EDBi thi\u1EC7u kh\u00F4ng \u0111\u1ED3ng ngh\u0129a v\u1EDBi quy\u1EC1n v\u00E0o kh\u00E1n ph\u00F2ng ho\u1EB7c h\u1EADu tr\u01B0\u1EDDng.\n\nH\u00E3y quan s\u00E1t t\u1EEB v\u1ECB tr\u00ED an to\u00E0n quanh qu\u1EA3ng tr\u01B0\u1EDDng, tr\u00E1nh xu\u1ED1ng l\u00F2ng \u0111\u01B0\u1EDDng \u0111\u1EC3 ch\u1EE5p \u1EA3nh. Tr\u01B0\u1EDBc m\u1ED9t bu\u1ED5i bi\u1EC3u di\u1EC5n, c\u1EA7n ki\u1EC3m tra ch\u01B0\u01A1ng tr\u00ECnh v\u00E0 th\u00F4ng tin v\u00E9 do \u0111\u01A1n v\u1ECB t\u1ED5 ch\u1EE9c c\u00F4ng b\u1ED1 cho \u0111\u00FAng ng\u00E0y d\u1EF1 ki\u1EBFn. Vi\u1EC7c xem m\u1EB7t ngo\u00E0i c\u00F4ng tr\u00ECnh v\u00E0 vi\u1EC7c tham d\u1EF1 m\u1ED9t su\u1EA5t di\u1EC5n l\u00E0 hai tr\u1EA3i nghi\u1EC7m c\u00F3 c\u00E1ch ti\u1EBFp c\u1EADn kh\u00E1c nhau, c\u1EA7n chu\u1EA9n b\u1ECB t\u01B0\u01A1ng \u1EE9ng.",
+      "isDemo": true,
+      "address": "7 C\u00F4ng tr\u01B0\u1EDDng Lam S\u01A1n, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.7763888889,
+      "longitude": 106.7027805556,
+      "sourceUrl": "https://csdl.vietnamtourism.gov.vn/dest/?item=381",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/HCM-City_Oper.jpg",
+      "imageNote": "Nh\u00E0 h\u00E1t Th\u00E0nh ph\u1ED1 \u2014 Andre Lettau / Wikimedia Commons, CC BY-SA 3.0. \u1EA2nh n\u0103m 2003, \u0111\u01B0\u1EE3c c\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:53:54.1600017+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:HCM-City_Oper.jpg",
+      "imageFocusY": 35,
+      "addressSourceUrl": "https://hbso.org.vn/chuong-trinh/dem-nhac-debussy-ravel-973.html",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Municipal_Theatre_of_Ho_Chi_Minh_City",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "1063eabbc928f96c0464ac2acd8e5b3e81ec8ba7771f93c64515c29091a31f5e",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Saigon_Opera_House_20190921-1.jpg/1280px-Saigon_Opera_House_20190921-1.jpg",
+          "caption": "Nh\u00E0 h\u00E1t Th\u00E0nh ph\u1ED1 v\u1EC1 \u0111\u00EAm \u00B7 \u1EA3nh n\u0103m 2019",
+          "credit": "Suicasmo / Wikimedia Commons \u00B7 CC BY-SA 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saigon_Opera_House_20190921-1.jpg",
+          "focusY": 40
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Nh\u00E0 th\u1EDD \u0110\u1EE9c B\u00E0 S\u00E0i G\u00F2n",
+      "category": "Ki\u1EBFn tr\u00FAc",
+      "description": "Nh\u00E0 th\u1EDD \u0110\u1EE9c B\u00E0 S\u00E0i G\u00F2n, t\u1EA1i s\u1ED1 m\u1ED9t C\u00F4ng x\u00E3 Paris, l\u00E0 \u0111i\u1EC3m nh\u1EADn di\u1EC7n ki\u1EBFn tr\u00FAc t\u00F4n gi\u00E1o trong khu v\u1EF1c trung t\u00E2m Qu\u1EADn 1. \u0110\u1EC3 t\u00ECm hi\u1EC3u c\u00F4ng tr\u00ECnh, n\u00EAn k\u1EBFt h\u1EE3p quan s\u00E1t h\u00ECnh kh\u1ED1i b\u00EAn ngo\u00E0i v\u1EDBi b\u1ED1i c\u1EA3nh x\u00E2y d\u1EF1ng v\u00E0 ch\u1EE9c n\u0103ng h\u00E0nh l\u1EC5. \u0110\u00E2y l\u00E0 m\u1ED9t kh\u00F4ng gian t\u00EDn ng\u01B0\u1EE1ng \u0111ang \u0111\u01B0\u1EE3c s\u1EED d\u1EE5ng, v\u00EC v\u1EADy tr\u1EA3i nghi\u1EC7m tham quan c\u1EA7n g\u1EAFn v\u1EDBi s\u1EF1 t\u00F4n tr\u1ECDng sinh ho\u1EA1t t\u00F4n gi\u00E1o.\n\nTheo gi\u1EDBi thi\u1EC7u c\u1EE7a C\u1EE5c Du l\u1ECBch Qu\u1ED1c gia Vi\u1EC7t Nam, nh\u00E0 th\u1EDD \u0111\u01B0\u1EE3c kh\u1EDFi c\u00F4ng n\u0103m 1877 v\u00E0 kh\u00E1nh th\u00E0nh n\u0103m 1880. Khi nh\u00ECn t\u1EEB b\u00EAn ngo\u00E0i, b\u1EA1n c\u00F3 th\u1EC3 ch\u00FA \u00FD nh\u1EEFng m\u1EA3ng t\u01B0\u1EDDng g\u1EA1ch, nh\u1ECBp c\u1EEDa v\u00F2m v\u00E0 hai th\u00E1p chu\u00F4ng. Th\u1EED quan s\u00E1t t\u1EEB m\u1ED9t v\u00E0i g\u00F3c \u0111\u1EE9ng kh\u00E1c nhau \u0111\u1EC3 c\u1EA3m nh\u1EADn c\u00E1ch c\u00E1c chi ti\u1EBFt t\u1EA1o n\u00EAn h\u00ECnh d\u00E1ng c\u00F4ng tr\u00ECnh, r\u1ED3i \u0111\u1ED1i chi\u1EBFu v\u1EDBi \u1EA3nh t\u01B0 li\u1EC7u trong b\u1ED9 s\u01B0u t\u1EADp c\u1EE7a \u1EE9ng d\u1EE5ng.\n\nNgo\u00E0i hai th\u00E1p chu\u00F4ng, c\u00F3 th\u1EC3 ch\u00FA \u00FD \u0111\u1ED3ng h\u1ED3 \u1EDF ch\u00EDnh gi\u1EEFa m\u1EB7t ti\u1EC1n v\u00E0 t\u01B0\u1EE3ng \u0110\u1EE9c M\u1EB9 H\u00F2a B\u00ECnh t\u1EA1i kho\u1EA3ng s\u00E2n ph\u00EDa tr\u01B0\u1EDBc. C\u00E1c chi ti\u1EBFt n\u00E0y gi\u00FAp chia nh\u1ECF vi\u1EC7c quan s\u00E1t: t\u1EEB \u0111\u01B0\u1EDDng vi\u1EC1n t\u1ED5ng th\u1EC3 c\u1EE7a c\u00F4ng tr\u00ECnh \u0111\u1EBFn \u0111i\u1EC3m nh\u1EA5n \u1EDF trung t\u00E2m, r\u1ED3i \u0111\u1EBFn kh\u00F4ng gian chuy\u1EC3n ti\u1EBFp gi\u1EEFa ph\u1ED1 v\u00E0 n\u01A1i h\u00E0nh l\u1EC5. Ph\u1EA7n t\u01B0\u1EDDng g\u1EA1ch v\u00E0 nh\u1ECBp c\u1EEDa v\u00F2m c\u0169ng l\u00E0 nh\u1EEFng y\u1EBFu t\u1ED1 n\u00EAn \u0111\u1ED1i chi\u1EBFu gi\u1EEFa c\u00E1c g\u00F3c nh\u00ECn.\n\nVi\u1EC7c so s\u00E1nh \u1EA3nh ch\u1EE5p \u1EDF c\u00E1c th\u1EDDi \u0111i\u1EC3m kh\u00E1c nhau c\u1EA7n d\u1EF1a tr\u00EAn ch\u00FA th\u00EDch n\u0103m \u1EA3nh. B\u1ED9 \u1EA3nh c\u1EE7a \u1EE9ng d\u1EE5ng c\u00F3 c\u1EA3 g\u00F3c nh\u00ECn tr\u01B0\u1EDBc \u0111\u00E2y v\u00E0 h\u00ECnh \u1EA3nh tr\u00F9ng tu; kh\u00F4ng n\u00EAn d\u00F9ng ch\u00FAng \u0111\u1EC3 kh\u1EB3ng \u0111\u1ECBnh t\u00ECnh tr\u1EA1ng hi\u1EC7n t\u1EA1i ho\u1EB7c l\u1ED1i v\u00E0o \u0111ang m\u1EDF. N\u1EBFu c\u00F3 khu v\u1EF1c h\u1EA1n ch\u1EBF, h\u00E3y gi\u1EEF kho\u1EA3ng c\u00E1ch ph\u00F9 h\u1EE3p v\u00E0 t\u00ECm th\u00F4ng b\u00E1o t\u1EEB \u0111\u01A1n v\u1ECB qu\u1EA3n l\u00FD, \u0111\u1ED3ng th\u1EDDi b\u1EA3o \u0111\u1EA3m an to\u00E0n khi di chuy\u1EC3n quanh qu\u1EA3ng tr\u01B0\u1EDDng.\n\nTr\u01B0\u1EDBc chuy\u1EBFn \u0111i, n\u00EAn xem th\u00F4ng b\u00E1o c\u1EE7a nh\u00E0 th\u1EDD v\u1EC1 gi\u1EDD h\u00E0nh l\u1EC5 v\u00E0 ph\u1EA1m vi ti\u1EBFp c\u1EADn. N\u1EBFu khu v\u1EF1c b\u00EAn trong ch\u01B0a m\u1EDF cho kh\u00E1ch, h\u00E3y ch\u1ECDn c\u00E1ch t\u00ECm hi\u1EC3u t\u1EEB b\u00EAn ngo\u00E0i. Gi\u1EEF y\u00EAn t\u0129nh, kh\u00F4ng ch\u1EAFn l\u1ED1i v\u00E0 tr\u00E1nh ch\u1EE5p \u1EA3nh g\u00E2y \u1EA3nh h\u01B0\u1EDFng \u0111\u1EBFn ng\u01B0\u1EDDi \u0111ang c\u1EA7u nguy\u1EC7n l\u00E0 nh\u1EEFng nguy\u00EAn t\u1EAFc c\u1EA7n \u0111\u01B0\u1EE3c \u01B0u ti\u00EAn trong su\u1ED1t chuy\u1EBFn tham quan.",
+      "isDemo": true,
+      "address": "1 C\u00F4ng x\u00E3 Paris, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.7797222222,
+      "longitude": 106.6991666667,
+      "sourceUrl": "https://vietnamtourism.vn/index.php/tourism/items/270/3",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Saigon%27s_Notre_Dame_Cathedral_%2823141452302%29.jpg/1280px-Saigon%27s_Notre_Dame_Cathedral_%2823141452302%29.jpg",
+      "imageNote": "G\u00F3c b\u00EAn Nh\u00E0 th\u1EDD \u0110\u1EE9c B\u00E0 S\u00E0i G\u00F2n \u00B7 \u1EA3nh n\u0103m 2015, kh\u00F4ng ph\u1EA3i hi\u1EC7n tr\u1EA1ng \u2014 evelynquek / Wikimedia Commons \u00B7 CC BY 2.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:53:55.2734184+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:Saigon%27s_Notre_Dame_Cathedral_(23141452302).jpg",
+      "imageFocusY": 40,
+      "addressSourceUrl": "https://vietnamtourism.vn/index.php/tourism/items/270/3",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Notre-Dame_Cathedral_Basilica_of_Saigon",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "3f98736484c99e0dd7f89a91d8c21fd952c696afba6ed03c5c353bd563c6c2bc",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/2023-12-10_Notre-Dame_Cathedral_Basilica_of_Saigon_%28Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_t%C3%B2a_%C4%90%E1%BB%A9c_B%C3%A0_S%C3%A0i_G%C3%B2n%29_01.jpg/1280px-2023-12-10_Notre-Dame_Cathedral_Basilica_of_Saigon_%28Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_t%C3%B2a_%C4%90%E1%BB%A9c_B%C3%A0_S%C3%A0i_G%C3%B2n%29_01.jpg",
+          "caption": "M\u1EB7t ti\u1EC1n \u0111ang tr\u00F9ng tu \u00B7 \u1EA3nh th\u00E1ng 12/2023, kh\u00F4ng kh\u1EB3ng \u0111\u1ECBnh hi\u1EC7n tr\u1EA1ng",
+          "credit": "\u6E90\u7FA9\u4FE1 / Wikimedia Commons \u00B7 CC BY-SA 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023-12-10_Notre-Dame_Cathedral_Basilica_of_Saigon_(Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_t%C3%B2a_%C4%90%E1%BB%A9c_B%C3%A0_S%C3%A0i_G%C3%B2n)_01.jpg",
+          "focusY": 40
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "B\u1EA3o t\u00E0ng M\u1EF9 thu\u1EADt TP.HCM",
+      "category": "V\u0103n h\u00F3a \u0026 ngh\u1EC7 thu\u1EADt",
+      "description": "B\u1EA3o t\u00E0ng M\u1EF9 thu\u1EADt Th\u00E0nh ph\u1ED1 H\u1ED3 Ch\u00ED Minh, t\u1EA1i s\u1ED1 ch\u00EDn m\u01B0\u01A1i b\u1EA3y A Ph\u00F3 \u0110\u1EE9c Ch\u00EDnh, l\u00E0 kh\u00F4ng gian t\u00ECm hi\u1EC3u ngh\u1EC7 thu\u1EADt th\u00F4ng qua t\u00E1c ph\u1EA9m, ch\u1EA5t li\u1EC7u v\u00E0 c\u00E1ch tr\u01B0ng b\u00E0y. Gi\u00E1 tr\u1ECB tham quan c\u00F2n \u0111\u1EBFn t\u1EEB ch\u00EDnh ki\u1EBFn tr\u00FAc t\u00F2a nh\u00E0: ng\u01B0\u1EDDi xem c\u00F3 th\u1EC3 k\u1EBFt h\u1EE3p quan s\u00E1t c\u00F4ng tr\u00ECnh v\u1EDBi vi\u1EC7c \u0111\u1ECDc c\u00E1c c\u00E2u chuy\u1EC7n \u0111\u01B0\u1EE3c gi\u1EDBi thi\u1EC7u trong t\u1EEBng ph\u00F2ng.\n\nTheo trang gi\u1EDBi thi\u1EC7u c\u1EE7a b\u1EA3o t\u00E0ng, n\u1ED9i dung s\u01B0u t\u1EADp g\u1ED3m m\u1EF9 thu\u1EADt c\u1ED5, c\u1EADn \u0111\u1EA1i v\u00E0 m\u1EF9 thu\u1EADt hi\u1EC7n \u0111\u1EA1i. Khi \u0111\u1EE9ng tr\u01B0\u1EDBc m\u1ED9t t\u00E1c ph\u1EA9m, b\u1EA1n c\u00F3 th\u1EC3 \u0111\u1ECDc t\u00EAn, ch\u1EA5t li\u1EC7u v\u00E0 ph\u1EA7n gi\u1EDBi thi\u1EC7u tr\u00EAn nh\u00E3n tr\u01B0ng b\u00E0y, r\u1ED3i t\u1EF1 ch\u1ECDn m\u1ED9t chi ti\u1EBFt \u0111\u1EC3 quan s\u00E1t k\u1EF9 h\u01A1n. \u0110\u00F3 c\u00F3 th\u1EC3 l\u00E0 m\u1ED9t m\u1EA3ng m\u00E0u, m\u1ED9t \u0111\u01B0\u1EDDng n\u00E9t ho\u1EB7c c\u00E1ch ng\u01B0\u1EDDi ngh\u1EC7 s\u0129 t\u1ED5 ch\u1EE9c kh\u00F4ng gian. Kh\u00F4ng c\u1EA7n ph\u1EA3i bi\u1EBFt tr\u01B0\u1EDBc m\u1ECDi thu\u1EADt ng\u1EEF \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u th\u01B0\u1EDFng th\u1EE9c ngh\u1EC7 thu\u1EADt.\n\nTheo gi\u1EDBi thi\u1EC7u c\u1EE7a b\u1EA3o t\u00E0ng, ki\u1EBFn tr\u00FAc khu nh\u00E0 k\u1EBFt h\u1EE3p phong c\u00E1ch Ph\u00E1p v\u1EDBi nh\u1EEFng chi ti\u1EBFt trang tr\u00ED ph\u01B0\u01A1ng \u0110\u00F4ng, th\u1EC3 hi\u1EC7n \u1EDF m\u00E1i ng\u00F3i, c\u1ED9t \u1ED1p g\u1ED1m v\u00E0 c\u00E1c y\u1EBFu t\u1ED1 trang tr\u00ED. Khi \u0111i t\u1EEB s\u00E2n v\u00E0o ph\u00F2ng tr\u01B0ng b\u00E0y, c\u00F3 th\u1EC3 ch\u00FA \u00FD c\u00E1ch c\u1EEDa, h\u00E0nh lang v\u00E0 \u00E1nh s\u00E1ng t\u1EA1o n\u00EAn khung nh\u00ECn cho t\u00E1c ph\u1EA9m.\n\nM\u1ED9t c\u00E1ch t\u00ECm hi\u1EC3u b\u1ED9 s\u01B0u t\u1EADp l\u00E0 so s\u00E1nh ch\u1EA5t li\u1EC7u v\u00E0 ph\u01B0\u01A1ng th\u1EE9c bi\u1EC3u \u0111\u1EA1t thay v\u00EC ch\u1EC9 \u0111\u1EBFm s\u1ED1 ph\u00F2ng \u0111\u00E3 \u0111i qua. V\u1EDBi tranh, h\u00E3y quan s\u00E1t b\u1ED1 c\u1EE5c v\u00E0 l\u1EDBp m\u00E0u; v\u1EDBi t\u00E1c ph\u1EA9m c\u00F3 h\u00ECnh kh\u1ED1i, h\u00E3y ch\u00FA \u00FD b\u1EC1 m\u1EB7t v\u00E0 quan h\u1EC7 v\u1EDBi kh\u00F4ng gian xung quanh. T\u00EAn t\u00E1c gi\u1EA3, ni\u00EAn \u0111\u1EA1i v\u00E0 ho\u00E0n c\u1EA3nh s\u00E1ng t\u00E1c c\u1EA7n \u0111\u1ECDc t\u1EEB nh\u00E3n ho\u1EB7c t\u00E0i li\u1EC7u c\u1EE7a b\u1EA3o t\u00E0ng, kh\u00F4ng suy \u0111o\u00E1n t\u1EEB h\u00ECnh d\u00E1ng hay \u1EA3nh minh h\u1ECDa trong \u1EE9ng d\u1EE5ng.\n\nTrong ph\u00F2ng tr\u01B0ng b\u00E0y, c\u1EA7n gi\u1EEF kho\u1EA3ng c\u00E1ch v\u1EDBi t\u00E1c ph\u1EA9m v\u00E0 tu\u00E2n th\u1EE7 quy \u0111\u1ECBnh ch\u1EE5p \u1EA3nh, quay phim c\u1EE7a b\u1EA3o t\u00E0ng. L\u1ECBch tri\u1EC3n l\u00E3m, gi\u00E1 v\u00E9 v\u00E0 \u0111i\u1EC1u ki\u1EC7n tham quan ph\u1EA3i \u0111\u01B0\u1EE3c x\u00E1c nh\u1EADn t\u1EEB th\u00F4ng b\u00E1o hi\u1EC7n h\u00E0nh. Khi k\u1EBFt th\u00FAc, h\u00E3y ch\u1ECDn m\u1ED9t t\u00E1c ph\u1EA9m ho\u1EB7c m\u1ED9t chi ti\u1EBFt ki\u1EBFn tr\u00FAc l\u00E0m \u0111i\u1EC3m ghi nh\u1EDB v\u00E0 di\u1EC5n \u0111\u1EA1t c\u1EA3m nh\u1EADn d\u1EF1a tr\u00EAn \u0111i\u1EC1u \u0111\u00E3 th\u1EF1c s\u1EF1 quan s\u00E1t.",
+      "isDemo": true,
+      "address": "97A Ph\u00F3 \u0110\u1EE9c Ch\u00EDnh, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.7694444444,
+      "longitude": 106.7,
+      "sourceUrl": "https://www.baotangmythuattphcm.com.vn/tham-quan",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/B%E1%BA%A3o_t%C3%A0ng_M%E1%BB%B9_thu%E1%BA%ADt_Tp_%28ki%E1%BA%BFn_tr%C3%BAc_t%E1%BB%95ng_th%E1%BB%83%29_%281%29.jpg/1280px-B%E1%BA%A3o_t%C3%A0ng_M%E1%BB%B9_thu%E1%BA%ADt_Tp_%28ki%E1%BA%BFn_tr%C3%BAc_t%E1%BB%95ng_th%E1%BB%83%29_%281%29.jpg",
+      "imageNote": "M\u1EB7t ti\u1EC1n B\u1EA3o t\u00E0ng M\u1EF9 thu\u1EADt TP.HCM \u00B7 \u1EA3nh n\u0103m 2022 \u2014 Ph\u01B0\u01A1ng Huy / Wikimedia Commons \u00B7 CC BY-SA 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:53:50.8499174+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:B%E1%BA%A3o_t%C3%A0ng_M%E1%BB%B9_thu%E1%BA%ADt_Tp_(ki%E1%BA%BFn_tr%C3%BAc_t%E1%BB%95ng_th%E1%BB%83)_(1).jpg",
+      "imageFocusY": 48,
+      "addressSourceUrl": "https://www.baotangmythuattphcm.com.vn/tham-quan",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Ho_Chi_Minh_City_Museum_of_Fine_Arts",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "0729efdd4e4c009cc3090da8266ee7da81dddee8bb4db92aefe204b6d1bce188",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/B%E1%BA%A3o_t%C3%A0ng_M%E1%BB%B9_thu%E1%BA%ADt_Tp_%28ki%E1%BA%BFn_tr%C3%BAc_n%E1%BB%99i_th%E1%BA%A5t%2C_kh%C3%B4ng_gian_tr%C6%B0ng_b%C3%A0y_t%C3%A1c_ph%E1%BA%A9m%29.jpg/1280px-B%E1%BA%A3o_t%C3%A0ng_M%E1%BB%B9_thu%E1%BA%ADt_Tp_%28ki%E1%BA%BFn_tr%C3%BAc_n%E1%BB%99i_th%E1%BA%A5t%2C_kh%C3%B4ng_gian_tr%C6%B0ng_b%C3%A0y_t%C3%A1c_ph%E1%BA%A9m%29.jpg",
+          "caption": "G\u00F3c tr\u01B0ng b\u00E0y v\u00E0 kh\u00F4ng gian n\u1ED9i th\u1EA5t \u00B7 \u1EA3nh n\u0103m 2022",
+          "credit": "Ph\u01B0\u01A1ng Huy / Wikimedia Commons \u00B7 CC BY-SA 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:B%E1%BA%A3o_t%C3%A0ng_M%E1%BB%B9_thu%E1%BA%ADt_Tp_(ki%E1%BA%BFn_tr%C3%BAc_n%E1%BB%99i_th%E1%BA%A5t,_kh%C3%B4ng_gian_tr%C6%B0ng_b%C3%A0y_t%C3%A1c_ph%E1%BA%A9m).jpg",
+          "focusY": 65
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "C\u00F4ng vi\u00EAn Tao \u0110\u00E0n",
+      "category": "Kh\u00F4ng gian c\u00F4ng c\u1ED9ng",
+      "description": "C\u00F4ng vi\u00EAn Tao \u0110\u00E0n, v\u1EDBi \u0111\u1ECBa ch\u1EC9 tham kh\u1EA3o t\u1EA1i s\u1ED1 n\u0103m m\u01B0\u01A1i l\u0103m C Nguy\u1EC5n Th\u1ECB Minh Khai, l\u00E0 \u0111i\u1EC3m d\u1EEBng \u0111\u1EC3 t\u00ECm hi\u1EC3u vai tr\u00F2 c\u1EE7a kh\u00F4ng gian xanh trong khu v\u1EF1c trung t\u00E2m Qu\u1EADn 1. Tr\u1EA3i nghi\u1EC7m \u1EDF \u0111\u00E2y \u0111\u1EBFn t\u1EEB c\u1EA3nh quan c\u00E2y xanh, c\u00E1c l\u1ED1i d\u1EA1o v\u00E0 c\u00E1ch ng\u01B0\u1EDDi d\u00E2n s\u1EED d\u1EE5ng c\u00F4ng vi\u00EAn \u0111\u1EC3 v\u1EADn \u0111\u1ED9ng, ngh\u1EC9 ng\u01A1i, g\u1EB7p g\u1EE1.\n\nTrung t\u00E2m X\u00FAc ti\u1EBFn Du l\u1ECBch Th\u00E0nh ph\u1ED1 H\u1ED3 Ch\u00ED Minh gi\u1EDBi thi\u1EC7u Tao \u0110\u00E0n l\u00E0 m\u1ED9t kh\u00F4ng gian nhi\u1EC1u c\u00E2y xanh, c\u00F3 l\u1ED1i d\u1EA1o b\u1ED9 v\u00E0 c\u00E1c ho\u1EA1t \u0111\u1ED9ng th\u1EC3 d\u1EE5c, sinh ho\u1EA1t c\u1ED9ng \u0111\u1ED3ng. Thay v\u00EC v\u1ED9i \u0111i qua, h\u00E3y th\u1EED ch\u00FA \u00FD nh\u1EEFng thay \u0111\u1ED5i c\u1EE7a \u00E1nh s\u00E1ng d\u01B0\u1EDBi t\u00E1n c\u00E2y, kho\u1EA3ng c\u00E1ch gi\u1EEFa c\u00E1c th\u00E2n c\u00E2y v\u00E0 nh\u1ECBp chuy\u1EC3n \u0111\u1ED9ng c\u1EE7a ng\u01B0\u1EDDi \u0111i b\u1ED9. M\u1ED9t c\u00F4ng vi\u00EAn c\u00F3 th\u1EC3 gi\u00FAp ch\u00FAng ta c\u1EA3m nh\u1EADn th\u00E0nh ph\u1ED1 qua nh\u1EEFng sinh ho\u1EA1t th\u01B0\u1EDDng ng\u00E0y.\n\nNgo\u00E0i ch\u1EE9c n\u0103ng d\u1EA1o b\u1ED9, ngu\u1ED3n gi\u1EDBi thi\u1EC7u c\u1EE7a c\u01A1 quan du l\u1ECBch c\u00F2n ghi nh\u1EADn \u0110\u1EC1n t\u01B0\u1EDFng ni\u1EC7m c\u00E1c Vua H\u00F9ng trong c\u00F4ng vi\u00EAn. V\u00EC v\u1EADy, c\u00F3 th\u1EC3 quan s\u00E1t Tao \u0110\u00E0n nh\u01B0 m\u1ED9t kh\u00F4ng gian c\u00F3 c\u1EA3 y\u1EBFu t\u1ED1 c\u1EA3nh quan, sinh ho\u1EA1t c\u1ED9ng \u0111\u1ED3ng v\u00E0 t\u01B0\u1EDFng ni\u1EC7m v\u0103n h\u00F3a. N\u1EBFu gh\u00E9 khu t\u01B0\u1EDFng ni\u1EC7m, c\u1EA7n gi\u1EEF th\u00E1i \u0111\u1ED9 ph\u00F9 h\u1EE3p v\u1EDBi t\u00EDnh ch\u1EA5t c\u1EE7a n\u01A1i \u0111\u00F3 v\u00E0 l\u00E0m theo ch\u1EC9 d\u1EABn t\u1EA1i ch\u1ED7.\n\n\u0110\u1ED1i v\u1EDBi c\u1EA3nh quan, h\u00E3y th\u1EED theo d\u00F5i s\u1EF1 thay \u0111\u1ED5i c\u1EE7a t\u00E1n c\u00E2y, kho\u1EA3ng s\u00E1ng v\u00E0 b\u00F3ng r\u00E2m d\u1ECDc m\u1ED9t \u0111o\u1EA1n l\u1ED1i \u0111i. \u0110\u1ED1i v\u1EDBi \u0111\u1EDDi s\u1ED1ng \u0111\u00F4 th\u1ECB, c\u00F3 th\u1EC3 quan s\u00E1t c\u00E1ch nh\u1EEFng nh\u00F3m ng\u01B0\u1EDDi c\u00F9ng s\u1EED d\u1EE5ng kh\u00F4ng gian nh\u01B0ng c\u00F3 nh\u1ECBp ho\u1EA1t \u0111\u1ED9ng kh\u00E1c nhau. Kh\u00F4ng c\u1EA7n g\u00E1n t\u00EAn lo\u00E0i c\u00E2y ho\u1EB7c l\u1ECBch s\u1EED cho m\u1ED9t chi ti\u1EBFt khi ch\u01B0a c\u00F3 b\u1EA3ng gi\u1EDBi thi\u1EC7u; m\u1ED9t chuy\u1EBFn \u0111i b\u1ED9 c\u00F3 ch\u1EE7 \u0111\u00EDch \u0111\u00E3 c\u00F3 th\u1EC3 gi\u00FAp nh\u1EADn ra gi\u00E1 tr\u1ECB c\u1EE7a c\u00F4ng vi\u00EAn \u0111\u1ED1i v\u1EDBi khu v\u1EF1c \u0111\u00F4ng \u0111\u00FAc xung quanh.\n\nCh\u1ECDn qu\u00E3ng \u0111i b\u1ED9 v\u1EEBa s\u1EE9c, ngh\u1EC9 khi c\u1EA7n v\u00E0 nh\u01B0\u1EDDng l\u1ED1i cho ng\u01B0\u1EDDi kh\u00E1c. Kh\u00F4ng gi\u1EABm l\u00EAn khu v\u1EF1c tr\u1ED3ng c\u00E2y, gi\u1EEF v\u1EC7 sinh v\u00E0 l\u00E0m theo h\u01B0\u1EDBng d\u1EABn n\u1EBFu c\u00F3 s\u1EF1 ki\u1EC7n ho\u1EB7c khu v\u1EF1c t\u1EA1m h\u1EA1n ch\u1EBF. Tr\u01B0\u1EDBc khi r\u1EDDi c\u00F4ng vi\u00EAn, h\u00E3y x\u00E1c \u0111\u1ECBnh l\u1ED1i ra ph\u00F9 h\u1EE3p v\u1EDBi \u0111i\u1EC3m \u0111\u1EBFn ti\u1EBFp theo v\u00E0 ki\u1EC3m tra l\u1EA1i \u0111\u1ED3 d\u00F9ng c\u00E1 nh\u00E2n.",
+      "isDemo": true,
+      "address": "55C Nguy\u1EC5n Th\u1ECB Minh Khai, TP.HCM (khu v\u1EF1c Qu\u1EADn 1)",
+      "latitude": 10.7747222222,
+      "longitude": 106.6930555556,
+      "sourceUrl": "https://visithcmc.net/news/top-9-cong-vien-lon-nhat-o-tphcm",
+      "isActive": true,
+      "ownerId": null,
+      "locationVerified": true,
+      "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/2023-12-10_Tao_%C4%90%C3%A0n_Park%2C_Saigon_01.jpg/1280px-2023-12-10_Tao_%C4%90%C3%A0n_Park%2C_Saigon_01.jpg",
+      "imageNote": "M\u1ED9t l\u1ED1i v\u00E0o C\u00F4ng vi\u00EAn Tao \u0110\u00E0n \u00B7 \u1EA3nh th\u00E1ng 12/2023 \u2014 \u6E90\u7FA9\u4FE1 / Wikimedia Commons \u00B7 CC BY 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+      "triggerRadius": 30,
+      "audioPriority": 0,
+      "updatedAt": "2026-10-20T08:56:53.0919457+00:00",
+      "imageSourceUrl": "https://commons.wikimedia.org/wiki/File:2023-12-10_Tao_%C4%90%C3%A0n_Park,_Saigon_01.jpg",
+      "imageFocusY": 36,
+      "addressSourceUrl": "https://visithcmc.net/page/ke-hoach-chuyen-di",
+      "locationSourceUrl": "https://commons.wikimedia.org/wiki/Category:Tao_Dan_Park",
+      "audioStatus": "ready",
+      "activationRequested": false,
+      "readyEnglishHash": "ca13d1f91c13dd9b6b61d2349d17e24e58e1ae66682c99e7ddb198bb57c21f66",
+      "region": "district1",
+      "narrationRevisions": null,
+      "images": [
+        {
+          "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Tao_Dan_Park.jpg/1280px-Tao_Dan_Park.jpg",
+          "caption": "Kh\u00F4ng gian c\u00E2y xanh C\u00F4ng vi\u00EAn Tao \u0110\u00E0n \u00B7 \u1EA3nh th\u00E1ng 01/2024",
+          "credit": "Vano111ru / Wikimedia Commons \u00B7 CC BY-SA 4.0. C\u1EAFt khung khi hi\u1EC3n th\u1ECB.",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tao_Dan_Park.jpg",
+          "focusY": 60
+        }
+      ]
+    }
+  ],
+  "deletedPlaces": [
+    {
+      "id": 3,
+      "deletedAt": "2026-10-15T02:05:48.7823236+00:00"
+    },
+    {
+      "id": 2,
+      "deletedAt": "2026-10-15T02:05:52.2348525+00:00"
+    },
+    {
+      "id": 1,
+      "deletedAt": "2026-10-15T02:05:55.3189431+00:00"
+    },
+    {
+      "id": 9,
+      "deletedAt": "2026-10-15T02:14:39.5329835+00:00"
+    }
+  ],
+  "nextPlaceId": 13,
+  "users": [
+    {
+      "id": "310a58c36034411babf0b74bde72e0d8",
+      "username": "admin",
+      "displayName": "Qu\u1EA3n tr\u1ECB vi\u00EAn",
+      "passwordHash": "pbkdf2:210000:WZqyXM2Ht0MHIJ5\u002Bq9nxGw==:gPFL2PXeQbOepkuv/Q0Z4UjWG1tQ4Mf4OTRIurVhvm8=",
+      "role": "super_admin",
+      "verified": true,
+      "enabled": true,
+      "mustChangePassword": false,
+      "securityStamp": "4427e8b6c06441acb1ec34c90389b230",
+      "createdAt": "2026-10-13T06:50:12.4586909+00:00"
+    }
+  ],
+  "roles": [
+    {
+      "name": "super_admin",
+      "permissions": [
+        "poi:read",
+        "poi:create",
+        "poi:update",
+        "poi:delete",
+        "poi:approve",
+        "poi:toggle",
+        "menu:read",
+        "menu:create",
+        "menu:update",
+        "menu:delete",
+        "user:read",
+        "user:create",
+        "user:update",
+        "user:delete",
+        "role:read",
+        "role:create",
+        "role:update",
+        "role:delete",
+        "analytics:view",
+        "analytics:export",
+        "analytics:view_own",
+        "audit:read",
+        "audit:manage",
+        "system:config",
+        "system:logs",
+        "system:backup",
+        "owner:register",
+        "owner:access",
+        "owner:submit_poi",
+        "owner:manage_own_poi",
+        "content:moderate",
+        "content:publish"
+      ],
+      "builtIn": true
+    },
+    {
+      "name": "admin",
+      "permissions": [
+        "poi:read",
+        "poi:create",
+        "poi:update",
+        "poi:delete",
+        "poi:approve",
+        "poi:toggle",
+        "menu:read",
+        "menu:create",
+        "menu:update",
+        "menu:delete",
+        "user:read",
+        "user:create",
+        "user:update",
+        "user:delete",
+        "analytics:view",
+        "analytics:export",
+        "analytics:view_own",
+        "audit:read",
+        "owner:register",
+        "owner:access",
+        "owner:submit_poi",
+        "owner:manage_own_poi",
+        "content:moderate",
+        "content:publish"
+      ],
+      "builtIn": true
+    },
+    {
+      "name": "poi_owner",
+      "permissions": [
+        "poi:read",
+        "owner:access",
+        "owner:submit_poi",
+        "owner:manage_own_poi",
+        "menu:read",
+        "menu:create",
+        "menu:update",
+        "analytics:view_own"
+      ],
+      "builtIn": true
+    },
+    {
+      "name": "user",
+      "permissions": [
+        "poi:read",
+        "menu:read",
+        "owner:register"
+      ],
+      "builtIn": true
+    }
+  ],
+  "reviews": [],
+  "notifications": [],
+  "audit": [
+    {
+      "id": "efaa02c350d74b278f2362bf620dc031",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.local-password-reset",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T03:53:31.773099+00:00"
+    },
+    {
+      "id": "fad702210de2488dad2bf86f410cfed5",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T03:54:31.8574569+00:00"
+    },
+    {
+      "id": "2474dfd9329344eebbe3ede060b665a2",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T03:55:41.292518+00:00"
+    },
+    {
+      "id": "e9e97e2516374a45bda428d04b5747c2",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "c4d04ae605234590ae08602d14d3834e",
+      "createdAt": "2026-10-14T03:56:04.9434055+00:00"
+    },
+    {
+      "id": "f34d928096224659a7c2e5378fa6b4d6",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "7e5d8ba79e954126a8834c5483016008",
+      "createdAt": "2026-10-14T03:56:11.4414597+00:00"
+    },
+    {
+      "id": "b80d01785f9f4f53b5f61d8479a2bfc5",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "8b1305d7c34d49409f646a47c3d4347f",
+      "createdAt": "2026-10-14T03:56:22.5509144+00:00"
+    },
+    {
+      "id": "1acda77934a64d998c4ba958dab8aba3",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T04:37:22.0796421+00:00"
+    },
+    {
+      "id": "3ff498a42e8d4800bde30db33a8dddfe",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "15dc711557e640a180f96331233c257c",
+      "createdAt": "2026-10-14T04:37:22.1014128+00:00"
+    },
+    {
+      "id": "e568e46da923447bbd3b36ee86feb6b2",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "f413596e75f3409cb0bd04464ad18722",
+      "createdAt": "2026-10-14T04:37:22.114244+00:00"
+    },
+    {
+      "id": "710926a0a5874b6eb93875f57c41bf1e",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "97c42f0edec04b83b3b21bac6770d4ab",
+      "createdAt": "2026-10-14T04:37:22.1185223+00:00"
+    },
+    {
+      "id": "12eed1172bcf437e9b4cdd1d36481749",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:25:13.2193642+00:00"
+    },
+    {
+      "id": "d1e543c97dd14f02aec7eb13ab4e80e2",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "03a28230a7d3427bab85b4b110c34b1e",
+      "createdAt": "2026-10-14T05:25:13.3977444+00:00"
+    },
+    {
+      "id": "c13af395221841bd823f508f0a7e7df0",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "4fbeaafb9cad4db9beb6b4e14e644870",
+      "createdAt": "2026-10-14T05:25:13.4110069+00:00"
+    },
+    {
+      "id": "319ed03189a3423ab5793f30a5055ace",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "4ca93bf05f42467a9bfdc2c83741adec",
+      "createdAt": "2026-10-14T05:25:13.4246986+00:00"
+    },
+    {
+      "id": "0be93707b8d74c31ab173b0f4d423053",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:35:46.0217283+00:00"
+    },
+    {
+      "id": "771a41af8693481e83abd2edab57aaab",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "0d79355193544bdd9fff549a61ff5636",
+      "createdAt": "2026-10-14T05:35:46.0563833+00:00"
+    },
+    {
+      "id": "8e65a9cbf9c04ca68592b5878a578882",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "0e51d9ab46984b208028942cb6deb2b5",
+      "createdAt": "2026-10-14T05:35:46.0680277+00:00"
+    },
+    {
+      "id": "5a20a77f626246f3972a813e2967f019",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "translation.save",
+      "resource": "c5585659c3214146a842542eef79979a",
+      "createdAt": "2026-10-15T01:57:09.2995183+00:00"
+    },
+    {
+      "id": "60a49c55f2fa4e4bb01e739f45c8649a",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "translation.publish",
+      "resource": "c5585659c3214146a842542eef79979a",
+      "createdAt": "2026-10-15T01:57:25.0057182+00:00"
+    },
+    {
+      "id": "4e1108f8dbde4b86a180c548f3ded948",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-15T02:05:19.1465546+00:00"
+    },
+    {
+      "id": "3fd198e6be2d4fafb43b5350f061fa75",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.delete",
+      "resource": "3",
+      "createdAt": "2026-10-15T02:05:48.7827619+00:00"
+    },
+    {
+      "id": "9ddba2eb0ed74587829fc94557e314c6",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.delete",
+      "resource": "2",
+      "createdAt": "2026-10-15T02:05:52.2348737+00:00"
+    },
+    {
+      "id": "d433a67226fe4127811054dfc7a99e8f",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.delete",
+      "resource": "1",
+      "createdAt": "2026-10-15T02:05:55.3189672+00:00"
+    },
+    {
+      "id": "7b8a293c84164c498edd70934f4f2e16",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-15T02:09:10.8280409+00:00"
+    },
+    {
+      "id": "3ed0d30513be42efa37cd024665954e6",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.create",
+      "resource": "9",
+      "createdAt": "2026-10-15T02:14:39.3222001+00:00"
+    },
+    {
+      "id": "712a9daedef54ca8a88df3853d70cb01",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "9",
+      "createdAt": "2026-10-15T02:14:39.4029647+00:00"
+    },
+    {
+      "id": "3c7da9d9d51a4ea797bc4fd766355b81",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "9",
+      "createdAt": "2026-10-15T02:14:39.460698+00:00"
+    },
+    {
+      "id": "299cd96b9f624e9292e13598dc5bf399",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.delete",
+      "resource": "9",
+      "createdAt": "2026-10-15T02:14:39.5331434+00:00"
+    },
+    {
+      "id": "60f79cc3a885421396afe69d5402d204",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "6",
+      "createdAt": "2026-10-15T02:21:00.7375744+00:00"
+    },
+    {
+      "id": "50b1452107194bfa942299ef8eb6ac8a",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "6",
+      "createdAt": "2026-10-15T02:24:11.2988714+00:00"
+    },
+    {
+      "id": "ae90a074b55245cd97a11623d7836dc0",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "7",
+      "createdAt": "2026-10-15T02:31:55.7255545+00:00"
+    },
+    {
+      "id": "9d7e2eb908ae44b2a2dde13ad8907288",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "8",
+      "createdAt": "2026-10-15T02:31:55.75896+00:00"
+    },
+    {
+      "id": "bd16c60fd2c949b581d2ce6cbff4ae04",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-15T02:36:03.4000677+00:00"
+    },
+    {
+      "id": "42413bae9c3c4afc84d4ecec0a44ea7e",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "poi.update",
+      "resource": "7",
+      "createdAt": "2026-10-15T02:40:59.4087109+00:00"
+    },
+    {
+      "id": "1c6f4ed8b8144dff884ff79c9fa87a35",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-15T03:01:18.4731614+00:00"
+    },
+    {
+      "id": "a1f3125a9a3c4232ac72fd338dc38c6e",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T18:25:11.384465+00:00"
+    },
+    {
+      "id": "f8d97d4c22a341acb48d7f11305ac71d",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "b9363502dd88464ea52b1c4215121f8e",
+      "createdAt": "2026-10-17T18:38:28.3472054+00:00"
+    },
+    {
+      "id": "c6257013bfe54c25920dd99fe278fa14",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "501d7db4565d414995372c0f81095204",
+      "createdAt": "2026-10-17T18:38:28.3835821+00:00"
+    },
+    {
+      "id": "e0f49b63e95f44c8b4acbeae3cfb8c8b",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "0908d658c62b4450a6ccd1b2a4c9f1e0",
+      "createdAt": "2026-10-17T18:38:28.4032697+00:00"
+    },
+    {
+      "id": "2f0142b38f1e4ede91b6068d240f7ce9",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "80bee6f5a1d9475181e055ed9f211b5e",
+      "createdAt": "2026-10-17T18:38:28.4179984+00:00"
+    },
+    {
+      "id": "aaddc87e87894d589969ad23b2b1fd6b",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "9b8410bad0f64133ad4c637e96f194bc",
+      "createdAt": "2026-10-17T18:38:28.4337867+00:00"
+    },
+    {
+      "id": "85b13316b9144b1f8e803c9e64e220f4",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "user.update",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T19:05:55.6589689+00:00"
+    },
+    {
+      "id": "49084ecdb2dc49cf9fd4a76bef31a9be",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T19:05:57.2361824+00:00"
+    },
+    {
+      "id": "b0d77ae4bf3640fb899d0f87e5ff28cf",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T02:47:38.1268382+00:00"
+    },
+    {
+      "id": "6fcbf01c9d8a4b5cb73209d5559f06dd",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "translation.save",
+      "resource": "c5585659c3214146a842542eef79979a",
+      "createdAt": "2026-10-20T02:47:55.3450279+00:00"
+    },
+    {
+      "id": "0ec4af0bab714b779ca7d8954dd7951c",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "translation.publish",
+      "resource": "c5585659c3214146a842542eef79979a",
+      "createdAt": "2026-10-20T02:48:04.4642424+00:00"
+    },
+    {
+      "id": "0d05eafdbfce44d99d85ea6c6372636e",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "c6e4af4d902647f3ac5d496dc83cbace",
+      "createdAt": "2026-10-20T08:23:26.0487566+00:00"
+    },
+    {
+      "id": "88b2501281a1430d9cbc82eb3646e8f9",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "d35bf632b60c47b58398703459752edd",
+      "createdAt": "2026-10-20T08:23:31.6877378+00:00"
+    },
+    {
+      "id": "746904e818c44fd79ad2b64cc8d7bd48",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "ae8153bab4114ad88f3bc1b04e87407c",
+      "createdAt": "2026-10-20T08:23:39.239172+00:00"
+    },
+    {
+      "id": "9461cc1f592547bfa33103a806549230",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "646d01a833554120a9766bab15e04920",
+      "createdAt": "2026-10-20T08:49:08.0712376+00:00"
+    },
+    {
+      "id": "c439b7340046472e81249890feb32dfd",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "6ae8f50613114bf68c8d1536aac2a2f7",
+      "createdAt": "2026-10-20T08:49:18.1475941+00:00"
+    },
+    {
+      "id": "fa259c22717949c9b6c2510b528cc102",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "e6567c0b8a104905ba93930797e33b22",
+      "createdAt": "2026-10-20T08:49:18.5470786+00:00"
+    },
+    {
+      "id": "5caa88ed0bc742a6b27f5546748785f6",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "e1a909069966417e8c32162789f88986",
+      "createdAt": "2026-10-20T08:49:18.9657114+00:00"
+    },
+    {
+      "id": "a44b5f80113c42f6a21a49158ba49534",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "c95798e5e1f144a08bddd4961387a2ff",
+      "createdAt": "2026-10-20T08:49:19.4153327+00:00"
+    },
+    {
+      "id": "d290cb72b2a049728a813f245020c335",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "dedfee6b7c004a6b8b8bf031b18c02f4",
+      "createdAt": "2026-10-20T08:49:19.7719716+00:00"
+    },
+    {
+      "id": "c2470cea46284606ba5dc1b61d9d3e7a",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "a3c07dc714414054800f673ae5f1c297",
+      "createdAt": "2026-10-20T08:49:20.1631009+00:00"
+    },
+    {
+      "id": "27fd04ad7c9142cd87e73706215a41c1",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "6297f3dbe67743c88670f87259b840e5",
+      "createdAt": "2026-10-20T08:49:20.5831604+00:00"
+    },
+    {
+      "id": "50a496537cc04b3b846c5b7963c1aa33",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "afa1e1a729704014b622350158133582",
+      "createdAt": "2026-10-21T15:42:13.5114842+00:00"
+    },
+    {
+      "id": "7c14be2df6ad406b839db93e4966f8b2",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "5125b300fb9442ceb86c132d7c91a3f6",
+      "createdAt": "2026-10-21T15:42:13.7941477+00:00"
+    },
+    {
+      "id": "9e48d68dd98747698c4c0a534cdec610",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "9a887e6c6ae242bea4024c1629ca743a",
+      "createdAt": "2026-10-21T16:01:08.8622864+00:00"
+    },
+    {
+      "id": "5f166433693a4679998436304ae8883f",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "audio.enqueue",
+      "resource": "509463d7bfa64abe8bfc02a15d05133e",
+      "createdAt": "2026-10-21T16:04:14.1757435+00:00"
+    },
+    {
+      "id": "54f1fbbd00614771939e47210cfb6339",
+      "actorId": "310a58c36034411babf0b74bde72e0d8",
+      "action": "auth.login",
+      "resource": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-21T16:21:16.3822697+00:00"
+    }
+  ],
+  "menus": [],
+  "events": [
+    {
+      "id": "2b8113498ed643fb9c691cfb9c384dd7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 3,
+      "language": "vi",
+      "createdAt": "2026-10-13T08:05:37.9576317+00:00"
+    },
+    {
+      "id": "ba356ced128f4b1b963695ee118c598c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 2,
+      "language": "vi",
+      "createdAt": "2026-10-13T08:05:39.2460768+00:00"
+    },
+    {
+      "id": "7384e56b77d946b8a1ac8f4cb9f20cbf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "vi",
+      "createdAt": "2026-10-14T03:57:38.4855959+00:00"
+    },
+    {
+      "id": "54228a3deefe46bb81a808c4cbee3a04",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "vi",
+      "createdAt": "2026-10-14T03:58:03.2651216+00:00"
+    },
+    {
+      "id": "80dbd7e1590a4b759ca3e3f28a0764af",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "en",
+      "createdAt": "2026-10-14T04:39:50.3927548+00:00"
+    },
+    {
+      "id": "27357bb120574b94bb013453bc257873",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "en",
+      "createdAt": "2026-10-14T04:41:26.485021+00:00"
+    },
+    {
+      "id": "ec6b7ace4a9344c39f51d326c17314dc",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "zh",
+      "createdAt": "2026-10-14T04:41:51.2376565+00:00"
+    },
+    {
+      "id": "2f34cc97c49c4807907d40dc923705e5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "zh",
+      "createdAt": "2026-10-14T04:42:09.2127453+00:00"
+    },
+    {
+      "id": "cd1520d91b904e6692ed04cd3d2ab586",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "fr",
+      "createdAt": "2026-10-14T04:42:33.0162144+00:00"
+    },
+    {
+      "id": "d5d8dd5a7c0f48c4afdafcd506cc1522",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 1,
+      "language": "ko",
+      "createdAt": "2026-10-14T04:42:46.2841105+00:00"
+    },
+    {
+      "id": "d54f0d84ae0543f2a2abe01a1adcc0fb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-14T05:26:28.1320469+00:00"
+    },
+    {
+      "id": "66995b0b47cd4971acd5926518d22de1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-14T05:27:06.2689706+00:00"
+    },
+    {
+      "id": "f0974375bf684a24ae6c42d3a2ba5fc1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-14T05:36:25.2241877+00:00"
+    },
+    {
+      "id": "fc18a21f62d541389851c16c9d03c8f3",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-14T07:24:16.908267+00:00"
+    },
+    {
+      "id": "ae0b4eaa0b4c4826946f591bf87d1999",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-14T07:25:02.9758685+00:00"
+    },
+    {
+      "id": "f8394d1ea39c4f59b567781ec1018b54",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-14T07:25:03.3132922+00:00"
+    },
+    {
+      "id": "8514543821b64ddabef3f03fe323adb7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-14T07:25:12.0041429+00:00"
+    },
+    {
+      "id": "f0846248cf7540e697fadef7b8f0b756",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-15T01:39:56.7593627+00:00"
+    },
+    {
+      "id": "0fdbd3c9dc104db88ed566270c86de93",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-15T01:44:04.9614878+00:00"
+    },
+    {
+      "id": "130dfe3e44694cee8cd1cbd46f9410d9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 6,
+      "language": "vi",
+      "createdAt": "2026-10-15T01:44:09.8140615+00:00"
+    },
+    {
+      "id": "cd6bb729bc00480da7ba33ecffab5745",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-15T01:44:12.676575+00:00"
+    },
+    {
+      "id": "efd25482ee584b6898066d10aab6fcbb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-15T01:50:00.4885659+00:00"
+    },
+    {
+      "id": "c723decb5cb642f480727726b779ad3f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-15T01:58:51.7866071+00:00"
+    },
+    {
+      "id": "0732ca0379f54e86a46fc8bd76bf32c4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "en",
+      "createdAt": "2026-10-15T02:15:05.0514521+00:00"
+    },
+    {
+      "id": "83b8904e6e054b8f9c7b26e0cd870a2d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 6,
+      "language": "en",
+      "createdAt": "2026-10-15T02:15:11.099613+00:00"
+    },
+    {
+      "id": "44db81429a1d435eae4e02ed98afb79b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 6,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:22:01.1102854+00:00"
+    },
+    {
+      "id": "640d9701552f4b7eb0ecdc6d0ca0160f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 6,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:24:51.1782319+00:00"
+    },
+    {
+      "id": "4afe85e6d5734502964c8cb410259398",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:32:45.4102443+00:00"
+    },
+    {
+      "id": "8489f6e6d1d7436dac0c6c9abd03927d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:33:05.8461199+00:00"
+    },
+    {
+      "id": "a86816b9503e4bb28b1a40a47bd5d180",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:41:54.1029194+00:00"
+    },
+    {
+      "id": "60cbf696ba804a2587f7295e1eeacd2a",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:43:41.6032528+00:00"
+    },
+    {
+      "id": "103e3b94860d4a1ab2c4b3361a6c0729",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "view",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:43:48.3587663+00:00"
+    },
+    {
+      "id": "a4bda81ee4204a129362659d5907208d",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:43:52.7444698+00:00"
+    },
+    {
+      "id": "145a5d6e792b4eb1801f6c657085f8a1",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "view",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-15T02:43:53.3723565+00:00"
+    },
+    {
+      "id": "d3a35b78-347b-4a50-8fce-9a9b903039f5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T05:08:40.604+00:00"
+    },
+    {
+      "id": "0bccd292-bbb9-4125-aa61-c641edd893ab",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T05:09:00.231+00:00"
+    },
+    {
+      "id": "596c6fc6-3875-43a0-b1c9-00d88b0c9b67",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T05:09:07.558+00:00"
+    },
+    {
+      "id": "df83c6e2-9630-4155-8bbe-33993180cbfc",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T05:10:07.564+00:00"
+    },
+    {
+      "id": "74ba6e29-b7b0-4c72-b061-4080b9f472e4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T05:10:14.552+00:00"
+    },
+    {
+      "id": "5bc338c2-3d8e-43f0-8710-e3f6bb0c3f9f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T18:17:20.581+00:00"
+    },
+    {
+      "id": "4f4a2bc9-6867-49bf-bd94-25175cbda90c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:19:30.061+00:00"
+    },
+    {
+      "id": "fb7736a5-3066-41cf-a925-e71524cef1a5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:20:16.502+00:00"
+    },
+    {
+      "id": "ed868dfd-bd3d-4fbf-b9d4-66b330895e2a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:20:30.064+00:00"
+    },
+    {
+      "id": "d424a2a5-d535-435b-8d59-3d317f28e23e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:21:03.25+00:00"
+    },
+    {
+      "id": "0af04af6-29c0-4bd6-814f-aa64faed131f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:22:00.063+00:00"
+    },
+    {
+      "id": "5ff023e6-d107-45d4-a0fa-2a6d5efc4bf8",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:22:03.262+00:00"
+    },
+    {
+      "id": "625a4aa5-78d1-4eab-821e-a72c01837c69",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:22:56.811+00:00"
+    },
+    {
+      "id": "5e5fcca9-1f90-4446-8e81-65a5039792fc",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:23:00.064+00:00"
+    },
+    {
+      "id": "354e8c87-cc30-4217-84c9-7045054b31f6",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:23:45.322+00:00"
+    },
+    {
+      "id": "3ae42873-2157-4782-b26c-36e7071ef677",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:24:02.91+00:00"
+    },
+    {
+      "id": "5f6b8dfe-994d-466f-b217-6df627d9283e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:24:30.061+00:00"
+    },
+    {
+      "id": "118d4558-823a-4f63-8b25-7e046edb7745",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:25:02.924+00:00"
+    },
+    {
+      "id": "fe0653c5-c7ac-41d5-9fd9-6bddde909718",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:26:00.059+00:00"
+    },
+    {
+      "id": "edf7417a-dde1-4f5b-a2ff-e23bff3a65b3",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:26:32.919+00:00"
+    },
+    {
+      "id": "3859521e-3a1d-4bbe-9257-ee2831b4a0ab",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:27:00.065+00:00"
+    },
+    {
+      "id": "55789a36-7d51-438b-8f8e-4bdc278aff6a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:27:00.588+00:00"
+    },
+    {
+      "id": "cb8fea3f-f254-4b59-9c99-ed234c2afd19",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:28:02.917+00:00"
+    },
+    {
+      "id": "db05fd41-f31a-4bde-9cfa-9d8d3d11e80b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:28:30.063+00:00"
+    },
+    {
+      "id": "4ffefa67-9014-4052-89d1-feb1536bc2f2",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:29:02.92+00:00"
+    },
+    {
+      "id": "a3406198-5cf0-422b-ab5b-0a728e49cb5f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:30:00.051+00:00"
+    },
+    {
+      "id": "0853d88c-ad65-4f65-ae43-5dd041cabfaa",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:30:32.915+00:00"
+    },
+    {
+      "id": "ea8f4053-d200-4541-a53d-007224d69fc4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:31:51.769+00:00"
+    },
+    {
+      "id": "338c2fec-0ce0-47e9-8e8c-5e6b681e2f72",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:31:51.769+00:00"
+    },
+    {
+      "id": "ee2e78a5-08e4-46f4-b97e-4521c03b1d6a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:38:51.156+00:00"
+    },
+    {
+      "id": "91a3f103-c58f-497d-9cca-031b9e80fe5c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:39:51.161+00:00"
+    },
+    {
+      "id": "cd99c6b7-3a14-4c6b-ab1f-c5617fadc87a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:40:12.62+00:00"
+    },
+    {
+      "id": "0c71b399-8dcb-4ef7-8fbc-7a1ad84f7248",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T18:41:06.214+00:00"
+    },
+    {
+      "id": "6c160ca5-702c-4806-921d-929696ab471d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-17T18:41:12.354+00:00"
+    },
+    {
+      "id": "1a2a4534-5763-405f-afa3-617e44bb2a16",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "en",
+      "createdAt": "2026-10-17T18:41:25.649+00:00"
+    },
+    {
+      "id": "08590246-2d18-4dff-a27a-db52eb13127a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 6,
+      "language": "en",
+      "createdAt": "2026-10-17T18:41:28.825+00:00"
+    },
+    {
+      "id": "90c7dccc-1740-455b-9ad2-138b6d8404e5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "en",
+      "createdAt": "2026-10-17T18:41:32.081+00:00"
+    },
+    {
+      "id": "bde1df8a-6a05-41d1-97bc-fc53e8ff8611",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 8,
+      "language": "en",
+      "createdAt": "2026-10-17T18:41:35.422+00:00"
+    },
+    {
+      "id": "6aa3dc31-4b13-4af6-a337-506c1b030b6a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:41:38.608+00:00"
+    },
+    {
+      "id": "9d187fd7-82e9-4b98-9d97-d49077ebd074",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:42:38.614+00:00"
+    },
+    {
+      "id": "ebc418ae-0651-4f4a-bf4f-a9181eb0d7ab",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:43:22.64+00:00"
+    },
+    {
+      "id": "44f72974-00d3-4d50-b9a3-e15eddc0cf47",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:45:16.496+00:00"
+    },
+    {
+      "id": "7514163a-86b8-42a0-9353-704222663d0a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:45:21.747+00:00"
+    },
+    {
+      "id": "61fbd67b-cd0f-4e05-adad-1748fe3d53a7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T18:45:33.879+00:00"
+    },
+    {
+      "id": "281a0cf9-4a90-4a16-b9d1-cb6791f51d86",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-17T18:46:24.778+00:00"
+    },
+    {
+      "id": "234254be-673c-4081-8e39-8c97952d770e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T18:46:33.881+00:00"
+    },
+    {
+      "id": "413b1b8f-d143-42cb-a686-8305f04e4e20",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-17T18:46:41.998+00:00"
+    },
+    {
+      "id": "61af38ca-9ff6-4ce8-96c8-bf17450bdbfd",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "zh",
+      "createdAt": "2026-10-17T18:46:50.049+00:00"
+    },
+    {
+      "id": "f3fb8071-57e9-4379-865e-7e3ebcb71524",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "zh",
+      "createdAt": "2026-10-17T18:46:51.83+00:00"
+    },
+    {
+      "id": "7b47f6ba-8628-4d02-ada4-f410ab94f761",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "ja",
+      "createdAt": "2026-10-17T18:46:55.269+00:00"
+    },
+    {
+      "id": "1c418218-bb76-4149-8c83-ff9536347752",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "ja",
+      "createdAt": "2026-10-17T18:46:57.279+00:00"
+    },
+    {
+      "id": "ff73f8e7-8964-448e-be16-2177282fef97",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "fr",
+      "createdAt": "2026-10-17T18:47:01.031+00:00"
+    },
+    {
+      "id": "2a7b56a8-b6a2-401b-8128-604a6e63f637",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "fr",
+      "createdAt": "2026-10-17T18:47:02.513+00:00"
+    },
+    {
+      "id": "a6031bfd-ef45-4673-8b08-6a098645fbb0",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "ko",
+      "createdAt": "2026-10-17T18:47:07.877+00:00"
+    },
+    {
+      "id": "856b4aa6-6c3a-43e5-94d3-c77f338df2e5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "ko",
+      "createdAt": "2026-10-17T18:47:09.161+00:00"
+    },
+    {
+      "id": "95f42fe2-4d3c-487b-a787-df75200fea6d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:47:11.279+00:00"
+    },
+    {
+      "id": "6a675a7d-5a42-4fc9-9085-95c1c9f06fff",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:47:12.519+00:00"
+    },
+    {
+      "id": "32fb02cf-e8f6-4f90-bc8c-6038d5107b75",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:47:22.128+00:00"
+    },
+    {
+      "id": "604eb7bf-9e05-48e8-a631-d1567e7ccdfd",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T18:47:28.269+00:00"
+    },
+    {
+      "id": "38f12cac-cfa5-4154-8499-958ca59250b6",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "en",
+      "createdAt": "2026-10-17T18:47:36.062+00:00"
+    },
+    {
+      "id": "adaf414e-7905-4e46-928f-f700e46ae351",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:47:48.382+00:00"
+    },
+    {
+      "id": "a73bf57c-11f6-427a-8867-9a77098ac8c1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:48:05.966+00:00"
+    },
+    {
+      "id": "1625b687-7ae6-496d-9df4-ce98f5764e6a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:48:16.564+00:00"
+    },
+    {
+      "id": "a99d80fa-c772-4b21-8fdd-b2c9fc84ddb3",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "ja",
+      "createdAt": "2026-10-17T18:48:21.175+00:00"
+    },
+    {
+      "id": "8eddf6c3-676a-473e-918c-721da20d9468",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T18:48:26.681+00:00"
+    },
+    {
+      "id": "4a34c2f4-db11-48a2-a5e6-eaa402e2937c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:48:27.839+00:00"
+    },
+    {
+      "id": "a53a9e4f-0e59-4d40-8b07-1ff780eca685",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:55:29.547+00:00"
+    },
+    {
+      "id": "02f20e80-49bc-41ff-aae3-0ce0d4088699",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:56:57.848+00:00"
+    },
+    {
+      "id": "378a7252-fdef-4505-8df8-c5cf94f0425f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:57:03.989+00:00"
+    },
+    {
+      "id": "322d2d99-747b-41b2-acd4-469158b055eb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T18:57:24.949+00:00"
+    },
+    {
+      "id": "7ef15a3f-27b0-41b9-b3d4-0c3336296141",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T19:06:16.301+00:00"
+    },
+    {
+      "id": "0e1c8c35-e052-44e4-91c9-5896a8df4ecf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-17T19:29:34.859+00:00"
+    },
+    {
+      "id": "53620c53-f0b3-425d-863b-fc40a8022423",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-17T19:30:19.905+00:00"
+    },
+    {
+      "id": "76dc64de-6542-4f82-8b89-b50aca4e6297",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T19:31:37.205+00:00"
+    },
+    {
+      "id": "4aa82394-0865-4c5f-8b25-bb96fcf451a2",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-17T19:32:05.604+00:00"
+    },
+    {
+      "id": "a8a55725-9426-4eca-9743-90ec202624f7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T19:32:37.21+00:00"
+    },
+    {
+      "id": "32b6acc3-6879-4eb4-bfe9-f1f3900c73d5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T19:34:07.204+00:00"
+    },
+    {
+      "id": "7a484083-3a13-4b3e-baac-838fc983e3d4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T19:35:37.208+00:00"
+    },
+    {
+      "id": "4df9b8be-5749-4ef0-a22e-6c875660a97b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T19:36:37.211+00:00"
+    },
+    {
+      "id": "04b4c0bf-68f0-4700-85aa-6986343f7224",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-17T19:37:37.212+00:00"
+    },
+    {
+      "id": "b2352d31-2c15-4d71-a166-6e086b3dc24f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:47:20.129+00:00"
+    },
+    {
+      "id": "deab7608-4cf2-4df4-9001-f280ba561992",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T02:47:24.961+00:00"
+    },
+    {
+      "id": "7bc0fd9b-19fd-45a5-8a9e-8bc9a4aacb79",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:48:20.138+00:00"
+    },
+    {
+      "id": "f6924f70-bbb9-4834-b912-4e16b2acdd7d",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T02:49:11.771+00:00"
+    },
+    {
+      "id": "084a8f08-42a4-43ba-ab89-3104debcc1e4",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-20T02:49:19.36+00:00"
+    },
+    {
+      "id": "6488b413-6721-4d66-8d3d-4c2d69a496ab",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:49:33.059+00:00"
+    },
+    {
+      "id": "d5b0c862-fa55-4d79-8b25-5146ffdc6c14",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:49:50.139+00:00"
+    },
+    {
+      "id": "cfe7e05e-a0c6-489c-a035-40c1d23f0911",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "play",
+      "placeId": 5,
+      "language": "en",
+      "createdAt": "2026-10-20T02:49:34.924+00:00"
+    },
+    {
+      "id": "2d4e7d28-44d3-4617-a06c-79fa8e908002",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:50:33.066+00:00"
+    },
+    {
+      "id": "1d433c9a-ab27-48ac-a7d7-deac5e1386ac",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:51:20.137+00:00"
+    },
+    {
+      "id": "7b574ab3-44bf-4bfc-a9ee-2f7d37f66635",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:51:33.071+00:00"
+    },
+    {
+      "id": "cdff6fe7-0275-45e4-ad13-95ea62fccb9f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:52:20.139+00:00"
+    },
+    {
+      "id": "85a81d8e-bf74-40ab-93b0-b42bd60a77a0",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T02:53:03.069+00:00"
+    },
+    {
+      "id": "3d2260ca-8c51-4393-9fd5-9f20f7da5093",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T03:05:47.755+00:00"
+    },
+    {
+      "id": "b1ad2b63-aac6-4e20-9d57-df5f1d0649f4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T03:32:36.951+00:00"
+    },
+    {
+      "id": "0170e6e5-6344-4cf7-9b7d-c9577a072c9b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T03:32:51.32+00:00"
+    },
+    {
+      "id": "66592587-1c3b-4922-a5a1-8a7cb1577492",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T03:38:10.845+00:00"
+    },
+    {
+      "id": "87890111-3fbe-4c53-941f-6446e09a827a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:38:15.734+00:00"
+    },
+    {
+      "id": "1047bae3-0b53-4a2d-b91f-06be6a8d3814",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:38:41.34+00:00"
+    },
+    {
+      "id": "97bffc66-baab-4f15-bb79-e4ba05d17d4e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:38:43.138+00:00"
+    },
+    {
+      "id": "480d85e4-0d25-405f-9975-b5ee9366b01a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:38:43.93+00:00"
+    },
+    {
+      "id": "0fc58bac-3c0b-457e-985f-fc6c4f5fddfb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 8,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:39:04.16+00:00"
+    },
+    {
+      "id": "d6a9e482-6aaf-49d1-958c-b02354b364ed",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:39:18.539+00:00"
+    },
+    {
+      "id": "803aa82d-2cce-48cf-8611-f0cc2e1d7c30",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:40:10.973+00:00"
+    },
+    {
+      "id": "aff41521-d5e1-4fed-8bda-ba4f9299259f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:40:43.612+00:00"
+    },
+    {
+      "id": "79ae54dd-4950-4d0a-9fcc-93ca41259f6c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:40:48.999+00:00"
+    },
+    {
+      "id": "714b8978-80fa-4197-aa8f-fb23ecd0a9d9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:41:10.981+00:00"
+    },
+    {
+      "id": "8e352911-dff6-46ef-abee-75ba09a46286",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T03:41:12.517+00:00"
+    },
+    {
+      "id": "03da1821-6347-4535-8986-d36bf0a385ff",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:41:49.461+00:00"
+    },
+    {
+      "id": "8e092c6a-b694-43a9-826b-dd8bf36ffa6a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 6,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:41:49.868+00:00"
+    },
+    {
+      "id": "1dde279c-c442-4acb-ae35-121c6227f953",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:45:05.071+00:00"
+    },
+    {
+      "id": "135df0e1-5440-429b-9572-80244d043cff",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:46:05.077+00:00"
+    },
+    {
+      "id": "0046a8d9-6b08-4df6-8869-1a2cdd39e941",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:47:35.077+00:00"
+    },
+    {
+      "id": "b423a3a0-76ca-45eb-b4f5-0da05b52a7b9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:49:05.069+00:00"
+    },
+    {
+      "id": "d6418a3c-c593-4304-a17c-55208a85ec08",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:50:05.071+00:00"
+    },
+    {
+      "id": "9397380a-3465-4336-8753-747bbfa192b1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:51:35.079+00:00"
+    },
+    {
+      "id": "37df6c20-bdf2-40ab-b08e-c98eef011197",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:52:35.079+00:00"
+    },
+    {
+      "id": "8b0fc9e9-8011-4132-97a5-799a71043d23",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:54:05.067+00:00"
+    },
+    {
+      "id": "0a4fce02-e4bf-4dea-9888-4a9415c07c3b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T03:55:05.079+00:00"
+    },
+    {
+      "id": "dd7beab5-4cf3-4325-b911-17589168e1b1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:01:13.35+00:00"
+    },
+    {
+      "id": "fbf7ad93-4040-4343-9c99-7d393e233bbf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:02:55.991+00:00"
+    },
+    {
+      "id": "ff28bf9c-9a45-4613-beb4-50218de788b9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:02:56.872+00:00"
+    },
+    {
+      "id": "95ddb1a9-e108-4ea3-99e7-fc5ffd611f66",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:03:24.845+00:00"
+    },
+    {
+      "id": "36d10c14-8361-4c38-994c-6721ad60f10e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:03:51.245+00:00"
+    },
+    {
+      "id": "4f2539a4-d601-47b9-914c-b3aaf551efec",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:03:56.882+00:00"
+    },
+    {
+      "id": "0afabe60-365c-476e-9cb6-732ab97c3112",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:04:51.248+00:00"
+    },
+    {
+      "id": "95112cc6-8f7c-4b29-9ffe-513b76c87d75",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:05:26.883+00:00"
+    },
+    {
+      "id": "87b29867-160e-4509-8c80-400f3cdb6923",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:05:43.638+00:00"
+    },
+    {
+      "id": "0c117a40-8687-4ba8-a605-46251afccc8d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:05:51.251+00:00"
+    },
+    {
+      "id": "c50684b0-0dd0-4c0a-99a9-03411a9b40ac",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:15:14.388+00:00"
+    },
+    {
+      "id": "3ce4f6fc-128d-4a18-818f-1d084db6848f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:15:14.389+00:00"
+    },
+    {
+      "id": "0a99d84b-ea9e-41fc-a86d-52b5e1226a35",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:16:53.335+00:00"
+    },
+    {
+      "id": "bbce7ed5-2b84-46bd-a79d-ce596f0e5ff5",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:16:59.722+00:00"
+    },
+    {
+      "id": "8b52778d-57f5-4c6f-8013-210c8d41cdb0",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:17:59.726+00:00"
+    },
+    {
+      "id": "49cd46cc-0dc5-4582-8e27-a7e34cb08e5a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:18:09.109+00:00"
+    },
+    {
+      "id": "cd3b9481-60da-4424-a458-4d16ff5fddb2",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:18:16.836+00:00"
+    },
+    {
+      "id": "3fa393a5-768b-484e-aa13-1a9551332dbf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-20T08:18:45.155+00:00"
+    },
+    {
+      "id": "4bee53d1-03a5-4baf-880b-f660b70c7365",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "zh",
+      "createdAt": "2026-10-20T08:18:54.183+00:00"
+    },
+    {
+      "id": "b19d5090-8c80-41ae-917d-a4e641f2788f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "ja",
+      "createdAt": "2026-10-20T08:19:11.814+00:00"
+    },
+    {
+      "id": "8d36c59b-6756-443c-81d9-313911213c36",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "fr",
+      "createdAt": "2026-10-20T08:19:13.891+00:00"
+    },
+    {
+      "id": "520a0273-4c9a-4d71-b708-34e52da9991c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "fr",
+      "createdAt": "2026-10-20T08:19:14.941+00:00"
+    },
+    {
+      "id": "73f68504-f995-4a94-9e24-d3c57c6c7b8c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:19:47.386+00:00"
+    },
+    {
+      "id": "a787e1a7-bd52-489d-9370-5d990a6b1401",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 4,
+      "language": "en",
+      "createdAt": "2026-10-20T08:19:48.864+00:00"
+    },
+    {
+      "id": "f6886c3a-4f93-488e-9192-162cffa31324",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:19:58.771+00:00"
+    },
+    {
+      "id": "0d3f7684-81aa-4517-9742-bd79e74313aa",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:20:47.389+00:00"
+    },
+    {
+      "id": "e2909cb0-3ee1-4e5e-9b84-653f8884bc8b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:20:50.118+00:00"
+    },
+    {
+      "id": "b7594de8-20c3-4730-8491-81ce1e3d5d6f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 10,
+      "language": "en",
+      "createdAt": "2026-10-20T08:20:53.55+00:00"
+    },
+    {
+      "id": "ecbb60a1-a1fc-4270-abfc-85e656a3855b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 11,
+      "language": "en",
+      "createdAt": "2026-10-20T08:20:56.717+00:00"
+    },
+    {
+      "id": "5b995693-4a2d-429a-aefa-dc376bacab91",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:20:58.773+00:00"
+    },
+    {
+      "id": "b7eff14e-6d59-41be-9157-5a861b13c8bb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 12,
+      "language": "en",
+      "createdAt": "2026-10-20T08:21:00.485+00:00"
+    },
+    {
+      "id": "1403ecdc-2b78-419b-9483-7dde77c726e9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 12,
+      "language": "en",
+      "createdAt": "2026-10-20T08:21:15.711+00:00"
+    },
+    {
+      "id": "316b20af-e6a8-4f50-9091-a1c7661fc7fd",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:21:17.601+00:00"
+    },
+    {
+      "id": "421e734d-0900-42f1-90dd-2c539809cabe",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 10,
+      "language": "en",
+      "createdAt": "2026-10-20T08:21:25.993+00:00"
+    },
+    {
+      "id": "2a9c2ba3-cd6e-4785-8ea8-68e4952b3cb6",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:21:40.181+00:00"
+    },
+    {
+      "id": "2a08b996-ac89-401d-8072-75b52ec1feca",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:22:17.609+00:00"
+    },
+    {
+      "id": "6139eb36-a7b4-47e7-9976-8443c2f8b708",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:22:40.186+00:00"
+    },
+    {
+      "id": "c4c8d2de-6467-4632-b9c1-789ffefa7ccf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:23:51.186+00:00"
+    },
+    {
+      "id": "ae6ee18b-c9aa-4d73-84ef-2cb75d589bec",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:24:10.193+00:00"
+    },
+    {
+      "id": "4464a130-aff9-4467-875d-53e134e14c93",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 12,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:24:35.015+00:00"
+    },
+    {
+      "id": "b07eef63-11b8-4479-b1d3-c4ac8a0b5bfb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:24:51.198+00:00"
+    },
+    {
+      "id": "4d7f9ed8-fb89-4d4e-b104-4e86674b6056",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:25:40.194+00:00"
+    },
+    {
+      "id": "2d90bee3-c000-47be-acbe-8d744bd749b9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:26:21.195+00:00"
+    },
+    {
+      "id": "a64cc3b5-1cfe-4415-bd28-6f03e77dbf74",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:27:10.187+00:00"
+    },
+    {
+      "id": "68fe36e5-0c80-4001-93a5-09fe72976ba8",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:27:21.196+00:00"
+    },
+    {
+      "id": "78b76fe2-a137-449b-958a-be9492a91152",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:28:10.192+00:00"
+    },
+    {
+      "id": "488c9fa3-7734-494c-a78b-8de9092838f0",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 12,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:28:35.004+00:00"
+    },
+    {
+      "id": "01d1cb8f-954c-44e2-84b2-c77c14e280d4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-20T08:28:44.32+00:00"
+    },
+    {
+      "id": "ef2c7248-ac82-4faf-bc17-4131032ca8c1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 12,
+      "language": "en",
+      "createdAt": "2026-10-20T08:28:54.971+00:00"
+    },
+    {
+      "id": "7ffc92f0-f199-4c6c-820d-cdc35dd093c6",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:29:08.196+00:00"
+    },
+    {
+      "id": "a1086d3e-0c30-49e1-a537-f860ab2b2677",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:29:10.193+00:00"
+    },
+    {
+      "id": "a2a2ba0f-d38a-49b8-b396-ff5deeeedd8c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 11,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:29:43.472+00:00"
+    },
+    {
+      "id": "c7d74e4f-fe17-4fdc-8dd0-47322f3ad945",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 11,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:30:05.346+00:00"
+    },
+    {
+      "id": "bfd5be99-61ec-4138-974f-60f7132ee786",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:30:08.201+00:00"
+    },
+    {
+      "id": "f0c8d266-71f0-4e10-aec6-93159ad266a2",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 10,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:30:15.442+00:00"
+    },
+    {
+      "id": "383e0520-f807-4d83-892e-acc86fe178ef",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 10,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:30:22.15+00:00"
+    },
+    {
+      "id": "889ee85a-7200-4a63-bb0f-4cb4adf1f38a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:30:40.197+00:00"
+    },
+    {
+      "id": "ba5f4985-ce24-421e-bb1b-9738fb5a0d11",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:30:59.578+00:00"
+    },
+    {
+      "id": "eaf77103-c44b-44eb-80aa-6d4b2813c107",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 10,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:31:18.719+00:00"
+    },
+    {
+      "id": "f3a79c0a-a1cb-4be1-aa8b-18ab1d4dcd9c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 10,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:31:27.434+00:00"
+    },
+    {
+      "id": "bbbdddd6-e672-4424-8933-354ad359dd5c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:31:32.811+00:00"
+    },
+    {
+      "id": "7b7baccc-d7b0-46ca-b8ba-0261f7021bb7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 12,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:31:56.129+00:00"
+    },
+    {
+      "id": "0f2eadd1-87fb-4421-8ebd-bb833bd28b89",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:31:59.579+00:00"
+    },
+    {
+      "id": "f62d93df-5ada-4b71-abbc-862b1186e300",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:32:32.814+00:00"
+    },
+    {
+      "id": "376ee952-fdc9-49ac-b04d-55d8e14bcddf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:33:29.58+00:00"
+    },
+    {
+      "id": "877b016c-01d2-4709-ad06-8b9779906e19",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:33:32.847+00:00"
+    },
+    {
+      "id": "1e977b2f-e00d-4e94-a30f-28eeb9817f60",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:34:59.584+00:00"
+    },
+    {
+      "id": "f916186d-1783-4a02-ae65-410fd1da0d40",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:35:02.819+00:00"
+    },
+    {
+      "id": "0c1e446b-05d7-4906-8abf-715de1a2e1fb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:35:59.585+00:00"
+    },
+    {
+      "id": "1939b039-52a8-43fb-8e08-3ae9be7696b7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:36:32.82+00:00"
+    },
+    {
+      "id": "e0907489-c5b3-4b76-b2e6-ecccd37ca2cb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:36:59.587+00:00"
+    },
+    {
+      "id": "17f7a651-48f2-4ad9-a1d1-3c00e3e0477b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:37:59.592+00:00"
+    },
+    {
+      "id": "f0bcdeb3-3db8-4e0e-bcd7-3a3662fbeb6d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:38:02.812+00:00"
+    },
+    {
+      "id": "def0eb6d-6034-44ca-ab66-f9feb3b2c3cd",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:39:29.593+00:00"
+    },
+    {
+      "id": "ebc5262d-c587-467d-a15c-743aa7f961c9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:39:32.816+00:00"
+    },
+    {
+      "id": "738c7117-fe9f-44f2-aa48-7773cbdb6039",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:40:32.818+00:00"
+    },
+    {
+      "id": "9e935db3-f13f-41fa-ace3-88ae0550887f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:40:59.584+00:00"
+    },
+    {
+      "id": "42fde2c1-3fe1-4b5f-b486-32bbf8d06921",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:42:02.813+00:00"
+    },
+    {
+      "id": "1a03d65b-e6aa-4233-b211-50854ce33c12",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:42:29.592+00:00"
+    },
+    {
+      "id": "004ae5dc-fbde-425f-8ca9-cecf26ce7f08",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:43:02.816+00:00"
+    },
+    {
+      "id": "223f89d3-f7ca-461d-8e4a-13af809d7916",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:43:59.593+00:00"
+    },
+    {
+      "id": "6deee0c9-6926-47b5-b2dc-290d8c030468",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:44:02.821+00:00"
+    },
+    {
+      "id": "ae992365-1688-4542-bb2e-f52bd3e2e4c3",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:44:59.628+00:00"
+    },
+    {
+      "id": "383d1506-7e5a-4dd7-97ff-f40ad8a8c6c1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:45:32.822+00:00"
+    },
+    {
+      "id": "59cf5675-f299-48fc-ae6d-837f18ed20e7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:46:29.592+00:00"
+    },
+    {
+      "id": "0467e162-1fac-4e2a-afc5-f37dcd357f52",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:47:02.812+00:00"
+    },
+    {
+      "id": "84ca7fe8-8aca-45e8-801e-45c936828a3e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:48:59.594+00:00"
+    },
+    {
+      "id": "37596a56-1433-4191-b127-e97d09305163",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:49:40.858+00:00"
+    },
+    {
+      "id": "40565ebf-46db-4038-a1ce-900cbb54d058",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 5,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:50:14.611+00:00"
+    },
+    {
+      "id": "37aa9ffe-4bdc-4e95-b064-27a7aca11b60",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:50:40.864+00:00"
+    },
+    {
+      "id": "89986086-1e27-400d-8217-6c0f3c1b3616",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:51:40.864+00:00"
+    },
+    {
+      "id": "9d817fa0-59ed-44ab-bdd1-61321ad14d0b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:51:51.152+00:00"
+    },
+    {
+      "id": "9b5b08e9-7ad7-4658-aa6d-a1d28c739257",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-20T08:52:51.166+00:00"
+    },
+    {
+      "id": "9c8dd0fa-7d78-4c52-8576-d1dd6de3297a",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:49:29.015+00:00"
+    },
+    {
+      "id": "fce96c8d-a170-4d55-b941-be0ec72983c8",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:50:09.626+00:00"
+    },
+    {
+      "id": "b77bf0ce-b062-4e38-a774-fab7339d9432",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:50:14.995+00:00"
+    },
+    {
+      "id": "0dcb6448-0db4-413b-afd1-7ff70144a982",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-21T15:50:42.691+00:00"
+    },
+    {
+      "id": "2ad702fc-ae4d-401c-9ea8-07aca8129bfa",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-21T15:51:42.701+00:00"
+    },
+    {
+      "id": "cdb646a6-a233-471d-906e-f50657eeb15d",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 7,
+      "language": "en",
+      "createdAt": "2026-10-21T15:51:50.026+00:00"
+    },
+    {
+      "id": "a6c230b1-cf9f-409d-8148-fd08fe52e6a1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:52:02.061+00:00"
+    },
+    {
+      "id": "c6a24242-0ce8-4ac0-8dc3-2ea253c7077b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:53:02.07+00:00"
+    },
+    {
+      "id": "1f4572fe-0b2e-400a-8194-d6ef2fc5a99f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:54:32.066+00:00"
+    },
+    {
+      "id": "ec2aaad8-1700-4c9e-8fb7-45f922d089de",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:56:02.066+00:00"
+    },
+    {
+      "id": "a137757c-1910-426d-967b-6875b0c6a9e0",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:57:02.076+00:00"
+    },
+    {
+      "id": "ae7a65a8-9044-4d1b-856c-b1e9d479d3f4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:58:32.07+00:00"
+    },
+    {
+      "id": "d135f235-ad3a-45d6-8eff-03e4ece3a8d7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "play",
+      "placeId": 7,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:59:19.123+00:00"
+    },
+    {
+      "id": "fc6fbe48-af83-49d5-86b5-fa84cc1149a4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 11,
+      "language": "vi",
+      "createdAt": "2026-10-21T15:59:26.954+00:00"
+    },
+    {
+      "id": "99cf05fc-af6c-4383-9717-15093958ec70",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:00:02.064+00:00"
+    },
+    {
+      "id": "ff14dbf1-8618-41e0-945c-6d81464d9fef",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 4,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:00:07.487+00:00"
+    },
+    {
+      "id": "9a8f4b64-e196-4285-810f-03b31629c1f1",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:00:33.226+00:00"
+    },
+    {
+      "id": "cde7f2ef-2368-48ff-ab96-61ac3251c94e",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:01:33.234+00:00"
+    },
+    {
+      "id": "c78bd8e1-11db-42c2-98c4-fe8395e269ab",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:03:12.166+00:00"
+    },
+    {
+      "id": "5aeb7095-f672-47e7-969e-502b367affdf",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:04:12.166+00:00"
+    },
+    {
+      "id": "b67bdec4-726f-4fc9-93cb-705a50ef5630",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:05:12.171+00:00"
+    },
+    {
+      "id": "05605554-d84f-4bd2-abaf-c3fb90a3df1c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:06:42.175+00:00"
+    },
+    {
+      "id": "f5a646fc-f4c1-4ee4-95c3-3853896718f9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:07:42.176+00:00"
+    },
+    {
+      "id": "f108295d-0f21-44e5-814f-054a84db4da9",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:09:12.169+00:00"
+    },
+    {
+      "id": "cda5da79-bb65-41af-bdb4-784541c4eaf7",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:10:42.167+00:00"
+    },
+    {
+      "id": "f3613879-080a-4206-9cf9-22329ae2d0eb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:11:42.171+00:00"
+    },
+    {
+      "id": "a03af937-0258-4156-8b9f-0d08a04dac81",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:11:51.827+00:00"
+    },
+    {
+      "id": "b23b1767-caeb-4d6a-b596-0cfe8df573e2",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "fr",
+      "createdAt": "2026-10-21T16:12:30.654+00:00"
+    },
+    {
+      "id": "1fe31c9c-52d6-45e3-aacb-6905e714f7b6",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "ko",
+      "createdAt": "2026-10-21T16:12:33.329+00:00"
+    },
+    {
+      "id": "481ee258-0ca9-4ca9-a6b8-c13186f7325f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "zh",
+      "createdAt": "2026-10-21T16:12:35.154+00:00"
+    },
+    {
+      "id": "132c4057-393b-437f-8b26-4e80328b7fbd",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-21T16:12:37.643+00:00"
+    },
+    {
+      "id": "61cb4671-cfa1-4cd8-a9a9-00514d74e831",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:12:39.036+00:00"
+    },
+    {
+      "id": "9688bb6e-e3ba-41e7-afe7-b17957fb715f",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:13:21.819+00:00"
+    },
+    {
+      "id": "438b6ab8-11d5-4302-910a-18e047d610d8",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:13:46.875+00:00"
+    },
+    {
+      "id": "0f463679-036c-4f60-a21a-7a3cebadc5eb",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:14:42.016+00:00"
+    },
+    {
+      "id": "19a0b871-9dbe-452d-b64e-990443730e00",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:14:46.875+00:00"
+    },
+    {
+      "id": "70447353-3047-4ff3-a7c0-46841483bae4",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-21T16:14:47.608+00:00"
+    },
+    {
+      "id": "56912816-97d9-494a-a17e-c4bf28711f53",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 11,
+      "language": "en",
+      "createdAt": "2026-10-21T16:14:59.151+00:00"
+    },
+    {
+      "id": "0b1664cf-4b44-4f0e-b44d-98561341de58",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "view",
+      "placeId": 10,
+      "language": "en",
+      "createdAt": "2026-10-21T16:15:09.647+00:00"
+    },
+    {
+      "id": "ff7df932-2b2f-47c6-9dd8-627439da1b20",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "en",
+      "createdAt": "2026-10-21T16:15:47.609+00:00"
+    },
+    {
+      "id": "b7a23251-2aec-4fab-9ea5-8d7e9def899c",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:15:51.822+00:00"
+    },
+    {
+      "id": "0dd0c7af-1c2c-4c44-901a-7af0a2143d1b",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:16:06.865+00:00"
+    },
+    {
+      "id": "1bf07c46-cc18-4d3e-abb1-93c322e51d68",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:17:43.025+00:00"
+    },
+    {
+      "id": "c1cfd84e-f739-4150-973e-cac020cf3484",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:17:43.025+00:00"
+    },
+    {
+      "id": "8f249038-a7ae-4a63-9dca-008053db0195",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:20:13.308+00:00"
+    },
+    {
+      "id": "a51c7fe1-e0d1-4dfd-b41c-71986593fb4b",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "ja",
+      "createdAt": "2026-10-21T16:20:24.565+00:00"
+    },
+    {
+      "id": "b6864711-0a4b-4800-8f87-6128b529d317",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:20:27.115+00:00"
+    },
+    {
+      "id": "4932292b-498f-464e-b545-813b9c990f06",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "ko",
+      "createdAt": "2026-10-21T16:20:29.11+00:00"
+    },
+    {
+      "id": "e271675e-0a82-4b5b-96d9-936fe634b18e",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:20:32.563+00:00"
+    },
+    {
+      "id": "8e032f9a-5841-44fe-9706-a3f916984c4a",
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "kind": "view",
+      "placeId": 6,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:20:56.715+00:00"
+    },
+    {
+      "id": "3507d793-54f8-4449-ac22-7ce8836ab267",
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "kind": "heartbeat",
+      "placeId": null,
+      "language": "vi",
+      "createdAt": "2026-10-21T16:21:13.314+00:00"
+    }
+  ],
+  "pendingAnalytics": [],
+  "analyticsHeartbeats": [
+    {
+      "deviceId": "125c03dd-1afe-42d9-bf7d-39954b42e9c5",
+      "lastSeen": "2026-10-21T16:20:56.715+00:00"
+    },
+    {
+      "deviceId": "bd2af7c9-a863-4b91-8e32-c86c02f95632",
+      "lastSeen": "2026-10-21T16:21:13.314+00:00"
+    }
+  ],
+  "analyticsRevocations": {
+    "cd19e493-563d-40c0-a548-8fb8f7fa5523": "2026-11-17T18:24:47.2770344+00:00"
+  },
+  "runtimeLocations": [],
+  "ownerIdentities": [],
+  "runtimeRevocations": {},
+  "audioTasks": [
+    {
+      "id": "c4d04ae605234590ae08602d14d3834e",
+      "placeId": 1,
+      "languages": [
+        "vi"
+      ],
+      "status": "completed",
+      "completed": 1,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T03:56:04.9431399+00:00",
+      "updatedAt": "2026-10-14T03:56:05.6997596+00:00",
+      "sourceHash": "46b7a22983c93e66ee9bcee7e2a008a5c9d1405a8fc3b9be03549a69a37e2412",
+      "heartbeatAt": null
+    },
+    {
+      "id": "7e5d8ba79e954126a8834c5483016008",
+      "placeId": 1,
+      "languages": [
+        "en",
+        "vi"
+      ],
+      "status": "failed",
+      "completed": 0,
+      "error": "Edge-TTS ch\u01B0a t\u1EA1o \u0111\u01B0\u1EE3c audio. Ki\u1EC3m tra k\u1EBFt n\u1ED1i ho\u1EB7c th\u1EED t\u1EA1o t\u00E1c v\u1EE5 m\u1EDBi.",
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T03:56:11.4414425+00:00",
+      "updatedAt": "2026-10-14T03:56:17.3985241+00:00",
+      "sourceHash": "46b7a22983c93e66ee9bcee7e2a008a5c9d1405a8fc3b9be03549a69a37e2412",
+      "heartbeatAt": "2026-10-14T03:56:16.4867719+00:00"
+    },
+    {
+      "id": "8b1305d7c34d49409f646a47c3d4347f",
+      "placeId": 1,
+      "languages": [
+        "en"
+      ],
+      "status": "failed",
+      "completed": 0,
+      "error": "Edge-TTS ch\u01B0a t\u1EA1o \u0111\u01B0\u1EE3c audio. Ki\u1EC3m tra k\u1EBFt n\u1ED1i ho\u1EB7c th\u1EED t\u1EA1o t\u00E1c v\u1EE5 m\u1EDBi.",
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T03:56:22.5509033+00:00",
+      "updatedAt": "2026-10-14T03:56:27.1325147+00:00",
+      "sourceHash": "46b7a22983c93e66ee9bcee7e2a008a5c9d1405a8fc3b9be03549a69a37e2412",
+      "heartbeatAt": "2026-10-14T03:56:26.5001878+00:00"
+    },
+    {
+      "id": "15dc711557e640a180f96331233c257c",
+      "placeId": 1,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T04:37:22.1013525+00:00",
+      "updatedAt": "2026-10-14T04:37:44.5862051+00:00",
+      "sourceHash": "46b7a22983c93e66ee9bcee7e2a008a5c9d1405a8fc3b9be03549a69a37e2412",
+      "heartbeatAt": "2026-10-14T04:37:40.8837095+00:00"
+    },
+    {
+      "id": "f413596e75f3409cb0bd04464ad18722",
+      "placeId": 2,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T04:37:22.1142339+00:00",
+      "updatedAt": "2026-10-14T04:37:48.0398112+00:00",
+      "sourceHash": "15a15a0f3d4ff1643cb33425e4c5765d29693e4aa955bb181933c99d841fd3b5",
+      "heartbeatAt": "2026-10-14T04:37:45.8759186+00:00"
+    },
+    {
+      "id": "97c42f0edec04b83b3b21bac6770d4ab",
+      "placeId": 3,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T04:37:22.1185116+00:00",
+      "updatedAt": "2026-10-14T04:37:47.242774+00:00",
+      "sourceHash": "489a64b43e957301c046ccccd2a775e39fc46cccae8999f7088c5696fd9fa365",
+      "heartbeatAt": "2026-10-14T04:37:45.8759186+00:00"
+    },
+    {
+      "id": "03a28230a7d3427bab85b4b110c34b1e",
+      "placeId": 4,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:25:13.3976005+00:00",
+      "updatedAt": "2026-10-14T05:25:45.3882645+00:00",
+      "sourceHash": "3c94e47161121fe0ac91a6ea28590ecbd34cd7e2d4a0f58445e4ed32dbdf0a1a",
+      "heartbeatAt": "2026-10-14T05:25:41.1167034+00:00"
+    },
+    {
+      "id": "4fbeaafb9cad4db9beb6b4e14e644870",
+      "placeId": 5,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:25:13.4109854+00:00",
+      "updatedAt": "2026-10-14T05:25:46.1688403+00:00",
+      "sourceHash": "9e6be0582470841451c25ddee87c3dd617691b65d029473092fc0845a0c178ff",
+      "heartbeatAt": "2026-10-14T05:25:46.1196357+00:00"
+    },
+    {
+      "id": "4ca93bf05f42467a9bfdc2c83741adec",
+      "placeId": 6,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:25:13.4246755+00:00",
+      "updatedAt": "2026-10-14T05:25:43.9455141+00:00",
+      "sourceHash": "9b5c445f7ce6abd08233b6052c6cf26727f27325c1c4c726d72019b1e5b016e7",
+      "heartbeatAt": "2026-10-14T05:25:41.1167034+00:00"
+    },
+    {
+      "id": "0d79355193544bdd9fff549a61ff5636",
+      "placeId": 7,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:35:46.056236+00:00",
+      "updatedAt": "2026-10-14T05:36:24.6619072+00:00",
+      "sourceHash": "f856c2fb5abf81bdf236cd7421f725b4706e1c8c04d26a9c1082a46a6d1dce06",
+      "heartbeatAt": "2026-10-14T05:36:21.2483256+00:00"
+    },
+    {
+      "id": "0e51d9ab46984b208028942cb6deb2b5",
+      "placeId": 8,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-14T05:35:46.0680124+00:00",
+      "updatedAt": "2026-10-14T05:36:20.462614+00:00",
+      "sourceHash": "69568f2570a1d9ae36b3ecaa9b66ffa576fa52c49986685311669f512d6cc9d1",
+      "heartbeatAt": "2026-10-14T05:36:16.2427565+00:00"
+    },
+    {
+      "id": "b9363502dd88464ea52b1c4215121f8e",
+      "placeId": 4,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T18:38:28.3469074+00:00",
+      "updatedAt": "2026-10-17T18:39:42.4769777+00:00",
+      "sourceHash": "27737f2ead031e7a3591c2ac0f929e85748846d8fe7d2ff97a14293036211619",
+      "heartbeatAt": "2026-10-17T18:39:41.490821+00:00"
+    },
+    {
+      "id": "501d7db4565d414995372c0f81095204",
+      "placeId": 5,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T18:38:28.3835332+00:00",
+      "updatedAt": "2026-10-17T18:39:55.6824914+00:00",
+      "sourceHash": "ba432b8d3dc0bde5582733fff5fbb1260efb138fc40e4ca5b341913dd92c2517",
+      "heartbeatAt": "2026-10-17T18:39:51.4843299+00:00"
+    },
+    {
+      "id": "0908d658c62b4450a6ccd1b2a4c9f1e0",
+      "placeId": 6,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T18:38:28.4032292+00:00",
+      "updatedAt": "2026-10-17T18:40:19.897266+00:00",
+      "sourceHash": "3d6accbb34d0f8a9ffabfa9da08eb36786fde80ba33115b769998bb8f584ca35",
+      "heartbeatAt": "2026-10-17T18:40:16.4887173+00:00"
+    },
+    {
+      "id": "80bee6f5a1d9475181e055ed9f211b5e",
+      "placeId": 7,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T18:38:28.4179555+00:00",
+      "updatedAt": "2026-10-17T18:41:21.6310297+00:00",
+      "sourceHash": "6c8aabdd7c8de6a285d950e2a699716c2d94ad6dafa2a63fde0f3d226ee4c107",
+      "heartbeatAt": "2026-10-17T18:41:21.4932368+00:00"
+    },
+    {
+      "id": "9b8410bad0f64133ad4c637e96f194bc",
+      "placeId": 8,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-17T18:38:28.4337368+00:00",
+      "updatedAt": "2026-10-17T18:41:20.2276892+00:00",
+      "sourceHash": "807d9e00e459fb750ecc80ccf5a6c4561176735d4597055c798b5b053412e975",
+      "heartbeatAt": "2026-10-17T18:41:16.4991255+00:00"
+    },
+    {
+      "id": "c6e4af4d902647f3ac5d496dc83cbace",
+      "placeId": 10,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:23:26.0484512+00:00",
+      "updatedAt": "2026-10-20T08:24:02.7024433+00:00",
+      "sourceHash": "306cc7e52840ae747e63c56b20fc1c6b674b4029e50bb07eecc20c09d0e2b648",
+      "heartbeatAt": "2026-10-20T08:24:00.4670315+00:00"
+    },
+    {
+      "id": "d35bf632b60c47b58398703459752edd",
+      "placeId": 11,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:23:31.6877228+00:00",
+      "updatedAt": "2026-10-20T08:25:28.2885749+00:00",
+      "sourceHash": "5fb3c796f2dd992ef4f0dfdc9a0e3ac96655198619304656068577cb0ae0dd5f",
+      "heartbeatAt": "2026-10-20T08:25:25.4641715+00:00"
+    },
+    {
+      "id": "ae8153bab4114ad88f3bc1b04e87407c",
+      "placeId": 12,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:23:39.2391591+00:00",
+      "updatedAt": "2026-10-20T08:25:11.9469538+00:00",
+      "sourceHash": "9171cfd39b084a0a53591a9c87e33bbc3172110209177ec5806cccb3d54a6c0a",
+      "heartbeatAt": "2026-10-20T08:25:10.4625705+00:00"
+    },
+    {
+      "id": "646d01a833554120a9766bab15e04920",
+      "placeId": 4,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "failed",
+      "completed": 1,
+      "error": "Edge-TTS ch\u01B0a t\u1EA1o \u0111\u01B0\u1EE3c audio. Ki\u1EC3m tra k\u1EBFt n\u1ED1i ho\u1EB7c th\u1EED t\u1EA1o t\u00E1c v\u1EE5 m\u1EDBi.",
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:08.070313+00:00",
+      "updatedAt": "2026-10-20T08:50:48.5476187+00:00",
+      "sourceHash": "16b2337d56c23ef6aa6026ed8a9a8db6227b83940540f61541e161216e7b0eec",
+      "heartbeatAt": "2026-10-20T08:50:45.195772+00:00"
+    },
+    {
+      "id": "6ae8f50613114bf68c8d1536aac2a2f7",
+      "placeId": 5,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:18.1475456+00:00",
+      "updatedAt": "2026-10-20T08:53:12.62232+00:00",
+      "sourceHash": "fadac2ea8be5cf6bf854ade860bb1cd25871c1765084b915cf38928ad50047f9",
+      "heartbeatAt": "2026-10-20T08:53:10.1928786+00:00"
+    },
+    {
+      "id": "e6567c0b8a104905ba93930797e33b22",
+      "placeId": 6,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:18.5470065+00:00",
+      "updatedAt": "2026-10-20T08:53:44.5991313+00:00",
+      "sourceHash": "4952fddba972b2230f11871ad6062870df81d909119d645eaf84579c56a44c37",
+      "heartbeatAt": "2026-10-20T08:53:40.1997568+00:00"
+    },
+    {
+      "id": "e1a909069966417e8c32162789f88986",
+      "placeId": 7,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:18.9656599+00:00",
+      "updatedAt": "2026-10-20T08:53:09.1829194+00:00",
+      "sourceHash": "49db60122c2f77cfc1810bb554dfa2e05ded41f3a1b5e6385b88fb82ec539728",
+      "heartbeatAt": "2026-10-20T08:53:05.1908739+00:00"
+    },
+    {
+      "id": "c95798e5e1f144a08bddd4961387a2ff",
+      "placeId": 8,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:19.4152832+00:00",
+      "updatedAt": "2026-10-20T08:56:42.5221344+00:00",
+      "sourceHash": "1063eabbc928f96c0464ac2acd8e5b3e81ec8ba7771f93c64515c29091a31f5e",
+      "heartbeatAt": "2026-10-20T08:56:40.1867662+00:00"
+    },
+    {
+      "id": "dedfee6b7c004a6b8b8bf031b18c02f4",
+      "placeId": 10,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:19.7719308+00:00",
+      "updatedAt": "2026-10-20T08:55:57.7030965+00:00",
+      "sourceHash": "3f98736484c99e0dd7f89a91d8c21fd952c696afba6ed03c5c353bd563c6c2bc",
+      "heartbeatAt": "2026-10-20T08:55:55.19584+00:00"
+    },
+    {
+      "id": "a3c07dc714414054800f673ae5f1c297",
+      "placeId": 11,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:20.163051+00:00",
+      "updatedAt": "2026-10-20T08:55:47.7603842+00:00",
+      "sourceHash": "0729efdd4e4c009cc3090da8266ee7da81dddee8bb4db92aefe204b6d1bce188",
+      "heartbeatAt": "2026-10-20T08:55:45.1893596+00:00"
+    },
+    {
+      "id": "6297f3dbe67743c88670f87259b840e5",
+      "placeId": 12,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "failed",
+      "completed": 1,
+      "error": "Edge-TTS ch\u01B0a t\u1EA1o \u0111\u01B0\u1EE3c audio. Ki\u1EC3m tra k\u1EBFt n\u1ED1i ho\u1EB7c th\u1EED t\u1EA1o t\u00E1c v\u1EE5 m\u1EDBi.",
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-20T08:49:20.583106+00:00",
+      "updatedAt": "2026-10-20T08:58:23.1645231+00:00",
+      "sourceHash": "ca13d1f91c13dd9b6b61d2349d17e24e58e1ae66682c99e7ddb198bb57c21f66",
+      "heartbeatAt": "2026-10-20T08:58:20.1939041+00:00"
+    },
+    {
+      "id": "afa1e1a729704014b622350158133582",
+      "placeId": 4,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 6,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-21T15:42:13.510914+00:00",
+      "updatedAt": "2026-10-21T15:43:04.2341297+00:00",
+      "sourceHash": "16b2337d56c23ef6aa6026ed8a9a8db6227b83940540f61541e161216e7b0eec",
+      "heartbeatAt": "2026-10-21T15:43:00.6680181+00:00"
+    },
+    {
+      "id": "5125b300fb9442ceb86c132d7c91a3f6",
+      "placeId": 12,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "failed",
+      "completed": 1,
+      "error": "Edge-TTS ch\u01B0a t\u1EA1o \u0111\u01B0\u1EE3c audio. Ki\u1EC3m tra k\u1EBFt n\u1ED1i ho\u1EB7c th\u1EED t\u1EA1o t\u00E1c v\u1EE5 m\u1EDBi.",
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-21T15:42:13.794125+00:00",
+      "updatedAt": "2026-10-21T15:43:44.5537495+00:00",
+      "sourceHash": "ca13d1f91c13dd9b6b61d2349d17e24e58e1ae66682c99e7ddb198bb57c21f66",
+      "heartbeatAt": "2026-10-21T15:43:40.6609291+00:00"
+    },
+    {
+      "id": "9a887e6c6ae242bea4024c1629ca743a",
+      "placeId": 12,
+      "languages": [
+        "en",
+        "vi",
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "failed",
+      "completed": 1,
+      "error": "Edge-TTS ch\u01B0a t\u1EA1o \u0111\u01B0\u1EE3c audio. Ki\u1EC3m tra k\u1EBFt n\u1ED1i ho\u1EB7c th\u1EED t\u1EA1o t\u00E1c v\u1EE5 m\u1EDBi.",
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-21T16:01:08.8622394+00:00",
+      "updatedAt": "2026-10-21T16:02:39.6184843+00:00",
+      "sourceHash": "ca13d1f91c13dd9b6b61d2349d17e24e58e1ae66682c99e7ddb198bb57c21f66",
+      "heartbeatAt": "2026-10-21T16:02:35.6644525+00:00"
+    },
+    {
+      "id": "509463d7bfa64abe8bfc02a15d05133e",
+      "placeId": 12,
+      "languages": [
+        "zh",
+        "ja",
+        "ko",
+        "fr"
+      ],
+      "status": "completed",
+      "completed": 4,
+      "error": null,
+      "requestedBy": "310a58c36034411babf0b74bde72e0d8",
+      "createdAt": "2026-10-21T16:04:14.1757017+00:00",
+      "updatedAt": "2026-10-21T16:04:56.0516592+00:00",
+      "sourceHash": "ca13d1f91c13dd9b6b61d2349d17e24e58e1ae66682c99e7ddb198bb57c21f66",
+      "heartbeatAt": "2026-10-21T16:04:55.660781+00:00"
+    }
+  ],
+  "refreshSessions": [
+    {
+      "hash": "6758430bd2a266f93b5a19fb69476e16dc4c88e1a2ac790bf58cf95b7d2cecaf",
+      "userId": "310a58c36034411babf0b74bde72e0d8",
+      "securityStamp": "6d41b285c0f14e8e948f2dfa39750534",
+      "expiresAt": "2026-10-22T03:05:26.7066243+00:00"
+    },
+    {
+      "hash": "e0773f439c2486327058fab6fbff4660f5d3ca916676f0f5cde7afb091a806e4",
+      "userId": "310a58c36034411babf0b74bde72e0d8",
+      "securityStamp": "6d41b285c0f14e8e948f2dfa39750534",
+      "expiresAt": "2026-10-24T18:38:27.970667+00:00"
+    },
+    {
+      "hash": "af8b3570b6cb6a7b5cb7a5d7099501ab83f89c03e8fdecb20933a13e6238e572",
+      "userId": "310a58c36034411babf0b74bde72e0d8",
+      "securityStamp": "6d41b285c0f14e8e948f2dfa39750534",
+      "expiresAt": "2026-10-24T18:57:45.0986173+00:00"
+    },
+    {
+      "hash": "23e166c31d1222fda191ea87d639381cf685b53e842959d6ca685bc97f0d2f0e",
+      "userId": "310a58c36034411babf0b74bde72e0d8",
+      "securityStamp": "4427e8b6c06441acb1ec34c90389b230",
+      "expiresAt": "2026-10-28T16:03:11.4270451+00:00"
+    },
+    {
+      "hash": "74803ad0cfcff44ac55d8015ae3d3ca6dc061a60fab20e0e444214686cce5c96",
+      "userId": "310a58c36034411babf0b74bde72e0d8",
+      "securityStamp": "4427e8b6c06441acb1ec34c90389b230",
+      "expiresAt": "2026-10-28T16:21:16.3546621+00:00"
+    }
+  ],
+  "aiUsage": {},
+  "version": 46,
+  "sampleDataVersion": 8,
+  "updatedAt": "2026-10-20T08:56:53.0919469+00:00"
+}
