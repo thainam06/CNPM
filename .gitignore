@@ -15,6 +15,7 @@ temp/
 
 # Secret keys
 .env
+.env.docker
 appsettings.Local.json
 App_Data/
 **/App_Data/

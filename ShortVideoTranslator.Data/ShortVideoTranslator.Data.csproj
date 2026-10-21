@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShortVideoTranslator.Business\ShortVideoTranslator.Business.csproj" />
+    <EmbeddedResource Include="Content\professional-narration-edits.json" />
   </ItemGroup>
 
   <PropertyGroup>

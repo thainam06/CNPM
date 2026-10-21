@@ -57,7 +57,7 @@ public sealed class JsonPlatformStore : IPlatformStore, IPlaceRepository
         {
             var now = DateTimeOffset.UtcNow; var changed = false;
             _state.Places = _state.Places.Select(p => {
-                var narration = DemoNarrations.All.FirstOrDefault(item => item.Name == p.Name && item.PreviousText == p.Description);
+                var narration = DemoNarrations.Previous.FirstOrDefault(item => item.Name == p.Name && item.PreviousText == p.Description);
                 // Upgrade untouched system samples only. Keep owner/editor text, visibility and all media.
                 if (!TourRegion.Includes(p) || !p.IsDemo || p.OwnerId != null || narration == null) return p;
                 changed = true;
@@ -65,6 +65,40 @@ public sealed class JsonPlatformStore : IPlatformStore, IPlaceRepository
                     ReadyEnglishHash = null, AudioStatus = "missing", UpdatedAt = now };
             }).ToList();
             _state.SampleDataVersion = 6;
+            if (changed) { _state.Version++; _state.UpdatedAt = now; }
+            Write(_ => true);
+        }
+        if (_state.SampleDataVersion < 7)
+        {
+            var now = DateTimeOffset.UtcNow;
+            var next = Math.Max(_state.NextPlaceId, _state.Places.Select(p => p.Id)
+                .Concat(_state.DeletedPlaces.Select(p => p.Id)).DefaultIfEmpty(0).Max() + 1);
+            var changed = false;
+            foreach (var sample in AdditionalDemoPlaces.All)
+            {
+                // Keep matching editor/owner records, including intentionally hidden ones.
+                if (_state.Places.Any(p => TourRegion.Includes(p) && p.Name == sample.Name)) continue;
+                _state.Places.Add(sample with { Id = next++, UpdatedAt = now });
+                changed = true;
+            }
+            _state.NextPlaceId = next; _state.SampleDataVersion = 7;
+            if (changed) { _state.Version++; _state.UpdatedAt = now; }
+            Write(_ => true);
+        }
+        if (_state.SampleDataVersion < 8)
+        {
+            var now = DateTimeOffset.UtcNow; var changed = false;
+            _state.Places = _state.Places.Select(p => {
+                var revised = DemoNarrations.All.FirstOrDefault(n => n.Name == p.Name &&
+                    n.PreviousText.ReplaceLineEndings("\n") == p.Description.ReplaceLineEndings("\n"));
+                var previous = DemoNarrations.Previous.FirstOrDefault(n => n.Name == p.Name);
+                if (!TourRegion.Includes(p) || !p.IsDemo || p.OwnerId != null || revised == null ||
+                    (p.SourceUrl != previous?.SourceUrl && p.SourceUrl != revised.SourceUrl)) return p;
+                changed = true;
+                return p with { Description = revised.Texts["vi"], SourceUrl = revised.SourceUrl,
+                    ReadyEnglishHash = null, AudioStatus = "missing", NarrationRevisions = null, UpdatedAt = now };
+            }).ToList();
+            _state.SampleDataVersion = 8;
             if (changed) { _state.Version++; _state.UpdatedAt = now; }
             Write(_ => true);
         }

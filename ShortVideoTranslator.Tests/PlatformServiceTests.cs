@@ -48,7 +48,7 @@ public class PlatformServiceTests : IDisposable
         Assert.Throws<InvalidOperationException>(() => _store.Write<int>(s => { s.Places.Clear(); throw new InvalidOperationException(); }));
         Assert.Equivalent(original, _store.Read(s => s.Places[0]));
         _service.SavePlace(Admin(), new(0, "Test place", "Demo", "Demo content"), true);
-        Assert.Equal(6, new JsonPlatformStore(Path.Combine(_folder, "platform.json")).Read(s => s.Places.Count));
+        Assert.Equal(9, new JsonPlatformStore(Path.Combine(_folder, "platform.json")).Read(s => s.Places.Count));
     }
     [Fact]
     public void ConcurrentEditorMustReloadBeforeSaving()
@@ -138,14 +138,14 @@ public class PlatformServiceTests : IDisposable
         var edited = _store.Read(s => s.Places[0]) with { Name = "Member's edited place", ImageUrl = "https://example.com/member.jpg" };
         _store.Write(s => { s.Places[0] = edited; s.SampleDataVersion = 2; s.NextPlaceId = 42; return true; });
         var migrated = new JsonPlatformStore(Path.Combine(_folder, "platform.json"));
-        Assert.Equal(5, migrated.GetAll().Count);
+        Assert.Equal(8, migrated.GetAll().Count);
         Assert.All(migrated.GetAll(), p => { Assert.Equal("district1", p.Region); Assert.True(p.Id >= 42); });
         Assert.Null(migrated.GetById(edited.Id));
         var archived = migrated.Read(s => s.Places.Single(p => p.Id == edited.Id));
         Assert.Equal(edited.Name, archived.Name); Assert.Equal(edited.Description, archived.Description);
         Assert.Equal(edited.ImageUrl, archived.ImageUrl); Assert.Equal("district4", archived.Region);
         Assert.Equal(admin, migrated.Read(s => s.Users.Single().Id));
-        Assert.Equal(10, new JsonPlatformStore(Path.Combine(_folder, "platform.json")).Read(s => s.Places.Count));
+        Assert.Equal(16, new JsonPlatformStore(Path.Combine(_folder, "platform.json")).Read(s => s.Places.Count));
     }
     [Fact]
     public void ExtraDistrictOneSamplesDoNotOverwriteTheThreeExistingRecordsOrDuplicateOnRestart()
@@ -154,10 +154,39 @@ public class PlatformServiceTests : IDisposable
         existing = _service.SavePlace(actor, existing with { Name = "Edited district one record" });
         _store.Write(s => { s.Places = s.Places.Take(3).ToList(); s.SampleDataVersion = 3; s.NextPlaceId = 42; return true; });
         var path = Path.Combine(_folder, "platform.json"); var expanded = new JsonPlatformStore(path);
-        Assert.Equivalent(existing, expanded.GetById(existing.Id)); Assert.Equal(5, expanded.GetAll().Count);
+        Assert.Equivalent(existing, expanded.GetById(existing.Id)); Assert.Equal(8, expanded.GetAll().Count);
         Assert.Contains(expanded.GetAll(), p => p.Id == 42 && p.Name == "Phố đi bộ Nguyễn Huệ");
         Assert.Contains(expanded.GetAll(), p => p.Id == 43 && p.Name == "Nhà hát Thành phố");
-        Assert.Equal(5, new JsonPlatformStore(path).GetAll().Count);
+        Assert.Equal(8, new JsonPlatformStore(path).GetAll().Count);
+    }
+    [Fact]
+    public void NewAttractionsKeepEditedHiddenPlacesAndNeverReuseDeletedIdsOrReseedAfterDeletion()
+    {
+        var actor = Admin();
+        var park = _store.Read(s => s.Places.Single(p => p.Name == "Công viên Tao Đàn"))
+            with { Id = 123, Description = "Member-edited park content", IsActive = false, ImageUrl = "/api/media/member.jpg", Images = [] };
+        _store.Write(s => {
+            s.Places = s.Places.Take(5).Append(park).ToList();
+            s.Places[0] = s.Places[0] with { Description = "Member-edited market content" };
+            s.Menus.Add(new("keep-menu", s.Places[0].Id, "Fixture dish", "Synthetic menu", null));
+            s.DeletedPlaces.Add(new(124, DateTimeOffset.UtcNow)); s.NextPlaceId = 100;
+            s.SampleDataVersion = 6; return true;
+        });
+        var before = _store.Read(s => s);
+        var path = Path.Combine(_folder, "platform.json"); var migrated = new JsonPlatformStore(path);
+        var after = migrated.Read(s => s);
+        Assert.Equal(8, after.Places.Count);
+        foreach (var oldPlace in before.Places) Assert.Equivalent(oldPlace, after.Places.Single(p => p.Id == oldPlace.Id));
+        Assert.Equivalent(before.Users, after.Users); Assert.Equivalent(before.Menus, after.Menus);
+        Assert.Equivalent(before.Roles, after.Roles); Assert.Equivalent(before.DeletedPlaces, after.DeletedPlaces);
+        Assert.All(after.Places.Where(p => !before.Places.Any(old => old.Id == p.Id)), p => Assert.True(p.Id > 124));
+        Assert.Equal(before.Version + 1, after.Version);
+        Assert.Equivalent(after, new JsonPlatformStore(path).Read(s => s));
+        var service = new PlatformService(migrated);
+        service.DeletePlace(actor, after.Places.Single(p => p.Name == "Nhà thờ Đức Bà Sài Gòn").Id);
+        var restarted = new JsonPlatformStore(path);
+        Assert.DoesNotContain(restarted.Read(s => s.Places), p => p.Name == "Nhà thờ Đức Bà Sài Gòn");
+        Assert.Equal(8, restarted.Read(s => s.SampleDataVersion));
     }
     public void Dispose() { if (Directory.Exists(_folder)) Directory.Delete(_folder, true); }
 }

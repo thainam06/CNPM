@@ -1,5 +1,6 @@
 export const baseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 import { audioKey, offlineGet, offlineSet, offlineSetMany, offlineNotice, readOfflineAudio, saveOfflineAudio } from './offline';
+import { findReadyNarration, verifyPreparedAudio } from './readyNarration';
 export const apiUrl = (path) => `${baseUrl}/api${path}`;
 
 let refreshing;
@@ -77,6 +78,11 @@ export async function getPlace(id, signal) {
 export async function translate(text, language, signal, revision = '') {
   const key = await audioKey(text, language, revision);
   try {
+    const ready = await findReadyNarration(text, language, revision, apiRequest, signal);
+    if (ready) {
+      const data = { text: ready.text, language, provider: ready.provider || (language === 'vi' ? 'original' : 'MyMemory'), isMachineTranslation: language !== 'vi' && ready.provider !== 'reviewed' };
+      await offlineSet(`translation:${key}`, data).catch(() => {}); return data;
+    }
     const data = await (await apiRequest('/narration/translate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, revision }), signal })).json();
     await offlineSet(`translation:${key}`, data).catch(() => {}); return data;
   } catch (error) {
@@ -92,7 +98,10 @@ export async function createSpeech(text, language, signal, revision = '') {
   const cached = await readOfflineAudio(key);
   if (signal?.aborted) throw new DOMException('Đã hủy yêu cầu.', 'AbortError');
   if (cached) return cached;
-  const blob = await (await apiRequest('/narration/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, revision }), signal })).blob();
+  const ready = await findReadyNarration(text, language, revision, apiRequest, signal);
+  const blob = ready
+    ? await verifyPreparedAudio(await (await apiRequest(ready.audioUrl.replace(/^\/api/, ''), { signal })).blob(), ready, signal)
+    : await (await apiRequest('/narration/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, revision }), signal })).blob();
   if (signal?.aborted) throw new DOMException('Đã hủy yêu cầu.', 'AbortError');
   await saveOfflineAudio(key, blob, language).catch(() => {}); return blob;
 }

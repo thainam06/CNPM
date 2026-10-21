@@ -90,11 +90,25 @@ public class AdminIntegrationTests
         var created = await Send(client, "/api/admin/places", new Place(0, "HTTP test place", "Demo", "Test content", IsActive: false));
         created.EnsureSuccessStatusCode(); var place = (await created.Content.ReadFromJsonAsync<Place>())!;
         Assert.DoesNotContain((await client.GetFromJsonAsync<Place[]>("/api/places"))!, item => item.Id == place.Id);
-        (await Send(client, $"/api/admin/places/{place.Id}", place with { IsActive = true }, HttpMethod.Put)).EnsureSuccessStatusCode();
+        var updatedResponse = await Send(client, $"/api/admin/places/{place.Id}", place with { Name = "Updated HTTP POI", Description = "Updated narration", Address = "Demo address, not verified", IsActive = true }, HttpMethod.Put);
+        updatedResponse.EnsureSuccessStatusCode(); var updated = (await updatedResponse.Content.ReadFromJsonAsync<Place>())!;
         Assert.Equal(HttpStatusCode.Conflict, (await Send(client, $"/api/admin/places/{place.Id}", place, HttpMethod.Put)).StatusCode);
+        var published = (await client.GetFromJsonAsync<Place>($"/api/places/{place.Id}"))!;
+        Assert.Equal("Updated HTTP POI", published.Name); Assert.Equal("Updated narration", published.Description);
+        Assert.Equal(updated.Address, published.Address);
+        var persisted = new ShortVideoTranslator.Data.JsonPlatformStore(Path.Combine(app.Folder, "platform.json"));
+        Assert.Equal("Updated narration", persisted.GetById(place.Id)!.Description);
+        var hiddenResponse = await Send(client, $"/api/admin/places/{place.Id}", updated with { IsActive = false }, HttpMethod.Put);
+        hiddenResponse.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync($"/api/places/{place.Id}")).StatusCode);
+        Assert.Contains((await client.GetFromJsonAsync<Place[]>("/api/admin/places"))!, item => item.Id == place.Id && !item.IsActive);
+        var hidden = (await hiddenResponse.Content.ReadFromJsonAsync<Place>())!;
+        (await Send(client, $"/api/admin/places/{place.Id}", hidden with { IsActive = true }, HttpMethod.Put)).EnsureSuccessStatusCode();
         Assert.Equal(HttpStatusCode.OK, (await client.GetAsync($"/api/places/{place.Id}")).StatusCode);
         (await Send(client, $"/api/admin/places/{place.Id}", new { }, HttpMethod.Delete)).EnsureSuccessStatusCode();
         Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync($"/api/places/{place.Id}")).StatusCode);
+        Assert.DoesNotContain((await client.GetFromJsonAsync<Place[]>("/api/admin/places"))!, item => item.Id == place.Id);
+        Assert.Null(new ShortVideoTranslator.Data.JsonPlatformStore(Path.Combine(app.Folder, "platform.json")).GetById(place.Id));
     }
     [Fact]
     public async Task OwnerCannotReadAdminOrSubmitBeforeReview()
