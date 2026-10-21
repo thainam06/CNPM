@@ -1,0 +1,16 @@
+﻿{
+    "bytes":  1914259,
+    "version":  "protomaps-20261013-q1-v1",
+    "minZoom":  0,
+    "maxZoom":  15,
+    "license":  "ODbL Produced Work; OpenStreetMap attribution required",
+    "sourceUrl":  "https://build.protomaps.com/20261013.pmtiles",
+    "bounds":  [
+                   106.6853694,
+                   10.7625222,
+                   106.71,
+                   10.79
+               ],
+    "attribution":  "OpenStreetMap contributors / Protomaps / Natural Earth",
+    "sha256":  "f7eae506d4fb67027ef8fe9a6ed4435d67f909308efecdc1aba2dad502b7fef9"
+}
