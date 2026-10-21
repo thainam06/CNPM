@@ -8,7 +8,7 @@ public sealed record DemoNarration(string Name, string PreviousText, string Sour
 public sealed class DemoNarrations : ISampleNarrationCatalog
 {
     public const string Provider = "SmartTourDraft";
-    public static readonly IReadOnlyList<DemoNarration> All = Array.AsReadOnly(new[] {
+    internal static readonly IReadOnlyList<DemoNarration> Previous = Array.AsReadOnly(new[] {
         new DemoNarration("Chợ Bến Thành",
             "Chợ Bến Thành nằm ở trung tâm Quận 1, là điểm tham quan, mua sắm và khám phá ẩm thực Sài Gòn.",
             "https://benthanhmarket.vn/about/gioi-thieu-ve-cho-ben-thanh.html", new() {
@@ -234,7 +234,9 @@ public sealed class DemoNarrations : ISampleNarrationCatalog
 
                 Si vous passez devant, admirez la façade depuis un endroit sûr plutôt que de descendre sur la chaussée pour une photo. Pour assister à un spectacle, consultez le programme et les informations de billetterie de l'organisateur pour la date choisie. La visite intérieure n'est pas toujours possible. Une halte ou une représentation peuvent donner envie de découvrir la vie artistique de la ville.
                 """ })
-    });
+    }.Concat(AdditionalDemoNarrations.All).ToArray());
+
+    public static readonly IReadOnlyList<DemoNarration> All = ProfessionalDemoNarrations.Build(Previous);
 
     public static DemoNarration For(string name) => All.Single(item => item.Name == name);
 

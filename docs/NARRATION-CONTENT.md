@@ -1,4 +1,16 @@
-# Thuyết minh Quận 1 — biên soạn 18/10/2026
+# Thuyết minh Quận 1
+
+## Bản biên tập 20–21/10/2026
+
+Hiện có tám bài, mỗi bài Việt có năm đoạn, dài 1.582–1.782 ký tự. Nguồn nội dung mới: `ShortVideoTranslator.Data/Content/professional-narration-edits.json`; `ProfessionalDemoNarrations.cs` kết hợp lời dẫn, đoạn lịch sử đã đối chiếu, chi tiết quan sát và lời kết thành bộ sáu ngôn ngữ. API trả toàn bộ bài; website hiển thị lời dẫn trước và phần mở rộng theo đoạn, lời đọc dùng đúng toàn bộ nội dung.
+
+Migration v8 chỉ cập nhật bài demo hệ thống chưa bị sửa, khớp nguồn và nội dung mẫu trước đó. Giữ nguyên ID, ảnh, tọa độ, trạng thái ẩn/công khai; bỏ qua nội dung thành viên/chủ quán và nguồn tùy chỉnh. Cache/revision cũ không được coi là audio của bài mới. Kiểm thử bảo vệ các điều kiện này nằm trong DemoNarrationTests.
+
+Ba điểm bổ sung: Nhà thờ Đức Bà, Bảo tàng Mỹ thuật TP.HCM, Công viên Tao Đàn. Nguồn: [Cục Du lịch — Nhà thờ](https://vietnamtourism.vn/index.php/tourism/items/270/3), [Bảo tàng — tham quan](https://www.baotangmythuattphcm.com.vn/tham-quan), [Trung tâm Xúc tiến Du lịch TP.HCM — công viên](https://visithcmc.net/news/top-9-cong-vien-lon-nhat-o-tphcm). Nguồn Bưu điện đã thay bằng [trang Vietnam Post tiếng Việt](https://vnpost.vn/vi/bai-viet/buu-dien-trung-tam-thanh-pho-ho-chi-minh-mot-diem-den-hap-dan).
+
+Bản dịch vẫn mang provider SmartTourDraft và nhãn nháp AI hỗ trợ, chưa chuyên gia hiệu đính. Không đổi nhãn thành bản dịch đã duyệt hoặc phản hồi dịch vụ trực tiếp. Đã tạo và kiểm tra GET/byte/SHA-256/codec cho 48/48 MP3 đúng nguồn mới ngày 21/10. Kết quả audio hiện tại được ghi riêng trong `DEMO-2-GIAO-DIEN.md` và bằng chứng checksum/codec ignored; phần dưới là lịch sử cho bộ năm bài ngày 18/10.
+
+## Lịch sử biên soạn 18/10/2026
 
 Nội dung đầy đủ nằm trong `ShortVideoTranslator.Data/DemoNarrations.cs`, được API địa điểm trả về và hiển thị trên website. Mỗi bài có lời dẫn, phần tìm hiểu và gợi ý quan sát. Không chép nguyên bài nguồn, không dùng nội dung quảng cáo của địa điểm khác. Giữ nhãn demo: đây là nội dung do AI hỗ trợ biên soạn để phục vụ đồ án, không phải bài thuyết minh do đơn vị quản lý phát hành.
 

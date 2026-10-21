@@ -8,11 +8,11 @@ public class PlaceServiceTests
     private readonly PlaceService _places = new(new DemoPlaceRepository());
 
     [Fact]
-    public void DemoCatalogHasFiveDistrictOnePlacesAndMarksUnverifiedLocationData()
+    public void DemoCatalogHasEightDistrictOnePlacesAndMarksUnverifiedLocationData()
     {
         var places = _places.GetAll();
-        Assert.Equal(5, places.Count);
-        Assert.Equal(5, places.Select(place => place.Id).Distinct().Count());
+        Assert.Equal(8, places.Count);
+        Assert.Equal(8, places.Select(place => place.Id).Distinct().Count());
         Assert.All(places, place => {
             Assert.True(place.IsDemo);
             Assert.Equal("district1", place.Region);
@@ -25,7 +25,7 @@ public class PlaceServiceTests
     }
 
     [Theory]
-    [InlineData(1)][InlineData(2)][InlineData(3)][InlineData(4)][InlineData(5)]
+    [InlineData(1)][InlineData(2)][InlineData(3)][InlineData(4)][InlineData(5)][InlineData(6)][InlineData(7)][InlineData(8)]
     public void DetailMatchesCatalog(int id) => Assert.Equal(_places.GetAll().Single(place => place.Id == id), _places.GetById(id));
 
     [Fact]

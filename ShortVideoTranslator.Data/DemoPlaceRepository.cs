@@ -58,7 +58,7 @@ public class DemoPlaceRepository : IPlaceRepository
             ImageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/60/HCM-City_Oper.jpg",
             ImageSourceUrl: "https://commons.wikimedia.org/wiki/File:HCM-City_Oper.jpg",
             ImageNote: "Nhà hát Thành phố — Andre Lettau / Wikimedia Commons, CC BY-SA 3.0. Ảnh năm 2003, được cắt khung khi hiển thị.", ImageFocusY: 35)
-    }.Select(p => p with { Images = DemoPlacePhotos.For(p.Name) }).ToArray());
+    }.Concat(AdditionalDemoPlaces.All).Select(p => p with { Images = p.Images ?? DemoPlacePhotos.For(p.Name) }).ToArray());
 
     public IReadOnlyList<Place> GetAll() => Places;
     public Place? GetById(int id) => Places.FirstOrDefault(place => place.Id == id);

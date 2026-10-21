@@ -1,0 +1,30 @@
+name: smarttour-demo
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    environment:
+      # Local HTTP demo only. Public deployment requires HTTPS and Production configuration.
+      ASPNETCORE_ENVIRONMENT: Development
+      TextToSpeech__TimeoutSeconds: "180"
+      Security__JwtSecret: ${SMARTTOUR_JWT_SECRET:?Run scripts/Docker-Demo.ps1 -Action Init first}
+      Admin__BootstrapUsername: ${SMARTTOUR_ADMIN_USERNAME:-admin}
+      Admin__BootstrapPassword: ${SMARTTOUR_ADMIN_PASSWORD:?Set the Docker demo admin password}
+    volumes:
+      - smarttour-data:/app/App_Data
+      - smarttour-keys:/home/app/.aspnet/DataProtection-Keys
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    ports:
+      - "127.0.0.1:${SMARTTOUR_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  smarttour-data:
+  smarttour-keys:

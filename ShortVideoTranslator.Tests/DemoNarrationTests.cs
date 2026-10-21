@@ -12,7 +12,8 @@ public class DemoNarrationTests
         var catalog = new DemoNarrations();
         var translations = new TranslationService(client, new() { Enabled = false }, catalog);
         foreach (var place in new DemoPlaceRepository().GetAll()) {
-            Assert.InRange(place.Description.Length, 800, 3000); Assert.Contains("\n\n", place.Description);
+            Assert.InRange(place.Description.Length, 1200, 3000);
+            Assert.True(place.Description.Split("\n\n").Length >= 5);
             foreach (var language in NarrationLanguages.Codes) {
                 var result = await translations.TranslateAsync(place.Description, language);
                 NarrationLanguages.ValidateText(result.Text);
@@ -32,6 +33,7 @@ public class DemoNarrationTests
             var path = Path.Combine(folder, "platform.json"); var store = new JsonPlatformStore(path);
             store.Write(s => {
                 s.SampleDataVersion = 5;
+                s.Places = s.Places.Take(5).ToList();
                 s.Places = s.Places.Select(p => p with { Description = DemoNarrations.All.Single(n => n.Name == p.Name).PreviousText, ReadyEnglishHash = "old", AudioStatus = "ready" }).ToList();
                 s.Places[0] = s.Places[0] with { IsActive = false, ImageUrl = "/api/media/keep.jpg", Images = [] };
                 s.Places[1] = s.Places[1] with { Description = "Nội dung do thành viên biên tập." };
@@ -47,8 +49,44 @@ public class DemoNarrationTests
             Assert.Null(after[0].ReadyEnglishHash); Assert.Equal("missing", after[0].AudioStatus);
             for (var index = 1; index < before.Count; index++) Assert.Equivalent(before[index], after[index]);
             var version = migrated.Read(s => s.Version);
-            Assert.Equal(6, migrated.Read(s => s.SampleDataVersion));
+            Assert.Equal(8, migrated.Read(s => s.SampleDataVersion));
             Assert.Equal(version, new JsonPlatformStore(path).Read(s => s.Version));
+        } finally { if (Directory.Exists(folder)) Directory.Delete(folder, true); }
+    }
+    [Fact]
+    public void ProfessionalUpgradePreservesEditsAndOnlyClearsAudioForChangedSources()
+    {
+        var folder = Path.Combine(Path.GetTempPath(), "SmartTourNarrations", Guid.NewGuid().ToString("N"));
+        try {
+            var path = Path.Combine(folder, "platform.json"); var store = new JsonPlatformStore(path);
+            store.Write(s => {
+                s.SampleDataVersion = 7;
+                s.Places = s.Places.Select(p => p with {
+                    Description = DemoNarrations.All.Single(n => n.Name == p.Name).PreviousText,
+                    ReadyEnglishHash = "old", AudioStatus = "ready",
+                    NarrationRevisions = new() { ["en"] = "old-revision" }
+                }).ToList();
+                s.Places[0] = s.Places[0] with { SourceUrl = "https://vietnamtourism.vn/index.php/tourism/items/511", IsActive = false, Images = [], ImageUrl = "/api/media/member.jpg" };
+                s.Places[1] = s.Places[1] with { Description = "Bài do thành viên biên soạn." };
+                s.Places[2] = s.Places[2] with { OwnerId = "owner-fixture" };
+                s.Places[3] = s.Places[3] with { SourceUrl = "https://example.org/member-source" };
+                s.Places[4] = s.Places[4] with { IsDemo = false };
+                s.Places[5] = s.Places[5] with { Region = "district4" };
+                return true;
+            });
+            var before = store.Read(s => s); var migrated = new JsonPlatformStore(path); var after = migrated.Read(s => s);
+            Assert.Equal(8, after.SampleDataVersion); Assert.Equal(before.Version + 1, after.Version);
+            Assert.Equal(before.NextPlaceId, after.NextPlaceId); Assert.Equal(before.Places.Count, after.Places.Count);
+            for (var index = 0; index < after.Places.Count; index++) {
+                if (index is >= 1 and <= 5) { Assert.Equivalent(before.Places[index], after.Places[index]); continue; }
+                var revised = after.Places[index];
+                Assert.Equal(DemoNarrations.All.Single(n => n.Name == revised.Name).Texts["vi"], revised.Description);
+                Assert.Null(revised.ReadyEnglishHash); Assert.Null(revised.NarrationRevisions); Assert.Equal("missing", revised.AudioStatus);
+                Assert.Equivalent(before.Places[index], revised with { Description = before.Places[index].Description,
+                    SourceUrl = before.Places[index].SourceUrl, UpdatedAt = before.Places[index].UpdatedAt,
+                    ReadyEnglishHash = "old", AudioStatus = "ready", NarrationRevisions = before.Places[index].NarrationRevisions });
+            }
+            Assert.Equivalent(after, new JsonPlatformStore(path).Read(s => s));
         } finally { if (Directory.Exists(folder)) Directory.Delete(folder, true); }
     }
     private sealed class NoNetwork : HttpMessageHandler

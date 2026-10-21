@@ -9,6 +9,7 @@ import { portalLanguages } from './portalMessages';
 import OwnerNotifications, { NotificationBell } from './OwnerNotifications';
 import { notificationRoute } from './notificationRoute';
 import RegistrationStatus from './RegistrationStatus';
+import PoiManager from './PoiManager';
 
 const labels = { translations: 'Bản dịch thuyết minh', overview: 'Tổng quan', places: 'Địa điểm', users: 'Tài khoản', roles: 'Vai trò', reviews: 'Kiểm duyệt', audio: 'Tác vụ audio', audit: 'Nhật ký', submissions: 'Đề xuất', notifications: 'Thông báo', runtime: 'Giám sát vị trí', system: 'Kiểm tra hệ thống', identity: 'Xác minh chủ quán', password: 'Mật khẩu' };
 const permissions = { translations: 'poi:update', overview: 'analytics:view', places: 'poi:update', users: 'user:read', roles: 'role:read', reviews: 'content:moderate', audio: 'poi:update', audit: 'audit:read', runtime: 'system:logs', system: 'system:logs' };
@@ -91,6 +92,8 @@ function PortalContent({ language, onLanguage }) { const t = usePortalText();
     finally { setBusy(false); }
   }
   function selectTab(value) {
+    // Re-selecting the current tab clears its data too, so it must trigger a new request.
+    setRevision(current => current + 1);
     setTab(value); setData(null); setEditor(null); setError(''); setNotice('');
     if (owner) {
       if (value === 'notifications') window.location.hash = 'thong-bao';
@@ -122,7 +125,7 @@ function PortalContent({ language, onLanguage }) { const t = usePortalText();
       {!owner && <p className="muted">Lần chạy đầu tạo tài khoản local trong file <code>ShortVideoTranslator.Api/App_Data/bootstrap-admin.txt</code>. Mật khẩu không được đưa lên Git.</p>}
       {error && <p className="notice" role="alert">{error}</p>}{notice && <p className="success" role="status">{notice}</p>}
     </main> : <div className="portal-layout"><aside className="portal-sidebar"><strong>{user.displayName}</strong><small>{user.role} · phiên 30 phút</small>
-      {allowedTabs.map(key => <button key={key} className={tab === key ? 'selected' : ''} onClick={() => selectTab(key)}>{t(labels[key])}</button>)}
+      {allowedTabs.map(key => <button key={key} className={tab === key ? 'selected' : ''} aria-current={tab === key ? 'page' : undefined} onClick={() => selectTab(key)}><span className="portal-nav-icon" aria-hidden="true">{{ overview:'◫', places:'⌖', translations:'文', users:'♙', roles:'◇', reviews:'✓', audio:'♫', audit:'≡', runtime:'◎', system:'⚙', submissions:'↗', notifications:'◉', identity:'▣', password:'⚿' }[key]}</span>{t(labels[key])}</button>)}
       <a href={owner ? '/admin' : '/owner'}>{owner ? t('Cổng quản trị') : t('Cổng chủ quán')}</a>
       <button disabled={busy} onClick={async () => { if (await run(() => mutateApi('/auth/logout'), 'Đã đăng xuất.')) { setUser(null); setData(null); } }}>{t('Đăng xuất')}</button>
     </aside><main className="portal-main">
@@ -138,10 +141,10 @@ function PortalContent({ language, onLanguage }) { const t = usePortalText();
         </section>}
         {tab === 'overview' && data && (owner ? <Table headings={[t('Địa điểm'), t('Sự kiện được đồng ý')]} >{data.map(item => <tr key={item.placeId}><td>{item.name}</td><td>{item.events}</td></tr>)}</Table> : <><div className="metric-grid">{[[t('Địa điểm'), data.places], [t('Đang công khai'), data.activePlaces], [t('Tài khoản'), data.users], [t('Chờ duyệt'), data.pendingReviews], [t('Sự kiện được đồng ý'), data.events], [t('Thiết bị hoạt động · 5 phút'), data.consentedOnlineDevices], [t('Thống kê đang chờ xử lý'), data.pendingAnalytics]].map(([label, value]) => <div className="metric-card" key={label}><strong>{value}</strong><span>{t(label)}</span></div>)}</div><p className="muted">Thống kê chỉ ghi nhận khi khách đồng ý. Không thu thập vị trí hoặc danh tính cá nhân.</p>{can('analytics:export') && <a href={apiUrl('/admin/analytics/export')}>{t('Tải thống kê CSV')}</a>}</>)}
         {tab === 'places' && Array.isArray(data) && <>
-          {(owner || can('poi:create')) && <button className="primary" onClick={() => setEditor({ ...blankPlace })}>{owner ? t('+ Đề xuất địa điểm mới') : t('+ Thêm địa điểm')}</button>}
-          {editor && <PlaceEditor key={editor.id} value={editor} busy={busy} owners={owners} owner={owner} onCancel={() => setEditor(null)} onSave={async value => { const outcome = await run(() => mutateApi(owner ? '/owner/submissions' : `/admin/places${value.id ? `/${value.id}` : ''}`, owner || !value.id ? 'POST' : 'PUT', value), owner ? 'Đề xuất đã gửi, chờ Admin duyệt.' : 'Địa điểm đã được lưu.'); if (outcome) setEditor(null); }} run={run} />}
-          <Table headings={[t('Địa điểm'), t('Trạng thái'), t('Dữ liệu'), t('Thao tác')]}>{data.map(item => <tr key={item.id}><td><strong>{item.name}</strong><small>{item.category} · {item.region === 'district4' ? 'Lưu trữ Quận 4' : 'Quận 1'}</small></td><td>{item.region === 'district4' ? 'Ngoài phạm vi hiện tại' : item.isActive ? t('Công khai') : item.activationRequested ? 'Chờ audio tiếng Anh' : t('Ẩn')}</td><td>{item.isDemo ? 'Demo' : 'Có nguồn'}<small>{item.locationVerified ? 'Tọa độ đã xác minh' : 'Chưa xác minh tọa độ'}</small></td><td><button onClick={() => setEditor(item)}>{owner ? t('Đề xuất sửa') : t('Sửa')}</button>{!owner && can('poi:delete') && <button className="danger" disabled={busy} onClick={() => { if (window.confirm(`Xóa địa điểm ${item.name} và thực đơn?`)) run(() => mutateApi(`/admin/places/${item.id}`, 'DELETE'), 'Đã xóa địa điểm.'); }}>{t('Xóa')}</button>}</td></tr>)}</Table>
-          {data.length === 0 && <p>Chưa có địa điểm. Bạn có thể gửi đề xuất mới.</p>}
+          <PoiManager places={data} owner={owner} can={can} busy={busy} editing={!!editor} onCreate={() => setEditor({ ...blankPlace })} onEdit={setEditor}
+            onToggle={item => run(() => mutateApi(`/admin/places/${item.id}`, 'PUT', { ...item, isActive: !(item.isActive || item.activationRequested) }), item.isActive || item.activationRequested ? 'Đã ẩn địa điểm khỏi trang khám phá.' : item.isDemo || item.audioStatus === 'ready' ? 'Đã công khai địa điểm.' : 'Đã gửi yêu cầu công khai. Đang chuẩn bị audio tiếng Anh.')}
+            onDelete={item => { if (window.confirm(`Xóa địa điểm “${item.name}” và thực đơn liên quan? Thao tác này không thể hoàn tác trong giao diện. Có thể chọn Ẩn địa điểm nếu chỉ muốn ngừng hiển thị.`)) run(() => mutateApi(`/admin/places/${item.id}`, 'DELETE'), 'Đã xóa địa điểm.'); }} />
+          {editor && <PlaceEditor key={editor.id} value={editor} busy={busy} owners={owners} owner={owner} canToggle={can('poi:toggle')} onCancel={() => setEditor(null)} onSave={async value => { const outcome = await run(() => mutateApi(owner ? '/owner/submissions' : `/admin/places${value.id ? `/${value.id}` : ''}`, owner || !value.id ? 'POST' : 'PUT', value), owner ? 'Đề xuất đã gửi, chờ Admin duyệt.' : 'Địa điểm đã được lưu.'); if (outcome) setEditor(null); }} run={run} />}
         </>}
         {tab === 'users' && Array.isArray(data) && <>
           {can('user:create') && <UserForm roles={roles} busy={busy} onSubmit={body => run(() => mutateApi('/admin/users', 'POST', body), 'Đã tạo tài khoản.')} />}
@@ -167,15 +170,17 @@ function PasswordForm({ onSubmit, busy }) { const t = usePortalText();
   return <form className="portal-card compact-form" onSubmit={event => { event.preventDefault(); onSubmit(form); }}><p>{t('Mật khẩu mới cần ít nhất 7 ký tự.')}</p><label>{t('Mật khẩu hiện tại')}<input type="password" required autoComplete="current-password" value={form.currentPassword} onChange={event => setForm({ ...form, currentPassword: event.target.value })} /></label><label>{t('Mật khẩu mới')}<input type="password" required autoComplete="new-password" minLength={7} maxLength={128} value={form.newPassword} onChange={event => setForm({ ...form, newPassword: event.target.value })} /></label><button className="primary" disabled={busy}>{t('Đổi mật khẩu')}</button></form>;
 }
 
-function PlaceEditor({ value, onSave, onCancel, busy, owners, owner, run }) { const t = usePortalText();
+function PlaceEditor({ value, onSave, onCancel, busy, owners, owner, canToggle, run }) { const t = usePortalText();
   const [form, setForm] = useState({ ...blankPlace, ...value, isActive: value.isActive || value.activationRequested || false });
+  useEffect(() => { document.getElementById('poi-editor')?.scrollIntoView({ block: 'start', behavior: 'instant' }); }, []);
   const set = (key, next) => setForm(previous => ({ ...previous, [key]: next }));
-  return <section className="portal-card"><h2>{value.id ? t('Chỉnh sửa địa điểm') : t('Địa điểm mới')}</h2><form onSubmit={event => {
+  return <section className="portal-card poi-editor" id="poi-editor" aria-label="Biên tập địa điểm"><div className="poi-editor-heading"><div><span className="eyebrow">{value.id ? `POI #${value.id}` : 'NEW POINT OF INTEREST'}</span><h2>{value.id ? t('Chỉnh sửa địa điểm') : t('Địa điểm mới')}</h2></div><button type="button" disabled={busy} onClick={onCancel}>{t('Đóng')} ×</button></div><p className="muted">Thông tin có dấu * là bắt buộc. Thay đổi chỉ có hiệu lực sau khi lưu.</p><form onSubmit={event => {
     event.preventDefault(); onSave({ ...form, latitude: form.latitude === '' || form.latitude === null ? null : Number(form.latitude), longitude: form.longitude === '' || form.longitude === null ? null : Number(form.longitude), ownerId: form.ownerId || null, address: form.address || null, imageUrl: form.imageUrl || null, imageNote: form.imageNote || null, sourceUrl: form.sourceUrl || null, triggerRadius: Number(form.triggerRadius), audioPriority: Number(form.audioPriority) });
   }}>
-    <div className="form-grid"><label>{t('Tên địa điểm')}<input required maxLength={150} value={form.name} onChange={event => set('name', event.target.value)} /></label><label>{t('Danh mục')}<input required maxLength={80} value={form.category} onChange={event => set('category', event.target.value)} /></label></div>
+    <fieldset className="poi-form-fields" disabled={busy}><h3 className="poi-section-title"><span>01</span> Thông tin & câu chuyện</h3><div className="form-grid"><label>{t('Tên địa điểm')} *<input required maxLength={150} value={form.name} onChange={event => set('name', event.target.value)} /></label><label>{t('Danh mục')} *<input required list="poi-categories" maxLength={80} value={form.category} onChange={event => set('category', event.target.value)} /><datalist id="poi-categories">{['Di tích lịch sử','Kiến trúc','Văn hóa & nghệ thuật','Không gian công cộng','Chợ truyền thống','Ẩm thực'].map(item => <option key={item} value={item} />)}</datalist></label></div>
     <label>{t('Thuyết minh tiếng Việt')}<textarea required rows={6} maxLength={3000} value={form.description} onChange={event => set('description', event.target.value)} /></label><small>{form.description.length}/3000 ký tự</small>
-    <AiAdvisorPanel place={form} disabled={busy} onApply={text => set('description', text)} />
+    <details className="poi-advanced"><summary>Trợ lý biên tập AI · tùy chọn</summary><AiAdvisorPanel place={form} disabled={busy} onApply={text => set('description', text)} /></details>
+    <h3 className="poi-section-title"><span>02</span> Địa chỉ & bản đồ</h3>
     <label>{t('Khu vực')}<select value={form.region} onChange={event => set('region', event.target.value)}><option value="district1">Quận 1 — trang khám phá hiện tại</option><option value="district4">Quận 4 — lưu trữ, không hiển thị trang khám phá</option></select></label>
     <label>{t('Địa chỉ đã kiểm tra')}<input maxLength={300} value={form.address || ''} onChange={event => set('address', event.target.value)} /></label>
     <label>Nguồn thông tin / tọa độ<input type="url" placeholder="https://…" value={form.sourceUrl || ''} onChange={event => set('sourceUrl', event.target.value)} /></label>
@@ -183,7 +188,7 @@ function PlaceEditor({ value, onSave, onCancel, busy, owners, owner, run }) { co
     <label>Nguồn tọa độ (OpenStreetMap hoặc nguồn đã đo)<input type="url" placeholder="https://…" value={form.locationSourceUrl || ''} onChange={event => set('locationSourceUrl', event.target.value)} /></label>
     <div className="form-grid"><label>{t('Vĩ độ')}<input type="number" step="any" min={-90} max={90} value={form.latitude ?? ''} onChange={event => set('latitude', event.target.value)} /></label><label>{t('Kinh độ')}<input type="number" step="any" min={-180} max={180} value={form.longitude ?? ''} onChange={event => set('longitude', event.target.value)} /></label></div>
     <label className="checkbox-label"><input type="checkbox" checked={form.locationVerified} onChange={event => set('locationVerified', event.target.checked)} />Tôi đã kiểm chứng tọa độ từ nguồn trên</label>
-    <label>URL ảnh HTTPS hoặc ảnh tải lên<input value={form.imageUrl || ''} onChange={event => set('imageUrl', event.target.value)} /></label>
+    <h3 className="poi-section-title"><span>03</span> Hình ảnh địa điểm</h3><label>URL ảnh HTTPS hoặc ảnh tải lên<input value={form.imageUrl || ''} onChange={event => set('imageUrl', event.target.value)} /></label>
     {!owner && <label>Tải ảnh PNG/JPEG/WebP (tối đa 5 MB)<input type="file" accept="image/png,image/jpeg,image/webp" disabled={busy} onChange={async event => { const file = event.target.files?.[0]; if (!file) return; const upload = new FormData(); upload.append('file', file); const outcome = await run(() => mutateApi('/media', 'POST', upload), 'Đã tải ảnh. Cần ghi chú nguồn ảnh.'); if (outcome) set('imageUrl', outcome.result.url); }} /></label>}
     <label>Ghi chú nguồn ảnh / ảnh minh họa<input maxLength={500} value={form.imageNote || ''} onChange={event => set('imageNote', event.target.value)} /></label>
     <label>Trang nguồn ảnh<input type="url" value={form.imageSourceUrl || ''} onChange={event => set('imageSourceUrl', event.target.value)} placeholder="https://…" /></label>
@@ -197,10 +202,10 @@ function PlaceEditor({ value, onSave, onCancel, busy, owners, owner, run }) { co
       </fieldset>)}
       <button type="button" disabled={busy || (form.images?.length || 0) >= 6} onClick={() => set('images', [...(form.images || []), { url: '', caption: '', credit: '', sourceUrl: '', focusY: 50 }])}>Thêm ảnh bổ sung</button>
     </fieldset>
-    <div className="form-grid"><label>Bán kính kích hoạt (m)<input type="number" min={10} max={1000} value={form.triggerRadius} onChange={event => set('triggerRadius', event.target.value)} /></label><label>Ưu tiên audio (0–100)<input type="number" min={0} max={100} value={form.audioPriority} onChange={event => set('audioPriority', event.target.value)} /></label></div>
+    <h3 className="poi-section-title"><span>04</span> Thuyết minh & xuất bản</h3><div className="form-grid"><label>Bán kính kích hoạt (m)<input type="number" min={10} max={1000} value={form.triggerRadius} onChange={event => set('triggerRadius', event.target.value)} /></label><label>Ưu tiên audio (0–100)<input type="number" min={0} max={100} value={form.audioPriority} onChange={event => set('audioPriority', event.target.value)} /></label></div>
     {!owner && <label>Chủ quán<select value={form.ownerId || ''} onChange={event => set('ownerId', event.target.value)}><option value="">Hệ thống quản lý</option>{owners.map(item => <option key={item.id} value={item.id}>{item.displayName} ({item.username})</option>)}</select></label>}
-    <div className="form-grid"><label className="checkbox-label"><input type="checkbox" checked={form.isDemo} onChange={event => set('isDemo', event.target.checked)} />{t('Dữ liệu demo')}</label>{!owner && <label className="checkbox-label"><input type="checkbox" checked={form.isActive} onChange={event => set('isActive', event.target.checked)} />Yêu cầu công khai (nội dung chính thức cần audio tiếng Anh)</label>}</div>
-    <div className="actions"><button className="primary" disabled={busy}>{owner ? 'Gửi đề xuất để duyệt' : t('Lưu địa điểm')}</button><button type="button" onClick={onCancel}>{t('Đóng')}</button></div>
+    <div className="form-grid"><label className="checkbox-label"><input type="checkbox" checked={form.isDemo} onChange={event => set('isDemo', event.target.checked)} />{t('Dữ liệu demo')}</label>{!owner && <label className="checkbox-label"><input type="checkbox" disabled={!canToggle} checked={form.isActive} onChange={event => set('isActive', event.target.checked)} />Yêu cầu công khai (nội dung chính thức cần audio tiếng Anh)</label>}</div><p className="muted">Sửa nội dung tiếng Việt sẽ cần bản dịch và MP3 tương ứng với nội dung mới. Có thể chuẩn bị trong Bản dịch thuyết minh / Tác vụ audio.</p>
+    <div className="actions poi-save-bar"><button className="primary" disabled={busy}>{busy ? t('Đang xử lý…') : owner ? 'Gửi đề xuất để duyệt' : t('Lưu địa điểm')}</button><button type="button" disabled={busy} onClick={onCancel}>Hủy chỉnh sửa</button></div></fieldset>
   </form>{value.id > 0 && <MenuEditor placeId={value.id} owner={owner} run={run} busy={busy} />}</section>;
 }
 
