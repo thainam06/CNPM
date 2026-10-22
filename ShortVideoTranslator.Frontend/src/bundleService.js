@@ -8,7 +8,7 @@ export async function sha256(blob) {
 }
 async function verifiedBlob(response, asset, signal) {
   const blob = await response.blob(); abort(signal);
-  if (blob.size !== asset.bytes || await sha256(blob) !== asset.sha256) throw new Error('Tài nguyên không khớp checksum; gói cũ được giữ.');
+  if (blob.size !== asset.bytes || await sha256(blob) !== asset.sha256) throw new Error(`Tài nguyên ${asset.audioUrl || asset.url || ''} không khớp checksum (${blob.size}/${asset.bytes} byte); gói cũ được giữ.`);
   return blob;
 }
 export async function stageBundle({ language, request, fetchPhoto, signal, progress = () => {} }) {
@@ -26,7 +26,7 @@ export async function stageBundle({ language, request, fetchPhoto, signal, progr
   const mapResponse = await request('/maps/pack-manifest', { signal });
   const manifest = await mapResponse.json(); const mapEtag = mapResponse.headers.get('ETag');
   if (!mapEtag || manifest.scope !== 'district1' || manifest.bytes > 100 * 1024 * 1024) throw new Error('Gói bản đồ Quận 1 không hợp lệ.');
-  const mapBlob = await verifiedBlob(await request(manifest.url.replace(/^\/api/, ''), { signal }), manifest, signal);
+  const mapBlob = await verifiedBlob(await request(manifest.url.replace(/^\/api/, ''), { signal, cache: 'no-store' }), manifest, signal);
   const mapHeader = new Uint8Array(await mapBlob.slice(0, 8).arrayBuffer());
   if (new TextDecoder().decode(mapHeader.slice(0, 7)) !== 'PMTiles' || mapHeader[7] !== 3) throw new Error('Bản đồ không phải PMTiles v3.');
   const entries = [['places:district1', places], ['catalog-sync:district1', { updatedAt: snapshot.updatedAt, etag }],
@@ -52,7 +52,7 @@ export async function stageBundle({ language, request, fetchPhoto, signal, progr
     const asset = audioManifest.files.find(f => f.key === key && f.language === language);
     if (!asset || asset.bytes > 10 * 1024 * 1024) throw new Error('Còn thiếu MP3 đúng nội dung/ngôn ngữ. Admin cần tạo audio trước khi tải gói đầy đủ.');
     progress(`Đang tải và xác minh MP3: ${index + 1}/${expected.length}`);
-    const blob = await verifiedBlob(await request(asset.audioUrl.replace(/^\/api/, ''), { signal }), asset, signal);
+    const blob = await verifiedBlob(await request(asset.audioUrl.replace(/^\/api/, ''), { signal, cache: 'no-store' }), asset, signal);
     entries.push([`audio:${key}`, blob], [`translation:${key}`, { text: asset.text, language, provider: asset.provider || (language === 'vi' ? 'original' : 'MyMemory'), isMachineTranslation: language !== 'vi' && asset.provider !== 'reviewed' }]);
     audio.push({ key, sha256: asset.sha256, language });
   }

@@ -101,7 +101,7 @@ export async function downloadAudioPack(language, places, request, progress) {
   await offlineSet('places:district1', places);
   for (let index = 0; index < files.length; index++) {
     const asset = files[index];
-    const response = await request(asset.audioUrl.replace(/^\/api/, ''));
+    const response = await request(asset.audioUrl.replace(/^\/api/, ''), { cache: 'no-store' });
     const blob = await response.blob();
     const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await blob.arrayBuffer())), byte => byte.toString(16).padStart(2, '0')).join('');
     if (hash !== asset.sha256 || blob.size !== asset.bytes) throw new Error('MP3 tải xuống không khớp checksum. Gói chưa được hoàn tất.');

@@ -7,7 +7,7 @@ export async function downloadMapPack(signal, progress) {
   const manifest = await (await apiRequest('/maps/pack-manifest', { signal })).json();
   if (manifest.bytes > 100 * 1024 * 1024) throw new Error('Gói bản đồ vượt giới hạn 100 MB của demo.');
   progress('Đang tải gói bản đồ Quận 1…');
-  const blob = await (await apiRequest(manifest.url.replace(/^\/api/, ''), { signal })).blob();
+  const blob = await (await apiRequest(manifest.url.replace(/^\/api/, ''), { signal, cache: 'no-store' })).blob();
   const bytes = await blob.arrayBuffer();
   const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), byte => byte.toString(16).padStart(2, '0')).join('');
   if (hash !== manifest.sha256 || blob.size !== manifest.bytes) throw new Error('Gói bản đồ không khớp checksum; bản đã lưu trước vẫn được giữ.');
