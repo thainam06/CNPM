@@ -100,7 +100,7 @@ export async function createSpeech(text, language, signal, revision = '') {
   if (cached) return cached;
   const ready = await findReadyNarration(text, language, revision, apiRequest, signal);
   const blob = ready
-    ? await verifyPreparedAudio(await (await apiRequest(ready.audioUrl.replace(/^\/api/, ''), { signal })).blob(), ready, signal)
+    ? await verifyPreparedAudio(await (await apiRequest(ready.audioUrl.replace(/^\/api/, ''), { signal, cache: 'no-store' })).blob(), ready, signal)
     : await (await apiRequest('/narration/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, language, revision }), signal })).blob();
   if (signal?.aborted) throw new DOMException('Đã hủy yêu cầu.', 'AbortError');
   await saveOfflineAudio(key, blob, language).catch(() => {}); return blob;

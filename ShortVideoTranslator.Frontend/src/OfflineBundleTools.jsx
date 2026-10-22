@@ -26,7 +26,7 @@ export default function OfflineBundleTools({ language, shellReady, onWorkingChan
     } finally { setWorking(false); onWorkingChange(false); }
   }
   return <div className="offline-bundle-tools"><h4>Gói khám phá offline · {language}</h4>
-    <p>Lưu cùng lúc bản đồ Quận 1, địa điểm, ảnh, giao diện và MP3 đúng ngôn ngữ. Cần mạng khi tải; chưa có audio tạo sẵn sẽ báo thiếu.</p>
+    <p>Lưu cùng lúc bản đồ Quận 1, địa điểm, ảnh, giao diện và MP3 đúng ngôn ngữ. Tải xong trước khi mất mạng. Mỗi trình duyệt giữ tối đa 3 ngôn ngữ; tải ngôn ngữ thứ tư sẽ dọn ngôn ngữ ít dùng.</p>
     <div className="tool-actions"><button disabled={working || !shellReady} onClick={install}>{status?.status === 'ready' ? 'Kiểm tra & cập nhật gói đầy đủ' : status?.status === 'repair' ? 'Sửa gói offline' : 'Tải gói offline đầy đủ'}</button>
       {working && <button onClick={() => controller.current?.abort()}>Hủy tải gói</button>}
       <button disabled={working} onClick={async () => setStatus(await inspectBundle(language, offlineGet))}>Kiểm tra gói trên thiết bị</button></div>

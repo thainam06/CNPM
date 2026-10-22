@@ -18,6 +18,7 @@ async function fixture(overrides = {}) {
   const store = new Map([['old-pack', 'unchanged']]); let commits = 0;
   const json = (value, etag) => new Response(JSON.stringify(value), { headers: { 'Content-Type': 'application/json', ...(etag ? { ETag: etag } : {}) } });
   const request = async (path, options = {}) => {
+    if (overrides.staleHttpCache && (path.startsWith('/maps/files') || path.startsWith('/narration/audio')) && options.cache !== 'no-store') return new Response(new Blob(['old HTTP cache bytes']));
     if (options.headers?.['If-None-Match']) return overrides.changed ? json({ version: 2 }, 'new') : new Response(null, { status: 304 });
     if (path.startsWith('/content')) return json({ region: 'district1', syncMode: 'full', version: 1, updatedAt: '2026-10-14', items: places.map(place => ({ place })) }, 'catalog-v1');
     if (path.startsWith('/ui-bundles')) return json({ status: 'ready', locale: language, sourceHash: 'ui-v1' });
@@ -35,6 +36,11 @@ test('complete bundle activates once with matching snapshot, photos, audio and m
   const f = await fixture(); await installBundle(f.options, f.commit);
   assert.equal(f.commits, 1); assert.equal((await inspectBundle('vi', key => f.store.get(key))).status, 'ready');
   assert.equal(f.store.get(bundleKey('vi')).photos.length, 1);
+});
+test('bundle bypasses stale HTTP media cache and validates current manifest bytes', async () => {
+  const f = await fixture({ staleHttpCache: true });
+  await installBundle(f.options, f.commit);
+  assert.equal((await inspectBundle('vi', key => f.store.get(key))).status, 'ready');
 });
 test('Reviewed bundle selects the published revision and preserves human review provenance offline', async () => {
   const f = await fixture({ reviewed: true }); await installBundle(f.options, f.commit);
