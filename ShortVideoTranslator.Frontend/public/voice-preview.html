@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nghe thử giọng đọc · SmartTour Guide</title>
+  <style>
+    body { font: 1rem/1.6 system-ui,sans-serif; color:#18313b; background:#f3f6f7; margin:0; }
+    main { max-width:760px; margin:40px auto; padding:24px; background:white; border-radius:16px; }
+    label { display:block; margin:16px 0; font-weight:600; } select,textarea,button { box-sizing:border-box; font:inherit; padding:10px; }
+    select,textarea { display:block; width:100%; margin-top:6px; } textarea { min-height:180px; }
+    button { cursor:pointer; } button:disabled { cursor:wait; } audio { width:100%; margin-top:20px; } [role=alert] { color:#a51d24; }
+    @media(max-width:800px) { main { margin:16px; } }
+  </style>
+</head>
+<body><main>
+  <a href="/admin">← Quay lại Admin</a>
+  <h1>Nghe thử giọng đọc</h1>
+  <p>Chọn ngôn ngữ và giọng để nghe văn bản mẫu. Nhập nội dung bằng đúng ngôn ngữ đã chọn; trang này không tự dịch.</p>
+  <p>Âm thanh chỉ dùng để nghe thử, không lưu bản nháp, không công khai và không thay MP3 của địa điểm.</p>
+  <form id="form">
+    <label>Ngôn ngữ<select id="language" aria-label="Ngôn ngữ" disabled></select></label>
+    <label>Giọng đọc<select id="voice" aria-label="Giọng đọc" disabled></select></label>
+    <label>Nội dung nghe thử<textarea id="text" aria-label="Nội dung nghe thử" required maxlength="3000" placeholder="Nhập văn bản bằng ngôn ngữ đã chọn…"></textarea></label>
+    <p id="count">0/3000 ký tự</p>
+    <button id="listen" disabled>Nghe thử</button>
+    <button id="stop" type="button" disabled>Dừng</button>
+  </form>
+  <p id="status" role="status">Đang tải danh sách giọng…</p>
+  <p id="error" role="alert"></p>
+  <audio id="audio" controls hidden></audio>
+</main>
+<script type="module">
+  const $ = id => document.getElementById(id);
+  let languages = [], pending, audioUrl;
+  function clearAudio() {
+    $('audio').pause(); $('audio').removeAttribute('src'); $('audio').load(); $('audio').hidden = true;
+    if (audioUrl) URL.revokeObjectURL(audioUrl);
+    audioUrl = null;
+  }
+  function stop() {
+    pending?.abort(); pending = null; clearAudio();
+    $('listen').disabled = !languages.length; $('stop').disabled = true; $('status').textContent = '';
+  }
+  function selectLanguage() {
+    stop(); $('voice').replaceChildren();
+    for (const voice of languages.find(item => item.code === $('language').value).voices)
+      $('voice').add(new Option(`${voice.label} · ${voice.id}`, voice.id));
+    $('text').lang = $('language').value;
+  }
+  async function checked(response) {
+    if (response.ok) return response;
+    if (response.status === 401) throw new Error('Đăng nhập Admin trước, sau đó mở lại trang này.');
+    const problem = await response.json().catch(() => ({}));
+    throw new Error(problem.message || `Yêu cầu thất bại (${response.status}).`);
+  }
+  $('language').onchange = selectLanguage;
+  $('voice').onchange = stop;
+  $('text').oninput = () => { stop(); $('count').textContent = `${$('text').value.length}/3000 ký tự`; };
+  $('stop').onclick = stop;
+  $('form').onsubmit = async event => {
+    event.preventDefault(); stop(); $('error').textContent = '';
+    const controller = new AbortController(); pending = controller;
+    $('listen').disabled = true; $('stop').disabled = false; $('status').textContent = 'Đang tạo âm thanh nghe thử…';
+    try {
+      const csrf = await (await checked(await fetch('/api/auth/csrf', { signal:controller.signal, credentials:'include' }))).json();
+      const response = await checked(await fetch('/api/admin/voice-preview', {
+        method:'POST', credentials:'include', signal:controller.signal,
+        headers:{ 'Content-Type':'application/json', 'X-CSRF-Token':csrf.token },
+        body:JSON.stringify({ text:$('text').value, language:$('language').value, voice:$('voice').value })
+      }));
+      if (!response.headers.get('Content-Type')?.startsWith('audio/')) throw new Error('Phản hồi không phải âm thanh.');
+      const blob = await response.blob();
+      if (controller.signal.aborted) return;
+      audioUrl = URL.createObjectURL(blob); $('audio').src = audioUrl; $('audio').hidden = false;
+      $('status').textContent = 'Âm thanh đã sẵn sàng. Bấm phát để nghe.';
+    } catch (error) { if (!controller.signal.aborted) { $('error').textContent = error.message; $('status').textContent = ''; } }
+    finally { if (pending === controller) { pending = null; $('listen').disabled = false; $('stop').disabled = $('audio').hidden; } }
+  };
+  window.addEventListener('pagehide', stop);
+  try {
+    languages = await (await checked(await fetch('/api/admin/voice-preview', { credentials:'include' }))).json();
+    if (!Array.isArray(languages) || !languages.length) throw new Error('Chưa có danh sách giọng đọc.');
+    for (const language of languages) $('language').add(new Option(language.name, language.code));
+    $('language').disabled = false; $('voice').disabled = false; selectLanguage();
+  } catch (error) { $('error').textContent = error.message; $('status').textContent = ''; }
+</script>
+</body></html>
