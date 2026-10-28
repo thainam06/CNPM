@@ -30,7 +30,7 @@ public class SystemReadinessTests
     {
         using var app = new StatusApp(); using var client = app.CreateClient();
         foreach (var path in new[] { "/health", "/health/ready", "/api/health/ready" }) {
-            var response = await client.GetAsync(path); response.EnsureSuccessStatusCode(); Assert.True(response.Headers.CacheControl!.NoStore);
+            var response = await client.GetAsync(path); Assert.True(response.IsSuccessStatusCode, await response.Content.ReadAsStringAsync()); Assert.True(response.Headers.CacheControl!.NoStore);
             var body = await response.Content.ReadAsStringAsync(); Assert.DoesNotContain(app.Folder, body); Assert.DoesNotContain("provider", body);
             Assert.Equal("ready", JsonDocument.Parse(body).RootElement.GetProperty("status").GetString());
         }
