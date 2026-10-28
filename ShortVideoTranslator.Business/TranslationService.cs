@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using System.Net;
-using System.Text;
 using System.Text.Json;
 
 namespace ShortVideoTranslator.Business;
@@ -80,27 +79,6 @@ public class TranslationService(HttpClient client, TranslationOptions options, I
         finally { _gate.Release(); }
     }
 
-    public static IReadOnlyList<string> SplitText(string text)
-    {
-        // Split at word boundaries where possible; preserve Unicode scalar values.
-        var chunks = new List<string>();
-        var current = new StringBuilder();
-        foreach (var rune in text.EnumerateRunes())
-        {
-            if (Encoding.UTF8.GetByteCount(current.ToString()) + rune.Utf8SequenceLength > 480)
-            {
-                var buffer = current.ToString();
-                var boundary = buffer.LastIndexOf(' ');
-                if (boundary > 0)
-                {
-                    chunks.Add(buffer[..boundary]);
-                    current.Clear().Append(buffer[(boundary + 1)..]);
-                }
-                else { chunks.Add(buffer); current.Clear(); }
-            }
-            current.Append(rune.ToString());
-        }
-        if (current.Length > 0) chunks.Add(current.ToString());
-        return chunks;
-    }
+    // Keep the public API for existing callers; splitting is maintained separately.
+    public static IReadOnlyList<string> SplitText(string text) => TranslationTextSplitter.Split(text);
 }

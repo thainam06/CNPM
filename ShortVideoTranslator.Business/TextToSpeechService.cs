@@ -37,16 +37,7 @@ public class TextToSpeechService
             throw new ArgumentException("Nội dung tối đa 3000 ký tự.");
         cancellationToken.ThrowIfCancellationRequested();
 
-        string voice = language switch
-        {
-            "vi" => "vi-VN-HoaiMyNeural",
-            "en" => "en-US-JennyNeural",
-            "zh" => "zh-CN-XiaoxiaoNeural",
-            "ja" => "ja-JP-NanamiNeural",
-            "ko" => "ko-KR-SunHiNeural",
-            "fr" => "fr-FR-DeniseNeural",
-            _ => throw new ArgumentException("Ngôn ngữ chưa được hỗ trợ.")
-        };
+        string voice = NarrationVoiceCatalog.Resolve(language);
 
         string outputPath = Path.Combine(
             Path.GetTempPath(),
