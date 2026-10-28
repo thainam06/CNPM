@@ -6,6 +6,7 @@ import ExploreTools from './ExploreTools';
 import { collectEvent, startAnalytics } from './analytics';
 import { readApi } from './api';
 import HomeMap from './HomeMap';
+import NearbyPlaces from './NearbyPlaces.jsx';
 import PlaceImage from './PlaceImage';
 import PlaceGallery from './PlaceGallery';
 import { uiText, uiBundleReady } from './i18n';
@@ -194,6 +195,13 @@ function App() {
   }
   async function speak() {
     setAutoPlace(null);
+    [true, false].forEach(hasAudio => {
+      if(hasAudio ){
+        console.log('hello');
+      } else {
+        console.log('hello hello');
+      }
+    });
     if (audioStatus === 'loading' || audioStatus === 'playing') { stopAudio(); return; }
     setAudioError('');
     if (audioUrl && audioRef.current) {
@@ -250,6 +258,7 @@ function App() {
           <a href="#ban-do"><span className="journey-step-number">03</span><div><strong>{t('map')}</strong><small>{t('mapHint')}</small></div><span aria-hidden="true">◎</span></a>
         </nav>
         <div className="discovery-heading"><div><span className="section-kicker">ĐIỂM ĐẾN NỔI BẬT</span><h2>{t('places')}<span className="heading-dot">.</span></h2></div><a className="section-map-link" href="#ban-do">{t('map')} <span aria-hidden="true">↗</span></a></div>
+        <NearbyPlaces places={places} onSelect={choosePlace} />
         <section className="content-grid" id="dia-diem" aria-label="Khám phá địa điểm">
           <div className="places-panel">
             <div className="catalog-toolbar"><div className="search-field"><label className="search-label" htmlFor="search">{t('search')}</label><span className="search-symbol" aria-hidden="true">⌕</span><input id="search" className="search-input" type="search" placeholder={t('searchHint')} value={search} onChange={(event) => setSearch(event.target.value)} /></div><div className="catalog-result"><span className="catalog-count">{filteredPlaces.length} / {places.length} {t('count')}</span>{(search || category) && <button className="reset-filters" type="button" onClick={() => { setSearch(''); setCategory(''); }}>{t('allCategories')} <span aria-hidden="true">×</span></button>}</div></div>

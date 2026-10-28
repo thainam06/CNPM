@@ -15,7 +15,7 @@ public class TestApplication : WebApplicationFactory<Program>
     {
         builder.UseEnvironment("Development");
         builder.ConfigureAppConfiguration((_, config) => config.AddInMemoryCollection(new Dictionary<string, string?> {
-            ["Storage:Directory"] = Folder, ["Admin:BootstrapPassword"] = "HttpBootstrap_2026!", ["Audio:WorkersEnabled"] = "false", ["Analytics:WorkerEnabled"] = "false"
+            ["Storage:Directory"] = Folder, ["Storage:Provider"] = "Json", ["Admin:BootstrapPassword"] = "HttpBootstrap_2026!", ["Audio:WorkersEnabled"] = "false", ["Analytics:WorkerEnabled"] = "false"
             , ["Security:JwtSecret"] = "test-only-signing-secret-32-characters-minimum"
         }));
     }

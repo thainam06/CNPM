@@ -38,6 +38,7 @@ public class PlatformState
     public List<AnalyticsEvent> Events { get; set; } = [];
     public List<AnalyticsEvent> PendingAnalytics { get; set; } = [];
     public List<AnalyticsHeartbeat> AnalyticsHeartbeats { get; set; } = [];
+    public List<AnalyticsDevice> AnalyticsDevices { get; set; } = [];
     public Dictionary<string, DateTimeOffset> AnalyticsRevocations { get; set; } = [];
     public List<RuntimeLocation> RuntimeLocations { get; set; } = [];
     public List<OwnerIdentity> OwnerIdentities { get; set; } = [];

@@ -6,12 +6,21 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
 using ShortVideoTranslator.Business;
 using ShortVideoTranslator.Data;
 using ShortVideoTranslator.Api.Services;
 using ShortVideoTranslator.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.Configure<ForwardedHeadersOptions>(options => {
+    // API has no published Docker port. Only the internal reverse proxy is trusted.
+    if (builder.Configuration.GetValue("Proxy:Enabled", false)) {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        options.KnownIPNetworks.Add(System.Net.IPNetwork.Parse("172.16.0.0/12"));
+        options.ForwardLimit = 1;
+    }
+});
 // OpenWeather authenticates in its query string; never log that URL/API key.
 builder.Logging.AddFilter("System.Net.Http.HttpClient.WeatherContext", LogLevel.None);
 // Options are resolved after test/host configuration has been applied.
@@ -43,10 +52,16 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton(_ => new JsonPlatformStore(Path.Combine(builder.Configuration["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath, "App_Data"), "platform.json")));
-builder.Services.AddSingleton<IPlatformStore>(s => s.GetRequiredService<JsonPlatformStore>());
-builder.Services.AddSingleton<IPlaceRepository>(s => s.GetRequiredService<JsonPlatformStore>());
+builder.Services.AddSingleton(s => new JsonPlatformStore(Path.Combine(s.GetRequiredService<IConfiguration>()["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath, "App_Data"), "platform.json")));
+builder.Services.AddSingleton<SqlitePlatformStore>(s => {
+    var config = s.GetRequiredService<IConfiguration>();
+    return new(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath, "App_Data"));
+});
+builder.Services.AddSingleton<IPlatformStore>(s => s.GetRequiredService<IConfiguration>()["Storage:Provider"] == "Sqlite"
+    ? s.GetRequiredService<SqlitePlatformStore>() : s.GetRequiredService<JsonPlatformStore>());
+builder.Services.AddSingleton<IPlaceRepository>(s => (IPlaceRepository)s.GetRequiredService<IPlatformStore>());
 builder.Services.AddSingleton<PlatformService>();
+builder.Services.AddSingleton<DeviceActivityService>();
 builder.Services.AddSingleton<TranslationReviewService>();
 builder.Services.AddAntiforgery(options => {
     options.HeaderName = "X-CSRF-Token";
@@ -131,6 +146,7 @@ if (builder.Configuration.GetValue("Audio:WorkersEnabled", true)) {
 }
 
 var app = builder.Build();
+app.UseForwardedHeaders();
 _ = app.Services.GetRequiredService<JwtTokenService>();
 
 var platform = app.Services.GetRequiredService<PlatformService>();
@@ -181,7 +197,7 @@ app.UseRateLimiter();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGet("/api/health", () => Results.Ok(new { status = "ready", storage = "local-json", version = platform.Store.Read(s => s.Version) }));
+app.MapGet("/api/health", () => Results.Ok(new { status = "ready", storage = platform.Store is SqlitePlatformStore ? "sqlite" : "local-json", version = platform.Store.Read(s => s.Version) }));
 
 app.Run();
 

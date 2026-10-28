@@ -3,7 +3,7 @@ using ShortVideoTranslator.Business;
 namespace ShortVideoTranslator.Api.Services;
 
 public record AnalyticsInput(string Id, string Kind, int? PlaceId, string Language, DateTimeOffset OccurredAt);
-public record AnalyticsBatch(bool Consent, string DeviceId, AnalyticsInput[] Events);
+public record AnalyticsBatch(bool Consent, string DeviceId, AnalyticsInput[] Events, DeviceDescriptor? Device = null);
 
 // Pending batches live in the same atomic store as events: restart cannot lose accepted data.
 public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
@@ -14,16 +14,28 @@ public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
         if (!batch.Consent || !Guid.TryParse(batch.DeviceId, out _) || batch.Events is not { Length: > 0 and <= 25 })
             throw new PlatformException(400, "Cần đồng ý thống kê, mã thiết bị và từ 1 đến 25 sự kiện.");
         var device = Guid.Parse(batch.DeviceId).ToString();
+        if (batch.Device is { } descriptor &&
+            (!new[] { "Chrome", "Edge", "Firefox", "Safari", "Opera", "Other" }.Contains(descriptor.Browser) ||
+             !new[] { "Windows", "Android", "iOS", "macOS", "Linux", "Other" }.Contains(descriptor.OperatingSystem) ||
+             !new[] { "Mobile", "Tablet", "Desktop", "Unknown" }.Contains(descriptor.Type)))
+            throw new PlatformException(400, "Thông tin trình duyệt không hợp lệ.");
         if (batch.Events.Any(e => e == null || !Guid.TryParse(e.Id, out _) || e.Kind is not ("view" or "play" or "heartbeat") || !NarrationLanguages.Codes.Contains(e.Language) || e.OccurredAt < now.AddHours(-24) || e.OccurredAt > now.AddMinutes(2) || (e.Kind == "heartbeat" && e.PlaceId != null)))
             throw new PlatformException(400, "Sự kiện không hợp lệ hoặc đã quá hạn 24 giờ.");
         return store.Write(s => {
             Cleanup(s, now);
             if (s.AnalyticsRevocations.ContainsKey(device)) throw new PlatformException(409, "Phiên thống kê đã thu hồi. Chỉ tạo phiên mới khi đồng ý lại.");
             if (batch.Events.Any(e => e.PlaceId.HasValue && !s.Places.Any(p => p.Id == e.PlaceId && p.IsActive && TourRegion.Includes(p)))) throw new PlatformException(404, "Địa điểm không tồn tại.");
-            var pending = batch.Events.Select(e => new AnalyticsEvent(Guid.Parse(e.Id).ToString(), device, e.Kind, e.PlaceId, e.Language, e.OccurredAt))
-                .DistinctBy(e => e.Id).Where(e => !s.Events.Any(old => old.Id == e.Id) && !s.PendingAnalytics.Any(old => old.Id == e.Id)).ToArray();
+            var seen = s.Events.Select(e => e.Id).Concat(s.PendingAnalytics.Select(e => e.Id)).ToHashSet();
+            var pending = batch.Events.Select(e => new AnalyticsEvent(Guid.Parse(e.Id).ToString(), device, e.Kind, e.PlaceId, e.Language, e.OccurredAt.ToUniversalTime()))
+                .DistinctBy(e => e.Id).Where(e => !seen.Contains(e.Id)).ToArray();
             if (s.PendingAnalytics.Count + pending.Length > 1000) throw new PlatformException(503, "Hàng đợi thống kê đầy. Thử lại sau.");
-            s.PendingAnalytics.AddRange(pending); return pending.Length;
+            s.PendingAnalytics.AddRange(pending);
+            if (batch.Device != null && pending.Length > 0) {
+                s.AnalyticsDevices.RemoveAll(d => d.DeviceId == device);
+                s.AnalyticsDevices.Add(new(device, batch.Device, now));
+                if (s.AnalyticsDevices.Count > 10000) s.AnalyticsDevices = s.AnalyticsDevices.OrderByDescending(d => d.UpdatedAt).Take(10000).ToList();
+            }
+            return pending.Length;
         });
     }
     public void Forget(string deviceId)
@@ -33,7 +45,8 @@ public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
         store.Write(s => {
             Cleanup(s, now); s.AnalyticsRevocations[device] = now.AddDays(31);
             s.Events.RemoveAll(e => e.DeviceId == device); s.PendingAnalytics.RemoveAll(e => e.DeviceId == device);
-            s.AnalyticsHeartbeats.RemoveAll(e => e.DeviceId == device); return true;
+            s.AnalyticsHeartbeats.RemoveAll(e => e.DeviceId == device);
+            s.AnalyticsDevices.RemoveAll(e => e.DeviceId == device); return true;
         });
     }
     public void Drain()
@@ -64,6 +77,7 @@ public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
         s.Events.RemoveAll(e => e.CreatedAt < now.AddDays(-30));
         s.PendingAnalytics.RemoveAll(e => e.CreatedAt < now.AddHours(-24));
         s.AnalyticsHeartbeats.RemoveAll(e => e.LastSeen < now.AddMinutes(-5));
+        s.AnalyticsDevices.RemoveAll(e => e.UpdatedAt < now.AddDays(-30));
         foreach (var key in s.AnalyticsRevocations.Where(e => e.Value <= now).Select(e => e.Key).ToArray()) s.AnalyticsRevocations.Remove(key);
     }
 }
@@ -75,7 +89,7 @@ public sealed class AnalyticsWorker(AnalyticsQueue queue, ILogger<AnalyticsWorke
         using var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
         do {
             try { queue.Drain(); }
-            catch (Exception error) when (error is IOException or UnauthorizedAccessException) { logger.LogWarning("Chưa ghi được thống kê; giữ hàng đợi để thử lại."); }
+            catch (Exception error) when (error is IOException or UnauthorizedAccessException or Microsoft.Data.Sqlite.SqliteException) { logger.LogWarning("Chưa ghi được thống kê; giữ hàng đợi để thử lại."); }
         } while (await timer.WaitForNextTickAsync(stoppingToken));
     }
 }

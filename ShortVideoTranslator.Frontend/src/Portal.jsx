@@ -10,6 +10,7 @@ import OwnerNotifications, { NotificationBell } from './OwnerNotifications';
 import { notificationRoute } from './notificationRoute';
 import RegistrationStatus from './RegistrationStatus';
 import PoiManager from './PoiManager';
+import DeviceMonitor from './DeviceMonitor';
 
 const labels = { translations: 'Bản dịch thuyết minh', overview: 'Tổng quan', places: 'Địa điểm', users: 'Tài khoản', roles: 'Vai trò', reviews: 'Kiểm duyệt', audio: 'Tác vụ audio', audit: 'Nhật ký', submissions: 'Đề xuất', notifications: 'Thông báo', runtime: 'Giám sát vị trí', system: 'Kiểm tra hệ thống', identity: 'Xác minh chủ quán', password: 'Mật khẩu' };
 const permissions = { translations: 'poi:update', overview: 'analytics:view', places: 'poi:update', users: 'user:read', roles: 'role:read', reviews: 'content:moderate', audio: 'poi:update', audit: 'audit:read', runtime: 'system:logs', system: 'system:logs' };
@@ -79,10 +80,15 @@ function PortalContent({ language, onLanguage }) { const t = usePortalText();
 
   useEffect(() => {
     if (!user || owner || tab !== 'audio' || user.mustChangePassword || !user.permissions.includes('poi:update')) return;
-    const events = new EventSource(apiUrl('/admin/audio-tasks/stream'), { withCredentials: true });
-    events.onmessage = event => { try { setData(JSON.parse(event.data)); } catch { setError('Không đọc được cập nhật tác vụ.'); } };
-    events.onerror = () => { setError('Kết nối cập nhật audio bị gián đoạn. Tải lại để thử kết nối.'); events.close(); };
-    return () => events.close();
+    // Quick Tunnels do not support SSE. Polling works both locally and through Cloudflare.
+    const controller = new AbortController(); let timer;
+    const refresh = async () => {
+      try { const result = await readApi('/admin/audio-tasks', controller.signal); if (!controller.signal.aborted) setData(result); }
+      catch (caught) { if (!controller.signal.aborted) setError(caught.message); }
+      finally { if (!controller.signal.aborted) timer = setTimeout(refresh, 5000); }
+    };
+    refresh();
+    return () => { controller.abort(); clearTimeout(timer); };
   }, [user, tab, owner]);
 
   async function run(action, message = 'Đã lưu thay đổi.') {
@@ -139,6 +145,7 @@ function PortalContent({ language, onLanguage }) { const t = usePortalText();
           <Table headings={[t('Thành phần'), t('Trạng thái'), t('Chi tiết')]}>{data.checks.map(check => <tr key={check.name}><td>{check.name}</td><td>{check.state}</td><td>{check.detail}</td></tr>)}</Table>
           <h3>MP3 sẵn có theo ngôn ngữ</h3><Table headings={[t('Ngôn ngữ'), 'Audio đúng nội dung / địa điểm công khai']}>{data.audio.map(item => <tr key={item.language}><td>{item.language}</td><td>{item.ready}/{item.total}</td></tr>)}</Table><p className="muted">AI/thời tiết thiếu cấu hình không chặn đọc địa điểm và nghe MP3 đã tạo. Readiness không chứng minh hosting production hoặc dịch vụ ngoài đang kết nối được.</p>
         </section>}
+        {tab === 'overview' && !owner && <DeviceMonitor />}
         {tab === 'overview' && data && (owner ? <Table headings={[t('Địa điểm'), t('Sự kiện được đồng ý')]} >{data.map(item => <tr key={item.placeId}><td>{item.name}</td><td>{item.events}</td></tr>)}</Table> : <><div className="metric-grid">{[[t('Địa điểm'), data.places], [t('Đang công khai'), data.activePlaces], [t('Tài khoản'), data.users], [t('Chờ duyệt'), data.pendingReviews], [t('Sự kiện được đồng ý'), data.events], [t('Thiết bị hoạt động · 5 phút'), data.consentedOnlineDevices], [t('Thống kê đang chờ xử lý'), data.pendingAnalytics]].map(([label, value]) => <div className="metric-card" key={label}><strong>{value}</strong><span>{t(label)}</span></div>)}</div><p className="muted">Thống kê chỉ ghi nhận khi khách đồng ý. Không thu thập vị trí hoặc danh tính cá nhân.</p>{can('analytics:export') && <a href={apiUrl('/admin/analytics/export')}>{t('Tải thống kê CSV')}</a>}</>)}
         {tab === 'places' && Array.isArray(data) && <>
           <PoiManager places={data} owner={owner} can={can} busy={busy} editing={!!editor} onCreate={() => setEditor({ ...blankPlace })} onEdit={setEditor}

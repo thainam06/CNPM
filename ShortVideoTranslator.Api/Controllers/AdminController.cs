@@ -9,7 +9,7 @@ namespace ShortVideoTranslator.Api.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/admin")]
-public class AdminController(PlatformService platform) : ControllerBase
+public class AdminController(PlatformService platform, DeviceActivityService devices) : ControllerBase
 {
     private string Actor => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
     [HttpGet("assignable-roles"), Permission("user:read")]
@@ -73,6 +73,12 @@ public class AdminController(PlatformService platform) : ControllerBase
     [HttpGet("analytics/export"), Permission("analytics:export")]
     public IActionResult Export() => File(System.Text.Encoding.UTF8.GetBytes("createdAt,kind,placeId,language\n" +
         string.Join('\n', platform.Store.Read(s => s.Events.Where(e => e.Kind != "heartbeat").ToArray()).Select(e => $"{e.CreatedAt:O},{e.Kind},{e.PlaceId},{e.Language}"))), "text/csv", "smarttour-events.csv");
+    [HttpGet("devices"), Permission("analytics:view")]
+    public IActionResult Devices([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
+    {
+        Response.Headers.CacheControl = "no-store";
+        return Ok(devices.Get(page, pageSize));
+    }
     [HttpGet("backup"), Permission("system:backup")]
     public IActionResult Backup() => Ok(platform.Store.Read(s => new { s.Places, s.Menus, s.Version, s.UpdatedAt }));
     [HttpGet("places/{id:int}/menu"), Permission("menu:read")]

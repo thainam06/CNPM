@@ -1,0 +1,11 @@
+# Use instead of compose.tunnel.yaml after configuring a tunnel in Cloudflare.
+services:
+  tunnel:
+    image: cloudflare/cloudflared@sha256:faa8e0a1475f137c910be6025f43c8e4092fdd35461b31e19fd1390657a1ff39
+    command: tunnel --no-autoupdate --protocol http2 run
+    environment:
+      TUNNEL_TOKEN: ${SMARTTOUR_CLOUDFLARE_TOKEN:?Set the token in ignored .env.docker}
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
