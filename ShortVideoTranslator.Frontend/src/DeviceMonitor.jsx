@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { readApi } from './api';
+import PresenceMonitor from './PresenceMonitor';
 
 export default function DeviceMonitor() {
   const [page, setPage] = useState(1);
@@ -19,8 +20,8 @@ export default function DeviceMonitor() {
     return () => { controller.abort(); clearTimeout(timer); };
   }, [page]);
   const date = value => new Date(value).toLocaleString('vi-VN');
-  return <section className="portal-card">
-    <h2>Thiết bị truy cập · SQL database</h2>
+  return <><PresenceMonitor /><section className="portal-card">
+    <h2>Thống kê lượt xem/nghe · SQL database</h2>
     <p>Chỉ tính trình duyệt đồng ý thống kê. Hoạt động nghĩa là có tín hiệu trong 5 phút gần nhất; nhiều tab cùng trình duyệt dùng chung mã. Không xác định được số người hoặc thiết bị vật lý chính xác.</p>
     <p className="muted">Dữ liệu tối đa 30 ngày / 10.000 sự kiện gần nhất. Lần đầu hiển thị là lần đầu trong phần dữ liệu còn lưu. Tự cập nhật mỗi 15 giây.</p>
     {error && <p role="alert">Không cập nhật được thống kê: {error}. Dữ liệu bên dưới có thể đã cũ.</p>}
@@ -41,5 +42,5 @@ export default function DeviceMonitor() {
       {!data.items.length && <p>Chưa có thiết bị được ghi nhận trong trang này.</p>}
       <div className="portal-actions"><button disabled={page === 1} onClick={() => setPage(value => value - 1)}>Trang trước</button><span> Trang {page} </span><button disabled={page * data.pageSize >= data.total} onClick={() => setPage(value => value + 1)}>Trang sau</button></div>
     </>}
-  </section>;
+  </section></>;
 }

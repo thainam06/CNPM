@@ -22,7 +22,7 @@ Những lần sau: `& ./scripts/Start-PublicDemo.ps1`. Khi sửa source, thêm `
 - Khách: chọn địa điểm, đọc giới thiệu, chọn ngôn ngữ và nghe MP3 Edge-TTS.
 - Mở trang, hệ thống tự yêu cầu vị trí và gợi ý địa điểm gần. Lần đầu chọn **Cho phép** trong thông báo của trình duyệt. Khi di chuyển, danh sách tự cập nhật và xếp theo khoảng cách đường thẳng trong bán kính đã chọn. Chỉ dùng tọa độ địa điểm đã xác minh.
 - Gợi ý GPS chỉ xử lý trên máy khách. Chia sẻ vị trí với Admin là lựa chọn riêng trong Tiện ích.
-- Admin: `/admin` → **Tổng quan** → bảng thiết bị. Chỉ ghi nhận khách đồng ý thống kê; một mã là một trình duyệt, không phải danh tính người dùng hay tên laptop.
+- Admin: `/admin` → **Tổng quan** → **Thiết bị đang truy cập website** chỉ hiện các trình duyệt đang hoạt động, tự giảm khi rời/ẩn trang; mất tín hiệu tự hết hạn sau 45 giây. Không hiện bộ đếm ở trang khách. Bảng lượt xem/nghe có đồng ý được giữ riêng.
 - Offline: tải gói trước khi mất mạng; hướng dẫn tại [OFFLINE-DEMO.md](docs/OFFLINE-DEMO.md).
 
 Tài khoản của bản đang chạy được giữ trong database. Không khởi tạo lại dữ liệu hoặc đổi mật khẩu khi chỉ cập nhật code. `.env.docker` chứa cấu hình khởi tạo riêng, không commit.

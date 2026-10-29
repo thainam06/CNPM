@@ -14,10 +14,7 @@ public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
         if (!batch.Consent || !Guid.TryParse(batch.DeviceId, out _) || batch.Events is not { Length: > 0 and <= 25 })
             throw new PlatformException(400, "Cần đồng ý thống kê, mã thiết bị và từ 1 đến 25 sự kiện.");
         var device = Guid.Parse(batch.DeviceId).ToString();
-        if (batch.Device is { } descriptor &&
-            (!new[] { "Chrome", "Edge", "Firefox", "Safari", "Opera", "Other" }.Contains(descriptor.Browser) ||
-             !new[] { "Windows", "Android", "iOS", "macOS", "Linux", "Other" }.Contains(descriptor.OperatingSystem) ||
-             !new[] { "Mobile", "Tablet", "Desktop", "Unknown" }.Contains(descriptor.Type)))
+        if (batch.Device is { } descriptor && !descriptor.IsValid())
             throw new PlatformException(400, "Thông tin trình duyệt không hợp lệ.");
         if (batch.Events.Any(e => e == null || !Guid.TryParse(e.Id, out _) || e.Kind is not ("view" or "play" or "heartbeat") || !NarrationLanguages.Codes.Contains(e.Language) || e.OccurredAt < now.AddHours(-24) || e.OccurredAt > now.AddMinutes(2) || (e.Kind == "heartbeat" && e.PlaceId != null)))
             throw new PlatformException(400, "Sự kiện không hợp lệ hoặc đã quá hạn 24 giờ.");
@@ -82,14 +79,15 @@ public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
     }
 }
 
-public sealed class AnalyticsWorker(AnalyticsQueue queue, ILogger<AnalyticsWorker> logger) : BackgroundService
+public sealed class AnalyticsWorker(AnalyticsQueue queue, ILogger<AnalyticsWorker> logger, IConfiguration configuration) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        if (!configuration.GetValue("Analytics:WorkerEnabled", true)) return;
         using var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
         do {
             try { queue.Drain(); }
-            catch (Exception error) when (error is IOException or UnauthorizedAccessException or Microsoft.Data.Sqlite.SqliteException) { logger.LogWarning("Chưa ghi được thống kê; giữ hàng đợi để thử lại."); }
+            catch (Exception error) when (error is IOException or UnauthorizedAccessException or Microsoft.Data.Sqlite.SqliteException or Npgsql.NpgsqlException) { logger.LogWarning("Chưa ghi được thống kê; giữ hàng đợi để thử lại."); }
         } while (await timer.WaitForNextTickAsync(stoppingToken));
     }
 }
