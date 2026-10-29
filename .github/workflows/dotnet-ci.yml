@@ -47,6 +47,32 @@ jobs:
         working-directory: ShortVideoTranslator.Frontend
         run: npm run lint && npm test && npm run build
 
+      - name: Check backup and restore tools
+        run: python3 scripts/tests/test_backup_restore.py -v
+
+      - name: Install functional test prerequisites
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Verify real API restart, clients and isolated restore
+        run: python3 scripts/verify_operations.py
+
+      - name: Install Chromium for browser regression
+        working-directory: ShortVideoTranslator.Frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify browser GPS, audio and offline fixtures
+        working-directory: ShortVideoTranslator.Frontend
+        run: npm run test:browser
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-verification
+          path: artifacts/member2/
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Publish Backend API
         run: dotnet publish ShortVideoTranslator.Api/ShortVideoTranslator.Api.csproj --configuration Release --no-restore --output ./publish
 
@@ -57,3 +83,11 @@ jobs:
           path: ./publish/
           if-no-files-found: error
           retention-days: 7
+
+  docker-persistence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build isolated Docker demo and verify persistent volumes
+        run: bash scripts/verify_docker.sh
