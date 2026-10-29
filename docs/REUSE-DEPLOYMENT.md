@@ -21,6 +21,12 @@ Các lần ghi SQL dùng transaction immediate để tránh mất cập nhật g
 
 ## 3. Đếm và phân biệt thiết bị
 
+**Thiết bị đang hoạt động — chỉ trong Admin:** mở web sẽ gửi heartbeat nền với mã trình duyệt ngẫu nhiên và nhãn hệ điều hành/trình duyệt. Trang chủ và màn hình chuẩn bị không hiện bộ đếm. `POST /api/presence/heartbeat` không trả số lượng; không có API công khai đọc số lượng. Admin → Tổng quan → **Thiết bị đang truy cập website** đọc `GET /api/admin/presence`, yêu cầu quyền `analytics:view` và tự cập nhật mỗi 5 giây.
+
+Presence lưu trong bảng SQL `presenceDevices`, heartbeat khoảng 15 giây khi tab hiển thị. Ẩn/rời trang gửi beacon `POST /api/presence/leave` để xóa phiên đó; Admin bỏ dòng ở lần cập nhật kế tiếp. Nếu OS đóng cứng hoặc mất mạng khiến beacon không đến, sau 45 giây không có tín hiệu thì hết online. Mỗi tab có session riêng; đóng một tab không xóa tab khác. Nhiều tab cùng origin vẫn tính một mã trình duyệt tại localStorage. Dấu rời phiên giữ ngắn hạn để heartbeat đến trễ không phục hồi phiên đã thoát. Không dùng IP, tên máy, MAC hoặc GPS. Mã trong hostname/trình duyệt khác nhau có thể khác nhau. Đây là số trình duyệt hoạt động ước tính, không phải số thiết bị vật lý tuyệt đối. Bảng giới hạn 5.000 phiên; chưa kiểm thử tải ở mức đó.
+
+**Thống kê lượt xem/nghe có đồng ý** vẫn là luồng riêng bên dưới:
+
 Khách bật đồng ý thống kê trong Tiện ích. Trình duyệt tạo UUID lưu tại localStorage; gửi heartbeat khoảng 60 giây khi tab đang hiển thị và có mạng. Worker xử lý batch khoảng 2 giây. Admin thấy thiết bị hoạt động trong 5 phút gần nhất, loại Mobile/Tablet/Desktop, họ trình duyệt, hệ điều hành, lần đầu/cuối trong dữ liệu còn giữ, lượt xem và nghe.
 
 Chỉ gửi các nhãn phân loại cho phép, không gửi toàn bộ User-Agent, tên máy, MAC hoặc vị trí GPS qua luồng thống kê. Các nhãn trình duyệt do client cung cấp chỉ dùng tham khảo. Nhiều tab dùng chung mã trong cùng origin/trình duyệt. Trình duyệt khác, ẩn danh, xóa localStorage hoặc đổi hostname có thể thành mã mới. Đóng tab không có nghĩa số online giảm ngay: chờ cửa sổ 5 phút. Tab nền không gửi heartbeat thường xuyên.

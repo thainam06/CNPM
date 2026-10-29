@@ -3,7 +3,7 @@ using ShortVideoTranslator.Business;
 
 namespace ShortVideoTranslator.Api.Services;
 
-public class AudioTaskWorker(IPlatformStore store, PlatformService platform, NarrationAssetService assets, ILogger<AudioTaskWorker> logger) : BackgroundService
+public class AudioTaskWorker(IPlatformStore store, PlatformService platform, NarrationAssetService assets, ILogger<AudioTaskWorker> logger, IConfiguration configuration) : BackgroundService
 {
     private readonly ConcurrentDictionary<string, CancellationTokenSource> _running = new();
     public AudioTaskState Enqueue(int placeId, string[] languages, string actor)
@@ -37,6 +37,7 @@ public class AudioTaskWorker(IPlatformStore store, PlatformService platform, Nar
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        if (!configuration.GetValue("Audio:WorkersEnabled", true)) return;
         store.Write(s => {
             s.AudioTasks = s.AudioTasks.Select(t => t.Status == "running" ? t with { Status = "queued", UpdatedAt = DateTimeOffset.UtcNow } : t).ToList(); return true;
         });

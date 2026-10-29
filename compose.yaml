@@ -7,7 +7,7 @@ services:
     environment:
       # Local HTTP demo only. Public deployment requires HTTPS and Production configuration.
       ASPNETCORE_ENVIRONMENT: Development
-      Storage__Provider: Sqlite
+      Storage__Provider: ${SMARTTOUR_STORAGE_PROVIDER:-Sqlite}
       Proxy__Enabled: "true"
       TextToSpeech__TimeoutSeconds: "180"
       Security__JwtSecret: ${SMARTTOUR_JWT_SECRET:?Run scripts/Docker-Demo.ps1 -Action Init first}

@@ -1,6 +1,11 @@
 namespace ShortVideoTranslator.Business;
 
-public record DeviceDescriptor(string Browser = "Other", string OperatingSystem = "Other", string Type = "Unknown");
+public record DeviceDescriptor(string Browser = "Other", string OperatingSystem = "Other", string Type = "Unknown")
+{
+    public bool IsValid() => new[] { "Chrome", "Edge", "Firefox", "Safari", "Opera", "Other" }.Contains(Browser)
+        && new[] { "Windows", "Android", "iOS", "macOS", "Linux", "Other" }.Contains(OperatingSystem)
+        && new[] { "Mobile", "Tablet", "Desktop", "Unknown" }.Contains(Type);
+}
 public record AnalyticsDevice(string DeviceId, DeviceDescriptor Descriptor, DateTimeOffset UpdatedAt);
 public record DeviceActivity(string DeviceId, DateTimeOffset FirstSeen, DateTimeOffset LastSeen,
     long Views, long Plays, bool Online, DeviceDescriptor Descriptor);

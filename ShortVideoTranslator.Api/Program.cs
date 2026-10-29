@@ -13,6 +13,20 @@ using ShortVideoTranslator.Api.Services;
 using ShortVideoTranslator.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+// This file is local-only and gitignored. Environment/CLI remain authoritative.
+builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true).AddEnvironmentVariables().AddCommandLine(args);
+string PostgresConnection(IConfiguration config) => config["Storage:PostgresConnectionString"]
+    ?? PostgresConnectionFile.Read(config["Storage:PostgresConnectionFile"]
+        ?? Path.Combine(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data"), "postgres.local.json"));
+if (builder.Configuration.GetValue<bool>("ImportPostgres")) {
+    var folder = builder.Configuration["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data");
+    if (!File.Exists(Path.Combine(folder,"smarttour.db"))) throw new InvalidOperationException("Không tìm thấy SQLite nguồn. Không tự tạo dữ liệu demo để import.");
+    var local = new SqlitePlatformStore(folder);
+    using var cloud = new PostgresPlatformStore(PostgresConnection(builder.Configuration));
+    var snapshot = local.Read(s => s); cloud.Import(snapshot);
+    Console.WriteLine($"Import PostgreSQL đã đối chiếu thành công: {snapshot.Places.Count} địa điểm, {snapshot.Users.Count} tài khoản. SQLite được giữ nguyên.");
+    return;
+}
 builder.Services.Configure<ForwardedHeadersOptions>(options => {
     // API has no published Docker port. Only the internal reverse proxy is trusted.
     if (builder.Configuration.GetValue("Proxy:Enabled", false)) {
@@ -57,11 +71,17 @@ builder.Services.AddSingleton<SqlitePlatformStore>(s => {
     var config = s.GetRequiredService<IConfiguration>();
     return new(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath, "App_Data"));
 });
-builder.Services.AddSingleton<IPlatformStore>(s => s.GetRequiredService<IConfiguration>()["Storage:Provider"] == "Sqlite"
-    ? s.GetRequiredService<SqlitePlatformStore>() : s.GetRequiredService<JsonPlatformStore>());
+builder.Services.AddSingleton<PostgresPlatformStore>(s => new(PostgresConnection(s.GetRequiredService<IConfiguration>())));
+builder.Services.AddSingleton<IPlatformStore>(s => (s.GetRequiredService<IConfiguration>()["Storage:Provider"] ?? "Json").ToLowerInvariant() switch {
+    "sqlite" => s.GetRequiredService<SqlitePlatformStore>(),
+    "postgres" or "postgresql" => s.GetRequiredService<PostgresPlatformStore>(),
+    "json" => s.GetRequiredService<JsonPlatformStore>(),
+    _ => throw new InvalidOperationException("Storage:Provider không hợp lệ. Chọn Sqlite, Postgres hoặc Json.")
+});
 builder.Services.AddSingleton<IPlaceRepository>(s => (IPlaceRepository)s.GetRequiredService<IPlatformStore>());
 builder.Services.AddSingleton<PlatformService>();
 builder.Services.AddSingleton<DeviceActivityService>();
+builder.Services.AddSingleton<PresenceService>();
 builder.Services.AddSingleton<TranslationReviewService>();
 builder.Services.AddAntiforgery(options => {
     options.HeaderName = "X-CSRF-Token";
@@ -191,13 +211,17 @@ app.Use(async (context, next) => {
     }
     catch (PlatformException exception) { context.Response.StatusCode = exception.StatusCode; await context.Response.WriteAsJsonAsync(new { message = exception.Message }); }
     catch (ArgumentException exception) { context.Response.StatusCode = 400; await context.Response.WriteAsJsonAsync(new { message = exception.Message }); }
+    catch (Npgsql.NpgsqlException) {
+        context.Response.StatusCode = 503;
+        await context.Response.WriteAsJsonAsync(new { message = "Chưa kết nối được database cloud. Kiểm tra mạng và cấu hình máy chủ rồi thử lại." });
+    }
     catch (OperationCanceledException) when (context.RequestAborted.IsCancellationRequested) { }
 });
 app.UseRateLimiter();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGet("/api/health", () => Results.Ok(new { status = "ready", storage = platform.Store is SqlitePlatformStore ? "sqlite" : "local-json", version = platform.Store.Read(s => s.Version) }));
+app.MapGet("/api/health", () => Results.Ok(new { status = "ready", storage = platform.Store is PostgresPlatformStore ? "postgresql" : platform.Store is SqlitePlatformStore ? "sqlite" : "local-json", version = platform.Store.Read(s => s.Version) }));
 
 app.Run();
 
