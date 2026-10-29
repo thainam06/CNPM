@@ -8,9 +8,8 @@ import { uiBundleReady } from './i18n';
 import OfflineBundleTools from './OfflineBundleTools';
 import { setAnalyticsConsent } from './analytics';
 
-export default function ExploreTools({ places, language, onEnter, onLanguageReadiness, preparationRetry = 0 }) {
-  const [gps, setGps] = useState(false);
-  const [position, setPosition] = useState(null);
+export default function ExploreTools({ places, language, onEnter, location, onLanguageReadiness, preparationRetry = 0 }) {
+  const { enabled: gps, position, start, clear } = location;
   const [message, setMessage] = useState('');
   const [working, setWorking] = useState(false);
   const [bundleWorking, setBundleWorking] = useState(false);
@@ -76,14 +75,15 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
   useEffect(() => {
     if (!gps) return;
     const engine = new GeofenceEngine();
-    let last = null;
-    let lastAt = 0;
     let prefetchAt = 0;
     let blockedUntil = 0;
     let failures = 0;
     let prefetching = false;
     const controller = new AbortController();
     const reconcile = () => {
+      const last = currentPosition.current;
+      const lastAt = last?.observedAt ?? 0;
+      if (!last || Date.now() - lastAt >= 30000) engine.pending.clear();
       if (last && Date.now() - lastAt < 30000) { const entered = engine.update(last, catalog.current, Date.now()); if (entered) callback.current(entered); }
       if (last && last.accuracy <= 100 && Date.now() - lastAt < 30000 && navigator.onLine && !prefetching && Date.now() - prefetchAt >= 30000 && Date.now() >= blockedUntil) {
         const nearby = nearbyHotset(last, catalog.current, 500, 3);
@@ -94,15 +94,9 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
         }).finally(() => { prefetching = false; });
       }
     };
-    const watch = navigator.geolocation.watchPosition(result => {
-      if (Date.now() - lastAt < 5000) return;
-      const observedAt = result.timestamp;
-      if (!Number.isFinite(observedAt) || Date.now() - observedAt > 30000 || observedAt > Date.now() + 5000) return;
-      last = { latitude: result.coords.latitude, longitude: result.coords.longitude, accuracy: result.coords.accuracy, observedAt };
-      lastAt = observedAt; setPosition(last); reconcile();
-    }, error => { setMessage(error.code === 1 ? 'Chưa được cấp quyền vị trí. Bạn vẫn có thể chọn địa điểm thủ công.' : 'Không lấy được vị trí. Vui lòng thử lại.'); setGps(false); }, { enableHighAccuracy: true, maximumAge: 30000, timeout: 15000 });
+    reconcile();
     const interval = setInterval(reconcile, 5000);
-    return () => { controller.abort(); navigator.geolocation.clearWatch(watch); clearInterval(interval); };
+    return () => { controller.abort(); clearInterval(interval); };
   }, [gps, language]);
 
   async function savePack() {
@@ -111,6 +105,7 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
     catch (error) { setMessage(error.name === 'QuotaExceededError' ? 'Thiết bị không đủ dung lượng. Xóa dữ liệu offline rồi thử lại.' : error.message); }
     finally { setWorking(false); }
   }
+  function toggleGps() { sharingAbort.current?.abort(); if (gps) clear(); else start(); }
   function prepareLanguage() { setHotsetRetry(value => value + 1); }
   async function toggleConsent(value) {
     setConsent(value);
@@ -130,12 +125,13 @@ export default function ExploreTools({ places, language, onEnter, onLanguageRead
       } catch { setMessage('Đã dừng gửi vị trí. Chưa xóa được dữ liệu server; thử nút xóa khi có mạng. Dữ liệu tự hết hạn sau 24 giờ.'); }
     }
   }
-  return <section className="explore-tools" aria-label="Tiện ích khám phá"><div><h3>Khám phá theo cách của bạn</h3><p>GPS mặc định chỉ dùng trên thiết bị. Chia sẻ vị trí với Admin cần đồng ý riêng bên dưới. Offline phát MP3 đã tải; tạo audio mới cần Internet.</p></div><div className="tool-actions">
-    <button type="button" onClick={() => { if (!navigator.geolocation) { setMessage('Trình duyệt không hỗ trợ vị trí.'); return; } setMessage(''); setGps(!gps); }}>{gps ? 'Tắt định vị' : 'Bật định vị & thuyết minh gần bạn'}</button>
+  return <section className="explore-tools" aria-label="Tiện ích khám phá"><div><h3>Khám phá theo cách của bạn</h3><p>Trang tự yêu cầu quyền GPS để gợi ý địa điểm gần bạn. Bạn có thể từ chối hoặc tắt định vị; tọa độ mặc định chỉ dùng trên thiết bị. Chia sẻ vị trí với Admin cần đồng ý riêng bên dưới. Offline phát MP3 đã tải; tạo audio mới cần Internet.</p></div><div className="tool-actions">
+    <button type="button" onClick={toggleGps} aria-pressed={gps}>{gps ? 'Tắt định vị' : 'Bật định vị & thuyết minh gần bạn'}</button>
     <button type="button" disabled={working || bundleWorking} onClick={prepareLanguage}>Chuẩn bị ngôn ngữ · {language}</button>
     <button type="button" disabled={working || bundleWorking} onClick={savePack}>Tải audio offline · {language}</button>
     <button type="button" disabled={working || bundleWorking} onClick={async () => { try { await clearOffline(); offlineAssetsChanged(); setHotsetRetry(value => value + 1); setMessage('Đã xóa dữ liệu và audio offline trên thiết bị.'); } catch { setMessage('Không xóa được dữ liệu offline.'); } }}>Xóa dữ liệu offline</button>
-  </div><label className="consent"><input type="checkbox" checked={consent} onChange={event => toggleConsent(event.target.checked)} />Cho phép thống kê ẩn danh lượt xem/nghe (không gửi vị trí)</label>
+  </div>
+    <label className="consent"><input type="checkbox" checked={consent} onChange={event => toggleConsent(event.target.checked)} />Cho phép thống kê ẩn danh lượt xem/nghe (không gửi vị trí)</label>
     <label className="consent"><input type="checkbox" checked={runtimeConsent} onChange={event => toggleRuntime(event.target.checked)} />Đồng ý gửi vị trí làm tròn khoảng 100 m tới Admin SmartTour để giám sát demo; lưu tối đa 24 giờ, không gắn tài khoản. Mặc định tắt mỗi lần mở trang.</label>
     {runtimeSession && <button type="button" onClick={() => toggleRuntime(false)}>Xóa vị trí đã chia sẻ</button>}
     {gps && <p role="status">{position ? `Độ chính xác GPS: khoảng ${Math.round(position.accuracy)} m.` : 'Đang lấy vị trí…'} {!places.some(place => place.locationVerified) && 'Chưa có địa điểm có tọa độ xác minh để kích hoạt tự động.'}</p>}

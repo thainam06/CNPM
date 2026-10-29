@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:browser": "npm run build && node tests/browser/member2.cjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -22,6 +23,7 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.81.0",
+    "playwright": "1.62.1",
     "vite": "^8.3.0"
   }
 }

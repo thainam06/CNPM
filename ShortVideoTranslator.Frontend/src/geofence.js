@@ -7,7 +7,9 @@ export function distanceMeters(a, b) {
 export class GeofenceEngine {
   constructor() { this.pending = new Map(); this.cooldown = new Map(); this.inside = new Set(); }
   update(position, places, now) {
-    if (!Number.isFinite(position.latitude) || !Number.isFinite(position.longitude) || position.accuracy > 100) return null;
+    if (!Number.isFinite(position.latitude) || Math.abs(position.latitude) > 90 || !Number.isFinite(position.longitude) || Math.abs(position.longitude) > 180 || !Number.isFinite(position.accuracy) || position.accuracy < 0 || position.accuracy > 100) {
+      this.pending.clear(); return null;
+    }
     const eligible = places.filter(place => place.locationVerified && Number.isFinite(place.latitude) && Number.isFinite(place.longitude));
     const candidates = [];
     for (const place of eligible) {
@@ -26,6 +28,15 @@ export class GeofenceEngine {
     const selected = candidates[0].place;
     this.inside.add(selected.id); this.pending.delete(selected.id); return selected;
   }
+}
+
+export function nearbyPlaces(position, places, radius = 1000) {
+  if (!position || !Number.isFinite(position.latitude) || Math.abs(position.latitude) > 90 ||
+    !Number.isFinite(position.longitude) || Math.abs(position.longitude) > 180 ||
+    !Number.isFinite(position.accuracy) || position.accuracy < 0 || position.accuracy > 100) return [];
+  return places.filter(p => p.locationVerified && Number.isFinite(p.latitude) && Math.abs(p.latitude) <= 90 && Number.isFinite(p.longitude) && Math.abs(p.longitude) <= 180)
+    .map(place => ({ place, distance: distanceMeters(position, place) }))
+    .filter(item => item.distance <= radius).sort((a, b) => a.distance - b.distance || a.place.id - b.place.id);
 }
 
 export function nearbyHotset(position, places, radius = 1500, limit = 10) {
