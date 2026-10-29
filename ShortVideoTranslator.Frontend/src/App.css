@@ -482,3 +482,18 @@ button:disabled { opacity: .55; cursor: wait; }
 .map-cluster { width:42px; height:42px; border-radius:50%; border:3px solid #fff3dc; background:#bd531b; color:white; font-weight:800; box-shadow:0 2px 12px #79411b55; cursor:pointer; padding:0; }
 .map-cluster:focus-visible { outline:3px solid #472c20; outline-offset:3px; }
 .app .description, .app .translated-content p { white-space:pre-line; }
+
+/* Nearby controls remain usable at 320px and with long place names. */
+.nearby-panel { margin-top: 20px; padding-top: 16px; border-top: 1px solid #ecd7be; min-width: 0; }
+.nearby-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.nearby-heading h4 { margin: 0; }
+.nearby-heading label { display: flex; align-items: center; gap: 8px; }
+.nearby-heading select { min-height: 44px; max-width: 100%; padding: 8px; }
+.nearby-list { list-style: none; padding: 0; display: grid; gap: 8px; }
+.nearby-list button { display: flex; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; text-align: left; padding: 10px 12px; border: 1px solid #e1cbb5; border-radius: 8px; background: #fff; color: #7b3d1e; cursor: pointer; }
+.nearby-list button span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.nearby-list button span:last-child { flex-shrink: 0; }
+.explore-tools .tool-actions button { min-height: 44px; overflow-wrap: anywhere; }
+.explore-tools .consent { align-items: flex-start; }
+.explore-tools .consent input { flex: 0 0 auto; margin-top: 3px; }
+@media (max-width: 420px) { .explore-tools { padding: 16px; } .explore-tools .tool-actions button { width: 100%; } }
