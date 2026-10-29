@@ -291,7 +291,7 @@ function App() {
           </article>
         </section>
         <HomeMap language={language} places={places} selectedId={selectedId} onSelect={openPlace} />
-        <ExploreTools places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
+        <ExploreTools onSelect={openPlace} places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
       </main>
       <footer className="footer"><div><strong>SmartTour<span> Guide</span></strong><p>Quận 1 · Thành phố Hồ Chí Minh</p><small>Đồ án Công nghệ phần mềm · Nội dung demo</small></div><div className="footer-links"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="/admin">{t('admin')}</a><a href="/owner">{t('owner')}</a></div><a className="back-to-top" href="#gioi-thieu" aria-label="Về đầu trang">↑</a></footer>
     </div>
