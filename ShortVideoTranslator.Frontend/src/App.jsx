@@ -7,6 +7,7 @@ import { collectEvent, startAnalytics } from './analytics';
 import { readApi } from './api';
 import HomeMap from './HomeMap';
 import NearbyPlaces from './NearbyPlaces.jsx';
+import { useNearbyLocation } from './useNearbyLocation';
 import PlaceImage from './PlaceImage';
 import PlaceGallery from './PlaceGallery';
 import { uiText, uiBundleReady } from './i18n';
@@ -22,6 +23,7 @@ const languages = [
 const normalize = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 
 function App() {
+  const location = useNearbyLocation();
   const [places, setPlaces] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [place, setPlace] = useState(null);
@@ -258,7 +260,7 @@ function App() {
           <a href="#ban-do"><span className="journey-step-number">03</span><div><strong>{t('map')}</strong><small>{t('mapHint')}</small></div><span aria-hidden="true">◎</span></a>
         </nav>
         <div className="discovery-heading"><div><span className="section-kicker">ĐIỂM ĐẾN NỔI BẬT</span><h2>{t('places')}<span className="heading-dot">.</span></h2></div><a className="section-map-link" href="#ban-do">{t('map')} <span aria-hidden="true">↗</span></a></div>
-        <NearbyPlaces places={places} onSelect={choosePlace} />
+        <NearbyPlaces places={places} onSelect={openPlace} location={location} />
         <section className="content-grid" id="dia-diem" aria-label="Khám phá địa điểm">
           <div className="places-panel">
             <div className="catalog-toolbar"><div className="search-field"><label className="search-label" htmlFor="search">{t('search')}</label><span className="search-symbol" aria-hidden="true">⌕</span><input id="search" className="search-input" type="search" placeholder={t('searchHint')} value={search} onChange={(event) => setSearch(event.target.value)} /></div><div className="catalog-result"><span className="catalog-count">{filteredPlaces.length} / {places.length} {t('count')}</span>{(search || category) && <button className="reset-filters" type="button" onClick={() => { setSearch(''); setCategory(''); }}>{t('allCategories')} <span aria-hidden="true">×</span></button>}</div></div>
@@ -300,7 +302,7 @@ function App() {
           </article>
         </section>
         <HomeMap language={language} places={places} selectedId={selectedId} onSelect={openPlace} />
-        <ExploreTools places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
+        <ExploreTools location={location} places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
       </main>
       <footer className="footer"><div><strong>SmartTour<span> Guide</span></strong><p>Quận 1 · Thành phố Hồ Chí Minh</p><small>Đồ án Công nghệ phần mềm · Nội dung demo</small></div><div className="footer-links"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="/admin">{t('admin')}</a><a href="/owner">{t('owner')}</a></div><a className="back-to-top" href="#gioi-thieu" aria-label="Về đầu trang">↑</a></footer>
     </div>

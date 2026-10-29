@@ -482,3 +482,9 @@ button:disabled { opacity: .55; cursor: wait; }
 .map-cluster { width:42px; height:42px; border-radius:50%; border:3px solid #fff3dc; background:#bd531b; color:white; font-weight:800; box-shadow:0 2px 12px #79411b55; cursor:pointer; padding:0; }
 .map-cluster:focus-visible { outline:3px solid #472c20; outline-offset:3px; }
 .app .description, .app .translated-content p { white-space:pre-line; }
+
+/* Keep explore controls usable on small screens. */
+.explore-tools .tool-actions button { min-height: 44px; overflow-wrap: anywhere; }
+.explore-tools .consent { align-items: flex-start; }
+.explore-tools .consent input { flex: 0 0 auto; margin-top: 3px; }
+@media (max-width: 420px) { .explore-tools { padding: 16px; } .explore-tools .tool-actions button { width: 100%; } }
