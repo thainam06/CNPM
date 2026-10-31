@@ -1,8 +1,9 @@
+import { ngonNguBanDich } from '../data/danhSachNgonNgu.js';
 import { useEffect, useRef, useState } from 'react';
 import { useChuQuanTri } from './NgonNguQuanTri.jsx';
 import { guiYeuCauApi, diaChiApi, ghiApi, docApi } from "../services/dichVuApi.js";
 
-const languages = [['en', 'English'], ['zh', '中文'], ['ja', '日本語'], ['ko', '한국어'], ['fr', 'Français']];
+
 export default function QuanLyBanDich({ data, revision, busy, can, run }) {
   const t = useChuQuanTri();
   const [placeId, setPlaceId] = useState(data.places[0]?.id || '');
@@ -38,7 +39,7 @@ export default function QuanLyBanDich({ data, revision, busy, can, run }) {
   return <section className="portal-card"><h2>{t("Biên tập và duyệt bản dịch thuyết minh")}</h2>
     <p>{t("Bản nháp không thay nội dung khách đang nghe. Khi duyệt, hệ thống tạo MP3 đúng ngôn ngữ trước; chỉ công khai khi audio sẵn sàng. Bản dịch áp dụng cho đúng nội dung gốc, kể cả địa điểm dùng chung nội dung đó.")}</p>
     <div className="form-grid"><label>{t('Địa điểm')}<select value={placeId} disabled={blocked} onChange={event => choose(setPlaceId, Number(event.target.value))}>{data.places.map(place => <option key={place.id} value={place.id}>{place.name}{place.isActive ? '' : ` · ${t('Ẩn')}`}</option>)}</select></label>
-      <label>{t("Ngôn ngữ bản dịch")}<select value={language} disabled={blocked} onChange={event => choose(setLanguage, event.target.value)}>{languages.map(([code, name]) => <option key={code} value={code}>{name}</option>)}</select></label></div>
+      <label>{t("Ngôn ngữ bản dịch")}<select value={language} disabled={blocked} onChange={event => choose(setLanguage, event.target.value)}>{ngonNguBanDich.map(({code, name}) => <option key={code} value={code}>{name}</option>)}</select></label></div>
     {!data.places.length && <p>{t("Chưa có địa điểm Quận 1.")}</p>}
     {error && <p className="notice" role="alert">{error}</p>}
     {placeId && !view && !error && <p role="status">{t("Đang tải bản dịch…")}</p>}

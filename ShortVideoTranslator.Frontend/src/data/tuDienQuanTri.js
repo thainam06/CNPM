@@ -1,3 +1,4 @@
+import { maNgonNgu } from './danhSachNgonNgu.js';
 const rows = [
   ["Biên tập và duyệt bản dịch thuyết minh", "Edit and approve narration translations", "编辑并审核讲解译文", "解説の翻訳を編集・承認", "해설 번역 편집 및 승인", "Modifier et approuver les traductions de narration"],
   ["Ngôn ngữ bản dịch", "Translation language", "译文语言", "翻訳先の言語", "번역 언어", "Langue de traduction"],
@@ -161,6 +162,6 @@ const rows = [
   ['Cập nhật', 'Updated', '更新时间', '更新', '업데이트', 'Mise à jour'],
   ['Sai số GPS', 'GPS accuracy', 'GPS精度', 'GPS精度', 'GPS 정확도', 'Précision GPS'],
 ];
-export const ngonNguQuanTri = ['vi', 'en', 'zh', 'ja', 'ko', 'fr'];
+export const ngonNguQuanTri = maNgonNgu;
 export const tuDienQuanTri = Object.fromEntries(ngonNguQuanTri.map((lang, index) => [lang, Object.fromEntries(rows.map(row => [row[0], row[index]]))]));
 export const chuQuanTri = (language, text) => tuDienQuanTri[language]?.[text] ?? text;
