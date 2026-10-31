@@ -14,12 +14,14 @@ cấu trúc và tính nhất quán của các trường JSONB.
 Thiết kế SQL này là mô hình đích cho chức năng khám phá địa điểm, thuyết minh,
 quản lý tài khoản cơ bản và thống kê. Không đồng nhất 6 bảng vật lý với toàn bộ
 thực thể logic của 28 Use Case. Các thực thể phụ trong bản PRD cũ vẫn là yêu cầu
-nghiệp vụ và chưa có mapping PostgreSQL hoàn chỉnh; không được tự bỏ UC vì giảm bảng.
+nghiệp vụ, hiện được codec lưu một phần trong JSONB envelope; chưa có bảng/FK riêng
+cho từng UC. Không được tự bỏ UC vì giảm bảng.
 
-Ứng dụng hiện vận hành bằng SQLite. Theo ảnh Schema Visualizer người dùng cung cấp,
-6 bảng đã được tạo trên Supabase; chưa kết nối Backend PostgreSQL và chưa kiểm
-chứng dữ liệu thật trên Supabase. Tạo bảng thành công không đồng nghĩa chuyển đổi
-database đã hoàn tất.
+Cập nhật code ngày 18/11/2026: backend đã có adapter PostgreSQL 6 bảng; SQLite
+vẫn là mặc định nếu không cấu hình Postgres. Báo cáo 15/11 trong
+`HUONG-DAN-XEM-SUPABASE.md` ghi nhận kết nối/import Supabase thành công. Lượt này chỉ
+kiểm thử PostgreSQL tạm trên máy, chưa kiểm tra lại project online. Không coi việc tạo
+bảng hoặc round-trip codec là bằng chứng toàn bộ 28 UC đã chạy thành công trên Supabase.
 
 ## VI.1. Danh mục bảng và trường dữ liệu
 
@@ -87,27 +89,30 @@ chuyển đổi 003 phải được ánh xạ sang hàng vi khi nhập dữ li�
   này không chứa lịch sử GPS khách. Chia sẻ vị trí giám sát là tính năng khác.
 - OfflinePackClient dùng IndexedDB; audio và PMTiles dùng kho file, không tạo thêm bảng.
 
-## VI.5. Các yêu cầu PRD chưa được ánh xạ đầy đủ
+## VI.5. Mapping phụ hiện có và giới hạn kiểm chứng
 
-| Yêu cầu/UC | Giới hạn của thiết kế 6 bảng |
+`PostgresStateCodec.Encode` giữ các collection ngoài 6 bảng chính trong
+`activity_logs.details.state`, tại ID `system:platform-state:v1`. Có phiên bản codec;
+thiếu envelope không được tự khởi tạo thành kho rỗng. Các collection này được test
+round-trip, nhưng không có cột/FK riêng trong mô hình quan hệ.
+
+| Nghiệp vụ | Cách lưu hiện tại / giới hạn |
 |---|---|
-| UC11–12: phiên đăng nhập, đổi mật khẩu | settings giữ security_stamp; chưa thiết kế nơi lưu refresh session trên PostgreSQL |
-| UC13–16: đăng ký, đề xuất, duyệt, thông báo | Chưa có mapping hồ sơ/đề xuất/thông báo có trạng thái và người nhận |
-| UC19: thực đơn | Chưa có mapping MenuItem |
-| UC21: vai trò tùy chỉnh | users.role chỉ lưu tên; chưa có mapping danh mục role/permissions dùng chung |
-| UC23: tác vụ audio | audio_path không thay thế hàng đợi task/progress/pause/resume/cancel |
-| UC26: giấy tờ tùy chọn | Chưa có mapping ciphertext và thời hạn |
-| UC10/27: giám sát vị trí được đồng ý | Không lưu vào presence/analytics; chưa có mapping runtime và revocation riêng |
+| Refresh session, đổi mật khẩu | Collection phụ trong envelope; tài khoản/settings trong users |
+| Hồ sơ, đề xuất, thông báo | Collection phụ trong envelope; chưa phải bảng SQL riêng |
+| Thực đơn, roles/permissions | Collection phụ trong envelope; users.role giữ role của tài khoản |
+| Audio tasks, quota | Collection phụ trong envelope; audio_path không chứng minh MP3 tồn tại |
+| Giấy tờ, runtime sharing/revocations | Collection phụ theo quy tắc backend; không xuất envelope cho frontend |
 
-Những chức năng này vẫn có trong code hiện tại và kho SQLite. Chưa được coi là
-đã chuyển sang Supabase. Cần thống nhất cấu trúc lưu trữ trước khi đổi provider;
-không giấu thiếu sót bằng cách ghi tất cả đã nằm trong JSONB.
+Không gửi nguyên `details` hoặc `users.settings` trong bằng chứng nhóm: có thể chứa
+trạng thái bảo mật và dữ liệu riêng tư. Bộ SQL bàn giao chỉ lấy cột được chọn.
+Các test codec/integration không thay thế kiểm thử giao diện, quyền, consent và thiết bị thật.
 
 ## Nội dung cần cập nhật ở các phần khác của PRD
 
 1. Thay các ERD cũ tại VI.1/VI.3/VI.4 bằng sơ đồ vật lý 6 bảng và bảng giới hạn phía trên;
    có thể giữ sơ đồ cũ nếu ghi rõ đó là mô hình logic nghiệp vụ.
-2. Sửa phần kiến trúc triển khai: hiện tại SQLite, PostgreSQL/Supabase là đích chuyển đổi.
+2. Sửa phần kiến trúc: có provider SQLite và Postgres; chỉ ghi provider đang chạy sau khi kiểm tra health.
 3. Giữ danh sách 28 UC, cập nhật trạng thái lưu trữ theo từng UC; không ghi tất cả đạt.
 4. Phân biệt kiểm thử cấu trúc SQL với kiểm thử đầy đủ chức năng Frontend/Backend.
 
