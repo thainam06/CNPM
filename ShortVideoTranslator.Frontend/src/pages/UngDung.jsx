@@ -1,3 +1,4 @@
+import { danhSachNgonNgu as languages } from '../data/danhSachNgonNgu.js';
 import { useEffect, useRef, useState } from 'react';
 import { taoThuyetMinh, layChiTietDiaDiem, layDanhSachDiaDiem, dichNoiDung } from "../services/dichVuApi.js";
 import "../styles/UngDung.css";
@@ -17,11 +18,7 @@ import { kiemTraKetNoiKhoiDong } from "../services/kiemTraKhoiDong.js";
 import { diaChiApi } from "../services/dichVuApi.js";
 import { locDiaDiemGanDay } from '../utils/vungKichHoat.js';
 
-const languages = [
-  { code: 'vi', name: 'Tiếng Việt' }, { code: 'en', name: 'English' },
-  { code: 'zh', name: '中文' }, { code: 'ja', name: '日本語' },
-  { code: 'ko', name: '한국어' }, { code: 'fr', name: 'Français' },
-];
+
 const normalize = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 
 function DieuHuongDiDong() {
