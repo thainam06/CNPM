@@ -18,6 +18,12 @@ builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true).AddE
 string PostgresConnection(IConfiguration config) => config["Storage:PostgresConnectionString"]
     ?? PostgresConnectionFile.Read(config["Storage:PostgresConnectionFile"]
         ?? Path.Combine(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data"), "postgres.local.json"));
+if (builder.Configuration.GetValue<bool>("ReviewPostgres")) {
+    var result = SupabaseReview.Run(() => PostgresConnection(builder.Configuration), builder.Configuration.GetValue<bool>("IncludeConnectionInfo"));
+    Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)));
+    Environment.ExitCode = result.Success ? 0 : 2;
+    return;
+}
 if (builder.Configuration.GetValue<bool>("CheckPostgres")) {
     var result = PostgresConnectionCheck.Check(() => PostgresConnection(builder.Configuration));
     Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)));

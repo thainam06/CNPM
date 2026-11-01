@@ -80,3 +80,20 @@ Sau khi PASS:
 
 - Không commit/gửi `.env.docker`; người khác cần chạy thì tự lấy connection string ở nút **Connect → Session pooler** của project và mật khẩu database từ chủ project.
 - `supabase-ca.crt` là chứng chỉ công khai của Supabase, không phải bí mật.
+
+## 5. Bộ kiểm tra bàn giao mới (18/11/2026)
+
+Xem [database/supabase-review/README.md](database/supabase-review/README.md) để có
+SQL xem cấu trúc, số dòng, dữ liệu mẫu chọn lọc, lỗi liên kết và template Session pooler.
+Trong repo dùng tên `users` và `places`; không tạo `user`/`port` chỉ để khớp cách gọi trong tin nhắn.
+
+Muốn báo cáo chỉ đọc mà không khởi động app:
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Start-Supabase.ps1 -ReviewOnly
+```
+
+Thêm `-IncludeConnectionInfo` nếu muốn hiện Host/Port/Database/User cho nhóm; không hiện
+password. Review dùng transaction READ ONLY, khác `-CheckOnly` có write-probe rollback.
+Kết quả kiểm thử 18/11 là trên PostgreSQL thử nghiệm; số liệu mục 1 vẫn là báo cáo 15/11,
+chưa được kiểm tra lại trên Supabase online trong lượt này.

@@ -5,7 +5,9 @@
 trong báo cáo và phân biệt phần đã có với phần chưa ánh xạ.
 
 Schema đích: `smarttour_demo`. File tạo bảng: `database/postgres/002_smarttour_compact.sql`.
-Đây là thiết kế cho chức năng cốt lõi; chưa phải bản chuyển đổi Backend đang chạy.
+Backend hiện có adapter `PostgresPlatformStore` và `PostgresStateCodec` dùng schema này.
+SQLite vẫn là mặc định khi không chọn Postgres. Xem [bộ kiểm tra hiện tại](../database/supabase-review/README.md);
+không suy ra trạng thái database online từ tài liệu thiết kế.
 
 Bản rút gọn có **44 cột**, mỗi bảng tối đa **8 cột**:
 users 7, places 8, place_images 7, place_narrations 8, visitor_sessions 6,
@@ -13,7 +15,7 @@ activity_logs 8. Bản tiếng Việt được lưu tại place_narrations với
 
 Các cột JSONB chứa thông tin phụ, không thay thế khóa chính/khóa ngoại:
 
-| Cột | Nội dung dự kiến khi viết adapter |
+| Cột | Nội dung thiết kế ban đầu (tên key thực tế xem codec) |
 |---|---|
 | users.settings | verified, must_change_password, security_stamp, created_at |
 | places.settings | category, region, is_active, is_demo, nguồn thông tin, xác minh tọa độ, bán kính, ưu tiên audio, updated_at |
@@ -24,7 +26,7 @@ Các cột JSONB chứa thông tin phụ, không thay thế khóa chính/khóa n
 
 Đây là đánh đổi để bảng ngắn: các thuộc tính trong JSONB không có ràng buộc
 kiểu dữ liệu hay khóa ngoại riêng; Backend phải kiểm tra cấu trúc, giá trị, quyền
-truy cập và tính nhất quán khi đọc/ghi. Chưa có adapter thực hiện kiểm tra này.
+truy cập và tính nhất quán khi đọc/ghi. Adapter đã có kiểm thử round-trip và PostgreSQL riêng; chưa thay thế kiểm thử toàn bộ giao diện/UC online.
 
 | Bảng | Chức năng |
 |---|---|
@@ -37,11 +39,11 @@ truy cập và tính nhất quán khi đọc/ghi. Chưa có adapter thực hiệ
 
 ```mermaid
 erDiagram
-  users ||--o{ places : owns
+  users o|--o{ places : owns
   places ||--o{ place_images : has
   places ||--o{ place_narrations : has
-  users ||--o{ activity_logs : acts
-  places ||--o{ activity_logs : references
+  users o|--o{ activity_logs : acts
+  places o|--o{ activity_logs : references
   visitor_sessions {
     text id PK
     text device_id
@@ -57,31 +59,33 @@ không tính mỗi tab là một thiết bị. Truy vấn số thiết bị ho�
 SELECT count(DISTINCT device_id) AS active_devices
 FROM smarttour_demo.visitor_sessions
 WHERE ended_at IS NULL
-  AND last_seen_at >= now() - interval '45 seconds';
+  AND last_seen_at > now() - interval '45 seconds';
 ```
 
-Backend tương lai phải cập nhật heartbeat, kết thúc phiên khi rời trang, xử lý heartbeat
-đến muộn sau khi đóng tab và từ chối tái mở phiên đã kết thúc. Query trên không tự làm
+Backend hiện dùng `PresenceService` để xử lý heartbeat, leave và heartbeat đến trễ;
+codec ánh xạ phiên đang lưu sang `visitor_sessions`. Query trên không tự làm
 những việc đó. Mất mạng/đóng cưỡng bức có thể mất tối đa 45 giây để giảm số đếm.
 
 ## Phạm vi và giới hạn
 
 - Gộp bản dịch và metadata âm thanh vào `place_narrations`, một audio cho mỗi phiên bản.
   Đổi nội dung/giọng cần tạo phiên bản hoặc cập nhật metadata theo quy tắc Backend.
-- Vai trò lưu trong `users.role`. Phân quyền tùy chỉnh hiện có chưa được ánh xạ sang
-  mô hình này; không tự bỏ chức năng quản lý quyền của website.
-- Các phần phụ hiện có như duyệt hồ sơ chủ quán, thực đơn, thông báo, refresh token,
-  hàng đợi TTS và quota chưa có nơi lưu trong 6 bảng này. Cần chốt lưu trữ/mapping
-  trước khi chuyển toàn bộ hệ thống. Không được coi schema này đã thay thế toàn bộ SQLite.
-- Không lưu mật khẩu rõ, MP3 nhị phân, IP/MAC hay GPS của khách vào các bảng này.
-  Tọa độ trong `places` là tọa độ địa điểm để tính khoảng cách trên trình duyệt.
+- Vai trò cơ bản nằm trong `users.role`. Các collection phụ như roles, menu, refresh
+  session, thông báo, audio task, quota và runtime state được codec lưu trong envelope
+  `activity_logs.details.state`, tại ID dành riêng `system:platform-state:v1`.
+  Đây là persistence JSONB có kiểu trong code, chưa phải bảng quan hệ riêng theo từng UC.
+  Không hiển thị/export envelope như log quản trị hay analytics; có thể chứa trạng thái bí mật.
+- Không lưu mật khẩu rõ hoặc MP3 nhị phân vào SQL. Tọa độ `places` là của địa điểm.
+  Presence không lưu GPS khách; tính năng runtime sharing riêng có thể nằm trong envelope
+  theo lựa chọn đồng ý của khách và quy tắc lưu giữ của backend.
 - Chỉ Backend truy cập bảng. Chưa cấp quyền cho Data API trình duyệt.
 
 ## Áp dụng an toàn
 
 Script tạo namespace mới, không DROP/xóa/gộp 27 bảng đã tạo trong `smarttour`.
 Chọn `smarttour_demo` trong Schema Visualizer để xem riêng đúng 6 bảng.
-Không chạy lại file 001 để tạo bản rút gọn. Chưa nhập dữ liệu và chưa chuyển provider API.
+Không chạy lại file 001 để tạo bản rút gọn. Báo cáo ngày 15/11/2026 trong
+`HUONG-DAN-XEM-SUPABASE.md` đã ghi nhận import/kết nối; đó không phải xác nhận online mới.
 Chỉ dọn schema cũ sau khi kiểm tra dữ liệu, sao lưu và xác nhận nó không còn được dùng.
 Nếu đã chạy bản 002 trước khi rút gọn cột, bản mới sẽ báo lỗi và rollback để tránh
 hiểu nhầm rằng CREATE TABLE IF NOT EXISTS đã sửa bảng cũ. Cần migration có sao lưu;
