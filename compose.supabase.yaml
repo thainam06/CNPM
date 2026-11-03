@@ -1,0 +1,7 @@
+# Supabase Session pooler; connection string stays in the API container.
+# Requires the smarttour_demo six-table schema and migration 005.
+services:
+  api:
+    environment:
+      Storage__Provider: Postgres
+      Storage__PostgresConnectionString: ${SUPABASE_CONNECTION_STRING:?Set SUPABASE_CONNECTION_STRING in your private .env.docker file}
