@@ -15,9 +15,10 @@ using ShortVideoTranslator.Api.Security;
 var builder = WebApplication.CreateBuilder(args);
 // This file is local-only and gitignored. Environment/CLI remain authoritative.
 builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true).AddEnvironmentVariables().AddCommandLine(args);
-string PostgresConnection(IConfiguration config) => config["Storage:PostgresConnectionString"]
+string PostgresConnection(IConfiguration config) => PostgresConnectionFile.WithRootCertificate(config["Storage:PostgresConnectionString"]
     ?? PostgresConnectionFile.Read(config["Storage:PostgresConnectionFile"]
-        ?? Path.Combine(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data"), "postgres.local.json"));
+        ?? Path.Combine(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data"), "postgres.local.json")),
+        config["Storage:PostgresRootCertificate"]);
 if (builder.Configuration.GetValue<bool>("ReviewPostgres")) {
     var result = SupabaseReview.Run(() => PostgresConnection(builder.Configuration), builder.Configuration.GetValue<bool>("IncludeConnectionInfo"));
     Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)));
