@@ -14,6 +14,18 @@ public static class PostgresStateCodec
     private static readonly (string, string)[] PlaceFields = [("id","id"),("ownerId","owner_id"),("name","name"),("address","address"),("latitude","latitude"),("longitude","longitude"),("description","introduction")];
     private static readonly (string, string)[] PhotoFields = [("url","url"),("caption","caption")];
 
+    // timestamptz stores microseconds, while DateTimeOffset also carries 100ns ticks
+    // and an offset. Keep the exact source in JSONB without hiding later SQL edits.
+    private static DateTimeOffset Timestamp(JsonObject row, string column, JsonNode metadata, string originalKey)
+    {
+        var stored = row[column]!.Deserialize<DateTimeOffset>(Json);
+        if (metadata[originalKey] is { } value) {
+            var original = value.Deserialize<DateTimeOffset>(Json);
+            if (Math.Abs((stored - original).Ticks) <= 5) return original;
+        }
+        return stored;
+    }
+
     private static JsonNode? Copy(JsonNode? value) => value?.DeepClone();
     private static JsonObject Object<T>(T value) => JsonSerializer.SerializeToNode(value, Json)!.AsObject();
     private static JsonObject Row<T>(T value, (string Model, string Column)[] fields, string extra, int order)
@@ -92,18 +104,18 @@ public static class PostgresStateCodec
         }
         foreach (var d in state.PresenceDevices) sessions.Add(new JsonObject { ["id"] = d.DeviceId+":"+(d.SessionId??d.DeviceId), ["device_id"] = d.DeviceId,
             ["started_at"] = d.FirstSeen, ["last_seen_at"] = d.LastSeen, ["ended_at"] = null,
-            ["device_info"] = new JsonObject { ["descriptor"] = Object(d.Descriptor), ["sessionId"] = d.SessionId, ["__order"] = sessions.Count } });
+            ["device_info"] = new JsonObject { ["descriptor"] = Object(d.Descriptor), ["sessionId"] = d.SessionId, ["__order"] = sessions.Count, ["__firstSeen"] = d.FirstSeen, ["__lastSeen"] = d.LastSeen } });
         var placeIds = state.Places.Select(p => p.Id).ToHashSet(); var userIds = state.Users.Select(u => u.Id).ToHashSet();
         for (var i=0; i<state.Events.Count; i++) {
             var e = state.Events[i]; if (e.Kind == "heartbeat") continue;
             logs.Add(new JsonObject { ["id"] = "event:"+e.Id, ["kind"] = e.Kind, ["user_id"] = null, ["device_id"] = e.DeviceId,
                 ["place_id"] = e.PlaceId is int id && placeIds.Contains(id) ? id : null, ["consent"] = true, ["created_at"] = e.CreatedAt,
-                ["details"] = new JsonObject { ["eventId"] = e.Id, ["language"] = e.Language, ["originalPlaceId"] = e.PlaceId, ["__order"] = i } });
+                ["details"] = new JsonObject { ["eventId"] = e.Id, ["language"] = e.Language, ["originalPlaceId"] = e.PlaceId, ["__order"] = i, ["__createdAt"] = e.CreatedAt } });
         }
         for (var i=0; i<state.Audit.Count; i++) {
             var a = state.Audit[i]; logs.Add(new JsonObject { ["id"] = "audit:"+a.Id, ["kind"] = "admin", ["user_id"] = userIds.Contains(a.ActorId) ? a.ActorId : null,
                 ["device_id"] = null, ["place_id"] = null, ["consent"] = false, ["created_at"] = a.CreatedAt,
-                ["details"] = new JsonObject { ["auditId"] = a.Id, ["actorId"] = a.ActorId, ["action"] = a.Action, ["resource"] = a.Resource, ["__order"] = i } });
+                ["details"] = new JsonObject { ["auditId"] = a.Id, ["actorId"] = a.ActorId, ["action"] = a.Action, ["resource"] = a.Resource, ["__order"] = i, ["__createdAt"] = a.CreatedAt } });
         }
         return tables;
     }
@@ -142,15 +154,15 @@ public static class PostgresStateCodec
         state.ApprovedTranslations = approved.DistinctBy(x => x.Order).OrderBy(x => x.Order).Select(x => x.Value).ToList();
         state.PresenceDevices = Ordered(tables["visitor_sessions"]!.AsArray(), "device_info").Where(r => r["ended_at"] == null).Select(r => new PresenceDevice(
             r["device_id"]!.GetValue<string>(), r["device_info"]!["descriptor"]!.Deserialize<DeviceDescriptor>(Json)!,
-            r["started_at"]!.GetValue<DateTimeOffset>(), r["last_seen_at"]!.GetValue<DateTimeOffset>(), r["device_info"]!["sessionId"]?.GetValue<string>())).ToList();
+            Timestamp(r, "started_at", r["device_info"]!, "__firstSeen"), Timestamp(r, "last_seen_at", r["device_info"]!, "__lastSeen"), r["device_info"]!["sessionId"]?.GetValue<string>())).ToList();
         var eventRows = heartbeatRows.Select(r => (Order:r!["order"]!.GetValue<int>(), Value:r["value"]!.Deserialize<AnalyticsEvent>(Json)!)).ToList();
         foreach (var r in logs.OfType<JsonObject>().Where(r => r["kind"]!.GetValue<string>() != "admin")) {
             var d = r["details"]!; eventRows.Add((d["__order"]!.GetValue<int>(), new(d["eventId"]!.GetValue<string>(), r["device_id"]!.GetValue<string>(),
-                r["kind"]!.GetValue<string>(), d["originalPlaceId"]?.GetValue<int>(), d["language"]!.GetValue<string>(), r["created_at"]!.GetValue<DateTimeOffset>())));
+                r["kind"]!.GetValue<string>(), d["originalPlaceId"]?.GetValue<int>(), d["language"]!.GetValue<string>(), Timestamp(r, "created_at", d, "__createdAt"))));
         }
         state.Events = eventRows.OrderBy(x => x.Order).Select(x => x.Value).ToList();
         state.Audit = Ordered(new JsonArray(logs.OfType<JsonObject>().Where(r => r["id"]!.GetValue<string>().StartsWith("audit:")).Select(r => Copy(r)).ToArray()), "details")
-            .Select(r => { var d = r["details"]!; return new AuditEntry(d["auditId"]!.GetValue<string>(), d["actorId"]!.GetValue<string>(), d["action"]!.GetValue<string>(), d["resource"]!.GetValue<string>(), r["created_at"]!.GetValue<DateTimeOffset>()); }).ToList();
+            .Select(r => { var d = r["details"]!; return new AuditEntry(d["auditId"]!.GetValue<string>(), d["actorId"]!.GetValue<string>(), d["action"]!.GetValue<string>(), d["resource"]!.GetValue<string>(), Timestamp(r, "created_at", d, "__createdAt")); }).ToList();
         return state;
     }
 }
