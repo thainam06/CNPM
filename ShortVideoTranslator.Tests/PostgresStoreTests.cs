@@ -23,9 +23,20 @@ public sealed class PostgresStoreTests
         var folder = Path.Combine(Path.GetTempPath(), "smarttour-pg-"+Guid.NewGuid().ToString("N"));
         try {
             var sqlite = new SqlitePlatformStore(folder); new PlatformService(sqlite).Bootstrap("admin","TestOnly123!");
+            // PostgreSQL timestamps have microsecond precision and normalize offsets.
+            // SQLite/.NET records can contain 100ns ticks and a non-UTC offset.
+            var precise = DateTimeOffset.Parse("2020-11-04T10:11:12.1234567+07:00");
+            sqlite.Write(s => {
+                s.Events.Add(new("precise-event", "browser", "view", s.Places[0].Id, "vi", precise));
+                s.Audit.Add(new("precise-audit", s.Users[0].Id, "test", "fixture", precise));
+                s.PresenceDevices.Add(new("precise-browser", new(), precise, precise.AddTicks(12), "tab"));
+                return true;
+            });
             var original = sqlite.Read(s => s);
             using var store = new PostgresPlatformStore(connection); store.Import(original);
             Assert.Equivalent(original,store.Read(s => s),strict:true);
+            Assert.Equal(precise.ToString("O"), store.Read(s => s.Events.Single(e => e.Id == "precise-event").CreatedAt.ToString("O")));
+            Assert.Equal(precise.ToString("O"), store.Read(s => s.Audit.Single(e => e.Id == "precise-audit").CreatedAt.ToString("O")));
             Assert.Throws<InvalidOperationException>(() => store.Import(original));
             var before = store.Read(s => s.Version);
             using var second = new PostgresPlatformStore(connection);

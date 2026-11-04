@@ -91,8 +91,12 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
         Save(db, tx, PostgresStateCodec.Encode(state), previous);
         var restored = PostgresStateCodec.Decode(Load(db, tx));
         var json = new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
-        if (!JsonNode.DeepEquals(System.Text.Json.JsonSerializer.SerializeToNode(state, json), System.Text.Json.JsonSerializer.SerializeToNode(restored, json)))
-            throw new InvalidDataException("Đối chiếu dữ liệu nhập PostgreSQL không khớp. Đã rollback.");
+        var expected = System.Text.Json.JsonSerializer.SerializeToNode(state, json)!.AsObject();
+        var actual = System.Text.Json.JsonSerializer.SerializeToNode(restored, json)!.AsObject();
+        var mismatched = expected.Where(p => !JsonNode.DeepEquals(p.Value, actual[p.Key])).Select(p => p.Key).ToArray();
+        if (mismatched.Length != 0)
+            // Report collection names only, never credentials or private record values.
+            throw new InvalidDataException($"Đối chiếu dữ liệu nhập PostgreSQL không khớp ({string.Join(", ", mismatched)}). Đã rollback.");
         tx.Commit();
     }
     public IReadOnlyList<Place> GetAll() => Read(s => s.Places.ToArray());
