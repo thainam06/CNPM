@@ -97,3 +97,9 @@ Thêm `-IncludeConnectionInfo` nếu muốn hiện Host/Port/Database/User cho n
 password. Review dùng transaction READ ONLY, khác `-CheckOnly` có write-probe rollback.
 Kết quả kiểm thử 18/11 là trên PostgreSQL thử nghiệm; số liệu mục 1 vẫn là báo cáo 15/11,
 chưa được kiểm tra lại trên Supabase online trong lượt này.
+
+## 6. Máy Windows mới và lỗi TLS/WSL
+
+Xem [hướng dẫn xử lý theo từng bước](docs/SUPABASE-WINDOWS-TROUBLESHOOTING.md).
+Có thể dùng `-CertificateFile` để chọn rõ CA cho `-ReviewOnly` hoặc `-CheckOnly`;
+script mount chỉ đọc và tự áp dụng đường dẫn CA trong container, giữ VerifyFull.
