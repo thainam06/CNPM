@@ -19,6 +19,21 @@ string PostgresConnection(IConfiguration config) => PostgresConnectionFile.WithR
     ?? PostgresConnectionFile.Read(config["Storage:PostgresConnectionFile"]
         ?? Path.Combine(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data"), "postgres.local.json")),
         config["Storage:PostgresRootCertificate"]);
+if (builder.Configuration.GetValue<bool>("MigratePostgresSixTables")) {
+    try {
+        var result = PostgresSixTableMigration.Run(PostgresConnection(builder.Configuration),
+            builder.Configuration.GetValue<bool>("ApplyPostgresMigration"),
+            builder.Configuration.GetValue<bool>("BackupConfirmed"),
+            builder.Configuration.GetValue<bool>("AcceptCompactSnapshot"));
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)));
+        Environment.ExitCode = result.Success ? 0 : 2;
+    } catch (Exception error) {
+        var safe = PostgresConnectionCheck.Failure(error);
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(safe, new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)));
+        Environment.ExitCode = 2;
+    }
+    return;
+}
 if (builder.Configuration.GetValue<bool>("ReviewPostgres")) {
     var result = SupabaseReview.Run(() => PostgresConnection(builder.Configuration), builder.Configuration.GetValue<bool>("IncludeConnectionInfo"));
     Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(result, new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web)));
@@ -97,11 +112,18 @@ builder.Services.AddSingleton<SqlitePlatformStore>(s => {
     return new(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath, "App_Data"));
 });
 builder.Services.AddSingleton<PostgresPlatformStore>(s => new(PostgresConnection(s.GetRequiredService<IConfiguration>())));
-builder.Services.AddSingleton<IPlatformStore>(s => (s.GetRequiredService<IConfiguration>()["Storage:Provider"] ?? "Json").ToLowerInvariant() switch {
-    "sqlite" => s.GetRequiredService<SqlitePlatformStore>(),
-    "postgres" or "postgresql" => s.GetRequiredService<PostgresPlatformStore>(),
-    "json" => s.GetRequiredService<JsonPlatformStore>(),
-    _ => throw new InvalidOperationException("Storage:Provider không hợp lệ. Chọn Sqlite, Postgres hoặc Json.")
+builder.Services.AddSingleton<IPlatformStore>(s => {
+    var config = s.GetRequiredService<IConfiguration>();
+    IPlatformStore store = (config["Storage:Provider"] ?? "Json").ToLowerInvariant() switch {
+        "sqlite" => s.GetRequiredService<SqlitePlatformStore>(),
+        "postgres" or "postgresql" => s.GetRequiredService<PostgresPlatformStore>(),
+        "json" => s.GetRequiredService<JsonPlatformStore>(),
+        _ => throw new InvalidOperationException("Storage:Provider không hợp lệ. Chọn Sqlite, Postgres hoặc Json.")
+    };
+    // PostgreSQL does not create a local database folder, but audio and readiness
+    // probes still need one. Standalone diagnostics return before resolving this.
+    Directory.CreateDirectory(config["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath, "App_Data"));
+    return store;
 });
 builder.Services.AddSingleton<IPlaceRepository>(s => (IPlaceRepository)s.GetRequiredService<IPlatformStore>());
 builder.Services.AddSingleton<PlatformService>();
