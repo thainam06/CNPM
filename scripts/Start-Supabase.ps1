@@ -5,17 +5,7 @@ if ($IncludeConnectionInfo -and !$ReviewOnly) { throw '-IncludeConnectionInfo re
 $taskRoot = Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'Docker-Context.ps1')
 $context = Get-SmartTourDockerContext -Root $taskRoot -EnvFile $EnvFile -Supabase
-$certificate = $null
-if ($CertificateFile) {
-    if (![IO.Path]::IsPathRooted($CertificateFile)) { $CertificateFile = Join-Path $taskRoot $CertificateFile }
-    if (!(Test-Path -LiteralPath $CertificateFile -PathType Leaf)) { throw 'The specified CA certificate file does not exist. Keep TLS verification enabled.' }
-    $certificate = (Resolve-Path -LiteralPath $CertificateFile).ProviderPath
-} else {
-    foreach ($candidate in @('supabase-ca.crt','supabase-ca.crt.crt')) {
-        $candidatePath = Join-Path $taskRoot $candidate
-        if (Test-Path -LiteralPath $candidatePath -PathType Leaf) { $certificate = (Resolve-Path -LiteralPath $candidatePath).ProviderPath; break }
-    }
-}
+$certificate = Resolve-SmartTourCertificate -Root $taskRoot -CertificateFile $CertificateFile
 $previousCertificate = $env:SMARTTOUR_POSTGRES_ROOT_CERTIFICATE
 $taskDocker = Get-Command docker -ErrorAction SilentlyContinue
 if (!$taskDocker) { throw 'Open Docker Desktop, wait for Engine running, and open a new terminal.' }
