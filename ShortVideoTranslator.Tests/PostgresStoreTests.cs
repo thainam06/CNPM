@@ -52,7 +52,15 @@ public sealed class PostgresStoreTests
             Assert.Contains(store.Read(s => s.Events),e => e.Id == "fixture-event" && e.PlaceId == place.Id);
             var remaining = store.Read(s => s.Places[0]);
             platform.SavePlace(actor,remaining with { Description=remaining.Description+" Test edit.", IsActive=false });
-            Assert.EndsWith("Test edit.",second.GetById(remaining.Id)!.Description);
+            Assert.EndsWith("Test edit.",second.Read(s => s.Places.Single(p => p.Id == remaining.Id)).Description);
+            Assert.Null(second.GetById(remaining.Id));
+            Assert.DoesNotContain(second.GetAll(),p => p.Id == remaining.Id);
+            var visible=store.Read(s => s.Places.First(p => p.IsActive));
+            store.Write(s => { var i=s.Places.FindIndex(p => p.Id == visible.Id); s.Places[i]=s.Places[i] with { LocationVerified=false }; return true; });
+            Assert.Null(second.GetById(visible.Id)!.Latitude);
+            var hash=PlatformService.ContentHash(visible.Description);
+            store.Write(s => { s.ApprovedTranslations.Add(new(hash,"en","Reviewed fixture","reviewed-version",actor,DateTimeOffset.UtcNow)); return true; });
+            Assert.Equal("reviewed-version",second.GetById(visible.Id)!.NarrationRevisions!["en"]);
             var device = Guid.NewGuid().ToString(); var tab = Guid.NewGuid().ToString();
             var presence = new PresenceService(store,TimeProvider.System);
             presence.Heartbeat(device,new("Chrome","Windows","Desktop"),tab);
