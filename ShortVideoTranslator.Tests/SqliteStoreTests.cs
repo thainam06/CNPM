@@ -23,6 +23,22 @@ public class SqliteStoreTests : IDisposable
         Assert.Equal(json.Read(s => s.Version) + 10, new SqlitePlatformStore(folder).Read(s => s.Version));
     }
     [Fact]
+    public void SqliteRejectsInvalidRadiusEvenWhenBypassingApi()
+    {
+        var store = new SqlitePlatformStore(folder);
+        using var db = new SqliteConnection($"Data Source={Path.Combine(folder, "smarttour.db")};Pooling=False"); db.Open();
+        using var cmd = db.CreateCommand();
+        foreach (var value in new[] { "-1", "0", "9", "1001", "10.5", "null" }) {
+            cmd.CommandText = $"UPDATE places SET payload=json_set(payload,'$.triggerRadius', {value}) WHERE ordinal=0";
+            Assert.Throws<SqliteException>(() => cmd.ExecuteNonQuery());
+        }
+        cmd.CommandText = "UPDATE places SET payload=json_set(payload,'$.triggerRadius',10) WHERE ordinal=0";
+        Assert.Equal(1,cmd.ExecuteNonQuery());
+        cmd.CommandText = "INSERT INTO places(ordinal,payload) SELECT 999999,json_set(payload,'$.triggerRadius',-5) FROM places WHERE ordinal=0";
+        Assert.Throws<SqliteException>(() => cmd.ExecuteNonQuery());
+        Assert.Equal(10,store.GetAll()[0].TriggerRadius);
+    }
+    [Fact]
     public void FailedMutationRollsBack()
     {
         var sql = new SqlitePlatformStore(folder); var before = sql.Read(s => s.Version);

@@ -31,6 +31,9 @@ public sealed class SqlitePlatformStore : IPlatformStore, IPlaceRepository, IDev
                 : table == "analyticsDevices" ? ", deviceId TEXT GENERATED ALWAYS AS (json_extract(payload,'$.deviceId')) VIRTUAL" : "";
             Execute(db, tx, $"CREATE TABLE IF NOT EXISTS [{table}] (ordinal INTEGER PRIMARY KEY, payload TEXT NOT NULL CHECK(json_valid(payload)){columns});");
         }
+        // Enforce the same radius bounds even when writing directly through SQLite tools.
+        foreach (var operation in new[] { "INSERT", "UPDATE" })
+            Execute(db, tx, $"CREATE TRIGGER IF NOT EXISTS places_radius_{operation.ToLowerInvariant()} BEFORE {operation} ON places WHEN json_type(NEW.payload,'$.triggerRadius') IS NOT 'integer' OR json_extract(NEW.payload,'$.triggerRadius') NOT BETWEEN 10 AND 1000 BEGIN SELECT RAISE(ABORT,'Bán kính kích hoạt phải là số nguyên từ 10 đến 1000 mét'); END;");
         Execute(db, tx, "CREATE INDEX IF NOT EXISTS ix_events_device ON events(deviceId); CREATE INDEX IF NOT EXISTS ix_heartbeats_seen ON analyticsHeartbeats(lastSeen); CREATE UNIQUE INDEX IF NOT EXISTS ix_heartbeats_device ON analyticsHeartbeats(deviceId);");
         Execute(db, tx, "CREATE UNIQUE INDEX IF NOT EXISTS ix_devices_device ON analyticsDevices(deviceId);");
         using var exists = db.CreateCommand(); exists.Transaction = tx; exists.CommandText = "SELECT count(*) FROM metadata";
