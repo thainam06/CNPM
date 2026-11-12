@@ -99,8 +99,15 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
             throw new InvalidDataException($"Đối chiếu dữ liệu nhập PostgreSQL không khớp ({string.Join(", ", mismatched)}). Đã rollback.");
         tx.Commit();
     }
-    public IReadOnlyList<Place> GetAll() => Read(s => s.Places.ToArray());
-    public Place? GetById(int id) => Read(s => s.Places.FirstOrDefault(p => p.Id == id));
+    // Same public catalog contract as SQLite/JSON: never expose hidden or old-region POIs.
+    public IReadOnlyList<Place> GetAll() => Read(s => s.Places.Where(p => p.IsActive && TourRegion.Includes(p)).Select(p => {
+        var revisions = s.ApprovedTranslations.Where(t => t.SourceHash == PlatformService.ContentHash(p.Description))
+            .ToDictionary(t => t.Language,t => t.Revision);
+        return (p.LocationVerified ? p : p with { Latitude=null, Longitude=null }) with {
+            NarrationRevisions=revisions.Count == 0 ? null : revisions
+        };
+    }).ToArray());
+    public Place? GetById(int id) => GetAll().FirstOrDefault(p => p.Id == id);
     public DeviceActivityPage Devices(DateTimeOffset now, int page, int pageSize) => Read(s => {
         var active = s.AnalyticsHeartbeats.Where(h => h.LastSeen > now.AddMinutes(-5)).Select(h => h.DeviceId).ToHashSet();
         var groups = s.Events.GroupBy(e => e.DeviceId).ToArray();
