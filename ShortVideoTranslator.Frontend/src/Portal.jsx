@@ -82,15 +82,13 @@ function PortalContent({ language, onLanguage }) { const t = usePortalText();
 
   useEffect(() => {
     if (!user || owner || tab !== 'audio' || user.mustChangePassword || !user.permissions.includes('poi:update')) return;
-    // Quick Tunnels do not support SSE. Polling works both locally and through Cloudflare.
-    const controller = new AbortController(); let timer;
-    const refresh = async () => {
-      try { const result = await readApi('/admin/audio-tasks', controller.signal); if (!controller.signal.aborted) setData(result); }
-      catch (caught) { if (!controller.signal.aborted) setError(caught.message); }
-      finally { if (!controller.signal.aborted) timer = setTimeout(refresh, 5000); }
-    };
-    refresh();
-    return () => { controller.abort(); clearTimeout(timer); };
+    return theoDoiTienDoAmThanh({
+      taoLuong: typeof EventSource === 'undefined' ? null : () => new EventSource(apiUrl('/admin/audio-tasks/stream'), { withCredentials:true }),
+      taiDanhSach: signal => readApi('/admin/audio-tasks',signal),
+      khiCoDuLieu: result => { setData(result); setError(''); },
+      khiLoi: caught => { setError(caught.message); if(caught.status === 401) setUser(null); },
+      dungPolling: window.location.hostname.endsWith('.trycloudflare.com')
+    });
   }, [user, tab, owner]);
 
   async function run(action, message = 'Đã lưu thay đổi.') {
