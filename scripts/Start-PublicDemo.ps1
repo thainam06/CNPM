@@ -1,13 +1,16 @@
-param([ValidateSet('Start','Stop','Status','Logs')][string]$Action = 'Start', [switch]$Named, [switch]$Build)
+param([ValidateSet('Start','Stop','Status','Logs')][string]$Action = 'Start', [switch]$Named, [switch]$Build, [string]$EnvFile, [switch]$Supabase)
 $ErrorActionPreference = 'Stop'
-Set-Location (Split-Path $PSScriptRoot -Parent)
+$taskRoot = Split-Path $PSScriptRoot -Parent
+Set-Location $taskRoot
+. (Join-Path $PSScriptRoot 'Docker-Context.ps1')
+$context = Get-SmartTourDockerContext -Root $taskRoot -EnvFile $EnvFile -Supabase:$Supabase
 $docker = (Get-Command docker -ErrorAction SilentlyContinue).Source
 if (!$docker) { $docker = 'C:\Program Files\Docker\Docker\resources\bin\docker.exe' }
-if (!(Test-Path .env.docker)) { throw 'Run scripts/Docker-Demo.ps1 -Action Init before starting.' }
 & $docker info --format '{{.ServerVersion}}'
 if ($LASTEXITCODE) { throw 'Start Docker Desktop and wait for Engine running.' }
 $override = if ($Named) { 'compose.tunnel.named.yaml' } else { 'compose.tunnel.yaml' }
-$arguments = @('compose','--env-file','.env.docker','-f','compose.yaml','-f',$override)
+$arguments = $context.Arguments + @('-f',(Join-Path $taskRoot $override))
+if ($context.Supabase) { Write-Host 'Database mode: Supabase PostgreSQL' }
 switch ($Action) {
     'Start' {
         $startArguments = @('up','-d','--wait','--wait-timeout','180')

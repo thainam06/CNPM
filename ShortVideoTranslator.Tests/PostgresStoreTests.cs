@@ -35,6 +35,11 @@ public sealed class PostgresStoreTests
             var original = sqlite.Read(s => s);
             using var store = new PostgresPlatformStore(connection); store.Import(original);
             Assert.Equivalent(original,store.Read(s => s),strict:true);
+            var check = ShortVideoTranslator.Api.Services.PostgresConnectionCheck.Check(() => connection);
+            Assert.True(check.Ready); Assert.Equal("READY", check.Code);
+            Assert.Equal(original.Places.Count, check.Places); Assert.Equal(original.Users.Count, check.Users);
+            Assert.Equivalent(original,store.Read(s => s),strict:true); // diagnostic never commits writes
+
             Assert.Equal(precise.ToString("O"), store.Read(s => s.Events.Single(e => e.Id == "precise-event").CreatedAt.ToString("O")));
             Assert.Equal(precise.ToString("O"), store.Read(s => s.Audit.Single(e => e.Id == "precise-audit").CreatedAt.ToString("O")));
             Assert.Throws<InvalidOperationException>(() => store.Import(original));
