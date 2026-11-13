@@ -25,6 +25,10 @@ Mã lỗi được in không chứa mật khẩu:
 - `AUTH`: kiểm tra database password và username Session pooler trong file riêng tư.
 - `SCHEMA` / `DATA`: kiểm tra đúng project/schema; không nhập đè hoặc xóa dữ liệu để bỏ qua lỗi.
 - `PERMISSION`: role backend thiếu quyền database.
+- `POOLER_PROJECT`: đối chiếu chính xác host và username Session pooler trong Connect của đúng project.
+- `POOLER_BLOCKED` / `CAPACITY`: pooler đang chặn tạm hoặc hết kết nối; kiểm tra Dashboard và cấu hình trước khi thử lại.
+- `READ_ONLY`: kiểm tra trạng thái database/dung lượng và endpoint primary; không xóa dữ liệu.
+- Kết quả lỗi SQL có thêm `sqlState` (mã 5 ký tự) và `stage` (`configuration`, `connect-and-read`, `write-probe`). Gửi các mã này để chẩn đoán; công cụ không in nguyên văn lỗi server vì có thể chứa thông tin riêng tư.
 
 `Docker-Demo.ps1` và `Start-PublicDemo.ps1` tự nạp Supabase override khi env có `SUPABASE_CONNECTION_STRING`; có thể chỉ định `-Supabase`. Trước đây hai script bỏ qua override và có thể chuyển về SQLite. Lệnh `docker compose` gõ trực tiếp vẫn cần cả hai file `-f` như dưới.
 
