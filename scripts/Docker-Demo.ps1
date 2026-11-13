@@ -1,7 +1,9 @@
-param([ValidateSet('Init','Start','Stop','Status','Logs','Check')][string]$Action = 'Start')
+param([ValidateSet('Init','Start','Stop','Status','Logs','Check')][string]$Action = 'Start', [string]$EnvFile, [switch]$Supabase)
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'Docker-Context.ps1')
 $taskEnv = Join-Path $taskRoot '.env.docker'
+if (!(Test-Path -LiteralPath $taskEnv) -and (Test-Path -LiteralPath (Join-Path $taskRoot 'scripts/.env.docker'))) { $taskEnv = Join-Path $taskRoot 'scripts/.env.docker' }
 if ($Action -eq 'Init') {
     if (Test-Path -LiteralPath $taskEnv) { Write-Host '.env.docker already exists. It was kept unchanged.'; exit 0 }
     $taskRng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
@@ -18,10 +20,11 @@ if ($Action -eq 'Init') {
 }
 $taskDocker = Get-Command docker -ErrorAction SilentlyContinue
 if (!$taskDocker) { throw 'Docker CLI is unavailable. Open Docker Desktop and then open a new terminal.' }
-if (!(Test-Path -LiteralPath $taskEnv)) { throw 'Run: powershell -File scripts/Docker-Demo.ps1 -Action Init' }
+$context = Get-SmartTourDockerContext -Root $taskRoot -EnvFile $EnvFile -Supabase:$Supabase
 Push-Location $taskRoot
 try {
-    $taskArguments = @('compose','--env-file',$taskEnv,'-f','compose.yaml')
+    $taskArguments = $context.Arguments
+    if ($context.Supabase) { Write-Host 'Database mode: Supabase PostgreSQL' }
     if ($Action -eq 'Check') { & $taskDocker.Source @taskArguments config --quiet; if ($LASTEXITCODE -ne 0) { throw 'Compose validation failed.' }; exit 0 }
     & $taskDocker.Source info --format '{{.OSType}}'
     if ($LASTEXITCODE -ne 0) { throw 'Docker Engine is not ready. Open Docker Desktop, select Linux containers and wait for Engine running.' }

@@ -2,6 +2,34 @@
 
 File `compose.supabase.yaml` bổ sung cấu hình cho `compose.yaml`, dùng adapter PostgreSQL 6 bảng hiện có trên main. Không dùng provider `Supabase` hoặc `ConnectionStrings__Supabase` của bản thử nghiệm trước đó. `SMARTTOUR_IMPORT_LOCAL` không được adapter hiện tại sử dụng; nhập dữ liệu bằng lệnh riêng bên dưới.
 
+## Mở lại web đã nhập dữ liệu Supabase
+
+Mở Docker Desktop, đợi Engine running. Trong CMD ở thư mục CNPM:
+
+```bat
+git pull --ff-only origin main
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Start-Supabase.ps1
+```
+
+Script tìm `.env.docker` ở thư mục gốc hoặc `scripts`, build API mới, chép certificate local nếu có, rồi kiểm tra database trước khi khởi động web. Không nhập lại dữ liệu, không xóa bảng/volume, không thay mật khẩu. Chỉ báo PASS khi web trả HTTP 200, API nhận `storage=postgresql` và readiness trả `ready`. Cần mạng để build và kết nối Supabase. Dùng `-EnvFile` nếu cấu hình nằm chỗ khác.
+
+Chỉ kiểm tra database (vẫn build API kiểm tra mới, không khởi động lại web hay chép certificate):
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Start-Supabase.ps1 -CheckOnly
+```
+
+Mã lỗi được in không chứa mật khẩu:
+- `CONNECT`: kiểm tra mạng, host/port và Supabase Dashboard; nếu project báo Paused thì Resume rồi thử lại.
+- `TLS` / `FILE`: kiểm tra hostname và CA certificate. Giữ `SSL Mode=VerifyFull`; Root Certificate phải là đường dẫn trong container.
+- `AUTH`: kiểm tra database password và username Session pooler trong file riêng tư.
+- `SCHEMA` / `DATA`: kiểm tra đúng project/schema; không nhập đè hoặc xóa dữ liệu để bỏ qua lỗi.
+- `PERMISSION`: role backend thiếu quyền database.
+
+`Docker-Demo.ps1` và `Start-PublicDemo.ps1` tự nạp Supabase override khi env có `SUPABASE_CONNECTION_STRING`; có thể chỉ định `-Supabase`. Trước đây hai script bỏ qua override và có thể chuyển về SQLite. Lệnh `docker compose` gõ trực tiếp vẫn cần cả hai file `-f` như dưới.
+
+Sau khi web local đã PASS, mở điện thoại bằng link Cloudflare đang hoạt động. Link Quick Tunnel cũ có thể hết hiệu lực; QR chứa localhost không dùng được trên điện thoại.
+
 ## Chuẩn bị
 
 - Giữ nguyên file `.env.docker` có mật khẩu admin, JWT secret và port hiện tại. Thêm `SUPABASE_CONNECTION_STRING` theo mẫu trong `.env.docker.example`, thay thông tin thật trên máy, không commit mật khẩu.
