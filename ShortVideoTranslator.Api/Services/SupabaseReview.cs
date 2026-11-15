@@ -52,17 +52,7 @@ public static class SupabaseReview
             stage = "schema";
             ReadSections(db, tx, Resource("01_check_schema.sql"), "schema", sections);
             var issues = new List<string>();
-            if (sections[0].Rows.Count != 6 || sections[0].Rows.Any(r => !Equals(r["result"], "FOUND")))
-                issues.Add("Expected exactly six visible tables in smarttour_demo; inspect schema and permissions.");
-            foreach (var (table, columns) in RequiredColumns)
-            {
-                var actual = sections[1].Rows.Where(r => Equals(r["table_name"], table))
-                    .Select(r => r["column_name"]?.ToString()).ToArray();
-                if (!actual.SequenceEqual(columns)) issues.Add($"Column contract mismatch: {table}.");
-                var types = sections[1].Rows.Where(r => Equals(r["table_name"], table))
-                    .Select(r => r["udt_name"]?.ToString()).ToArray();
-                if (!types.SequenceEqual(RequiredTypes[table])) issues.Add($"Column type mismatch: {table}.");
-            }
+            ValidateSchema(sections, issues);
             // Do not query unknown/missing columns after a failed schema inspection.
             if (issues.Count == 0)
             {
@@ -72,14 +62,7 @@ public static class SupabaseReview
                 ReadSections(db, tx, counts, "counts", sections);
                 stage = "integrity";
                 ReadSections(db, tx, Resource("03_check_integrity.sql"), "integrity", sections);
-                foreach (var row in sections.Single(s => s.Name == "integrity-1").Rows)
-                    if (Convert.ToInt64(row["violations"]) != 0)
-                        issues.Add($"Integrity violations: {row["check_name"]}.");
-                var foreignKeys = sections.Single(s => s.Name == "integrity-2").Rows.Single();
-                if (Convert.ToInt64(foreignKeys["foreign_keys"]) != 5 || Convert.ToInt64(foreignKeys["non_deferrable_foreign_keys"]) != 0)
-                    issues.Add("Expected five deferrable foreign keys; inspect migrations 002/005.");
-                if (Convert.ToInt64(sections.Single(s => s.Name == "integrity-3").Rows.Single()["backend_state_envelopes"]) != 1)
-                    issues.Add("Backend state envelope missing; a schema-only database is not an imported application store.");
+                ValidateIntegrity(sections, issues);
             }
             ReadSections(db, tx, "SELECT current_setting('transaction_read_only') AS transaction_read_only", "transaction", sections);
             tx.Rollback();
@@ -91,6 +74,35 @@ public static class SupabaseReview
             var safe = PostgresConnectionCheck.Failure(error);
             return new(false, safe.Code, DateTimeOffset.UtcNow, [safe.Message], [], Stage: stage, SqlState: safe.SqlState);
         }
+    }
+
+    // Preserve the ordered column/type contract before running any data queries.
+    private static void ValidateSchema(IReadOnlyList<ReviewSection> sections, List<string> issues)
+    {
+        if (sections[0].Rows.Count != 6 || sections[0].Rows.Any(r => !Equals(r["result"], "FOUND")))
+            issues.Add("Expected exactly six visible tables in smarttour_demo; inspect schema and permissions.");
+        foreach (var (table, columns) in RequiredColumns)
+        {
+            var actual = sections[1].Rows.Where(r => Equals(r["table_name"], table))
+                .Select(r => r["column_name"]?.ToString()).ToArray();
+            if (!actual.SequenceEqual(columns)) issues.Add($"Column contract mismatch: {table}.");
+            var types = sections[1].Rows.Where(r => Equals(r["table_name"], table))
+                .Select(r => r["udt_name"]?.ToString()).ToArray();
+            if (!types.SequenceEqual(RequiredTypes[table])) issues.Add($"Column type mismatch: {table}.");
+        }
+    }
+
+    // Interpret SELECT-only integrity results without exposing stored row contents.
+    private static void ValidateIntegrity(IReadOnlyList<ReviewSection> sections, List<string> issues)
+    {
+        foreach (var row in sections.Single(s => s.Name == "integrity-1").Rows)
+            if (Convert.ToInt64(row["violations"]) != 0)
+                issues.Add($"Integrity violations: {row["check_name"]}.");
+        var foreignKeys = sections.Single(s => s.Name == "integrity-2").Rows.Single();
+        if (Convert.ToInt64(foreignKeys["foreign_keys"]) != 5 || Convert.ToInt64(foreignKeys["non_deferrable_foreign_keys"]) != 0)
+            issues.Add("Expected five deferrable foreign keys; inspect migrations 002/005.");
+        if (Convert.ToInt64(sections.Single(s => s.Name == "integrity-3").Rows.Single()["backend_state_envelopes"]) != 1)
+            issues.Add("Backend state envelope missing; a schema-only database is not an imported application store.");
     }
 
     private static string Resource(string name)
