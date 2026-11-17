@@ -100,6 +100,9 @@ async function ready(page,base) {
     const navigation=page.getByRole('navigation',{name:'Truy cập nhanh trên điện thoại'});
     await navigation.getByRole('link',{name:'Bản đồ',exact:true}).click();
     assert.ok(page.url().endsWith('#ban-do'));
+    // hashchange and React rendering finish after the browser updates the URL.
+    // Wait for the accessible active state instead of sampling it immediately.
+    await navigation.locator('a[href="#ban-do"][aria-current="location"]').waitFor();
     assert.equal(await navigation.getByRole('link',{name:'Bản đồ',exact:true}).getAttribute('aria-current'),'location');
     await navigation.getByRole('link',{name:'Địa điểm',exact:true}).click();
     await page.locator('#search').fill('khong-co-dia-diem-nay');
