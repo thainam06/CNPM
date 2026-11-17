@@ -92,6 +92,8 @@ Script tạm dừng API, sao chép App_Data, khóa DataProtection và cấu hìn
 
 Máy mới: lấy source, cài Docker, chuẩn bị `.env.docker` từ backup và build container trước. Dừng API, copy **nội dung** App_Data và DataProtection-Keys từ backup vào đúng hai volume bằng `docker cp` tới container API đã tạo. Nếu file được copy bằng tài khoản root, chạy container một lần với `--user root --entrypoint chown` để đặt lại chủ sở hữu `app:app` cho `/app/App_Data` và `/home/app/.aspnet/DataProtection-Keys`, rồi bật API. Đối chiếu `/api/health`, đăng nhập, số POI, thuyết minh và thống kê. Không dùng `down -v` vì xóa volume dữ liệu. Quy trình khôi phục cần thực hiện trên bản sao trước khi thay kho đang dùng.
 
+Công cụ backup/restore thư mục có checksum, kiểm thử khôi phục API trên kho riêng và kết quả mới nhất nằm trong [OPERATIONS-HANDOFF.md](OPERATIONS-HANDOFF.md). Báo cáo ghi riêng các bước điện thoại thật, Docker và reboot chưa xác minh.
+
 ## 7. Checklist trước khi bàn giao
 
 - `dotnet build`, `dotnet test`, Frontend lint/test/build đạt.
