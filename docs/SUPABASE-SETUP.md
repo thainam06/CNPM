@@ -15,12 +15,14 @@ File 001 là phương án cũ 27 bảng thuộc schema smarttour; không dùng n
 
 ## Trạng thái hiện tại
 
-Ảnh Schema Visualizer cho thấy người dùng đã có bản rút gọn 6 bảng trong smarttour_demo.
-Không cần chạy lại SQL nếu cấu trúc đang đúng. Chưa có kết nối độc lập để kiểm tra dữ liệu
-thực trên Supabase. Website vẫn dùng SQLite, chưa có adapter PostgreSQL và chưa import dữ liệu thật.
+Kiểm tra ngày 15/11/2026: kết nối Supabase thành công, schema smarttour_demo đủ 6 bảng,
+migration 005 đã áp dụng, dữ liệu đã có (8 places, 8 place_images, 8 place_narrations,
+1 users, 10 activity_logs, 0 visitor_sessions). `scripts/Start-Supabase.ps1` báo PASS;
+API chạy với `storage=postgresql` và `/api/places` trả 8 địa điểm từ Supabase.
+Không cần chạy lại SQL. Hướng dẫn cho thành viên nhóm: `HUONG-DAN-XEM-SUPABASE.md` (thư mục gốc CNPM).
 
-Việc tạo bảng chưa làm Frontend/Backend tự chuyển sang database cloud. Chưa xác nhận toàn bộ
-28 UC đã hoạt động bằng Supabase; các mapping phụ còn thiếu được liệt kê trong tài liệu cập nhật PRD.
+Chưa kiểm tra thao tác ghi (đăng nhập admin, thêm/sửa/xóa) và chưa xác nhận toàn bộ 28 UC
+hoạt động bằng Supabase; các mapping phụ còn thiếu được liệt kê trong tài liệu cập nhật PRD.
 
 ## Bước tiếp theo khi kết nối Backend
 
