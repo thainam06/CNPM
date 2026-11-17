@@ -1,0 +1,45 @@
+{
+  "environment": "Chromium with synthetic API/GPS/WAV fixtures; no physical phone, live TTS or full PMTiles pack validation",
+  "results": [
+    {
+      "name": "GPS tự bắt đầu; bán kính 1/3/5/10 km; không gửi vị trí khi chưa đồng ý",
+      "status": "passed"
+    },
+    {
+      "name": "Di chuyển đổi thứ tự; không có địa điểm; GPS kém chính xác",
+      "status": "passed"
+    },
+    {
+      "name": "Dừng GPS ngừng cập nhật; bật lại được",
+      "status": "passed"
+    },
+    {
+      "name": "Responsive 320/390/768/1280 px, không tràn ngang",
+      "status": "passed"
+    },
+    {
+      "name": "Nghe, dừng, phát lại; đổi địa điểm dừng audio",
+      "status": "passed"
+    },
+    {
+      "name": "Đổi ngôn ngữ; nghe bản fixture tiếng Anh",
+      "status": "passed"
+    },
+    {
+      "name": "Đổi địa điểm trong lúc tải không phát audio cũ",
+      "status": "passed"
+    },
+    {
+      "name": "Offline thật trong browser: reload shell, catalog, ảnh và audio đã lưu",
+      "status": "passed"
+    },
+    {
+      "name": "Thiếu PMTiles: tải gói đầy đủ báo lỗi, không báo đã hoàn tất",
+      "status": "passed"
+    },
+    {
+      "name": "Từ chối GPS vẫn xem được địa điểm thủ công",
+      "status": "passed"
+    }
+  ]
+}

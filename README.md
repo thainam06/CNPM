@@ -44,3 +44,7 @@ npm.cmd run build
 Chạy local bằng hai terminal: `dotnet run --project ShortVideoTranslator.Api --launch-profile http` và `npm.cmd run dev` trong Frontend. API ở 5132; Vite ở 5173. Dữ liệu local và Docker là hai kho riêng. Điện thoại nên dùng link Cloudflare HTTPS để có định vị.
 
 Chi tiết kiến trúc, mở rộng, SQL, sao lưu và chuyển máy: [REUSE-DEPLOYMENT.md](docs/REUSE-DEPLOYMENT.md).
+
+## Kiểm chứng vận hành và bàn giao
+
+Xem [báo cáo, công cụ backup/restore và checklist thiết bị thật](docs/OPERATIONS-HANDOFF.md). Báo cáo phân biệt kiểm thử tự động, GPS mô phỏng và các bước thực tế chưa xác minh.
