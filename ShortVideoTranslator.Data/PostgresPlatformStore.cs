@@ -10,7 +10,7 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
 {
     private readonly NpgsqlDataSource source;
     private const long WriteLock = 831794209;
-    private static readonly Dictionary<string, string[]> Columns = new() {
+    internal static readonly Dictionary<string, string[]> Columns = new() {
         ["users"] = ["id","username","display_name","password_hash","role","enabled","settings"],
         ["places"] = ["id","owner_id","name","address","latitude","longitude","introduction","settings"],
         ["place_images"] = ["id","place_id","url","caption","ordinal","is_cover","metadata"],
@@ -29,6 +29,13 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
         source = NpgsqlDataSource.Create(options.ConnectionString);
     }
     public void Dispose() => source.Dispose();
+    internal static string ExpectedType(string table, string column) =>
+        column is "settings" or "metadata" or "device_info" or "details" ? "jsonb"
+        : column is "enabled" or "is_cover" or "consent" ? "boolean"
+        : column is "latitude" or "longitude" ? "double precision"
+        : column is "started_at" or "last_seen_at" or "ended_at" or "created_at" ? "timestamp with time zone"
+        : column == "ordinal" ? "integer"
+        : column == "place_id" || (column == "id" && table is "places" or "place_images") ? "bigint" : "text";
     public object CheckSchema()
     {
         using var db=source.OpenConnection(); using var tx=db.BeginTransaction(IsolationLevel.RepeatableRead);
@@ -42,12 +49,7 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
                 if(!cols.Contains(column)&&reader.GetString(3)=="NO"&&reader.IsDBNull(4)&&reader.GetString(5)=="NO")
                     errors.Add($"{table}.{column}: cột bắt buộc ngoài mapping");
                 if(cols.Contains(column)) {
-                    var expected=column is "settings" or "metadata" or "device_info" or "details" ? "jsonb"
-                        : column is "enabled" or "is_cover" or "consent" ? "boolean"
-                        : column is "latitude" or "longitude" ? "double precision"
-                        : column is "started_at" or "last_seen_at" or "ended_at" or "created_at" ? "timestamp with time zone"
-                        : column=="ordinal" ? "integer"
-                        : column=="place_id" || (column=="id" && table is "places" or "place_images") ? "bigint" : "text";
+                    var expected=ExpectedType(table,column);
                     if(reader.GetString(2)!=expected)errors.Add($"{table}.{column}: cần kiểu {expected}");
                 }
             }

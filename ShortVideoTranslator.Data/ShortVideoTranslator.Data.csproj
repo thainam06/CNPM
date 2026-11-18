@@ -3,6 +3,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ShortVideoTranslator.Business\ShortVideoTranslator.Business.csproj" />
     <EmbeddedResource Include="Content\professional-narration-edits.json" />
+    <EmbeddedResource Include="../database/postgres/002_smarttour_compact.sql" LogicalName="SmartTour.Migration.002_smarttour_compact.sql" />
+    <EmbeddedResource Include="../database/postgres/005_six_table_backend.sql" LogicalName="SmartTour.Migration.005_six_table_backend.sql" />
   </ItemGroup>
 
   <ItemGroup>
