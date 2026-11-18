@@ -1,0 +1,22 @@
+THONG TIN GUI TRIET - KHONG CHUA MAT KHAU
+
+Project: <ten project cua nhom>
+Schema theo repo: smarttour_demo
+Bang theo repo: users, places, place_images, place_narrations,
+               visitor_sessions, activity_logs
+
+Nguon ket noi: Supabase Dashboard -> Connect -> Session pooler
+Host: <copy chinh xac tu project, khong tu doan>
+Port: <copy chinh xac tu Session pooler>
+Database: <copy chinh xac tu Session pooler>
+User: <copy chinh xac tu Session pooler>
+SSL: VerifyFull; dung CA certificate va hostname dung nhu cau hinh repo
+
+Password: KHONG GHI VAO FILE. Gui rieng bang kenh an toan.
+Khong commit connection string co password, token, .env.docker hoac backup.
+
+Ngay kiem tra thuc te: <chua kiem tra lai>
+Ket qua 01_check_schema.sql: <dien sau khi chay>
+Ket qua 02_view_data.sql: <dien sau khi chay>
+Ket qua 03_check_integrity.sql: <dien sau khi chay>
+Ket qua API provider/readiness/catalog: <dien sau khi chay>
