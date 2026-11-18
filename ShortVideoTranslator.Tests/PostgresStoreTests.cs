@@ -83,10 +83,15 @@ public sealed class PostgresStoreTests
             store.ProbeWrite();
             using var inspection=new NpgsqlConnection(connection); inspection.Open();
             using(var alter=new NpgsqlCommand("ALTER TABLE smarttour_demo.users RENAME COLUMN display_name TO ten_hien_thi",inspection))alter.ExecuteNonQuery();
-            var incompatible=System.Text.Json.JsonSerializer.SerializeToElement(store.CheckSchema());
-            Assert.False(incompatible.GetProperty("compatible").GetBoolean());
-            Assert.Contains(incompatible.GetProperty("errors").EnumerateArray(),e => e.GetString()!.Contains("users.display_name"));
-            using(var count=new NpgsqlCommand("SELECT count(*) FROM smarttour_demo.users",inspection))Assert.Equal(1L,count.ExecuteScalar());
+            try {
+                var incompatible=System.Text.Json.JsonSerializer.SerializeToElement(store.CheckSchema());
+                Assert.False(incompatible.GetProperty("compatible").GetBoolean());
+                Assert.Contains(incompatible.GetProperty("errors").EnumerateArray(),e => e.GetString()!.Contains("users.display_name"));
+                using(var count=new NpgsqlCommand("SELECT count(*) FROM smarttour_demo.users",inspection))Assert.Equal(1L,count.ExecuteScalar());
+            } finally {
+                using var restore=new NpgsqlCommand("ALTER TABLE smarttour_demo.users RENAME COLUMN ten_hien_thi TO display_name",inspection);
+                restore.ExecuteNonQuery();
+            }
         } finally { if (Directory.Exists(folder)) Directory.Delete(folder,true); }
     }
 }
