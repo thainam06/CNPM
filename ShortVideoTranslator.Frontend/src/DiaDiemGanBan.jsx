@@ -7,7 +7,7 @@ export default function DiaDiemGanBan({ places, onSelect, location, compact = fa
   const results = enabled ? locDiaDiemGanDay(position, places, radius) : [];
   return <section className={`nearby-section ${compact ? 'nearby-compact' : ''}`} id="gan-ban" aria-labelledby="nearby-title">
     <div className="nearby-heading"><div><span className="section-kicker">KHÁM PHÁ QUANH BẠN</span><h2 id="nearby-title">Địa điểm gần bạn</h2>
-      <p>{compact ? 'Tự gợi ý khi có vị trí. Tọa độ chỉ xử lý trên thiết bị.' : 'Tự động gợi ý các điểm đến Quận 1 gần vị trí của bạn khi mở trang. Lần đầu hãy chọn Cho phép nếu trình duyệt hỏi quyền vị trí. Tọa độ được xử lý trên thiết bị, không gửi lên máy chủ từ chức năng này.'}</p></div></div>
+      <p>{compact ? 'Cho phép GPS để tự gợi ý. Vị trí làm tròn được chia sẻ với Admin, lưu tối đa 24 giờ. Dừng định vị để ngừng chia sẻ.' : 'Tự động gợi ý các điểm đến Quận 1 gần vị trí của bạn khi mở trang. Lần đầu hãy chọn Cho phép nếu trình duyệt hỏi quyền vị trí. Tọa độ được xử lý trên thiết bị, không gửi lên máy chủ từ chức năng này.'}</p></div></div>
     <div className="nearby-controls"><label htmlFor="nearby-radius">Bán kính <select id="nearby-radius" value={radius} onChange={event => onRadius?.(Number(event.target.value))}>{[1, 3, 5, 10].map(km => <option key={km} value={km * 1000}>{km} km</option>)}</select></label>
       <button onClick={enabled ? clear : start}>{enabled ? 'Dừng định vị' : 'Thử lại định vị'}</button></div>
     {error && <p role="alert" className="nearby-message">{error}</p>}
