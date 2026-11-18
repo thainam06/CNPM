@@ -24,6 +24,22 @@ const languages = [
 ];
 const normalize = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 
+function DieuHuongDiDong() {
+  const [hash, setHash] = useState(() => window.location.hash);
+  useEffect(() => {
+    const update = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', update);
+    return () => window.removeEventListener('hashchange', update);
+  }, []);
+  const items = [
+    { href: '#dia-diem', text: 'Địa điểm', path: 'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01', active: ['', '#gioi-thieu', '#dia-diem', '#gan-ban'].includes(hash) },
+    { href: '#ban-do', text: 'Bản đồ', path: 'm3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Zm6-3v15m6-12v15', active: hash === '#ban-do' },
+    { href: '#thuyet-minh', text: 'Thuyết minh', path: 'M4 14v-3a8 8 0 0 1 16 0v3M4 13H3v6h4v-6H4Zm16 0h1v6h-4v-6h3Z', active: ['#thuyet-minh', '#chi-tiet'].includes(hash) },
+    { href: '#do-khoang-cach', text: 'Khoảng cách', path: 'm4 17 13-13 4 4L8 21l-4-4Zm5-5 3 3m1-7 3 3', active: hash === '#do-khoang-cach' },
+  ];
+  return <nav className="mobile-explore-nav" aria-label="Truy cập nhanh trên điện thoại">{items.map(item => <a key={item.href} href={item.href} aria-current={item.active ? 'location' : undefined}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={item.path} /></svg><span>{item.text}</span></a>)}</nav>;
+}
+
 function UngDung() {
   const location = useDinhViGanDay();
   const [places, setPlaces] = useState([]);
@@ -271,15 +287,17 @@ function UngDung() {
         <section className="content-grid" id="dia-diem" aria-label="Khám phá địa điểm">
           <div className="places-panel">
             <div className="catalog-heading"><h3>Chọn điểm đến</h3><a href="#chi-tiet">Địa điểm đang chọn ↓</a></div>
-            <DiaDiemGanBan places={places} onSelect={openPlace} location={location} compact radius={nearbyRadius} onRadius={setNearbyRadius} />
-            <div className="catalog-modes" role="group" aria-label="Phạm vi địa điểm"><button type="button" aria-pressed={!nearbyOnly} onClick={() => setNearbyOnly(false)}>Tất cả địa điểm</button><button type="button" aria-pressed={nearbyOnly} onClick={() => setNearbyOnly(true)}>Gần vị trí của tôi</button></div>
             <div className="catalog-toolbar"><div className="search-field"><label className="search-label" htmlFor="search">{t('search')}</label><span className="search-symbol" aria-hidden="true">⌕</span><input id="search" className="search-input" type="search" placeholder={t('searchHint')} value={search} onChange={(event) => setSearch(event.target.value)} /></div><div className="catalog-result"><span className="catalog-count">{filteredPlaces.length} / {places.length} {t('count')}</span>{(search || category) && <button className="reset-filters" type="button" onClick={() => { setSearch(''); setCategory(''); }}>{t('allCategories')} <span aria-hidden="true">×</span></button>}</div></div>
-            <div className="category-filters" role="group" aria-label={t('categories')}><button aria-pressed={!category} onClick={() => setCategory('')}>{t('allCategories')}</button>{categories.map(value => <button key={value} aria-pressed={category === value} onClick={() => setCategory(value)}>{value}</button>)}</div>
+            <DiaDiemGanBan places={places} onSelect={openPlace} location={location} compact radius={nearbyRadius} onRadius={setNearbyRadius} />
+            <div className="catalog-modes" role="group" aria-label="Phạm vi địa điểm"><button type="button" aria-pressed={!showNearby} onClick={() => setNearbyOnly(false)}>Tất cả địa điểm</button><button type="button" aria-pressed={!!showNearby} onClick={() => setNearbyOnly(true)}>Gần vị trí của tôi</button></div>
+
+            <details className="catalog-categories"><summary>{t('categories')}<span>{category || t('allCategories')}</span></summary><div className="category-filters" role="group" aria-label={t('categories')}><button aria-pressed={!category} onClick={() => setCategory('')}>{t('allCategories')}</button>{categories.map(value => <button key={value} aria-pressed={category === value} onClick={() => setCategory(value)}>{value}</button>)}</div></details>
             {listLoading && <p role="status">{t('loadingPlaces')}</p>}
+            {listLoading && <div className="catalog-skeleton" aria-hidden="true">{[1, 2, 3].map(item => <div key={item}><span /><div><i /><i /><i /></div></div>)}</div>}
             {listError && <div className="notice" role="alert">{listError} <button onClick={retryPlaces}>Thử lại</button></div>}
             <div className="places-list">
               {filteredPlaces.map((item, index) => <button key={item.id} type="button" className={`place-card ${showNearby ? 'nearby-card' : ''} ${selectedId === item.id ? 'active' : ''}`} aria-pressed={selectedId === item.id} onClick={() => openPlace(item.id)}><div className="card-photo">{item.imageUrl ? <AnhDiaDiem key={item.imageUrl} place={item} compact /> : <span className="place-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}<span className="card-photo-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="card-photo-arrow" aria-hidden="true">↗</span></div><div className="place-info"><span className="category">{item.category}</span><h3>{item.name}</h3>{showNearby && <span className="catalog-distance">Cách khoảng {nearbyDistances.get(item.id) < 1000 ? `${Math.round(nearbyDistances.get(item.id))} m` : `${(nearbyDistances.get(item.id) / 1000).toFixed(1)} km`}</span>}<p className="card-address">{item.address || 'Địa chỉ chưa xác minh'}</p><span className="card-action">{item.isDemo ? 'Khám phá · demo' : 'Khám phá địa điểm'} <span aria-hidden="true">→</span></span></div></button>)}
-              {!listLoading && !listError && !filteredPlaces.length && <p role="status">{t('empty')}</p>}
+              {!listLoading && !listError && !filteredPlaces.length && <div className="catalog-empty"><p role="status">{t('empty')}</p><button type="button" onClick={() => { setSearch(''); setCategory(''); setNearbyOnly(false); }}>Xem tất cả địa điểm</button></div>}
             </div>
           </div>
           <div className="exploration-main">
@@ -320,6 +338,7 @@ function UngDung() {
         <DoKhoangCach places={places} />
       </main>
       <footer className="footer"><div><strong>SmartTour<span> Guide</span></strong><p>Quận 1 · Thành phố Hồ Chí Minh</p><small>Đồ án Công nghệ phần mềm · Nội dung demo</small></div><div className="footer-links"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="/admin">{t('admin')}</a><a href="/owner">{t('owner')}</a></div><button className="privacy-toggle" type="button" aria-pressed={analyticsEnabled} onClick={async () => { const next = !analyticsEnabled; setAnalyticsEnabled(next); try { await datDongYThongKe(next); setOfflineMessage(next ? 'Đã bật thống kê lượt xem/nghe.' : 'Đã tắt thống kê và xóa sự kiện của phiên này.'); } catch { setOfflineMessage('Đã dừng thống kê. Yêu cầu xóa sẽ được thử lại khi có mạng.'); } }}>{analyticsEnabled ? 'Tắt thống kê lượt xem/nghe' : 'Bật thống kê lượt xem/nghe'}</button><a className="back-to-top" href="#gioi-thieu" aria-label="Về đầu trang">↑</a></footer>
+      <DieuHuongDiDong />
     </div>
   );
 }
