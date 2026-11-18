@@ -89,6 +89,10 @@ adapter hiện tại và ngày kiểm chứng của từng báo cáo.
 
 ## 5. Mẫu trả lời Triết sau khi thực sự chạy kiểm tra
 
+Copy [RESULTS.example.md](RESULTS.example.md) để ghi kết quả theo từng lượt kiểm tra:
+schema/cột, số dòng, lỗi toàn vẹn, kết nối, provider/API và các thao tác chưa thử.
+Mẫu tách dữ liệu Supabase thật khỏi kết quả fixture/CI và không yêu cầu ghi mật khẩu.
+
 > Schema: smarttour_demo. Tên bảng dùng users và places (đối chiếu lại chữ port).
 > Ngày kiểm tra: ...; đủ 6 bảng: ...; số dòng từng bảng: ...;
 > integrity/foreign keys: ...; PostgreSQL readiness/API: ...;
