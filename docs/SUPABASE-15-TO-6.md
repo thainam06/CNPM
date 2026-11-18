@@ -23,7 +23,9 @@ nội bộ; archive không thay thế backup ngoài database.
    mapping cho schema khác hoặc dữ liệu UUID/kiểu khác.
 2. Database có dữ liệu phải có snapshot codec hợp lệ tại ID
    `system:platform-state:v1`. Không có snapshot mà core đã có bản ghi thì dừng
-   `SNAPSHOT_REQUIRED`; không được bootstrap/import đè để vượt kiểm tra.
+   `SNAPSHOT_REQUIRED`; không được bootstrap/import đè để vượt kiểm tra. Các ID của
+   cả 6 bảng lõi phải round-trip qua codec đầy đủ; narration/ảnh/log nhập tay mà codec
+   không biểu diễn được cũng sẽ chặn chuyển đổi, tránh bị bỏ sau lần Admin ghi tiếp theo.
 3. Snapshot compact phải được chủ dữ liệu xác nhận là nguồn vận hành đúng.
    Các cột mở rộng của 004 được giữ trong archive, **không tự ghi đè** metadata compact.
    Chạy SQL chỉ đọc `database/postgres/007_review_15_table_data.sql` sau khi xác nhận

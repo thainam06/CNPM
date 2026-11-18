@@ -153,6 +153,10 @@ public class PostgresSixTableMigrationTests
         fixture.Execute("DROP TABLE public.outside_ref; CREATE SCHEMA smarttour_demo_archive15");
         Assert.Contains(PostgresSixTableMigration.Run(fixture.ConnectionString, true, true, true).Blockers, b => b.StartsWith("Archive schema"));
         Assert.Equal(15, fixture.Tables());
+        fixture.Execute("INSERT INTO smarttour_demo.place_narrations(id,place_id,language_code,narration_text,status,version) SELECT 'manual-unmapped-fixture',id,'en','Fixture','draft','manual-fixture' FROM smarttour_demo.places LIMIT 1");
+        var unmappedCore = PostgresSixTableMigration.Run(fixture.ConnectionString, true, true, true);
+        Assert.Equal("SNAPSHOT_REQUIRED", unmappedCore.Code);
+        Assert.Contains(unmappedCore.Blockers, b => b.Contains("place_narrations"));
     }
 
     [DisposablePostgresFact]
@@ -160,9 +164,8 @@ public class PostgresSixTableMigrationTests
     {
         using var fixture = new FifteenTableFixture();
         fixture.Execute("""
-            DROP INDEX smarttour_demo.one_approved_narration_per_language;
-            INSERT INTO smarttour_demo.place_narrations(id,place_id,language_code,narration_text,status,version)
-            SELECT 'fixture-duplicate',id,'vi','Fixture','approved','fixture-duplicate' FROM smarttour_demo.places LIMIT 1;
+            ALTER TABLE smarttour_demo.place_images DROP CONSTRAINT place_images_ordinal_check;
+            UPDATE smarttour_demo.place_images SET ordinal=-1 WHERE id=(SELECT min(id) FROM smarttour_demo.place_images);
             """);
         var before = fixture.Snapshot();
         Assert.Throws<PostgresException>(() => PostgresSixTableMigration.Run(fixture.ConnectionString, true, true, true));

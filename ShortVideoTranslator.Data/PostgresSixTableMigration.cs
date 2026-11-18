@@ -78,7 +78,17 @@ public static class PostgresSixTableMigration
         initialized = markers == 1;
         if (initialized)
         {
-            try { PostgresStateCodec.Decode(original); }
+            try
+            {
+                var encoded = PostgresStateCodec.Encode(PostgresStateCodec.Decode(original));
+                foreach (var table in Core.Keys)
+                {
+                    var beforeIds = original[table]!.AsArray().Select(row => row!["id"]!.ToJsonString()).ToHashSet();
+                    var afterIds = encoded[table]!.AsArray().Select(row => row!["id"]!.ToJsonString()).ToHashSet();
+                    if (!beforeIds.SetEquals(afterIds))
+                        blockers.Add($"Core records are not fully represented by the backend codec: {table}. Reconcile them before migration.");
+                }
+            }
             catch (Exception error) when (error is InvalidDataException or System.Text.Json.JsonException or InvalidOperationException or KeyNotFoundException or NullReferenceException)
             { blockers.Add("Existing compact snapshot is incompatible with the backend codec; manual mapping is required."); }
         }
