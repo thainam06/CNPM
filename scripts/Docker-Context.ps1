@@ -13,3 +13,17 @@ function Get-SmartTourDockerContext {
     if ($cloud) { $compose += @('-f',(Join-Path $Root 'compose.supabase.yaml')) }
     [pscustomobject]@{ EnvFile=$EnvFile; Supabase=[bool]$cloud; Arguments=$compose }
 }
+
+function Resolve-SmartTourCertificate {
+    param([Parameter(Mandatory=$true)][string]$Root, [string]$CertificateFile)
+    if ($CertificateFile) {
+        if (![IO.Path]::IsPathRooted($CertificateFile)) { $CertificateFile = Join-Path $Root $CertificateFile }
+        if (!(Test-Path -LiteralPath $CertificateFile -PathType Leaf)) { throw 'The specified CA certificate file does not exist. Keep TLS verification enabled.' }
+        return (Resolve-Path -LiteralPath $CertificateFile).ProviderPath
+    }
+    foreach ($name in @('supabase-ca.crt','supabase-ca.crt.crt')) {
+        $candidate = Join-Path $Root $name
+        if (Test-Path -LiteralPath $candidate -PathType Leaf) { return (Resolve-Path -LiteralPath $candidate).ProviderPath }
+    }
+    return $null
+}

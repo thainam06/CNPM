@@ -127,6 +127,8 @@ jobs:
         run: dotnet test ShortVideoTranslator.Tests/ShortVideoTranslator.Tests.csproj -c Release --filter 'FullyQualifiedName~Postgres'
       - name: Verify PowerShell start and read-only review flows
         run: python3 scripts/tests/test_supabase_launcher.py
+      - name: Verify guarded migration launcher
+        run: python3 scripts/tests/test_supabase_migration_launcher.py
       - name: Save fixture report (not live Supabase data)
         run: |
           mkdir -p artifacts

@@ -1,8 +1,16 @@
 # Gửi bạn phụ trách Supabase
 
-Ngày cập nhật: 14/11/2026. Backend hiện dùng ASP.NET Core 10 và Npgsql,
+Backend hiện dùng ASP.NET Core 10 và Npgsql,
 truy cập PostgreSQL qua Session pooler. React gọi API C#, không truy cập database
 bằng service_role/anon key. Không cần đổi Supabase Auth hay gửi API key.
+
+## Nếu project đang có 15 bảng
+
+Đã có công cụ PLAN/APPLY có archive và rollback trong [SUPABASE-15-TO-6.md](SUPABASE-15-TO-6.md).
+Chạy PLAN trước. Công cụ chỉ tự xử lý thiết kế 004 có snapshot compact có thẩm quyền
+hoặc schema rỗng; các workflow rows chưa mapping sẽ chặn chuyển đổi. Không DROP schema
+để tạo lại, không chạy lại 004. Admin đọc/ghi sau migration đã được thử trên PostgreSQL
+riêng; chưa có credentials để áp dụng/kiểm chứng trên project online của nhóm.
 
 ## Bạn cần cung cấp
 
