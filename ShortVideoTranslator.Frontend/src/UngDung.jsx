@@ -15,6 +15,7 @@ import { chuGiaoDien, goiGiaoDienSanSang } from "./ngonNguGiaoDien";
 import ChuanBiHanhTrinh from "./ChuanBiHanhTrinh";
 import { kiemTraKetNoiKhoiDong } from "./kiemTraKhoiDong";
 import { diaChiApi } from "./dichVuApi";
+import { locDiaDiemGanDay } from './vungKichHoat.js';
 
 const languages = [
   { code: 'vi', name: 'Tiếng Việt' }, { code: 'en', name: 'English' },
@@ -31,12 +32,14 @@ function UngDung() {
   const [language, setLanguage] = useState(() => languages.some(item => item.code === localStorage.getItem('smarttour-language')) ? localStorage.getItem('smarttour-language') : 'vi');
   const [languageReady, setLanguageReady] = useState(false);
   const [languagePreparationError, setLanguagePreparationError] = useState('');
-  const [startup, setStartup] = useState(() => sessionStorage.getItem('smarttour-startup-done') !== 'yes');
+  const [startup, setStartup] = useState(false);
   const [startupRetry, setStartupRetry] = useState(0);
   const [startupNetwork, setStartupNetwork] = useState('checking');
   const t = (key) => chuGiaoDien(language, key);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+  const [nearbyRadius, setNearbyRadius] = useState(1000);
+  const [nearbyOnly, setNearbyOnly] = useState(true);
   const [listLoading, setListLoading] = useState(true);
   const [detailLoading, setDetailLoading] = useState(false);
   const [listError, setListError] = useState('');
@@ -231,17 +234,24 @@ function UngDung() {
     }
   }
   const categories = [...new Set(places.map(item => item.category))];
-  const filteredPlaces = places.filter((item) => (!category || item.category === category) && normalize(`${item.name} ${item.category}`).includes(normalize(search.trim())));
+  const nearbyPlaces = location.enabled ? locDiaDiemGanDay(location.position, places, nearbyRadius) : [];
+  const nearest = nearbyPlaces[0];
+  const showNearby = nearbyOnly && location.enabled && location.position && location.position.accuracy <= 100;
+  const nearbyDistances = new Map(nearbyPlaces.map(item => [item.place.id, item.distance]));
+  const catalogPlaces = showNearby ? nearbyPlaces.map(item => item.place) : places;
+  const filteredPlaces = catalogPlaces.filter((item) => (!category || item.category === category) && normalize(`${item.name} ${item.category} ${item.address || ''}`).includes(normalize(search.trim())));
   const storyParagraphs = (place?.description || '').split(/\r?\n\s*\r?\n/).filter(Boolean);
   const statusText = t({ idle: 'idle', loading: 'loadingAudio', ready: 'ready', playing: 'playing', stopped: 'stopped' }[audioStatus]);
 
   return (
     <div className="app">
+      <a className="skip-link" href="#dia-diem">Đến danh sách địa điểm</a>
       {startup && <ChuanBiHanhTrinh language={language} languages={languages} network={startupNetwork} onLanguage={chooseLanguage} loading={listLoading} count={places.length} error={listError} ready={languageReady} preparationError={languagePreparationError} onRetry={() => { if (listError) retryPlaces(); setStartupRetry(value => value + 1); }} onClose={() => { setStartup(false); sessionStorage.setItem('smarttour-startup-done', 'yes'); }} />}
       <header className="header">
         <a className="brand" href="#gioi-thieu"><span className="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m3 11 18-8-8 18-2-8-8-2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /><path d="m11 13 5-5" stroke="currentColor" strokeWidth="1.6" /></svg></span><div><h2>SmartTour<span> Guide</span></h2><small>YOUR LOCAL AUDIO GUIDE</small></div></a>
-        <nav aria-label="Điều hướng"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="#dia-diem">{t('explore')}</a><a href="/owner">{t('owner')}</a><a href="/admin">{t('admin')}</a></nav>
+        <nav aria-label="Điều hướng"><a href="#dia-diem">{t('explore')}</a><a href="#gan-ban">Gần bạn</a><a href="#ban-do">{t('map')}</a><a href="#hanh-trinh">Hành trang</a></nav>
         <button className="header-status" onClick={() => setStartup(true)}>{t('tripLanguage')} · {language.toUpperCase()}</button>
+        <a className="header-admin" href="/admin">Quản trị <span aria-hidden="true">↗</span></a>
       </header>
       <main className="container">
         <section className="hero-section" id="gioi-thieu">
@@ -249,27 +259,25 @@ function UngDung() {
           <span className="eyebrow">{t('eyebrow')}</span><h1>{t('heroTitle')}</h1>
           <p>{t('heroBody')}</p><div className="hero-actions"><a className="hero-link" href="#dia-diem">{t('start')} <span aria-hidden="true">↗</span></a><a className="hero-map-link" href="#ban-do">◎ {t('map')}</a></div>
           <label className="journey-language" htmlFor="journey-language">{t('tripLanguage')}<select id="journey-language" value={language} onChange={event => chooseLanguage(event.target.value)}>{languages.map(item => <option key={item.code} value={item.code}>{item.name}</option>)}</select></label>
-          <div className="hero-facts"><span><strong>{places.length || '—'}</strong>{t('count')}</span><span><strong>{languages.length}</strong>{t('tripLanguage')}</span><span><strong>MP3</strong>{t('narration')}</span></div></div>
+          <div className="hero-facts"><span><strong>{places.length || '—'}</strong>{t('count')}</span><span><strong>{languages.length}</strong>{t('tripLanguage')}</span><span><strong>MP3</strong>{t('narration')}</span></div>
+          <a className="hero-nearby" href="#gan-ban"><span aria-hidden="true">◎</span><span role="status">{nearest ? `Gần bạn: ${nearest.place.name} · ${nearest.distance < 1000 ? Math.round(nearest.distance) + ' m' : (nearest.distance / 1000).toFixed(1) + ' km'}` : location.error ? 'Chưa có quyền hoặc tín hiệu vị trí · Xem hướng dẫn' : !location.enabled ? 'Định vị đã dừng · Xem địa điểm gần bạn' : location.position ? 'Xem gợi ý theo vị trí và điều chỉnh bán kính' : 'Đang tìm địa điểm gần bạn · Cho phép vị trí khi được hỏi'}</span><span aria-hidden="true">↗</span></a></div>
           <div className="hero-collage"><div className="hero-visual">{places[0]?.imageUrl ? <><AnhDiaDiem key={places[0].imageUrl} place={places[0]} /><a className="hero-photo-link" href="#dia-diem" onClick={() => choosePlace(places[0].id)} aria-label={`${t('explore')} ${places[0].name}`}><span aria-hidden="true">↗</span></a></> : <div className="hero-photo-empty"><span aria-hidden="true">◎</span><p>{t('loadingPlaces')}</p></div>}</div>{places[2]?.imageUrl && <div className="hero-inset"><AnhDiaDiem key={places[2].imageUrl} place={places[2]} /></div>}<div className="hero-audio-tag"><span className="audio-bars" aria-hidden="true"><i /><i /><i /><i /><i /></span><span>{t('narration')}<small>{languages.length} {t('tripLanguage').toLowerCase()}</small></span></div></div>
         </section>
         <details className="hero-credits"><summary>Nguồn ảnh trang giới thiệu <span aria-hidden="true">＋</span></summary>{[places[0], places[2]].filter(item => item?.imageUrl).map(item => <p key={item.id}><strong>{item.name}:</strong> {item.imageNote} {item.imageSourceUrl && <a href={item.imageSourceUrl} target="_blank" rel="noreferrer">Nguồn ảnh ↗</a>}</p>)}</details>
         <p className="notice demo-disclosure">Nội dung thuyết minh là dữ liệu demo, cần kiểm chứng trước khi sử dụng chính thức. Ảnh có ghi nguồn; địa chỉ và tọa độ chỉ hiển thị khi có dữ liệu đã xác minh.</p>
         {offlineMessage && <p className="notice" role="status">{offlineMessage}</p>}
-        <nav className="journey-steps" aria-label="Các bước khám phá">
-          <a href="#dia-diem"><span className="journey-step-number">01</span><div><strong>{t('explore')}</strong><small>{t('search')}</small></div><span aria-hidden="true">↗</span></a>
-          <a href="#chi-tiet"><span className="journey-step-number">02</span><div><strong>{t('narration')}</strong><small>{t('language')}</small></div><span aria-hidden="true">♫</span></a>
-          <a href="#ban-do"><span className="journey-step-number">03</span><div><strong>{t('map')}</strong><small>{t('mapHint')}</small></div><span aria-hidden="true">◎</span></a>
-        </nav>
-        <div className="discovery-heading"><div><span className="section-kicker">ĐIỂM ĐẾN NỔI BẬT</span><h2>{t('places')}<span className="heading-dot">.</span></h2></div><a className="section-map-link" href="#ban-do">{t('map')} <span aria-hidden="true">↗</span></a></div>
-        <DiaDiemGanBan places={places} onSelect={openPlace} location={location} />
+        <div className="discovery-heading"><div><span className="section-kicker">CHỌN ĐIỂM ĐẾN · LẮNG NGHE CÂU CHUYỆN</span><h2>{t('places')}<span className="heading-dot">.</span></h2><p>Tìm một địa điểm, chọn ngôn ngữ và bắt đầu nghe. Hoặc khám phá các gợi ý gần vị trí của bạn.</p></div><a className="section-map-link" href="#ban-do">{t('map')} <span aria-hidden="true">↗</span></a></div>
         <section className="content-grid" id="dia-diem" aria-label="Khám phá địa điểm">
           <div className="places-panel">
+            <div className="catalog-heading"><h3>Chọn điểm đến</h3><a href="#chi-tiet">Địa điểm đang chọn ↓</a></div>
+            <DiaDiemGanBan places={places} onSelect={openPlace} location={location} compact radius={nearbyRadius} onRadius={setNearbyRadius} />
+            <div className="catalog-modes" role="group" aria-label="Phạm vi địa điểm"><button type="button" aria-pressed={!nearbyOnly} onClick={() => setNearbyOnly(false)}>Tất cả địa điểm</button><button type="button" aria-pressed={nearbyOnly} onClick={() => setNearbyOnly(true)}>Gần vị trí của tôi</button></div>
             <div className="catalog-toolbar"><div className="search-field"><label className="search-label" htmlFor="search">{t('search')}</label><span className="search-symbol" aria-hidden="true">⌕</span><input id="search" className="search-input" type="search" placeholder={t('searchHint')} value={search} onChange={(event) => setSearch(event.target.value)} /></div><div className="catalog-result"><span className="catalog-count">{filteredPlaces.length} / {places.length} {t('count')}</span>{(search || category) && <button className="reset-filters" type="button" onClick={() => { setSearch(''); setCategory(''); }}>{t('allCategories')} <span aria-hidden="true">×</span></button>}</div></div>
             <div className="category-filters" role="group" aria-label={t('categories')}><button aria-pressed={!category} onClick={() => setCategory('')}>{t('allCategories')}</button>{categories.map(value => <button key={value} aria-pressed={category === value} onClick={() => setCategory(value)}>{value}</button>)}</div>
             {listLoading && <p role="status">{t('loadingPlaces')}</p>}
             {listError && <div className="notice" role="alert">{listError} <button onClick={retryPlaces}>Thử lại</button></div>}
             <div className="places-list">
-              {filteredPlaces.map((item, index) => <button key={item.id} type="button" className={`place-card ${selectedId === item.id ? 'active' : ''}`} aria-pressed={selectedId === item.id} onClick={() => openPlace(item.id)}><div className="card-photo">{item.imageUrl ? <AnhDiaDiem key={item.imageUrl} place={item} compact /> : <span className="place-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}<span className="card-photo-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="card-photo-arrow" aria-hidden="true">↗</span></div><div className="place-info"><span className="category">{item.category}</span><h3>{item.name}</h3><p className="card-address">{item.address || 'Địa chỉ chưa xác minh'}</p><span className="card-action">{item.isDemo ? 'Khám phá · demo' : 'Khám phá địa điểm'} <span aria-hidden="true">→</span></span></div></button>)}
+              {filteredPlaces.map((item, index) => <button key={item.id} type="button" className={`place-card ${showNearby ? 'nearby-card' : ''} ${selectedId === item.id ? 'active' : ''}`} aria-pressed={selectedId === item.id} onClick={() => openPlace(item.id)}><div className="card-photo">{item.imageUrl ? <AnhDiaDiem key={item.imageUrl} place={item} compact /> : <span className="place-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}<span className="card-photo-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="card-photo-arrow" aria-hidden="true">↗</span></div><div className="place-info"><span className="category">{item.category}</span><h3>{item.name}</h3>{showNearby && <span className="catalog-distance">Cách khoảng {nearbyDistances.get(item.id) < 1000 ? `${Math.round(nearbyDistances.get(item.id))} m` : `${(nearbyDistances.get(item.id) / 1000).toFixed(1)} km`}</span>}<p className="card-address">{item.address || 'Địa chỉ chưa xác minh'}</p><span className="card-action">{item.isDemo ? 'Khám phá · demo' : 'Khám phá địa điểm'} <span aria-hidden="true">→</span></span></div></button>)}
               {!listLoading && !listError && !filteredPlaces.length && <p role="status">{t('empty')}</p>}
             </div>
           </div>
@@ -280,10 +288,6 @@ function UngDung() {
               {place.imageUrl || place.images?.length ? <BoAnhDiaDiem key={place.id} place={place} /> : <div className="detail-art" aria-hidden="true"><span>SMARTTOUR / QUẬN 1</span><strong>{place.name}</strong><small>Đồ họa trang trí • không phải ảnh địa điểm</small></div>}
               <div className="detail-content">
                 <span className="category">{place.category}</span><h2>{place.name}</h2>{place.address && <div className="address-box"><span aria-hidden="true">📍</span><div><small>ĐỊA CHỈ</small><p>{place.address}</p>{place.addressSourceUrl && <a href={place.addressSourceUrl} target="_blank" rel="noreferrer">Nguồn địa chỉ ↗</a>}</div></div>}
-                <section className="place-story" lang="vi"><h3>{t('description')} {place.isDemo && <small className="demo-badge">DEMO</small>}</h3><p className="story-lead">{storyParagraphs[0]}</p>{storyParagraphs.length > 1 && <details><summary>Đọc bài giới thiệu đầy đủ<span aria-hidden="true">＋</span></summary><div className="story-body">{storyParagraphs.slice(1).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div></details>}</section>
-                {menu.length > 0 && <section className="public-menu"><h3>Thực đơn tham khảo</h3>{menu.map(item => <div key={item.id}><strong>{item.name}</strong><span>{item.price === null ? 'Giá chưa xác minh' : item.price.toLocaleString('vi-VN') + ' đ'}</span><p>{item.description}</p></div>)}<small>Giá do chủ quán/Admin cung cấp, cần xác nhận trước khi gọi món.</small></section>}
-                {place.sourceUrl && <a href={place.sourceUrl} target="_blank" rel="noreferrer">Nguồn thông tin</a>}
-                {place.locationVerified && Number.isFinite(place.latitude) && Number.isFinite(place.longitude) ? <details className="place-location"><summary>{t('map')} · {place.name}<span aria-hidden="true">＋</span></summary><iframe className="place-map" title={`Bản đồ ${place.name}`} loading="lazy" referrerPolicy="no-referrer" src={`https://www.openstreetmap.org/export/embed.html?bbox=${place.longitude - .003}%2C${place.latitude - .003}%2C${place.longitude + .003}%2C${place.latitude + .003}&layer=mapnik&marker=${place.latitude}%2C${place.longitude}`} /><a href={`https://www.openstreetmap.org/?mlat=${place.latitude}&mlon=${place.longitude}#map=17/${place.latitude}/${place.longitude}`} target="_blank" rel="noreferrer">Mở bản đồ địa điểm ↗</a></details> : <p className="map-note">Bản đồ chưa sẵn sàng: chưa có tọa độ đã xác minh.</p>}
                 <section className="narration-panel" aria-label="Thuyết minh tự động">
                   <div className="narration-heading"><span className="narration-icon" aria-hidden="true">♫</span><div><span className="section-kicker">AUDIO GUIDE</span><h3>{t('narration')}</h3></div></div><label htmlFor="language">{t('language')}</label>
                   <select id="language" value={language} onChange={(event) => chooseLanguage(event.target.value)}>{languages.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select>
@@ -297,14 +301,22 @@ function UngDung() {
                   {audioUrl && <audio ref={audioRef} src={audioUrl} controls preload="metadata" aria-label="Trình phát thuyết minh" onPlay={() => { setAudioStatus('playing'); ghiNhanSuKien('play', place.id, language); }} onPause={() => setAudioStatus('stopped')} onEnded={() => setAudioStatus('ready')} onError={() => { setAudioError('Không thể giải mã hoặc phát MP3. Hãy tạo lại thuyết minh.'); setAudioUrl(null); setAudioStatus('idle'); }} />}
                   {audioError && <p className="notice" role="alert">{audioError}</p>}
                 </section>
+                <section className="place-story" lang="vi"><h3>{t('description')} {place.isDemo && <small className="demo-badge">DEMO</small>}</h3><p className="story-lead">{storyParagraphs[0]}</p>{storyParagraphs.length > 1 && <details><summary>Đọc bài giới thiệu đầy đủ<span aria-hidden="true">＋</span></summary><div className="story-body">{storyParagraphs.slice(1).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div></details>}</section>
+                {menu.length > 0 && <section className="public-menu"><h3>Thực đơn tham khảo</h3>{menu.map(item => <div key={item.id}><strong>{item.name}</strong><span>{item.price === null ? 'Giá chưa xác minh' : item.price.toLocaleString('vi-VN') + ' đ'}</span><p>{item.description}</p></div>)}<small>Giá do chủ quán/Admin cung cấp, cần xác nhận trước khi gọi món.</small></section>}
+                {place.sourceUrl && <a href={place.sourceUrl} target="_blank" rel="noreferrer">Nguồn thông tin</a>}
+                {place.locationVerified && Number.isFinite(place.latitude) && Number.isFinite(place.longitude) ? <details className="place-location"><summary>{t('map')} · {place.name}<span aria-hidden="true">＋</span></summary><iframe className="place-map" title={`Bản đồ ${place.name}`} loading="lazy" referrerPolicy="no-referrer" src={`https://www.openstreetmap.org/export/embed.html?bbox=${place.longitude - .003}%2C${place.latitude - .003}%2C${place.longitude + .003}%2C${place.latitude + .003}&layer=mapnik&marker=${place.latitude}%2C${place.longitude}`} /><a href={`https://www.openstreetmap.org/?mlat=${place.latitude}&mlon=${place.longitude}#map=17/${place.latitude}/${place.longitude}`} target="_blank" rel="noreferrer">Mở bản đồ địa điểm ↗</a></details> : <p className="map-note">Bản đồ chưa sẵn sàng: chưa có tọa độ đã xác minh.</p>}
+
               </div>
             </>}
             {!place && !detailLoading && !detailError && <p className="detail-content">{t('pick')}</p>}
           </article>
         </section>
         <BanDoTrangChu language={language} places={places} selectedId={selectedId} onSelect={openPlace} />
-        <DoKhoangCach places={places} />
+        <section className="journey-preparation" id="hanh-trinh" aria-labelledby="preparation-title">
+        <div className="discovery-heading"><div><span className="section-kicker">SẴN SÀNG CHO CHUYẾN ĐI</span><h2 id="preparation-title">Hành trang của bạn<span className="heading-dot">.</span></h2><p>Chuẩn bị audio để nghe khi mất mạng, quản lý định vị và các lựa chọn riêng tư tại cùng một nơi.</p></div></div>
         <TienIchKhamPha location={location} places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
+        <details className="distance-disclosure"><summary>Đo khoảng cách giữa hai điểm <span aria-hidden="true">＋</span></summary><DoKhoangCach places={places} /></details>
+        </section>
       </main>
       <footer className="footer"><div><strong>SmartTour<span> Guide</span></strong><p>Quận 1 · Thành phố Hồ Chí Minh</p><small>Đồ án Công nghệ phần mềm · Nội dung demo</small></div><div className="footer-links"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="/admin">{t('admin')}</a><a href="/owner">{t('owner')}</a></div><a className="back-to-top" href="#gioi-thieu" aria-label="Về đầu trang">↑</a></footer>
     </div>

@@ -54,7 +54,7 @@ async function gpsSetup(context, denied=false) {
   },{denied});
 }
 async function ready(page,base) {
-  await page.goto(base); await page.getByRole('button',{name:'Bắt đầu khám phá',exact:true}).click();
+  await page.goto(base);
   await page.locator('.place-card').first().waitFor();
 }
 (async()=>{
@@ -67,6 +67,8 @@ async function ready(page,base) {
   const page=await context.newPage();const pageErrors=[];page.on('pageerror',e=>pageErrors.push(e.message));
   await run('GPS tự bắt đầu; bán kính 1/3/5/10 km; không gửi vị trí khi chưa đồng ý',async()=>{
     await ready(page,base);assert.equal(await page.evaluate(()=>window.__gpsRequests),1);
+    assert.equal(await page.locator('.startup-dialog[open]').count(),0);
+    await page.locator('.hero-nearby').getByText(/Gần bạn: Địa điểm kiểm thử 1/).waitFor();
     for(const [radius,count] of [[1000,1],[3000,2],[5000,3],[10000,4]]) {await page.selectOption('#nearby-radius',String(radius));await page.waitForFunction(n=>document.querySelectorAll('.nearby-card').length===n,count);}
     assert.equal(requests.filter(r=>r.path==='/api/runtime/location').length,0);
     await page.locator('.nearby-section').screenshot({path:path.join(out,'gps-nearby-mobile.png')});
