@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { giamSatViTri, viTriHopLe } from "../src/giamSatDinhVi.js";
-import { locDiaDiemGanDay, BoKichHoatTheoVung } from "../src/vungKichHoat.js";
+import { giamSatViTri, viTriHopLe } from "../src/services/giamSatDinhVi.js";
+import { locDiaDiemGanDay, BoKichHoatTheoVung } from "../src/utils/vungKichHoat.js";
 
 const result = { coords: { latitude: 0, longitude: 0, accuracy: 10 }, timestamp: 100000 };
 const flush = () => new Promise(resolve => queueMicrotask(resolve));

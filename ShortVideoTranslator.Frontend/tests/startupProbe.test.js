@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { kiemTraKetNoiKhoiDong } from "../src/kiemTraKhoiDong.js";
+import { kiemTraKetNoiKhoiDong } from "../src/services/kiemTraKhoiDong.js";
 test('startup probes retry once and do not report HTTP or JSON errors as ready', async () => {
   let calls = 0;
   assert.equal(await kiemTraKetNoiKhoiDong('/health', undefined, async () => { calls++; return new Response(JSON.stringify({ status: calls === 2 ? 'ready' : 'not-ready' })); }), 'ready');

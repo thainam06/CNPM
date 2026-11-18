@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { docApi } from "./dichVuApi";
+import { docApi } from "../services/dichVuApi.js";
 
 export default function ThietBiTrucTuyen() {
   const [data, setData] = useState(null); const [error, setError] = useState(''); const [page, setPage] = useState(1);

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { coTheChiaSeViTri } from "../src/chinhSachChiaSeViTri.js";
+import { coTheChiaSeViTri } from "../src/utils/chinhSachChiaSeViTri.js";
 const request = { consent: true, gps: true, sessionId: '00000000-0000-4000-8000-000000000001', position: { latitude: 10.76, longitude: 106.7, accuracy: 20, observedAt: 1000 }, now: 2000 };
 test('GPS and analytics do not grant runtime location consent', () => {
   assert.equal(coTheChiaSeViTri({ ...request, consent: false, analyticsConsent: true }), false);

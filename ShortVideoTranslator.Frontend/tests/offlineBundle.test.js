@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { caiGoiNgoaiTuyen, kiemTraGoiNgoaiTuyen, tinhSha256, khoaGoiNgoaiTuyen } from "../src/dichVuGoiNgoaiTuyen.js";
-import { taoKhoaThuyetMinh } from "../src/khoaThuyetMinh.js";
+import { caiGoiNgoaiTuyen, kiemTraGoiNgoaiTuyen, tinhSha256, khoaGoiNgoaiTuyen } from "../src/services/dichVuGoiNgoaiTuyen.js";
+import { taoKhoaThuyetMinh } from "../src/utils/khoaThuyetMinh.js";
 
 // Synthetic byte fixtures test checksums/activation; they are not real MP3/PMTiles.
 async function fixture(overrides = {}) {

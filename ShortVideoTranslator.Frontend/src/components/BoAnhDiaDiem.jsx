@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import AnhDiaDiem from "./AnhDiaDiem";
-import { layBoAnhDiaDiem } from "./duLieuAnhDiaDiem";
+import AnhDiaDiem from "./AnhDiaDiem.jsx";
+import { layBoAnhDiaDiem } from "../data/duLieuAnhDiaDiem.js";
 
 const picture = (place, photo) => ({ ...place, imageUrl: photo.url, imageNote: [photo.caption, photo.credit].filter(Boolean).join(' — '), imageSourceUrl: photo.sourceUrl, imageFocusY: photo.focusY ?? 50, imageAlt: `${place.name} — ${photo.caption}` });
 export default function BoAnhDiaDiem({ place }) {

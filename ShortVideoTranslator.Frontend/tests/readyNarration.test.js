@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { timThuyetMinhSanSang, xacMinhAmThanh } from "../src/thuyetMinhSanSang.js";
-import { taoKhoaThuyetMinh } from "../src/khoaThuyetMinh.js";
+import { timThuyetMinhSanSang, xacMinhAmThanh } from "../src/services/thuyetMinhSanSang.js";
+import { taoKhoaThuyetMinh } from "../src/utils/khoaThuyetMinh.js";
 
 const response = files => async () => ({ json: async () => ({ files }) });
 async function assetFor(text = 'Source', language = 'en', revision = '') {

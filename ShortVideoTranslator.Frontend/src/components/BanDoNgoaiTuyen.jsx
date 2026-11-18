@@ -3,8 +3,8 @@ import * as maplibregl from 'maplibre-gl';
 import { FileSource, PMTiles, Protocol } from 'pmtiles';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
-import { kieuBanDoNgoaiTuyen } from "./goiBanDo";
-import { gomCumDiaDiem } from "./gomCumBanDo";
+import { kieuBanDoNgoaiTuyen } from "../services/goiBanDo.js";
+import { gomCumDiaDiem } from "../utils/gomCumBanDo.js";
 
 const protocol = new Protocol();
 maplibregl.setWorkerUrl(workerUrl);

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { layMaTrinhDuyet } from "../src/dinhDanhTruyCap.js";
+import { layMaTrinhDuyet } from "../src/utils/dinhDanhTruyCap.js";
 const storage = () => { const entries = new Map(); return { getItem: key => entries.get(key), setItem: (key, value) => entries.set(key, value) }; };
 test('tabs sharing storage have one presence ID; separate browsers differ', () => {
   const browser = storage();

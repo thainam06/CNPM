@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { theoDoiDinhVi, ketQuaDinhViHopLe } from "../src/theoDoiViTri.js";
-import { xepHangDiaDiem } from "../src/xepHangGanDay.js";
+import { theoDoiDinhVi, ketQuaDinhViHopLe } from "../src/services/theoDoiViTri.js";
+import { xepHangDiaDiem } from "../src/utils/xepHangGanDay.js";
 test('movement updates nearby recommendations; stop blocks late GPS callbacks', () => {
   let now = 100000; let callback; let failure; let cleared;
   const received = []; const errors = [];

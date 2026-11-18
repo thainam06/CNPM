@@ -1,6 +1,6 @@
-import { lapKeHoachLuuAmThanh } from "./chinhSachBoNho";
-export { taoKhoaThuyetMinh as audioKey } from "./khoaThuyetMinh.js";
-import { taoKhoaThuyetMinh as audioKey } from "./khoaThuyetMinh.js";
+import { lapKeHoachLuuAmThanh } from "../utils/chinhSachBoNho.js";
+export { taoKhoaThuyetMinh as audioKey } from "../utils/khoaThuyetMinh.js";
+import { taoKhoaThuyetMinh as audioKey } from "../utils/khoaThuyetMinh.js";
 let database;
 let audioWrites = Promise.resolve();
 function db() {

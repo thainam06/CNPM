@@ -1,6 +1,6 @@
 export const diaChiGoc = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
-import { audioKey, docNgoaiTuyen, ghiNgoaiTuyen, ghiNhieuNgoaiTuyen, thongBaoNgoaiTuyen, docAmThanhNgoaiTuyen, luuAmThanhNgoaiTuyen } from "./khoNgoaiTuyen";
-import { timThuyetMinhSanSang, xacMinhAmThanh } from "./thuyetMinhSanSang";
+import { audioKey, docNgoaiTuyen, ghiNgoaiTuyen, ghiNhieuNgoaiTuyen, thongBaoNgoaiTuyen, docAmThanhNgoaiTuyen, luuAmThanhNgoaiTuyen } from "./khoNgoaiTuyen.js";
+import { timThuyetMinhSanSang, xacMinhAmThanh } from "./thuyetMinhSanSang.js";
 export const diaChiApi = (path) => `${diaChiGoc}/api${path}`;
 
 let refreshing;

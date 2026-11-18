@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { locDiaDiem, trangThaiDiaDiem } from "../src/danhMucDiaDiem.js";
+import { locDiaDiem, trangThaiDiaDiem } from "../src/utils/danhMucDiaDiem.js";
 const places = [
   { id: 1, name: 'Nhà thờ Đức Bà', category: 'Kiến trúc', address: 'Công xã Paris', isActive: true },
   { id: 2, name: 'Công viên Tao Đàn', category: 'Không gian', isActive: false },

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { xepHangDiaDiem, thongBaoLoiDinhVi } from "../src/xepHangGanDay.js";
+import { xepHangDiaDiem, thongBaoLoiDinhVi } from "../src/utils/xepHangGanDay.js";
 const origin = { latitude: 10.77, longitude: 106.7 };
 const point = (id, offset, extra = {}) => ({ id, latitude: origin.latitude + offset, longitude: origin.longitude, locationVerified: true, ...extra });
 test('nearby ranks verified POIs by distance and filters radius and invalid coordinates', () => {

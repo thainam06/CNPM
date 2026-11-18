@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { guiYeuCauApi } from "./dichVuApi";
-import { BoKichHoatTheoVung } from "./vungKichHoat";
-import { chonDiaDiemUuTien, luuNgonNguDiaDiem } from "./chuanBiNgonNgu";
-import { coTheChiaSeViTri } from "./chinhSachChiaSeViTri";
-import { goiGiaoDienSanSang } from "./ngonNguGiaoDien";
+import { guiYeuCauApi } from "../services/dichVuApi.js";
+import { BoKichHoatTheoVung } from "../utils/vungKichHoat.js";
+import { chonDiaDiemUuTien, luuNgonNguDiaDiem } from "../services/chuanBiNgonNgu.js";
+import { coTheChiaSeViTri } from "../utils/chinhSachChiaSeViTri.js";
+import { goiGiaoDienSanSang } from "../data/ngonNguGiaoDien.js";
 
 export default function TienIchKhamPha({ places, language, onEnter, location, onLanguageReadiness, onMessage, preparationRetry = 0 }) {
   const { enabled: gps, position } = location;

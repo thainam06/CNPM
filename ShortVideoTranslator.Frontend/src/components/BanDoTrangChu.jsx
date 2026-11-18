@@ -1,10 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { chuGiaoDien } from "./ngonNguGiaoDien";
-import { gomCumDiaDiem } from "./gomCumBanDo";
-import { taiGoiBanDo, layGoiBanDo, xoaGoiBanDo } from "./goiBanDo";
-const BanDoNgoaiTuyen = lazy(() => import("./BanDoNgoaiTuyen"));
+import { chuGiaoDien } from "../data/ngonNguGiaoDien.js";
+import { gomCumDiaDiem } from "../utils/gomCumBanDo.js";
+import { taiGoiBanDo, layGoiBanDo, xoaGoiBanDo } from "../services/goiBanDo.js";
+const BanDoNgoaiTuyen = lazy(() => import("./BanDoNgoaiTuyen.jsx"));
 
 // Tourism viewport from the initial sourced coordinates, padded by 0.01 degrees; all five POIs fit.
 // This rectangle is a tourism viewport, not an administrative boundary.

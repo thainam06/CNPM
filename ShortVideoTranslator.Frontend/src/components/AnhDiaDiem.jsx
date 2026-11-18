@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { diaChiGoc } from "./dichVuApi";
-import { docNgoaiTuyen } from "./khoNgoaiTuyen";
+import { diaChiGoc } from "../services/dichVuApi.js";
+import { docNgoaiTuyen } from "../services/khoNgoaiTuyen.js";
 
 export default function AnhDiaDiem({ place, compact = false }) {
   const [failed, setFailed] = useState(false);
