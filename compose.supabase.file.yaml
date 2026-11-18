@@ -1,0 +1,13 @@
+# Alternative to compose.supabase.yaml: keep the connection string out of env/inspect.
+services:
+  api:
+    environment:
+      Storage__Provider: Postgres
+      Storage__PostgresConnectionFile: /run/secrets/smarttour-postgres.json
+    volumes:
+      - type: bind
+        source: ./ShortVideoTranslator.Api/App_Data/postgres.local.json
+        target: /run/secrets/smarttour-postgres.json
+        read_only: true
+        bind:
+          create_host_path: false

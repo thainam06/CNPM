@@ -33,7 +33,14 @@ public sealed class PostgresStoreTests
                 return true;
             });
             var original = sqlite.Read(s => s);
-            using var store = new PostgresPlatformStore(connection); store.Import(original);
+            using var store = new PostgresPlatformStore(connection);
+            var preflight=System.Text.Json.JsonSerializer.SerializeToElement(store.CheckSchema());
+            Assert.True(preflight.GetProperty("compatible").GetBoolean());
+            Assert.True(preflight.GetProperty("empty").GetBoolean());
+            store.Import(original);
+            var imported=System.Text.Json.JsonSerializer.SerializeToElement(store.CheckSchema());
+            Assert.True(imported.GetProperty("initialized").GetBoolean());
+            Assert.False(imported.GetProperty("empty").GetBoolean());
             Assert.Equivalent(original,store.Read(s => s),strict:true);
             var check = ShortVideoTranslator.Api.Services.PostgresConnectionCheck.Check(() => connection);
             Assert.True(check.Ready); Assert.Equal("READY", check.Code);
@@ -74,6 +81,12 @@ public sealed class PostgresStoreTests
             var user = platform.User(actor)!;
             Assert.True(PlatformService.VerifyPassword("TestOnly123!",user.PasswordHash));
             store.ProbeWrite();
+            using var inspection=new NpgsqlConnection(connection); inspection.Open();
+            using(var alter=new NpgsqlCommand("ALTER TABLE smarttour_demo.users RENAME COLUMN display_name TO ten_hien_thi",inspection))alter.ExecuteNonQuery();
+            var incompatible=System.Text.Json.JsonSerializer.SerializeToElement(store.CheckSchema());
+            Assert.False(incompatible.GetProperty("compatible").GetBoolean());
+            Assert.Contains(incompatible.GetProperty("errors").EnumerateArray(),e => e.GetString()!.Contains("users.display_name"));
+            using(var count=new NpgsqlCommand("SELECT count(*) FROM smarttour_demo.users",inspection))Assert.Equal(1L,count.ExecuteScalar());
         } finally { if (Directory.Exists(folder)) Directory.Delete(folder,true); }
     }
 }
