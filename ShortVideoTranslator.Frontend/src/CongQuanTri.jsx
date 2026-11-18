@@ -17,6 +17,27 @@ import { chuanHoaBanKinhKichHoat } from "./banKinhKichHoat.js";
 const labels = { translations: 'Bản dịch thuyết minh', overview: 'Tổng quan', places: 'Địa điểm', users: 'Tài khoản', roles: 'Vai trò', reviews: 'Kiểm duyệt', audio: 'Tác vụ audio', audit: 'Nhật ký', submissions: 'Đề xuất', notifications: 'Thông báo', runtime: 'Giám sát vị trí', system: 'Kiểm tra hệ thống', identity: 'Xác minh chủ quán', password: 'Mật khẩu' };
 const permissions = { translations: 'poi:update', overview: 'analytics:view', places: 'poi:update', users: 'user:read', roles: 'role:read', reviews: 'content:moderate', audio: 'poi:update', audit: 'audit:read', runtime: 'system:logs', system: 'system:logs' };
 const statuses = { pending: 'Chờ duyệt', approved: 'Đã duyệt', rejected: 'Từ chối', queued: 'Đang chờ', running: 'Đang tạo', paused: 'Tạm dừng', completed: 'Hoàn tất', failed: 'Thất bại', cancelled: 'Đã hủy' };
+const navigationGroups = [
+  { title: 'Không gian làm việc', tabs: ['overview', 'places', 'submissions', 'reviews', 'translations', 'audio'] },
+  { title: 'Theo dõi & vận hành', tabs: ['notifications', 'runtime', 'audit', 'system'] },
+  { title: 'Tài khoản & phân quyền', tabs: ['users', 'roles', 'identity', 'password'] },
+];
+const tabDescriptions = {
+  overview: 'Theo dõi lượt truy cập và tình hình nội dung trong cùng một không gian.',
+  places: 'Tìm kiếm, cập nhật hình ảnh và quản lý trạng thái công khai của từng địa điểm.',
+  translations: 'Biên tập và duyệt nội dung thuyết minh theo từng địa điểm, từng ngôn ngữ.',
+  audio: 'Chuẩn bị MP3 từ nội dung thuyết minh và theo dõi tiến độ xử lý.',
+  reviews: 'Xem các yêu cầu đang chờ, đối chiếu nội dung rồi phê duyệt hoặc phản hồi.',
+  users: 'Quản lý tài khoản, trạng thái hoạt động và vai trò được cấp.',
+  roles: 'Thiết lập quyền truy cập phù hợp cho từng nhóm thành viên.',
+  audit: 'Tra cứu lịch sử thao tác quản trị để theo dõi các thay đổi.',
+  runtime: 'Theo dõi những phiên đã đồng ý chia sẻ vị trí trong cửa sổ thời gian được chọn.',
+  system: 'Kiểm tra kho dữ liệu, dịch vụ và audio trước khi sử dụng bản demo.',
+  submissions: 'Theo dõi các đề xuất đã gửi và phản hồi từ Admin.',
+  notifications: 'Xem cập nhật xét duyệt và các phản hồi liên quan đến địa điểm của bạn.',
+  identity: 'Bổ sung thông tin phục vụ quy trình xác minh chủ quán.',
+  password: 'Quản lý mật khẩu đăng nhập của tài khoản hiện tại.',
+};
 const blankPlace = { region: 'district1', id: 0, name: '', category: 'Ẩm thực', description: '', address: '', latitude: '', longitude: '', sourceUrl: '', isDemo: true, isActive: false, locationVerified: false, imageUrl: '', imageNote: '', ownerId: '', triggerRadius: 30, audioPriority: 0, updatedAt: null };
 
 function Table({ headings, children }) { const t = useChuQuanTri(); return <div className="table-scroll"><table><thead><tr>{headings.map(heading => <th key={heading}>{t(heading)}</th>)}</tr></thead><tbody>{children}</tbody></table></div>; }
@@ -130,12 +151,16 @@ function PortalContent({ language, onLanguage }) { const t = useChuQuanTri();
       </form>}
       {!owner && <p className="muted">Lần chạy đầu tạo tài khoản local trong file <code>ShortVideoTranslator.Api/App_Data/bootstrap-admin.txt</code>. Mật khẩu không được đưa lên Git.</p>}
       {error && <p className="notice" role="alert">{error}</p>}{notice && <p className="success" role="status">{notice}</p>}
-    </main> : <div className="portal-layout"><aside className="portal-sidebar"><strong>{user.displayName}</strong><small>{user.role} · phiên 30 phút</small>
-      {allowedTabs.map(key => <button key={key} className={tab === key ? 'selected' : ''} aria-current={tab === key ? 'page' : undefined} onClick={() => selectTab(key)}><span className="portal-nav-icon" aria-hidden="true">{{ overview:'◫', places:'⌖', translations:'文', users:'♙', roles:'◇', reviews:'✓', audio:'♫', audit:'≡', runtime:'◎', system:'⚙', submissions:'↗', notifications:'◉', identity:'▣', password:'⚿' }[key]}</span>{t(labels[key])}</button>)}
+    </main> : <div className="portal-layout"><aside className="portal-sidebar" aria-label="Điều hướng quản trị"><div className="portal-account"><span className="portal-avatar" aria-hidden="true">{(user.displayName || user.username || 'S').slice(0, 1).toUpperCase()}</span><div><strong>{user.displayName}</strong><small>{user.role} · phiên 30 phút</small></div></div>
+      <label className="portal-mobile-navigation">Chuyển mục<select value={tab} onChange={event => selectTab(event.target.value)}>{allowedTabs.map(key => <option key={key} value={key}>{t(labels[key])}</option>)}</select></label>
+      <nav className="portal-navigation" aria-label="Các mục quản trị">{navigationGroups.map(group => {
+        const items = group.tabs.filter(key => allowedTabs.includes(key));
+        return items.length > 0 && <div className="portal-nav-group" key={group.title}><p>{group.title}</p>{items.map(key => <button key={key} className={tab === key ? 'selected' : ''} aria-current={tab === key ? 'page' : undefined} onClick={() => selectTab(key)}><span className="portal-nav-icon" aria-hidden="true">{{ overview:'◫', places:'⌖', translations:'文', users:'♙', roles:'◇', reviews:'✓', audio:'♫', audit:'≡', runtime:'◎', system:'⚙', submissions:'↗', notifications:'◉', identity:'▣', password:'⚿' }[key]}</span>{t(labels[key])}</button>)}</div>;
+      })}</nav>
       <a href={owner ? '/admin' : '/owner'}>{owner ? t('Cổng quản trị') : t('Cổng chủ quán')}</a>
       <button disabled={busy} onClick={async () => { if (await run(() => ghiApi('/auth/logout'), 'Đã đăng xuất.')) { setUser(null); setData(null); } }}>{t('Đăng xuất')}</button>
     </aside><main className="portal-main">
-      <div className="portal-title"><div><span className="eyebrow">{owner ? 'OWNER WORKSPACE' : 'ADMIN WORKSPACE'}</span><h1>{user.mustChangePassword ? t('Đổi mật khẩu ban đầu') : t(labels[tab])}</h1></div><button disabled={busy} onClick={() => run(async () => { setUser(await docApi('/auth/me')); return null; }, 'Đã cập nhật dữ liệu và quyền truy cập.')}>{t('Tải lại')}</button></div>
+      <div className="portal-title portal-page-heading"><div><span className="eyebrow">SMARTTOUR / {owner ? t('Cổng chủ quán') : t('Quản trị hệ thống')}</span><h1>{user.mustChangePassword ? t('Đổi mật khẩu ban đầu') : t(labels[tab])}</h1><p>{tabDescriptions[tab]}</p></div><button disabled={busy} onClick={() => run(async () => { setUser(await docApi('/auth/me')); return null; }, 'Đã cập nhật dữ liệu và quyền truy cập.')}>{t('Tải lại')}</button></div>
       {error && <p className="notice" role="alert">{error}</p>}{notice && <p className="success" role="status">{notice}</p>}
       {user.mustChangePassword || tab === 'password' ? <PasswordForm busy={busy} onSubmit={async body => { const outcome = await run(() => ghiApi('/auth/change-password', 'POST', body), 'Đã đổi mật khẩu. Các phiên cũ bị vô hiệu.'); if (outcome) { setUser(outcome.result); setData(null); } }} /> :
         owner && !user.verified && tab !== 'identity' && tab !== 'notifications' ? <TrangThaiDangKy data={data} busy={busy} run={run} /> : <>
