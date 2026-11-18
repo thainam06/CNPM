@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { guiYeuCauApi, docApi } from "./dichVuApi";
+import { guiYeuCauApi, docApi } from "../services/dichVuApi.js";
 
 export default function TroLyBienTap({ place, disabled, onApply }) {
   const [usage, setUsage] = useState(null);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ghiApi } from "./dichVuApi";
-import { useChuQuanTri } from "./NgonNguQuanTri";
+import { ghiApi } from "../services/dichVuApi.js";
+import { useChuQuanTri } from "./NgonNguQuanTri.jsx";
 
 export default function TrangThaiDangKy({ data, busy, run }) {
   const t = useChuQuanTri(); const [note, setNote] = useState('');

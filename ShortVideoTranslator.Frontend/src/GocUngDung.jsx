@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { BoTheoDoiTruyCap } from "./TheoDoiTruyCap";
+import { BoTheoDoiTruyCap } from "./components/TheoDoiTruyCap.jsx";
 
-const UngDung = lazy(() => import("./UngDung.jsx"));
-const CongQuanTri = lazy(() => import("./CongQuanTri.jsx"));
+const UngDung = lazy(() => import("./pages/UngDung.jsx"));
+const CongQuanTri = lazy(() => import("./pages/CongQuanTri.jsx"));
 
 export default function GocUngDung() {
   const portal = window.location.pathname.startsWith('/admin') || window.location.pathname.startsWith('/owner');

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { chuanHoaBanKinhKichHoat } from "../src/banKinhKichHoat.js";
+import { chuanHoaBanKinhKichHoat } from "../src/utils/banKinhKichHoat.js";
 
 test('trigger radius cannot be negative or below the 10-meter minimum', () => {
   assert.equal(chuanHoaBanKinhKichHoat(-1), 10);

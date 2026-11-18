@@ -1,5 +1,5 @@
-import { taoKhoaThuyetMinh } from "./khoaThuyetMinh.js";
-import { layBoAnhDiaDiem } from "./duLieuAnhDiaDiem.js";
+import { taoKhoaThuyetMinh } from "../utils/khoaThuyetMinh.js";
+import { layBoAnhDiaDiem } from "../data/duLieuAnhDiaDiem.js";
 export const khoaGoiNgoaiTuyen = language => `offline-bundle:district1:${language}`;
 const abort = signal => { if (signal?.aborted) throw new DOMException('Đã hủy tải gói.', 'AbortError'); };
 export async function tinhSha256(blob) {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { guiYeuCauApi, diaChiApi, ghiApi, docApi } from "./dichVuApi";
+import { guiYeuCauApi, diaChiApi, ghiApi, docApi } from "../services/dichVuApi.js";
 
 const languages = [['en', 'English'], ['zh', '中文'], ['ja', '日本語'], ['ko', '한국어'], ['fr', 'Français']];
 export default function QuanLyBanDich({ data, revision, busy, can, run }) {

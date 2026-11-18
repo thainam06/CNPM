@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { phanTichDuongDanThongBao } from "../src/duongDanThongBao.js";
+import { phanTichDuongDanThongBao } from "../src/utils/duongDanThongBao.js";
 test('notification inbox and detail links survive direct navigation', () => {
   assert.deepEqual(phanTichDuongDanThongBao('#thong-bao'), { inbox: true, id: null, invalid: false });
   assert.deepEqual(phanTichDuongDanThongBao('#thong-bao/abc123'), { inbox: true, id: 'abc123', invalid: false });

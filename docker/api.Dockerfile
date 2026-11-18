@@ -7,7 +7,7 @@ RUN dotnet restore ShortVideoTranslator.Api/ShortVideoTranslator.Api.csproj
 COPY ShortVideoTranslator.Api/ ShortVideoTranslator.Api/
 COPY ShortVideoTranslator.Business/ ShortVideoTranslator.Business/
 COPY ShortVideoTranslator.Data/ ShortVideoTranslator.Data/
-COPY ShortVideoTranslator.Frontend/src/ui-bundles.json ShortVideoTranslator.Frontend/src/ui-bundles.json
+COPY ShortVideoTranslator.Frontend/src/data/ui-bundles.json ShortVideoTranslator.Frontend/src/data/ui-bundles.json
 COPY database/supabase-review/ database/supabase-review/
 RUN dotnet publish ShortVideoTranslator.Api/ShortVideoTranslator.Api.csproj -c Release --no-restore -o /out /p:UseAppHost=false
 

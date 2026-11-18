@@ -1,6 +1,6 @@
-import { guiYeuCauApi } from "./dichVuApi";
-import { audioKey, docAmThanhNgoaiTuyen, luuAmThanhNgoaiTuyen, ghiNgoaiTuyen } from "./khoNgoaiTuyen";
-import { chonDiaDiemUuTien } from "./vungKichHoat";
+import { guiYeuCauApi } from "./dichVuApi.js";
+import { audioKey, docAmThanhNgoaiTuyen, luuAmThanhNgoaiTuyen, ghiNgoaiTuyen } from "./khoNgoaiTuyen.js";
+import { chonDiaDiemUuTien } from "../utils/vungKichHoat.js";
 export { chonDiaDiemUuTien };
 
 export async function luuNgonNguDiaDiem(place, language, signal) {

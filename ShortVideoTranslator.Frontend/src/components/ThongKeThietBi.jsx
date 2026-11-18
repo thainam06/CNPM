@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { docApi } from "./dichVuApi";
-import ThietBiTrucTuyen from "./ThietBiTrucTuyen";
+import { docApi } from "../services/dichVuApi.js";
+import ThietBiTrucTuyen from "./ThietBiTrucTuyen.jsx";
 
 export default function ThongKeThietBi() {
   const [page, setPage] = useState(1);

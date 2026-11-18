@@ -1,5 +1,5 @@
-import { guiYeuCauApi } from "./dichVuApi";
-import { docNgoaiTuyen, ghiNgoaiTuyen, baoTaiNguyenThayDoi } from "./khoNgoaiTuyen";
+import { guiYeuCauApi } from "./dichVuApi.js";
+import { docNgoaiTuyen, ghiNgoaiTuyen, baoTaiNguyenThayDoi } from "./khoNgoaiTuyen.js";
 
 export const khoaGoiBanDo = 'map-pack:district1';
 export async function layGoiBanDo() { return docNgoaiTuyen(khoaGoiBanDo); }

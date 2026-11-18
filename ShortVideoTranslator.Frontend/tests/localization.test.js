@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { chonDiaDiemUuTien } from "../src/vungKichHoat.js";
+import { chonDiaDiemUuTien } from "../src/utils/vungKichHoat.js";
 
 test('hotset sorts nearby verified POIs and caps prefetch at three', () => {
   const origin = { latitude: 10.76, longitude: 106.7 };

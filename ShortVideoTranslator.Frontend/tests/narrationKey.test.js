@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { taoKhoaThuyetMinh } from "../src/khoaThuyetMinh.js";
+import { taoKhoaThuyetMinh } from "../src/utils/khoaThuyetMinh.js";
 
 test('Existing automatic audio keeps its key; reviewed revisions use a separate namespace', async () => {
   const source = 'Nội dung Quận 1';

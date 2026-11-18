@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { tinhKhoangCachMet } from "./vungKichHoat.js";
-import "./DoKhoangCach.css";
+import { tinhKhoangCachMet } from "../utils/vungKichHoat.js";
+import "../styles/DoKhoangCach.css";
 
 const empty = () => ({ latitude: '', longitude: '' });
 const valid = p => Number.isFinite(p.latitude) && Math.abs(p.latitude) <= 90 && Number.isFinite(p.longitude) && Math.abs(p.longitude) <= 180;

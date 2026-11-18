@@ -1,4 +1,4 @@
-import { taoKhoaThuyetMinh } from "./khoaThuyetMinh.js";
+import { taoKhoaThuyetMinh } from "../utils/khoaThuyetMinh.js";
 
 // Use the current source/revision only; a prepared public MP3 needs no new TTS job.
 export async function timThuyetMinhSanSang(text, language, revision, request, signal) {

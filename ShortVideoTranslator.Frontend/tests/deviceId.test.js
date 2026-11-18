@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { taoMaThietBi } from "../src/maThietBi.js";
+import { taoMaThietBi } from "../src/utils/maThietBi.js";
 test('HTTP LAN fallback creates a UUID v4 using secure random bytes', () => {
   const source = { getRandomValues: array => crypto.getRandomValues(array) };
   const ids = Array.from({ length: 100 }, () => taoMaThietBi(source));

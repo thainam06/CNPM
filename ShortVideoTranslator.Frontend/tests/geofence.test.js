@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { BoKichHoatTheoVung, tinhKhoangCachMet } from "../src/vungKichHoat.js";
+import { BoKichHoatTheoVung, tinhKhoangCachMet } from "../src/utils/vungKichHoat.js";
 
 // Synthetic test coordinates, never inserted into the tourism dataset.
 const position = { latitude: 0, longitude: 0, accuracy: 10 };
