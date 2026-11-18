@@ -1,4 +1,5 @@
 import importlib.util
+from contextlib import closing
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -33,9 +34,10 @@ class BackupRestoreTests(unittest.TestCase):
         backup.backup(self.data, self.snapshot, self.keys)
         target = self.root / 'restored'
         backup.restore(self.snapshot, target)
-        with sqlite3.connect(target / 'App_Data' / 'smarttour.db') as restored:
-            self.assertEqual(restored.execute('SELECT * FROM users').fetchall(), self.db.execute('SELECT * FROM users').fetchall())
-            restored.execute("DELETE FROM users")
+        with closing(sqlite3.connect(target / 'App_Data' / 'smarttour.db')) as restored:
+            with restored:
+                self.assertEqual(restored.execute('SELECT * FROM users').fetchall(), self.db.execute('SELECT * FROM users').fetchall())
+                restored.execute("DELETE FROM users")
         self.assertEqual(self.db.execute('SELECT count(*) FROM users').fetchone()[0], 1)
         self.assertEqual((target / 'App_Data/audio/fixture.mp3').read_bytes(), b'fixture MP3 bytes')
         self.assertEqual((target / 'DataProtection-Keys/key.xml').read_bytes(), (self.keys / 'key.xml').read_bytes())
@@ -55,7 +57,12 @@ class BackupRestoreTests(unittest.TestCase):
             backup.restore(self.snapshot, self.data)
 
     def test_symlink_cannot_copy_external_secret(self):
-        (self.data / 'external').symlink_to(self.keys / 'key.xml')
+        try:
+            (self.data / 'external').symlink_to(self.keys / 'key.xml')
+        except OSError as error:
+            if getattr(error, 'winerror', None) == 1314:
+                self.skipTest('Windows requires Developer Mode or symlink privileges')
+            raise
         with self.assertRaises(ValueError):
             backup.backup(self.data, self.snapshot)
 

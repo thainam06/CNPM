@@ -30,6 +30,18 @@ if (builder.Configuration.GetValue<bool>("CheckPostgres")) {
     Environment.ExitCode = result.Ready ? 0 : 2;
     return;
 }
+if(builder.Configuration.GetValue<bool>("CheckPostgresSchema")) {
+    try {
+        using var cloud=new PostgresPlatformStore(PostgresConnection(builder.Configuration));
+        var report=System.Text.Json.JsonSerializer.SerializeToElement(cloud.CheckSchema());
+        Console.WriteLine(report.ToString());
+        Environment.ExitCode=report.GetProperty("compatible").GetBoolean()?0:2;
+    } catch(Exception ex) when(ex is Npgsql.NpgsqlException or IOException or InvalidOperationException or ArgumentException or System.Text.Json.JsonException) {
+        Console.Error.WriteLine("Không kiểm tra được PostgreSQL: kiểm tra cấu hình local, quyền truy cập, TLS, mạng và database. Không in connection string hoặc mật khẩu.");
+        Environment.ExitCode=2;
+    }
+    return;
+}
 if (builder.Configuration.GetValue<bool>("ImportPostgres")) {
     var folder = builder.Configuration["Storage:Directory"] ?? Path.Combine(builder.Environment.ContentRootPath,"App_Data");
     if (!File.Exists(Path.Combine(folder,"smarttour.db"))) throw new InvalidOperationException("Không tìm thấy SQLite nguồn. Không tự tạo dữ liệu demo để import.");

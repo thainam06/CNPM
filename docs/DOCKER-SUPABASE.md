@@ -1,5 +1,13 @@
 # Docker kết nối Supabase
 
+Cập nhật 14/11/2026: nếu Supabase do thành viên khác làm, đọc
+`GUI-BAN-PHU-TRACH-SUPABASE.md` và chạy câu kiểm tra 006 trước.
+Có thể dùng `scripts/Configure-Supabase.ps1` cùng `compose.supabase.file.yaml`
+để nhập mật khẩu ẩn và mount file cấu hình riêng, thay vì đặt connection string
+vào biến môi trường. Chỉ chọn một trong hai override Supabase.
+Chế độ `CheckPostgresSchema=true` chỉ đọc để báo schema tương thích, số dòng và trạng thái
+đã nhập; không tự thay schema hoặc đổi database của website.
+
 File `compose.supabase.yaml` bổ sung cấu hình cho `compose.yaml`, dùng adapter PostgreSQL 6 bảng hiện có trên main. Không dùng provider `Supabase` hoặc `ConnectionStrings__Supabase` của bản thử nghiệm trước đó. `SMARTTOUR_IMPORT_LOCAL` không được adapter hiện tại sử dụng; nhập dữ liệu bằng lệnh riêng bên dưới.
 
 ## Mở lại web đã nhập dữ liệu Supabase
