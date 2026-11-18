@@ -196,3 +196,60 @@
 @media(max-width:480px) { .app .selected-place-bar { gap:10px; padding:14px 16px; }.app .selected-place-bar > a { font-size:11px; padding:9px; max-width:135px; }.app .selected-place-bar strong { font-size:15px; }.app .exploration-main .map-pack-toolbar label { flex-basis:100%; }.app .exploration-main .map-pack-toolbar button { width:100%; }.app .exploration-main .home-map-heading h2 { font-size:20px; } }
 .app > .container > .distance-calculator { margin-top:36px; border-color:var(--tour-line); border-radius:18px; background:var(--tour-paper); }
 .app .privacy-toggle { padding:9px 12px; border:1px solid #d8c4ae; border-radius:8px; background:#fff9ef; color:#73543c; cursor:pointer; font:inherit; font-size:11px; }
+/* Readability, touch targets and faster movement through the workspace. */
+.app { --tour-text-small:12px; }
+.app .hero-section { padding:30px; }
+.app .hero-section h1 { font-size:clamp(32px,3.3vw,47px); }
+.app .hero-section p { font-size:15px; }
+.app .hero-visual .photo-stage { height:345px; }
+.app .discovery-heading p { font-size:14px; }
+.app .catalog-heading h3 { font-family:inherit; font-size:19px; }
+.app .search-input { font-size:14px; min-height:46px; background:#fffefa; }
+.app .search-label { font-size:12px; font-weight:600; }
+.app .catalog-result { margin:9px 0 13px; }
+.app .catalog-categories { border-top:1px solid var(--tour-line); border-bottom:1px solid var(--tour-line); margin:0 0 13px; }
+.app .catalog-categories > summary { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; font-size:12px; color:#6e5848; font-weight:600; }
+.app .catalog-categories > summary::after { content:'＋'; color:#9a542e; font-size:15px; }
+.app .catalog-categories[open] > summary::after { content:'−'; }
+.app .catalog-categories > summary > span { margin-left:auto; font-size:11px; color:#8e674b; font-weight:400; text-align:right; }
+.app .catalog-categories .category-filters { margin:0 0 12px; }
+.app .catalog-categories .category-filters button { min-height:38px; font-size:12px; }
+.app .catalog-modes { margin-bottom:13px; }.app .catalog-modes button { min-height:40px; font-size:12px; }
+.app .places-panel .nearby-compact { padding:13px; background:#f7f1e7; border-color:#e8dac8; }
+.app .nearby-compact .nearby-heading h2 { font-family:inherit; font-size:16px; }
+.app .nearby-compact .nearby-heading p, .app .nearby-compact > p { font-size:12px; line-height:1.7; }
+.app .nearby-compact .nearby-controls { gap:9px; }
+.app .nearby-compact .nearby-controls :is(button,select) { min-height:40px; font-size:12px; }
+.app .nearby-compact .nearby-controls label { font-size:12px; }
+.app .place-info h3 { font-family:inherit; font-size:15px; line-height:1.45; }
+.app .place-info .card-address { font-size:12px; line-height:1.65; }.app .card-action,.app .catalog-distance { font-size:12px; }
+.app .place-card { gap:12px; padding:11px; min-height:118px; }
+.app .place-card.active { background:#fff1e4; border-color:#c27548; }.app .place-card.active .card-action { color:#8d3918; }
+.app .card-photo { width:84px; height:98px; }
+.app .detail-panel .place-photo figcaption { font-size:11px; line-height:1.8; }
+.app .selected-place-bar > a { min-height:42px; }.app .narration-panel .listen-button { min-height:48px; font-size:15px; }
+.app .provider-note,.app .audio-status { font-size:12px; }.app .narration-panel select { min-height:46px; font-size:14px; }
+.app .story-lead,.app .story-body p { font-size:15px; line-height:1.95; }
+.app .exploration-main .map-pack-toolbar select { font-size:13px; }.app .exploration-main .map-pack-toolbar button { font-size:12px; }
+.app .exploration-main .map-place-list button { min-height:40px; font-size:12px; }.app .map-information summary { min-height:34px; padding:7px 0; }
+.app .catalog-empty { text-align:center; padding:22px 12px; border:1px dashed #dfc8ae; border-radius:12px; background:#faf5ed; }
+.app .catalog-empty p { color:#7a6351; font-size:13px; line-height:1.8; margin:0 0 14px; }
+.app .catalog-empty button { min-height:42px; padding:10px 13px; border:1px solid #dcb18d; border-radius:8px; background:#fffefa; color:#93431e; font:inherit; font-size:12px; cursor:pointer; }
+.catalog-skeleton { display:grid; gap:10px; }.catalog-skeleton > div { display:flex; align-items:center; gap:13px; padding:10px; border:1px solid #eee4d7; border-radius:11px; }
+.catalog-skeleton > div > span { width:78px; height:84px; border-radius:7px; flex-shrink:0; background:#ede4d7; }.catalog-skeleton > div > div { flex:1; }.catalog-skeleton i { display:block; height:10px; margin:10px 0; background:#ede4d7; border-radius:5px; }.catalog-skeleton i:first-child { width:85%; }.catalog-skeleton i:last-child { width:60%; }
+.app .mobile-explore-nav { display:none; }
+@media(max-width:600px) {
+ .app .header { min-height:72px; padding:12px 4%; gap:10px; }.app .header > nav { display:none; }.app .header-status { display:none; }.app .header-admin { margin-left:auto; min-height:40px; }
+ .app .brand h2 { font-size:19px; }.app .brand small { font-size:7px; letter-spacing:1.4px; }
+ .app .container { width:92%; padding-top:17px; }.app .hero-section { padding:21px; gap:19px; }.app .hero-section h1 { font-size:32px; letter-spacing:-1.1px; }.app .hero-section p { font-size:14px; line-height:1.8; }.app .hero-visual .photo-stage { height:205px; }
+ .app .hero-facts { margin-top:17px; padding-top:15px; }.app .hero-nearby { font-size:12px; }.app .hero-credits { margin-top:10px; }.app .demo-disclosure { margin-bottom:25px; font-size:11px; }
+ .app section[id],.app article[id] { scroll-margin-top:90px; }.app .discovery-heading h2 { font-size:27px; }.app .discovery-heading p { font-size:13px; }.app .discovery-heading { margin-top:24px; gap:12px; }
+ .app .places-panel { position:static; padding:17px; }.app .places-list { max-height:390px; overflow:auto; scroll-padding:6px; }.app .catalog-heading a { font-size:11px; }
+ .app .nearby-compact .nearby-heading p { font-size:11px; }.app .nearby-compact > p { font-size:12px; }
+ .app :is(input,select,textarea) { font-size:16px; }.app .nearby-compact .nearby-controls select { font-size:14px; }.app .nearby-compact .nearby-controls button { min-height:44px; }
+ .app .exploration-main .home-map { height:285px; }.app .home-map-heading p { font-size:12px; }.app .detail-content { padding:20px; }.app .detail-panel .photo-stage { height:235px; }
+ .app .narration-heading h3 { font-size:19px; }.app .narration-panel select { font-size:16px; }.app .footer { padding-bottom:calc(100px + env(safe-area-inset-bottom,0px)); }
+ .app .mobile-explore-nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); position:fixed; inset:auto 0 0; z-index:30; gap:0; margin:0; padding:7px max(8px,env(safe-area-inset-right,0px)) calc(7px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px)); border-top:1px solid #dfd1bf; background:#fffefaed; backdrop-filter:blur(14px); box-shadow:0 -4px 20px #5b3a1c0a; }
+ .app .mobile-explore-nav a { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; min-height:49px; padding:5px 2px; color:#84705e; font-size:10px; text-decoration:none; border-radius:9px; }.app .mobile-explore-nav svg { width:21px; height:21px; }.app .mobile-explore-nav a[aria-current] { color:#a34720; background:#f9ecde; font-weight:700; }
+ .app .distance-actions button { flex:1; padding:12px; }.app .distance-calculator { padding:20px; }.app .distance-heading h2 { font-size:23px; }
+}

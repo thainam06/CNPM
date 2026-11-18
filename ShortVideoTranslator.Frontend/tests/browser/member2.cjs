@@ -96,6 +96,19 @@ async function ready(page,base) {
     for(const width of [320,390,768,1280]) {await page.setViewportSize({width,height:844});await page.waitForTimeout(150);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow ${width}px`);}
     await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(out,'mobile-page.png'),fullPage:true});
   });
+  await run('Điều hướng điện thoại, tìm kiếm rỗng và khôi phục danh sách',async()=>{
+    const navigation=page.getByRole('navigation',{name:'Truy cập nhanh trên điện thoại'});
+    await navigation.getByRole('link',{name:'Bản đồ',exact:true}).click();
+    assert.ok(page.url().endsWith('#ban-do'));
+    assert.equal(await navigation.getByRole('link',{name:'Bản đồ',exact:true}).getAttribute('aria-current'),'location');
+    await navigation.getByRole('link',{name:'Địa điểm',exact:true}).click();
+    await page.locator('#search').fill('khong-co-dia-diem-nay');
+    assert.equal(await page.locator('.place-card').count(),0);
+    await page.getByRole('button',{name:'Xem tất cả địa điểm',exact:true}).click();
+    assert.equal(await page.locator('.place-card').count(),4);
+    await navigation.getByRole('link',{name:'Thuyết minh',exact:true}).click();
+    assert.ok(page.url().endsWith('#thuyet-minh'));
+  });
   await run('Nghe, dừng, phát lại; đổi địa điểm dừng audio',async()=>{
     const listen=page.locator('.narration-panel .listen-button');await listen.click();await page.waitForFunction(()=>{const a=document.querySelector('audio');return a&&!a.paused&&a.readyState>=2;});
     await listen.click();assert.equal(await page.locator('audio').evaluate(a=>a.paused),true);
