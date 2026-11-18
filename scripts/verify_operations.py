@@ -1,7 +1,7 @@
 """Run real HTTP/SQLite/restart/restore checks on disposable data, never the demo DB.
 Requires Release build, dotnet on PATH and ffmpeg. No physical-device claims.
 """
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from datetime import datetime, timezone
 import concurrent.futures
 import json
@@ -121,7 +121,7 @@ def main():
             assert request(base, '/api/admin/presence', token=token)['online'] == 2
             request(base, '/api/analytics/forget', dict(deviceId=devices[0]))
             assert request(base, '/api/admin/devices', token=token)['total'] == 2
-            with sqlite3.connect(data / 'smarttour.db') as db:
+            with closing(sqlite3.connect(data / 'smarttour.db')) as db:
                 for table in ('events', 'pendingAnalytics', 'analyticsHeartbeats', 'analyticsDevices'):
                     assert db.execute(f'SELECT count(*) FROM {table} WHERE deviceId=?', (devices[0],)).fetchone()[0] == 0
             print('PASS: 3 concurrent synthetic HTTP clients, descriptors, view/play deduplication, protected Admin reports, leave and SQL forget')

@@ -10,11 +10,15 @@ try {
     docker run --rm -d --name $taskName -p '127.0.0.1::5432' -e "POSTGRES_PASSWORD=$taskPassword" -e POSTGRES_DB=smarttour_tests postgres:17-alpine | Out-Null
     if ($LASTEXITCODE -ne 0) { throw 'Cannot start isolated PostgreSQL.' }
     $taskStarted = $true
+    $taskReady = $false
     for ($i=0; $i -lt 40; $i++) {
-        docker exec $taskName pg_isready -U postgres *> $null
-        if ($LASTEXITCODE -eq 0) { break }
+        # pg_isready may succeed on the temporary bootstrap server before the
+        # requested database exists. TCP opens after the entrypoint finishes.
+        docker exec -e "PGPASSWORD=$taskPassword" $taskName psql -w -h 127.0.0.1 -U postgres -d smarttour_tests -c 'SELECT 1' *> $null
+        if ($LASTEXITCODE -eq 0) { $taskReady=$true; break }
         Start-Sleep -Milliseconds 500
     }
+    if(-not $taskReady){throw 'Isolated PostgreSQL database did not become ready.'}
     foreach ($taskFile in @('002_smarttour_compact.sql','005_six_table_backend.sql')) {
         $taskResult = Get-Content (Join-Path $taskRoot "database/postgres/$taskFile") -Raw | docker exec -i $taskName psql -X -v ON_ERROR_STOP=1 -U postgres -d smarttour_tests 2>&1
         if ($LASTEXITCODE -ne 0) { throw ($taskResult | Out-String) }

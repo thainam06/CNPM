@@ -29,6 +29,50 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
         source = NpgsqlDataSource.Create(options.ConnectionString);
     }
     public void Dispose() => source.Dispose();
+    public object CheckSchema()
+    {
+        using var db=source.OpenConnection(); using var tx=db.BeginTransaction(IsolationLevel.RepeatableRead);
+        using (var readOnly=new NpgsqlCommand("SET TRANSACTION READ ONLY",db,tx)) readOnly.ExecuteNonQuery();
+        var errors=new List<string>(); var found=new Dictionary<string,HashSet<string>>();
+        using(var cmd=new NpgsqlCommand("SELECT table_name,column_name,data_type,is_nullable,column_default,is_identity FROM information_schema.columns WHERE table_schema='smarttour_demo'",db,tx))
+        using(var reader=cmd.ExecuteReader()) while(reader.Read()) {
+            var table=reader.GetString(0); var column=reader.GetString(1);
+            if(!found.ContainsKey(table))found[table]=[]; found[table].Add(column);
+            if(Columns.TryGetValue(table,out var cols)) {
+                if(!cols.Contains(column)&&reader.GetString(3)=="NO"&&reader.IsDBNull(4)&&reader.GetString(5)=="NO")
+                    errors.Add($"{table}.{column}: cột bắt buộc ngoài mapping");
+                if(cols.Contains(column)) {
+                    var expected=column is "settings" or "metadata" or "device_info" or "details" ? "jsonb"
+                        : column is "enabled" or "is_cover" or "consent" ? "boolean"
+                        : column is "latitude" or "longitude" ? "double precision"
+                        : column is "started_at" or "last_seen_at" or "ended_at" or "created_at" ? "timestamp with time zone"
+                        : column=="ordinal" ? "integer"
+                        : column=="place_id" || (column=="id" && table is "places" or "place_images") ? "bigint" : "text";
+                    if(reader.GetString(2)!=expected)errors.Add($"{table}.{column}: cần kiểu {expected}");
+                }
+            }
+        }
+        foreach(var (table,cols) in Columns) foreach(var col in cols)
+            if(!found.TryGetValue(table,out var present)||!present.Contains(col))errors.Add($"Thiếu {table}.{col}");
+        foreach(var table in found.Keys.Where(t=>!Columns.ContainsKey(t)))errors.Add($"Bảng ngoài thiết kế 6 bảng: {table}");
+        var primaryKeys=new HashSet<string>();
+        using(var cmd=new NpgsqlCommand("SELECT c.relname,pg_get_constraintdef(k.oid) FROM pg_constraint k JOIN pg_class c ON c.oid=k.conrelid WHERE k.connamespace=to_regnamespace('smarttour_demo') AND k.contype='p'",db,tx))
+        using(var reader=cmd.ExecuteReader())while(reader.Read())
+            if(reader.GetString(1)=="PRIMARY KEY (id)")primaryKeys.Add(reader.GetString(0));
+        foreach(var table in Columns.Keys)if(!primaryKeys.Contains(table))errors.Add($"{table}: cần PRIMARY KEY (id)");
+        var foreignKeys=new HashSet<string>();
+        using(var cmd=new NpgsqlCommand("SELECT c.relname,a.attname,pc.relname,pa.attname FROM pg_constraint k JOIN pg_class c ON c.oid=k.conrelid JOIN pg_class pc ON pc.oid=k.confrelid JOIN pg_attribute a ON a.attrelid=k.conrelid AND a.attnum=k.conkey[1] JOIN pg_attribute pa ON pa.attrelid=k.confrelid AND pa.attnum=k.confkey[1] WHERE k.connamespace=to_regnamespace('smarttour_demo') AND k.contype='f' AND cardinality(k.conkey)=1 AND pc.relnamespace=k.connamespace",db,tx))
+        using(var reader=cmd.ExecuteReader())while(reader.Read())foreignKeys.Add($"{reader.GetString(0)}.{reader.GetString(1)}->{reader.GetString(2)}.{reader.GetString(3)}");
+        foreach(var key in new[]{"places.owner_id->users.id","place_images.place_id->places.id","place_narrations.place_id->places.id","activity_logs.user_id->users.id","activity_logs.place_id->places.id"})
+            if(!foreignKeys.Contains(key))errors.Add("Thiếu FK "+key);
+        using(var cmd=new NpgsqlCommand("SELECT c.relname,k.conname FROM pg_constraint k JOIN pg_class c ON c.oid=k.conrelid WHERE k.connamespace=to_regnamespace('smarttour_demo') AND k.contype='f' AND NOT k.condeferrable",db,tx))
+        using(var reader=cmd.ExecuteReader()) while(reader.Read())errors.Add($"{reader.GetString(0)}.{reader.GetString(1)}: cần chạy migration 005 (FK deferrable)");
+        if(errors.Count!=0)return new {compatible=false,initialized=false,empty=false,errors=errors.ToArray(),counts=new Dictionary<string,int>()};
+        var tables=Load(db,tx);var counts=tables.ToDictionary(p=>p.Key,p=>p.Value!.AsArray().Count);
+        var initialized=tables["activity_logs"]!.AsArray().OfType<JsonObject>().Any(r=>(string?)r["id"]==PostgresStateCodec.StateId);
+        if(initialized) {try {PostgresStateCodec.Decode(tables);}catch(Exception ex) when(ex is InvalidDataException or System.Text.Json.JsonException or InvalidOperationException or KeyNotFoundException or NullReferenceException){errors.Add("Dữ liệu đã có nhưng không khớp định dạng adapter; không import ghi đè.");}}
+        return new {compatible=errors.Count==0,initialized,empty=counts.Values.All(c=>c==0),errors=errors.ToArray(),counts};
+    }
     private static void Lock(NpgsqlConnection db, NpgsqlTransaction tx)
     {
         using var cmd = new NpgsqlCommand("SELECT pg_advisory_xact_lock(@key)", db, tx);
