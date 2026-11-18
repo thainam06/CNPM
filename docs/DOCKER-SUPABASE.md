@@ -64,3 +64,11 @@ docker compose --env-file .env.docker -f compose.yaml -f compose.supabase.yaml p
 ```
 
 Các lần khởi động/build tiếp theo tiếp tục dùng cả hai file `-f`. Chạy base Compose riêng mặc định sẽ quay về SQLite, không tự đồng bộ dữ liệu từ Supabase về SQLite. Ảnh/audio vẫn ở volume Docker; database cloud không thay thế máy chủ web/backend.
+
+## Báo cáo chỉ đọc để gửi nhóm
+
+Dùng `scripts/Start-Supabase.ps1 -ReviewOnly`, có thể thêm `-IncludeConnectionInfo` để
+hiện Host/Port/Database/User. Không kết hợp với `-CheckOnly`. Review chạy SELECT trong
+transaction READ ONLY trước mọi bootstrap/worker, không import hoặc chạy web. CA local
+được mount chỉ đọc, không chép vào volume. JSON không xuất password hoặc state envelope.
+Chi tiết và các SQL thủ công: [bộ bàn giao](../database/supabase-review/README.md).
