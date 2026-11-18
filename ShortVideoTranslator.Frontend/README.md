@@ -1,20 +1,16 @@
-# React + Vite
+# SmartTour Guide — Frontend
 
-Ứng dụng frontend **SmartTour Guide — Quận 1**. Chạy `npm ci`, sau đó `npm run dev` tại thư mục này. Vite dùng cổng 5173 và proxy `/api` tới backend cổng 5132. Hướng dẫn đầy đủ, API và giới hạn dịch/TTS nằm trong [SMARTTOUR-DEMO.md](../docs/SMARTTOUR-DEMO.md).
+Ứng dụng React + Vite cho website khám phá Quận 1 và thuyết minh đa ngôn ngữ.
 
-Kiểm tra: `npm run build` và `npm run lint`. Cấu hình mẫu: `.env.example`. Nội dung dưới đây là tài liệu gốc của template Vite.
+- Cài thư viện: `npm ci`.
+- Chạy phát triển: `npm run dev` tại thư mục này; cổng mặc định 5173.
+- Vite chuyển `/api` đến Backend cổng 5132. Khi dùng Backend Docker cổng 8080, đặt biến môi trường `API_PROXY_TARGET=http://localhost:8080` trước khi chạy Vite.
+- Cấu hình mẫu: `.env.example`.
+- Trang người dùng: `/`. Quản trị: `/admin`. Cổng chủ quán: `/owner`.
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Kiểm tra: `npm test`, `npm run build`, `npm run lint`.
+Kiểm tra trình duyệt: `npm run test:browser` (cần Chromium của Playwright).
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Hướng dẫn dự án: [SMARTTOUR-DEMO.md](../docs/SMARTTOUR-DEMO.md).
+Cấu hình Docker/Supabase: [DOCKER-SUPABASE.md](../docs/DOCKER-SUPABASE.md).
+Không lưu mật khẩu hoặc connection string trong source frontend hay biến `VITE_*`.
