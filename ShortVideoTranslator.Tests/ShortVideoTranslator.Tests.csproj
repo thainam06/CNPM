@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <EmbeddedResource Include="../database/postgres/002_smarttour_compact.sql" LogicalName="ReviewTest.002.sql" />
+    <EmbeddedResource Include="../database/postgres/005_six_table_backend.sql" LogicalName="ReviewTest.005.sql" />
+    <EmbeddedResource Include="../database/supabase-review/02_view_data.sql" LogicalName="ReviewTest.02.sql" />
   </ItemGroup>
 
   <ItemGroup>

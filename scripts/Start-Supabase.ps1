@@ -1,5 +1,7 @@
-param([string]$EnvFile, [switch]$CheckOnly)
+param([string]$EnvFile, [switch]$CheckOnly, [switch]$ReviewOnly, [switch]$IncludeConnectionInfo)
 $ErrorActionPreference = 'Stop'
+if ($CheckOnly -and $ReviewOnly) { throw 'Choose -CheckOnly or -ReviewOnly, not both.' }
+if ($IncludeConnectionInfo -and !$ReviewOnly) { throw '-IncludeConnectionInfo requires -ReviewOnly.' }
 $taskRoot = Split-Path $PSScriptRoot -Parent
 . (Join-Path $PSScriptRoot 'Docker-Context.ps1')
 $context = Get-SmartTourDockerContext -Root $taskRoot -EnvFile $EnvFile -Supabase
@@ -16,7 +18,7 @@ try {
     Write-Host 'Building the current API diagnostic (never imports or resets cloud data)...'
     & $taskDocker.Source @compose build api
     if ($LASTEXITCODE -ne 0) { throw 'API build failed. Database data was not changed.' }
-    if (!$CheckOnly) {
+    if (!$CheckOnly -and !$ReviewOnly) {
         $certificate = Join-Path $taskRoot 'supabase-ca.crt'
         if (!(Test-Path -LiteralPath $certificate)) { $certificate = Join-Path $taskRoot 'supabase-ca.crt.crt' }
         if (Test-Path -LiteralPath $certificate) {
@@ -25,9 +27,22 @@ try {
         }
     }
     Write-Host 'Checking Supabase directly, before starting web/worker processes...'
-    & $taskDocker.Source @compose run --rm -T --no-deps api --CheckPostgres=true --ImportPostgres=false
+    if ($ReviewOnly) {
+        $reviewRun = @('run','--rm','-T','--no-deps')
+        $reviewCertificate = Join-Path $taskRoot 'supabase-ca.crt'
+        if (!(Test-Path -LiteralPath $reviewCertificate)) { $reviewCertificate = Join-Path $taskRoot 'supabase-ca.crt.crt' }
+        if (Test-Path -LiteralPath $reviewCertificate) {
+            # Make the existing public CA available without copying into the data volume.
+            $reviewRun += @('-v',"${reviewCertificate}:/app/App_Data/supabase-ca.crt:ro")
+        }
+        $reviewArguments = @('--ReviewPostgres=true','--CheckPostgres=false','--ImportPostgres=false')
+        if ($IncludeConnectionInfo) { $reviewArguments += '--IncludeConnectionInfo=true' }
+        & $taskDocker.Source @compose @reviewRun api @reviewArguments
+    } else {
+        & $taskDocker.Source @compose run --rm -T --no-deps api --CheckPostgres=true --ImportPostgres=false
+    }
     if ($LASTEXITCODE -ne 0) { throw 'Supabase check failed. Send the diagnostic code above (TLS/AUTH/CONNECT/SCHEMA/DATA). Do not delete tables or rerun import.' }
-    if (!$CheckOnly) {
+    if (!$CheckOnly -and !$ReviewOnly) {
         & $taskDocker.Source @compose build web
         if ($LASTEXITCODE -ne 0) { throw 'Web build failed; Supabase check passed.' }
         # Recreate web too so nginx resolves the current API container address.
