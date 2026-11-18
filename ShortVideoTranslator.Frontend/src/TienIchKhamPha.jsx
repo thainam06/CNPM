@@ -1,23 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { guiYeuCauApi } from "./dichVuApi";
-import { xoaNgoaiTuyen, taiGoiAmThanh, baoTaiNguyenThayDoi } from "./khoNgoaiTuyen";
 import { BoKichHoatTheoVung } from "./vungKichHoat";
 import { chonDiaDiemUuTien, luuNgonNguDiaDiem } from "./chuanBiNgonNgu";
 import { coTheChiaSeViTri } from "./chinhSachChiaSeViTri";
 import { goiGiaoDienSanSang } from "./ngonNguGiaoDien";
-import CongCuGoiNgoaiTuyen from "./CongCuGoiNgoaiTuyen";
-import { datDongYThongKe } from "./thongKe";
 
-export default function TienIchKhamPha({ places, language, onEnter, location, onLanguageReadiness, preparationRetry = 0 }) {
-  const { enabled: gps, position, start, clear } = location;
-  const [message, setMessage] = useState('');
-  const [working, setWorking] = useState(false);
-  const [bundleWorking, setBundleWorking] = useState(false);
-  const [hotsetRetry, setHotsetRetry] = useState(0);
-  const [shellReady, setShellReady] = useState(false);
-  const [consent, setConsent] = useState(() => localStorage.getItem('smarttour-consent') === 'yes');
-  const [runtimeConsent, setRuntimeConsent] = useState(false);
-  const [runtimeSession, setRuntimeSession] = useState(() => localStorage.getItem('smarttour-runtime-session'));
+export default function TienIchKhamPha({ places, language, onEnter, location, onLanguageReadiness, onMessage, preparationRetry = 0 }) {
+  const { enabled: gps, position } = location;
+  const [runtimeSession, setRuntimeSession] = useState(() => crypto.randomUUID());
+  const sharedLocation = useRef(false);
+  const messageCallback = useRef(onMessage);
+  useEffect(() => { messageCallback.current = onMessage; }, [onMessage]);
   const sharingAbort = useRef(null);
   const lastShare = useRef(0);
   const callback = useRef(onEnter);
@@ -32,46 +25,38 @@ export default function TienIchKhamPha({ places, language, onEnter, location, on
     const prepare = async () => {
       await Promise.resolve();
       if (controller.signal.aborted) return;
-      setWorking(true); readinessCallback.current?.({ language, ready: false });
+      readinessCallback.current?.({ language, ready: false });
       const near = currentPosition.current ? chonDiaDiemUuTien(currentPosition.current, places) : [];
       const required = (near.length ? near : places.slice(0, 10)).slice(0, 3);
-      setMessage(`Đang chuẩn bị giao diện và ${required.length} thuyết minh ưu tiên cho ${language}…`);
       try {
         if (!goiGiaoDienSanSang(language)) throw new Error('Bundle giao diện của ngôn ngữ này chưa sẵn sàng.');
         await Promise.all(required.map(place => luuNgonNguDiaDiem(place, language, controller.signal)));
         if (controller.signal.aborted) return;
-        setMessage(`Ngôn ngữ ${language} sẵn sàng: giao diện và ${required.length}/${required.length} thuyết minh ưu tiên đã lưu.`);
         readinessCallback.current?.({ language, ready: true });
       } catch (error) {
         if (controller.signal.aborted) return;
-        setMessage(`Ngôn ngữ ${language} chưa sẵn sàng: ${error.message}`);
         readinessCallback.current?.({ language, ready: false, error: error.message });
-      } finally { if (!controller.signal.aborted) setWorking(false); }
+      }
     };
     prepare(); return () => controller.abort();
-  }, [language, places, hotsetRetry, preparationRetry]);
+  }, [language, places, preparationRetry]);
   useEffect(() => () => sharingAbort.current?.abort(), []);
   useEffect(() => {
-    if (!coTheChiaSeViTri({ consent: runtimeConsent, gps, position, sessionId: runtimeSession }) || !navigator.onLine || Date.now() - lastShare.current < 30000) return;
-    const controller = new AbortController(); sharingAbort.current = controller; lastShare.current = Date.now();
+    if (!coTheChiaSeViTri({ consent: true, gps, position, sessionId: runtimeSession }) || !navigator.onLine || Date.now() - lastShare.current < 30000) return;
+    const controller = new AbortController(); sharingAbort.current = controller; lastShare.current = Date.now(); sharedLocation.current = true;
     guiYeuCauApi('/runtime/location', { method: 'POST', signal: controller.signal, headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ consent: true, sessionId: runtimeSession, latitude: Math.round(position.latitude * 1000) / 1000, longitude: Math.round(position.longitude * 1000) / 1000, accuracy: position.accuracy })
-    }).catch(error => { if (!controller.signal.aborted) setMessage(`Chưa chia sẻ được vị trí: ${error.message}`); });
+    }).catch(error => { if (!controller.signal.aborted) messageCallback.current?.(`Chưa chia sẻ được vị trí: ${error.message}`); });
     return () => controller.abort();
-  }, [runtimeConsent, gps, position, runtimeSession]);
+  }, [gps, position, runtimeSession]);
   useEffect(() => {
-    if (!import.meta.env.PROD || !('serviceWorker' in navigator)) return;
-    let cancelled = false;
-    const inspect = async () => {
-      const registration = await navigator.serviceWorker.ready;
-      const channel = new MessageChannel();
-      channel.port1.onmessage = event => { if (!cancelled) setShellReady(event.data.buildId === import.meta.env.SMARTTOUR_BUILD_ID); channel.port1.close(); };
-      registration.active?.postMessage({ type: 'GET_BUILD' }, [channel.port2]);
-    };
-    inspect().catch(() => {});
-    navigator.serviceWorker.addEventListener('controllerchange', inspect);
-    return () => { cancelled = true; navigator.serviceWorker.removeEventListener('controllerchange', inspect); };
-  }, []);
+    if (gps || !sharedLocation.current) return;
+    sharedLocation.current = false;
+    const previous = runtimeSession;
+    queueMicrotask(() => { setRuntimeSession(crypto.randomUUID()); lastShare.current = 0; });
+    guiYeuCauApi('/runtime/forget', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId: previous }) })
+      .catch(() => messageCallback.current?.('Đã dừng gửi vị trí. Chưa xóa được dữ liệu đã chia sẻ; dữ liệu tự hết hạn sau 24 giờ.'));
+  }, [gps, runtimeSession]);
   useEffect(() => {
     if (!gps) return;
     const engine = new BoKichHoatTheoVung();
@@ -99,45 +84,6 @@ export default function TienIchKhamPha({ places, language, onEnter, location, on
     return () => { controller.abort(); clearInterval(interval); };
   }, [gps, language]);
 
-  async function savePack() {
-    setWorking(true); setMessage('Đang kiểm tra audio tạo sẵn…');
-    try { const result = await taiGoiAmThanh(language, places, guiYeuCauApi, (completed, total) => setMessage(`Đang lưu MP3: ${completed}/${total}`)); setMessage(`Đã lưu ${result.count} MP3 và dữ liệu địa điểm cho ${language}. ${result.missing ? `Còn ${result.missing} địa điểm chưa có audio tạo sẵn.` : ''}`); }
-    catch (error) { setMessage(error.name === 'QuotaExceededError' ? 'Thiết bị không đủ dung lượng. Xóa dữ liệu offline rồi thử lại.' : error.message); }
-    finally { setWorking(false); }
-  }
-  function toggleGps() { sharingAbort.current?.abort(); if (gps) clear(); else start(); }
-  function prepareLanguage() { setHotsetRetry(value => value + 1); }
-  async function toggleConsent(value) {
-    setConsent(value);
-    try { await datDongYThongKe(value); if (!value) setMessage('Đã tắt thống kê và xóa sự kiện của phiên này.'); }
-    catch { setMessage('Đã dừng thống kê. Yêu cầu xóa được lưu để gửi lại khi có mạng.'); }
-  }
-  async function toggleRuntime(value) {
-    sharingAbort.current?.abort();
-    setRuntimeConsent(value);
-    if (value) {
-      const session = crypto.randomUUID(); setRuntimeSession(session); localStorage.setItem('smarttour-runtime-session', session); lastShare.current = 0;
-      setMessage('Đã bật chia sẻ vị trí làm tròn với Admin. Chỉ gửi khi GPS đang bật và có kết quả mới, chính xác.');
-    } else if (runtimeSession) {
-      try {
-        await guiYeuCauApi('/runtime/forget', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId: runtimeSession }) });
-        localStorage.removeItem('smarttour-runtime-session'); setRuntimeSession(null); setMessage('Đã dừng chia sẻ, thu hồi phiên và xóa vị trí ở server.');
-      } catch { setMessage('Đã dừng gửi vị trí. Chưa xóa được dữ liệu server; thử nút xóa khi có mạng. Dữ liệu tự hết hạn sau 24 giờ.'); }
-    }
-  }
-  return <section className="explore-tools" aria-label="Tiện ích khám phá"><div><h3>Khám phá theo cách của bạn</h3><p>Trang tự yêu cầu quyền GPS để gợi ý địa điểm gần bạn. Bạn có thể từ chối hoặc tắt định vị; tọa độ mặc định chỉ dùng trên thiết bị. Chia sẻ vị trí với Admin cần đồng ý riêng bên dưới. Offline phát MP3 đã tải; tạo audio mới cần Internet.</p></div><div className="tool-actions">
-    <button type="button" onClick={toggleGps} aria-pressed={gps}>{gps ? 'Tắt định vị' : 'Bật định vị & thuyết minh gần bạn'}</button>
-    <button type="button" disabled={working || bundleWorking} onClick={prepareLanguage}>Chuẩn bị ngôn ngữ · {language}</button>
-    <button type="button" disabled={working || bundleWorking} onClick={savePack}>Tải audio offline · {language}</button>
-    <button type="button" disabled={working || bundleWorking} onClick={async () => { try { await xoaNgoaiTuyen(); baoTaiNguyenThayDoi(); setHotsetRetry(value => value + 1); setMessage('Đã xóa dữ liệu và audio offline trên thiết bị.'); } catch { setMessage('Không xóa được dữ liệu offline.'); } }}>Xóa dữ liệu offline</button>
-  </div>
-    <label className="consent"><input type="checkbox" checked={consent} onChange={event => toggleConsent(event.target.checked)} />Cho phép thống kê ẩn danh lượt xem/nghe (không gửi vị trí)</label>
-    <label className="consent"><input type="checkbox" checked={runtimeConsent} onChange={event => toggleRuntime(event.target.checked)} />Đồng ý gửi vị trí làm tròn khoảng 100 m tới Admin SmartTour để giám sát demo; lưu tối đa 24 giờ, không gắn tài khoản. Mặc định tắt mỗi lần mở trang.</label>
-    {runtimeSession && <button type="button" onClick={() => toggleRuntime(false)}>Xóa vị trí đã chia sẻ</button>}
-    {gps && <p role="status">{position ? `Độ chính xác GPS: khoảng ${Math.round(position.accuracy)} m.` : 'Đang lấy vị trí…'} {!places.some(place => place.locationVerified) && 'Chưa có địa điểm có tọa độ xác minh để kích hoạt tự động.'}</p>}
-    {shellReady && <p className="pwa-ready">✓ Giao diện đã được lưu để mở lại khi mất mạng. Audio cần được tải trước.</p>}
-    {message && <p className="notice" role="status">{message}</p>}
-    <CongCuGoiNgoaiTuyen key={language} language={language} shellReady={shellReady} onWorkingChange={setBundleWorking} />
-  </section>;
+  // Background preparation and geofencing continue without a separate settings panel.
+  return null;
 }
-
