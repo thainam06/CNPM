@@ -31,6 +31,8 @@ export async function datDongYThongKe(value) {
   }
 }
 export function batDauThongKe(language) {
+  // Default for new visitors; preserve an explicit previous opt-out.
+  if (localStorage.getItem('smarttour-consent') === null) localStorage.setItem('smarttour-consent', 'yes');
   let stopped = false; let lastHeartbeat = 0;
   const tick = async () => {
     if (stopped || document.visibilityState === 'hidden' || !navigator.onLine) return;

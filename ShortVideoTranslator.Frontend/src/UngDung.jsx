@@ -3,7 +3,7 @@ import { taoThuyetMinh, layChiTietDiaDiem, layDanhSachDiaDiem, dichNoiDung } fro
 import "./UngDung.css";
 import './TourDesign.css';
 import TienIchKhamPha from "./TienIchKhamPha";
-import { ghiNhanSuKien, batDauThongKe } from "./thongKe";
+import { ghiNhanSuKien, batDauThongKe, datDongYThongKe } from "./thongKe";
 import { docApi } from "./dichVuApi";
 import BanDoTrangChu from "./BanDoTrangChu";
 import DiaDiemGanBan from "./DiaDiemGanBan.jsx";
@@ -36,6 +36,7 @@ function UngDung() {
   const [startupRetry, setStartupRetry] = useState(0);
   const [startupNetwork, setStartupNetwork] = useState('checking');
   const t = (key) => chuGiaoDien(language, key);
+  const [analyticsEnabled, setAnalyticsEnabled] = useState(() => localStorage.getItem('smarttour-consent') !== 'no');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [nearbyRadius, setNearbyRadius] = useState(1000);
@@ -249,7 +250,7 @@ function UngDung() {
       {startup && <ChuanBiHanhTrinh language={language} languages={languages} network={startupNetwork} onLanguage={chooseLanguage} loading={listLoading} count={places.length} error={listError} ready={languageReady} preparationError={languagePreparationError} onRetry={() => { if (listError) retryPlaces(); setStartupRetry(value => value + 1); }} onClose={() => { setStartup(false); sessionStorage.setItem('smarttour-startup-done', 'yes'); }} />}
       <header className="header">
         <a className="brand" href="#gioi-thieu"><span className="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m3 11 18-8-8 18-2-8-8-2Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /><path d="m11 13 5-5" stroke="currentColor" strokeWidth="1.6" /></svg></span><div><h2>SmartTour<span> Guide</span></h2><small>YOUR LOCAL AUDIO GUIDE</small></div></a>
-        <nav aria-label="Điều hướng"><a href="#dia-diem">{t('explore')}</a><a href="#gan-ban">Gần bạn</a><a href="#ban-do">{t('map')}</a><a href="#hanh-trinh">Hành trang</a></nav>
+        <nav aria-label="Điều hướng"><a href="#dia-diem">{t('explore')}</a><a href="#gan-ban">Gần bạn</a><a href="#ban-do">{t('map')}</a><a href="#do-khoang-cach">Đo khoảng cách</a></nav>
         <button className="header-status" onClick={() => setStartup(true)}>{t('tripLanguage')} · {language.toUpperCase()}</button>
         <a className="header-admin" href="/admin">Quản trị <span aria-hidden="true">↗</span></a>
       </header>
@@ -281,14 +282,17 @@ function UngDung() {
               {!listLoading && !listError && !filteredPlaces.length && <p role="status">{t('empty')}</p>}
             </div>
           </div>
+          <div className="exploration-main">
+          <BanDoTrangChu language={language} places={places} selectedId={selectedId} onSelect={openPlace} />
           <article className="detail-panel" id="chi-tiet" aria-label="Chi tiết địa điểm" aria-busy={detailLoading}>
+            {!detailLoading && !detailError && place && <div className="selected-place-bar"><div><span>ĐANG KHÁM PHÁ</span><strong>{place.name}</strong></div><a href="#thuyet-minh">Nghe thuyết minh <span aria-hidden="true">↓</span></a></div>}
             {detailLoading && <p className="detail-content" role="status">{t('loadingDetail')}</p>}
             {detailError && <div className="detail-content notice" role="alert">{detailError} <button onClick={retryPlaces}>Thử lại</button></div>}
             {!detailLoading && !detailError && place && <>
               {place.imageUrl || place.images?.length ? <BoAnhDiaDiem key={place.id} place={place} /> : <div className="detail-art" aria-hidden="true"><span>SMARTTOUR / QUẬN 1</span><strong>{place.name}</strong><small>Đồ họa trang trí • không phải ảnh địa điểm</small></div>}
               <div className="detail-content">
                 <span className="category">{place.category}</span><h2>{place.name}</h2>{place.address && <div className="address-box"><span aria-hidden="true">📍</span><div><small>ĐỊA CHỈ</small><p>{place.address}</p>{place.addressSourceUrl && <a href={place.addressSourceUrl} target="_blank" rel="noreferrer">Nguồn địa chỉ ↗</a>}</div></div>}
-                <section className="narration-panel" aria-label="Thuyết minh tự động">
+                <section className="narration-panel" id="thuyet-minh" aria-label="Thuyết minh tự động">
                   <div className="narration-heading"><span className="narration-icon" aria-hidden="true">♫</span><div><span className="section-kicker">AUDIO GUIDE</span><h3>{t('narration')}</h3></div></div><label htmlFor="language">{t('language')}</label>
                   <select id="language" value={language} onChange={(event) => chooseLanguage(event.target.value)}>{languages.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select>
                   {language !== 'vi' && translation && <p className="provider-note">{translation.provider === 'reviewed' ? 'Bản dịch đã được Admin biên tập và duyệt.' : translation.provider === 'SmartTourDraft' ? 'Bản dịch mẫu do AI hỗ trợ biên soạn cho bài thuyết minh này; chưa được chuyên gia ngôn ngữ hiệu đính. Không phải bản dịch trực tiếp từ MyMemory.' : 'Dịch tự động bằng MyMemory, có thể sai tên riêng hoặc ngữ nghĩa. Dịch vụ miễn phí có hạn mức và cần Internet.'}</p>}
@@ -310,15 +314,12 @@ function UngDung() {
             </>}
             {!place && !detailLoading && !detailError && <p className="detail-content">{t('pick')}</p>}
           </article>
+          </div>
         </section>
-        <BanDoTrangChu language={language} places={places} selectedId={selectedId} onSelect={openPlace} />
-        <section className="journey-preparation" id="hanh-trinh" aria-labelledby="preparation-title">
-        <div className="discovery-heading"><div><span className="section-kicker">SẴN SÀNG CHO CHUYẾN ĐI</span><h2 id="preparation-title">Hành trang của bạn<span className="heading-dot">.</span></h2><p>Chuẩn bị audio để nghe khi mất mạng, quản lý định vị và các lựa chọn riêng tư tại cùng một nơi.</p></div></div>
-        <TienIchKhamPha location={location} places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
-        <details className="distance-disclosure"><summary>Đo khoảng cách giữa hai điểm <span aria-hidden="true">＋</span></summary><DoKhoangCach places={places} /></details>
-        </section>
+        <TienIchKhamPha onMessage={setOfflineMessage} location={location} places={places} language={language} preparationRetry={startupRetry} onLanguageReadiness={status => { if (status.language === language) { setLanguageReady(status.ready); setLanguagePreparationError(status.error || ''); } }} onEnter={nearby => { choosePlace(nearby.id); setAutoPlace(nearby.id); }} />
+        <DoKhoangCach places={places} />
       </main>
-      <footer className="footer"><div><strong>SmartTour<span> Guide</span></strong><p>Quận 1 · Thành phố Hồ Chí Minh</p><small>Đồ án Công nghệ phần mềm · Nội dung demo</small></div><div className="footer-links"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="/admin">{t('admin')}</a><a href="/owner">{t('owner')}</a></div><a className="back-to-top" href="#gioi-thieu" aria-label="Về đầu trang">↑</a></footer>
+      <footer className="footer"><div><strong>SmartTour<span> Guide</span></strong><p>Quận 1 · Thành phố Hồ Chí Minh</p><small>Đồ án Công nghệ phần mềm · Nội dung demo</small></div><div className="footer-links"><a href="#gioi-thieu">{t('intro')}</a><a href="#ban-do">{t('map')}</a><a href="/admin">{t('admin')}</a><a href="/owner">{t('owner')}</a></div><button className="privacy-toggle" type="button" aria-pressed={analyticsEnabled} onClick={async () => { const next = !analyticsEnabled; setAnalyticsEnabled(next); try { await datDongYThongKe(next); setOfflineMessage(next ? 'Đã bật thống kê lượt xem/nghe.' : 'Đã tắt thống kê và xóa sự kiện của phiên này.'); } catch { setOfflineMessage('Đã dừng thống kê. Yêu cầu xóa sẽ được thử lại khi có mạng.'); } }}>{analyticsEnabled ? 'Tắt thống kê lượt xem/nghe' : 'Bật thống kê lượt xem/nghe'}</button><a className="back-to-top" href="#gioi-thieu" aria-label="Về đầu trang">↑</a></footer>
     </div>
   );
 }

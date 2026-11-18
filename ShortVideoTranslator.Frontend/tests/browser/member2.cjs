@@ -22,6 +22,7 @@ const server = http.createServer(async(req,res)=> {
     const url=new URL(req.url,'http://fixture'); const route=url.pathname;
     if(route.startsWith('/api/')) requests.push({method:req.method,path:route});
     const json=(data,status=200)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
+    if(route==='/api/runtime/location' || route==='/api/runtime/forget' || route==='/api/analytics/batch' || route==='/api/analytics/forget') return json({accepted:true});
     if(route==='/api/health/ready') return json({status:'ready'});
     if(route==='/api/content') { res.setHeader('ETag','"fixture-1"'); return json({region:'district1',version:1,updatedAt:new Date().toISOString(),syncMode:'full',removedIds:[],items:places.map(place=>({place}))}); }
     if(/^\/api\/places\/\d+\/menu$/.test(route)) return json([]);
@@ -65,12 +66,14 @@ async function ready(page,base) {
   // Block only external map tiles. Same-origin production JS/API/SW remain real HTTP requests.
   await context.route('https://**/*',route=>route.abort());await gpsSetup(context);
   const page=await context.newPage();const pageErrors=[];page.on('pageerror',e=>pageErrors.push(e.message));
-  await run('GPS tự bắt đầu; bán kính 1/3/5/10 km; không gửi vị trí khi chưa đồng ý',async()=>{
+  await run('GPS tự bắt đầu; bán kính 1/3/5/10 km; chia sẻ mặc định sau khi cấp GPS',async()=>{
     await ready(page,base);assert.equal(await page.evaluate(()=>window.__gpsRequests),1);
     assert.equal(await page.locator('.startup-dialog[open]').count(),0);
     await page.locator('.hero-nearby').getByText(/Gần bạn: Địa điểm kiểm thử 1/).waitFor();
     for(const [radius,count] of [[1000,1],[3000,2],[5000,3],[10000,4]]) {await page.selectOption('#nearby-radius',String(radius));await page.waitForFunction(n=>document.querySelectorAll('.nearby-card').length===n,count);}
-    assert.equal(requests.filter(r=>r.path==='/api/runtime/location').length,0);
+    assert.ok(requests.some(r=>r.path==='/api/runtime/location'));
+    assert.equal(await page.locator('.explore-tools').count(),0);
+    assert.equal(await page.locator('#distance-title').count(),1);
     await page.locator('.nearby-section').screenshot({path:path.join(out,'gps-nearby-mobile.png')});
   });
   await run('Di chuyển đổi thứ tự; không có địa điểm; GPS kém chính xác',async()=>{
@@ -79,12 +82,12 @@ async function ready(page,base) {
     await page.evaluate(()=>window.__moveGps(10.77,106.69,200));await page.getByText(/GPS chưa đủ chính xác/).waitFor();
   });
   await run('Dừng GPS ngừng cập nhật; bật lại được',async()=>{
-    await page.getByRole('button',{name:'Tắt định vị',exact:true}).click();await page.evaluate(()=>window.__moveGps(10.77));
+    await page.getByRole('button',{name:'Dừng định vị',exact:true}).click();await page.evaluate(()=>window.__moveGps(10.77));
     assert.equal(await page.locator('.nearby-card').count(),0);assert.ok(await page.evaluate(()=>window.__gpsClears)>0);
-    await page.getByRole('button',{name:'Bật định vị & thuyết minh gần bạn',exact:true}).click();await page.locator('.nearby-card').first().waitFor();
+    await page.getByRole('button',{name:'Thử lại định vị',exact:true}).click();await page.locator('.nearby-card').first().waitFor();
     assert.equal(await page.evaluate(()=>window.__gpsRequests),2);
     await page.getByRole('button',{name:'Dừng định vị',exact:true}).click();
-    await page.getByRole('button',{name:'Bật định vị & thuyết minh gần bạn',exact:true}).waitFor();
+    await page.getByRole('button',{name:'Thử lại định vị',exact:true}).waitFor();
     assert.equal(await page.locator('.nearby-card').count(),0);
     await page.getByRole('button',{name:'Thử lại định vị',exact:true}).click();await page.locator('.nearby-card').first().waitFor();
     assert.equal(await page.evaluate(()=>window.__gpsRequests),3);
@@ -113,7 +116,6 @@ async function ready(page,base) {
   });
   await run('Offline thật trong browser: reload shell, catalog, ảnh và audio đã lưu',async()=>{
     await page.evaluate(()=>navigator.serviceWorker.ready);await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
-    await page.waitForFunction(()=>[...document.querySelectorAll('.pwa-ready')].some(x=>x.textContent.includes('Giao diện')));
     // Cache initial narration and photo using the normal application flow.
     await page.locator('.narration-panel .listen-button').click();await page.waitForFunction(()=>document.querySelector('audio')?.readyState>=2);
     await context.setOffline(true);await page.reload();await page.locator('.place-card').first().waitFor();
@@ -122,10 +124,14 @@ async function ready(page,base) {
     assert.ok(await page.locator('.place-card img').first().evaluate(img=>img.complete&&img.naturalWidth>0));
     await page.screenshot({path:path.join(out,'offline-mobile.png'),fullPage:true});await context.setOffline(false);
   });
-  await run('Thiếu PMTiles: tải gói đầy đủ báo lỗi, không báo đã hoàn tất',async()=>{
-    await page.getByRole('button',{name:'Tải gói offline đầy đủ',exact:true}).click();
-    await page.locator('.offline-bundle-tools').getByText(/Fixture không cung cấp/).waitFor();
-    assert.equal(await page.locator('.offline-bundle-tools .pwa-ready').count(),0);
+  await run('Đo khoảng cách và tắt thống kê hoạt động khi đã bỏ Hành trang',async()=>{
+    const inputs=page.locator('.distance-calculator input');
+    for(const [i,value] of ['10.77','106.69','10.78','106.70'].entries()) await inputs.nth(i).fill(value);
+    await page.getByRole('button',{name:'Tính khoảng cách',exact:true}).click();
+    await page.locator('.distance-result').waitFor();
+    await page.getByRole('button',{name:'Tắt thống kê lượt xem/nghe',exact:true}).click();
+    assert.equal(await page.evaluate(()=>localStorage.getItem('smarttour-consent')),'no');
+    assert.ok(requests.some(r=>r.path==='/api/runtime/forget'));
   });
   const denied=await browser.newContext({viewport:{width:390,height:844}});await denied.route('https://**/*',r=>r.abort());await gpsSetup(denied,true);
   await run('Từ chối GPS vẫn xem được địa điểm thủ công',async()=>{

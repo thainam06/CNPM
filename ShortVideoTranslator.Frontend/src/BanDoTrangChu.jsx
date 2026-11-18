@@ -71,7 +71,7 @@ function CloudMap({ places, selectedId, onSelect, language = 'vi', onUnavailable
     <div ref={container} className="home-map" role="region" aria-label="Bản đồ tương tác OpenStreetMap khu vực Quận 1" />
     <div className="home-map-note">{located.length ? <div className="map-place-list">{located.map(place => <button key={place.id} onClick={() => callback.current(place.id)} aria-pressed={place.id === selectedId}>📍 {place.name}</button>)}</div> : <p>Bản đồ nền đang hiển thị khu vực Quận 1. Các địa điểm demo chưa có tọa độ đã xác minh nên chưa đặt ghim.</p>}
       {tileError && <p className="notice" role="alert">Không tải được một số ô bản đồ. Kiểm tra Internet; danh sách địa điểm vẫn dùng được.</p>}
-      <small>Khung xem bao quanh các điểm tham quan, không phải ranh giới hành chính. Tham khảo <a href="https://commons.wikimedia.org/wiki/Category:District_1,_Ho_Chi_Minh_City" target="_blank" rel="noreferrer">Quận 1 trên Wikimedia Commons</a>. Ghim là vị trí tham khảo của công trình từ nguồn tọa độ đã dẫn, không phải cổng vào đã đo GPS. Bản đồ nền cần Internet.</small>
+      <details className="map-information"><summary>Nguồn bản đồ & độ chính xác vị trí</summary><small>Khung xem bao quanh các điểm tham quan, không phải ranh giới hành chính. Tham khảo <a href="https://commons.wikimedia.org/wiki/Category:District_1,_Ho_Chi_Minh_City" target="_blank" rel="noreferrer">Quận 1 trên Wikimedia Commons</a>. Ghim là vị trí tham khảo của công trình từ nguồn tọa độ đã dẫn, không phải cổng vào đã đo GPS. Bản đồ nền cần Internet.</small></details>
     </div>
   </section>;
 }
