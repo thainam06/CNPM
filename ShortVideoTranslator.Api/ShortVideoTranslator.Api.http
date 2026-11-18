@@ -1,6 +1,16 @@
 @ShortVideoTranslator.Api_HostAddress = http://localhost:5132
 
-GET {{ShortVideoTranslator.Api_HostAddress}}/weatherforecast/
+GET {{ShortVideoTranslator.Api_HostAddress}}/api/health
+Accept: application/json
+
+###
+
+GET {{ShortVideoTranslator.Api_HostAddress}}/api/health/ready
+Accept: application/json
+
+###
+
+GET {{ShortVideoTranslator.Api_HostAddress}}/api/places
 Accept: application/json
 
 ###
