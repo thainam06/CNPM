@@ -5,3 +5,5 @@ services:
     environment:
       Storage__Provider: Postgres
       Storage__PostgresConnectionString: ${SUPABASE_CONNECTION_STRING:?Set SUPABASE_CONNECTION_STRING in your private .env.docker file}
+      # Optional override set by Start-Supabase.ps1 when a local CA is selected.
+      Storage__PostgresRootCertificate: ${SMARTTOUR_POSTGRES_ROOT_CERTIFICATE:-}
