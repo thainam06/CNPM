@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { batDauTheoDoiTruyCap } from "../src/vongDoiTruyCap.js";
+import { batDauTheoDoiTruyCap } from "../src/services/vongDoiTruyCap.js";
 test('page exit leaves immediately; resume uses a fresh session; cleanup removes listeners', async () => {
   const handlers = {}; const heartbeats = []; const leaves = []; let visible = true; let sequence = 0; let timer; let removed = 0;
   const subscribe = name => handler => { handlers[name] = handler; return () => { removed++; delete handlers[name]; }; };

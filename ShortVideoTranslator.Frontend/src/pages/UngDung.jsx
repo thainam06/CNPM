@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { taoThuyetMinh, layChiTietDiaDiem, layDanhSachDiaDiem, dichNoiDung } from "./dichVuApi";
-import "./UngDung.css";
-import './TourDesign.css';
-import TienIchKhamPha from "./TienIchKhamPha";
-import { ghiNhanSuKien, batDauThongKe, datDongYThongKe } from "./thongKe";
-import { docApi } from "./dichVuApi";
-import BanDoTrangChu from "./BanDoTrangChu";
-import DiaDiemGanBan from "./DiaDiemGanBan.jsx";
-import DoKhoangCach from "./DoKhoangCach.jsx";
-import { useDinhViGanDay } from "./useDinhViGanDay";
-import AnhDiaDiem from "./AnhDiaDiem";
-import BoAnhDiaDiem from "./BoAnhDiaDiem";
-import { chuGiaoDien, goiGiaoDienSanSang } from "./ngonNguGiaoDien";
-import ChuanBiHanhTrinh from "./ChuanBiHanhTrinh";
-import { kiemTraKetNoiKhoiDong } from "./kiemTraKhoiDong";
-import { diaChiApi } from "./dichVuApi";
-import { locDiaDiemGanDay } from './vungKichHoat.js';
+import { taoThuyetMinh, layChiTietDiaDiem, layDanhSachDiaDiem, dichNoiDung } from "../services/dichVuApi.js";
+import "../styles/UngDung.css";
+import '../styles/TourDesign.css';
+import TienIchKhamPha from "../components/TienIchKhamPha.jsx";
+import { ghiNhanSuKien, batDauThongKe, datDongYThongKe } from "../services/thongKe.js";
+import { docApi } from "../services/dichVuApi.js";
+import BanDoTrangChu from "../components/BanDoTrangChu.jsx";
+import DiaDiemGanBan from "../components/DiaDiemGanBan.jsx";
+import DoKhoangCach from "../components/DoKhoangCach.jsx";
+import { useDinhViGanDay } from "../hooks/useDinhViGanDay.js";
+import AnhDiaDiem from "../components/AnhDiaDiem.jsx";
+import BoAnhDiaDiem from "../components/BoAnhDiaDiem.jsx";
+import { chuGiaoDien, goiGiaoDienSanSang } from "../data/ngonNguGiaoDien.js";
+import ChuanBiHanhTrinh from "../components/ChuanBiHanhTrinh.jsx";
+import { kiemTraKetNoiKhoiDong } from "../services/kiemTraKhoiDong.js";
+import { diaChiApi } from "../services/dichVuApi.js";
+import { locDiaDiemGanDay } from '../utils/vungKichHoat.js';
 
 const languages = [
   { code: 'vi', name: 'Tiếng Việt' }, { code: 'en', name: 'English' },

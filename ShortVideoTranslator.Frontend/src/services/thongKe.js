@@ -1,7 +1,7 @@
-import { guiYeuCauApi } from "./dichVuApi";
-import { HangDoiSuKien } from "./hangDoiThongKe";
-import { taoMaThietBi } from "./maThietBi";
-import { moTaThietBi } from "./moTaThietBi";
+import { guiYeuCauApi } from "./dichVuApi.js";
+import { HangDoiSuKien } from "../utils/hangDoiThongKe.js";
+import { taoMaThietBi } from "../utils/maThietBi.js";
+import { moTaThietBi } from "../utils/moTaThietBi.js";
 const queueKey = 'smarttour-analytics-queue';
 const forgetKey = 'smarttour-analytics-forget';
 const readList = key => { try { const value = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } };

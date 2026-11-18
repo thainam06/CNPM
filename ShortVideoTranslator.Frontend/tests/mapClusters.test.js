@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { gomCumDiaDiem } from "../src/gomCumBanDo.js";
+import { gomCumDiaDiem } from "../src/utils/gomCumBanDo.js";
 const places = [1, 2, 3].map((id) => ({ id, locationVerified: true, latitude: 10, longitude: 106 + id / 1000 }));
 const project = p => ({ x: (p.longitude - 106) * 10000, y: p.latitude });
 test('nearby pins cluster at low zoom and separate at street zoom', () => {

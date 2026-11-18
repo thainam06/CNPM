@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { HangDoiSuKien } from "../src/hangDoiThongKe.js";
+import { HangDoiSuKien } from "../src/utils/hangDoiThongKe.js";
 const event = (id, kind = 'view') => ({ id, kind, occurredAt: new Date(100000000).toISOString() });
 test('consent gates upload, batch limit and successful removal preserve new events', async () => {
   let items = []; let calls = 0;

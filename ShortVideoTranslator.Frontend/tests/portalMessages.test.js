@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { chuQuanTri, ngonNguQuanTri, tuDienQuanTri } from "../src/tuDienQuanTri.js";
+import { chuQuanTri, ngonNguQuanTri, tuDienQuanTri } from "../src/data/tuDienQuanTri.js";
 test('portal dictionaries have the same complete key set and preserve source content', () => {
   const keys = Object.keys(tuDienQuanTri.vi);
   for (const language of ngonNguQuanTri) {

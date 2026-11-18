@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { giamSatViTri } from "./giamSatDinhVi";
+import { giamSatViTri } from "../services/giamSatDinhVi.js";
 
 // One watcher is shared by nearby suggestions, geofencing and opt-in location sharing.
 export function useDinhViGanDay() {

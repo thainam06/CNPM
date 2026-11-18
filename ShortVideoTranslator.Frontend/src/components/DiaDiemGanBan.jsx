@@ -1,6 +1,6 @@
-import AnhDiaDiem from "./AnhDiaDiem";
-import { locDiaDiemGanDay } from "./vungKichHoat.js";
-import "./DiaDiemGanBan.css";
+import AnhDiaDiem from "./AnhDiaDiem.jsx";
+import { locDiaDiemGanDay } from "../utils/vungKichHoat.js";
+import "../styles/DiaDiemGanBan.css";
 
 export default function DiaDiemGanBan({ places, onSelect, location, compact = false, radius = 1000, onRadius }) {
   const { enabled, position, error, start, clear } = location;

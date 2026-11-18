@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { theoDoiTienDoAmThanh } from '../src/theoDoiTienDoAmThanh.js';
+import { theoDoiTienDoAmThanh } from '../src/services/theoDoiTienDoAmThanh.js';
 
 test('SSE delivers progress; failure falls back once and cleanup blocks late updates', async () => {
   const luong={close(){this.closed=true;}}; const ketQua=[]; const lich=[]; let soLan=0;

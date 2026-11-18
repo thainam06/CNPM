@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import AnhDiaDiem from "./AnhDiaDiem";
-import { locDiaDiem, trangThaiDiaDiem } from "./danhMucDiaDiem";
-import { useChuQuanTri } from "./NgonNguQuanTri";
+import AnhDiaDiem from "./AnhDiaDiem.jsx";
+import { locDiaDiem, trangThaiDiaDiem } from "../utils/danhMucDiaDiem.js";
+import { useChuQuanTri } from "./NgonNguQuanTri.jsx";
 
 const statusLabels = { public: 'Công khai', hidden: 'Ẩn', pending: 'Chờ audio tiếng Anh', archived: 'Lưu trữ Quận 4' };
 export default function QuanLyDiaDiem({ places, owner, can, busy, editing, onCreate, onEdit, onToggle, onDelete }) {

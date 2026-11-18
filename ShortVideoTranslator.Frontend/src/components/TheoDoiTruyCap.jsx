@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { guiYeuCauApi, diaChiApi } from "./dichVuApi";
-import { layMaTrinhDuyet } from "./dinhDanhTruyCap";
-import { moTaThietBi } from "./moTaThietBi";
-import { taoMaThietBi } from "./maThietBi";
-import { batDauTheoDoiTruyCap } from "./vongDoiTruyCap";
+import { guiYeuCauApi, diaChiApi } from "../services/dichVuApi.js";
+import { layMaTrinhDuyet } from "../utils/dinhDanhTruyCap.js";
+import { moTaThietBi } from "../utils/moTaThietBi.js";
+import { taoMaThietBi } from "../utils/maThietBi.js";
+import { batDauTheoDoiTruyCap } from "../services/vongDoiTruyCap.js";
 
 export function BoTheoDoiTruyCap({ children }) {
   useEffect(() => {

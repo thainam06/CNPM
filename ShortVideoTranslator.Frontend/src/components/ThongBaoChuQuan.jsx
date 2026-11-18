@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { ghiApi, docApi } from "./dichVuApi";
-import { NgonNguQuanTri, useChuQuanTri } from "./NgonNguQuanTri";
-import { phanTichDuongDanThongBao } from "./duongDanThongBao";
+import { ghiApi, docApi } from "../services/dichVuApi.js";
+import { NgonNguQuanTri, useChuQuanTri } from "./NgonNguQuanTri.jsx";
+import { phanTichDuongDanThongBao } from "../utils/duongDanThongBao.js";
 
 const subscribe = listener => { window.addEventListener('hashchange', listener); return () => window.removeEventListener('hashchange', listener); };
 const snapshot = () => window.location.hash;

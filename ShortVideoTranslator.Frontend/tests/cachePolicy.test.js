@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { lapKeHoachLuuAmThanh } from "../src/chinhSachBoNho.js";
+import { lapKeHoachLuuAmThanh } from "../src/utils/chinhSachBoNho.js";
 
 test('fourth language evicts the least recently used whole pack', () => {
   const result = lapKeHoachLuuAmThanh({ a: { language: 'vi', accessedAt: 1 }, b: { language: 'en', accessedAt: 3 }, c: { language: 'ja', accessedAt: 2 } }, { key: 'd', language: 'fr' }, 4);

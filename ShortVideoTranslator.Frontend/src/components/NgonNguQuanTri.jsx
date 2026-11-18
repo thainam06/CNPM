@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { chuQuanTri } from "./tuDienQuanTri";
+import { chuQuanTri } from "../data/tuDienQuanTri.js";
 export const NgonNguQuanTri = createContext('vi');
 export const useChuQuanTri = () => {
   const language = useContext(NgonNguQuanTri);
