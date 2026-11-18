@@ -166,3 +166,9 @@ Launcher hỗ trợ `-CertificateFile "D:\CNPM\supabase-ca.crt"`. Chứng chỉ 
 chỉ đọc trong diagnostic và truyền qua `Storage:PostgresRootCertificate`; không phải
 sửa password trong connection string để thêm đường dẫn trong container. Chi tiết
 WSL, BuildKit, file env và TLS: [hướng dẫn Windows](../../docs/SUPABASE-WINDOWS-TROUBLESHOOTING.md).
+
+## 9. Nếu PLAN phát hiện 15 bảng
+
+Xem [quy trình chuyển đổi có bảo toàn nguồn](../../docs/SUPABASE-15-TO-6.md).
+`Migrate-Supabase.ps1` mặc định chỉ PLAN. Apply cần backup, dừng writer và xác nhận
+snapshot có thẩm quyền; không xóa dữ liệu để vượt qua blocker.

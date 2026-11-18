@@ -43,3 +43,9 @@ Không xóa schema cũ hoặc Docker volume khi chưa sao lưu và xác nhận d
 Bộ SQL chỉ đọc, template Session pooler và lệnh `-ReviewOnly` nằm tại
 [database/supabase-review/README.md](../database/supabase-review/README.md).
 Ngày 18/11 kiểm thử trên PostgreSQL riêng; không có credentials trong cloud để kiểm tra lại project online.
+
+## Schema 15 bảng không tương thích
+
+Dùng [quy trình PLAN → backup → archive/migrate → verify](SUPABASE-15-TO-6.md).
+Không chạy 003 trên schema 15 bảng hoặc xóa 9 bảng phụ. Công cụ kiểm tra trước và
+chặn dữ liệu nghiệp vụ chưa mapping; trạng thái online phải được xác minh riêng.
