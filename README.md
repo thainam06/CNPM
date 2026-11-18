@@ -48,3 +48,9 @@ Chi tiết kiến trúc, mở rộng, SQL, sao lưu và chuyển máy: [REUSE-DE
 ## Kiểm chứng vận hành và bàn giao
 
 Xem [báo cáo, công cụ backup/restore và checklist thiết bị thật](docs/OPERATIONS-HANDOFF.md). Báo cáo phân biệt kiểm thử tự động, GPS mô phỏng và các bước thực tế chưa xác minh.
+
+## Dữ liệu Supabase và bàn giao nhóm
+
+Schema dùng `smarttour_demo.users`, `places`, `place_images`, `place_narrations`,
+`visitor_sessions`, `activity_logs`. Xem [bộ SQL và hướng dẫn kiểm tra chỉ đọc](database/supabase-review/README.md)
+và [cách mở dữ liệu/chạy web](HUONG-DAN-XEM-SUPABASE.md).

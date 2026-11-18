@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="../database/supabase-review/01_check_schema.sql" LogicalName="SmartTour.Review.01_check_schema.sql" />
+    <EmbeddedResource Include="../database/supabase-review/03_check_integrity.sql" LogicalName="SmartTour.Review.03_check_integrity.sql" />
     <ProjectReference Include="..\ShortVideoTranslator.Business\ShortVideoTranslator.Business.csproj" />
     <ProjectReference Include="..\ShortVideoTranslator.Data\ShortVideoTranslator.Data.csproj" />
   </ItemGroup>
