@@ -159,3 +159,10 @@ chỉ có ID/tên địa điểm và cờ cảnh báo. Kiểm tra quyền chia s
 
 GitHub Actions có job `supabase-review` chạy PostgreSQL riêng và lưu JSON review fixture.
 Artifact này là bằng chứng local/CI, không phải báo cáo dữ liệu Supabase production.
+
+## 8. Chọn CA certificate khi gặp lỗi TLS
+
+Launcher hỗ trợ `-CertificateFile "D:\CNPM\supabase-ca.crt"`. Chứng chỉ được mount
+chỉ đọc trong diagnostic và truyền qua `Storage:PostgresRootCertificate`; không phải
+sửa password trong connection string để thêm đường dẫn trong container. Chi tiết
+WSL, BuildKit, file env và TLS: [hướng dẫn Windows](../../docs/SUPABASE-WINDOWS-TROUBLESHOOTING.md).
