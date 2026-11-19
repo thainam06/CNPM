@@ -41,7 +41,8 @@ public sealed class PostgresPlatformStore : IPlatformStore, IPlaceRepository, ID
         using var db=source.OpenConnection(); using var tx=db.BeginTransaction(IsolationLevel.RepeatableRead);
         using (var readOnly=new NpgsqlCommand("SET TRANSACTION READ ONLY",db,tx)) readOnly.ExecuteNonQuery();
         var errors=new List<string>(); var found=new Dictionary<string,HashSet<string>>();
-        using(var cmd=new NpgsqlCommand("SELECT table_name,column_name,data_type,is_nullable,column_default,is_identity FROM information_schema.columns WHERE table_schema='smarttour_demo'",db,tx))
+        // Display views do not add physical storage tables to the six-table contract.
+        using(var cmd=new NpgsqlCommand("SELECT c.table_name,c.column_name,c.data_type,c.is_nullable,c.column_default,c.is_identity FROM information_schema.columns c JOIN information_schema.tables t USING(table_catalog,table_schema,table_name) WHERE c.table_schema='smarttour_demo' AND t.table_type='BASE TABLE'",db,tx))
         using(var reader=cmd.ExecuteReader()) while(reader.Read()) {
             var table=reader.GetString(0); var column=reader.GetString(1);
             if(!found.ContainsKey(table))found[table]=[]; found[table].Add(column);
