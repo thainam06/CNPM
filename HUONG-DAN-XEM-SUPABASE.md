@@ -2,7 +2,9 @@
 
 Tài liệu cho thành viên nhóm. Không chứa mật khẩu; mật khẩu chỉ nằm trong file `.env.docker` trên máy (đã bị Git ignore, không gửi qua chat).
 
-## 1. Trạng thái đã kiểm tra (15/11/2026)
+## 1. Trạng thái đã kiểm tra (19/11/2026)
+
+Chi tiết lần chuyển dữ liệu thật và hướng dẫn xem thiết bị: [SUPABASE-DA-KET-NOI](docs/SUPABASE-DA-KET-NOI.md).
 
 | Hạng mục | Kết quả |
 |---|---|
@@ -20,11 +22,12 @@ Dữ liệu hiện có trên Supabase:
 | `places` | 8 | Chợ Bến Thành, Dinh Độc Lập, Bưu điện Trung tâm Sài Gòn, Phố đi bộ Nguyễn Huệ, Nhà hát Thành phố, Nhà thờ Đức Bà Sài Gòn, Bảo tàng Mỹ thuật TP.HCM, Công viên Tao Đàn |
 | `place_images` | 8 | |
 | `place_narrations` | 8 | |
-| `users` | 1 | tài khoản admin |
-| `activity_logs` | 10 | gồm 1 dòng hệ thống `system:platform-state:v1` |
-| `visitor_sessions` | 0 | chưa có khách truy cập |
+| `users` | 2 | giữ nguyên tài khoản từ SQLite |
+| `activity_logs` | thay đổi theo hoạt động | gồm 1 dòng hệ thống `system:platform-state:v1` |
+| `visitor_sessions` | thay đổi theo truy cập | phiên đang hoạt động, tự loại khi leave/hết hạn |
 
-Chưa kiểm tra: đăng nhập admin và thêm/sửa/xóa trên giao diện (ghi dữ liệu).
+Đã kiểm tra đăng nhập Admin, đọc địa điểm và heartbeat/leave ghi vào Supabase thật.
+15 bảng cũ trống được giữ tại schema `smarttour_demo_legacy_15`; chọn `smarttour_demo` để xem đúng 6 bảng.
 
 ## 2. Xem dữ liệu trên Supabase (trình duyệt)
 
@@ -60,7 +63,7 @@ Script lần lượt: kiểm tra Docker → kiểm tra `.env.docker` → build A
 Chỉ khi tất cả đều đạt, terminal mới in:
 
 ```
-PASS: web + PostgreSQL are ready. Open http://localhost:8081 (admin: http://localhost:8081/admin).
+PASS: web + PostgreSQL are ready. Open http://localhost:8080 (admin: http://localhost:8080/admin).
 ```
 
 Bước nào lỗi thì script dừng và in mã lỗi (`CONNECT`, `AUTH`, `TLS`, `SCHEMA`, `POOLER_PROJECT`, ...). Ý nghĩa từng mã: xem `docs/DOCKER-SUPABASE.md`. Script **không** import, xóa hay ghi đè dữ liệu cloud.
@@ -72,9 +75,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\Start-Supabase.ps1 -
 ```
 
 Sau khi PASS:
-- Trang chính: http://localhost:8081
-- Trang admin: http://localhost:8081/admin (tài khoản lấy từ `SMARTTOUR_ADMIN_USERNAME` / `SMARTTOUR_ADMIN_PASSWORD` trong `.env.docker`)
-- Mở cho điện thoại: tạo Cloudflare tunnel mới trỏ tới `http://localhost:8081` (link tunnel cũ có thể đã hết hạn). Laptop và Docker phải chạy suốt buổi demo.
+- Trang chính: http://localhost:8080
+- Trang admin: http://localhost:8080/admin (giữ nguyên tài khoản Admin đã thống nhất; biến trong `.env.docker` chỉ khởi tạo tài khoản khi chưa có)
+- Mở cho điện thoại: tạo Cloudflare tunnel mới trỏ tới `http://localhost:8080` (link tunnel cũ có thể đã hết hạn). Laptop và Docker phải chạy suốt buổi demo.
 
 ## 4. Lưu ý bảo mật
 

@@ -21,6 +21,8 @@
     <EmbeddedResource Include="../database/postgres/005_six_table_backend.sql" LogicalName="ReviewTest.005.sql" />
     <EmbeddedResource Include="../database/postgres/004_align_demo_with_prd.sql" LogicalName="ReviewTest.004.sql" />
     <EmbeddedResource Include="../database/postgres/007_review_15_table_data.sql" LogicalName="ReviewTest.007.sql" />
+    <EmbeddedResource Include="../database/postgres/007_prepare_empty_legacy_schema.sql" LogicalName="ReviewTest.007prepare.sql" />
+    <EmbeddedResource Include="../database/postgres/008_device_status_view.sql" LogicalName="ReviewTest.008.sql" />
     <EmbeddedResource Include="../database/supabase-review/02_view_data.sql" LogicalName="ReviewTest.02.sql" />
   </ItemGroup>
 
