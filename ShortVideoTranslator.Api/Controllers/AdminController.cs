@@ -65,6 +65,7 @@ public class AdminController(PlatformService platform, DeviceActivityService dev
     public IActionResult Analytics() => Ok(platform.Store.Read(s => new {
         places = s.Places.Count, activePlaces = s.Places.Count(p => p.IsActive), users = s.Users.Count,
         pendingReviews = s.Reviews.Count(r => r.Status == "pending"), events = s.Events.Count(e => e.Kind != "heartbeat"),
+        pageViewsLast5Hours = PageViewStatistics.LastFiveHours(s.Events, DateTimeOffset.UtcNow),
         consentedOnlineDevices = s.AnalyticsHeartbeats.Where(e => e.LastSeen > DateTimeOffset.UtcNow.AddMinutes(-5)).Select(e => e.DeviceId).Distinct().Count(),
         pendingAnalytics = s.PendingAnalytics.Count,
         byPlace = s.Events.Where(e => e.Kind != "heartbeat" && e.PlaceId != null).GroupBy(e => e.PlaceId).Select(g => new { placeId = g.Key, count = g.Count() }).ToArray(),

@@ -16,7 +16,7 @@ public sealed class AnalyticsQueue(IPlatformStore store, TimeProvider clock)
         var device = Guid.Parse(batch.DeviceId).ToString();
         if (batch.Device is { } descriptor && !descriptor.IsValid())
             throw new PlatformException(400, "Thông tin trình duyệt không hợp lệ.");
-        if (batch.Events.Any(e => e == null || !Guid.TryParse(e.Id, out _) || e.Kind is not ("view" or "play" or "heartbeat") || !NarrationLanguages.Codes.Contains(e.Language) || e.OccurredAt < now.AddHours(-24) || e.OccurredAt > now.AddMinutes(2) || (e.Kind == "heartbeat" && e.PlaceId != null)))
+        if (batch.Events.Any(e => e == null || !Guid.TryParse(e.Id, out _) || e.Kind is not ("view" or "play" or "heartbeat" or "page_view") || !NarrationLanguages.Codes.Contains(e.Language) || e.OccurredAt < now.AddHours(-24) || e.OccurredAt > now.AddMinutes(2) || ((e.Kind is "heartbeat" or "page_view") && e.PlaceId != null)))
             throw new PlatformException(400, "Sự kiện không hợp lệ hoặc đã quá hạn 24 giờ.");
         return store.Write(s => {
             Cleanup(s, now);

@@ -75,7 +75,7 @@ CREATE INDEX IF NOT EXISTS active_sessions
 
 CREATE TABLE IF NOT EXISTS smarttour_demo.activity_logs (
   id text PRIMARY KEY,
-  kind text NOT NULL CHECK(kind IN ('view','play','admin')),
+  kind text NOT NULL CHECK(kind IN ('view','play','admin','page_view')),
   user_id text REFERENCES smarttour_demo.users(id) ON DELETE SET NULL,
   device_id text,
   place_id bigint REFERENCES smarttour_demo.places(id) ON DELETE SET NULL,

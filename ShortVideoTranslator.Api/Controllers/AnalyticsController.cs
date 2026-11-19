@@ -14,7 +14,7 @@ public class AnalyticsController(AnalyticsQueue queue) : ControllerBase
     public IActionResult Collect(AnalyticsRequest request)
     {
         if (!request.Consent) return BadRequest(new { message = "Chỉ ghi nhận thống kê khi người dùng đồng ý." });
-        if (!Guid.TryParse(request.DeviceId, out _) || !new[] { "view", "play" }.Contains(request.Kind) || !NarrationLanguages.Codes.Contains(request.Language)) return BadRequest();
+        if (!Guid.TryParse(request.DeviceId, out _) || !new[] { "view", "play", "page_view" }.Contains(request.Kind) || !NarrationLanguages.Codes.Contains(request.Language)) return BadRequest();
         queue.Enqueue(new(true, request.DeviceId, [new(Guid.NewGuid().ToString(), request.Kind, request.PlaceId, request.Language, DateTimeOffset.UtcNow)]));
         return Accepted();
     }
