@@ -9,6 +9,21 @@ namespace ShortVideoTranslator.Tests;
 
 public class AnalyticsBatchTests
 {
+    [Fact]
+    public void PageOpensAreDeduplicatedAndCannotReferToAPoi()
+    {
+        using var app = new TestApplication();
+        var queue = app.Services.GetRequiredService<AnalyticsQueue>();
+        var store = app.Services.GetRequiredService<IPlatformStore>();
+        var item = Input("page_view", null);
+        var batch = new AnalyticsBatch(true, Guid.NewGuid().ToString(), [item]);
+        Assert.Equal(1, queue.Enqueue(batch)); Assert.Equal(0, queue.Enqueue(batch));
+        queue.Drain();
+        Assert.Single(store.Read(s => s.Events.Where(e => e.Kind == "page_view").ToArray()));
+        Assert.Equal(0, queue.Enqueue(batch));
+        Assert.Equal(400, Assert.Throws<PlatformException>(() => queue.Enqueue(batch with { Events = [Input("page_view", 1)] })).StatusCode);
+    }
+
     private static AnalyticsInput Input(string kind = "view", int? placeId = 1) => new(Guid.NewGuid().ToString(), kind, placeId, "vi", DateTimeOffset.UtcNow);
     [Fact]
     public async Task BatchIsAtomicConsentRequiredAndRetriesDoNotInflateMetrics()

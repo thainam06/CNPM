@@ -4,6 +4,7 @@ import { taoMaThietBi } from "../utils/maThietBi.js";
 import { moTaThietBi } from "../utils/moTaThietBi.js";
 const queueKey = 'smarttour-analytics-queue';
 const forgetKey = 'smarttour-analytics-forget';
+let daGhiLuotMoTrang = false;
 const readList = key => { try { const value = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } };
 const writeList = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* Best effort on storage-restricted devices. */ } };
 const allowed = () => localStorage.getItem('smarttour-consent') === 'yes' && navigator.onLine;
@@ -38,6 +39,10 @@ export function batDauThongKe(language) {
     if (stopped || document.visibilityState === 'hidden' || !navigator.onLine) return;
     try { await thuLaiXoaThongKe(); } catch { return; }
     if (!allowed() || stopped) return;
+    if (!daGhiLuotMoTrang) {
+      ghiNhanSuKien('page_view', null, language);
+      daGhiLuotMoTrang = true;
+    }
     if (Date.now() - lastHeartbeat >= 60000) { ghiNhanSuKien('heartbeat', null, language); lastHeartbeat = Date.now(); }
     await queue.flush(() => !stopped && allowed());
   };
