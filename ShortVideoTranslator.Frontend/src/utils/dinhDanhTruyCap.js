@@ -1,5 +1,10 @@
 import { taoMaThietBi } from "./maThietBi.js";
 let volatileId;
+export function dinhDanhYeuCau() {
+  const id = layMaTrinhDuyet();
+  try { document.cookie = `smarttour-presence-device=${id}; Path=/; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`; } catch { /* Header remains available when cookies are disabled. */ }
+  return id;
+}
 export function layMaTrinhDuyet(storage) {
   try {
     storage ??= globalThis.localStorage;

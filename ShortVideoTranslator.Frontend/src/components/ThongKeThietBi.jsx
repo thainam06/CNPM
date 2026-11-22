@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { docApi } from "../services/dichVuApi.js";
 import ThietBiTrucTuyen from "./ThietBiTrucTuyen.jsx";
 
-export default function ThongKeThietBi() {
+export default function ThongKeThietBi({ canManage = false }) {
   const [page, setPage] = useState(1);
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
@@ -20,7 +20,7 @@ export default function ThongKeThietBi() {
     return () => { controller.abort(); clearTimeout(timer); };
   }, [page]);
   const date = value => new Date(value).toLocaleString('vi-VN');
-  return <><ThietBiTrucTuyen /><section className="portal-card">
+  return <><ThietBiTrucTuyen canManage={canManage} /><section className="portal-card">
     <h2>Thống kê lượt xem/nghe · SQL database</h2>
     <p>Chỉ tính trình duyệt đồng ý thống kê. Hoạt động nghĩa là có tín hiệu trong 5 phút gần nhất; nhiều tab cùng trình duyệt dùng chung mã. Không xác định được số người hoặc thiết bị vật lý chính xác.</p>
     <p className="muted">Dữ liệu tối đa 30 ngày / 10.000 sự kiện gần nhất. Lần đầu hiển thị là lần đầu trong phần dữ liệu còn lưu. Tự cập nhật mỗi 15 giây.</p>

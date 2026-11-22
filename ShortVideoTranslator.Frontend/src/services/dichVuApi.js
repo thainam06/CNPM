@@ -1,4 +1,5 @@
 export const diaChiGoc = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+import { dinhDanhYeuCau } from '../utils/dinhDanhTruyCap.js';
 import { audioKey, docNgoaiTuyen, ghiNgoaiTuyen, ghiNhieuNgoaiTuyen, thongBaoNgoaiTuyen, docAmThanhNgoaiTuyen, luuAmThanhNgoaiTuyen } from "./khoNgoaiTuyen.js";
 import { timThuyetMinhSanSang, xacMinhAmThanh } from "./thuyetMinhSanSang.js";
 export const diaChiApi = (path) => `${diaChiGoc}/api${path}`;
@@ -17,7 +18,8 @@ async function refreshSession() {
 export async function guiYeuCauApi(path, options = {}, allowRefresh = true) {
   let response;
   try {
-    response = await fetch(diaChiApi(path), { credentials: 'include', ...options });
+    const headers = new Headers(options.headers); headers.set('X-SmartTour-Device', dinhDanhYeuCau());
+    response = await fetch(diaChiApi(path), { credentials: 'include', ...options, headers });
   } catch (error) {
     if (error.name === 'AbortError') throw error;
     throw new Error('Không kết nối được Backend. Kiểm tra API đang chạy và cấu hình kết nối.');
@@ -31,6 +33,7 @@ export async function guiYeuCauApi(path, options = {}, allowRefresh = true) {
   }
   if (!response.ok && response.status !== 304) {
     const problem = await response.json().catch(() => null);
+    if (problem?.code === 'DEVICE_BLOCKED') window.dispatchEvent(new CustomEvent('smarttour-device-blocked', { detail: problem }));
     const error = new Error(problem?.message || problem?.detail || problem?.title || (response.status >= 500
       ? `Backend không phản hồi hoặc gặp lỗi (HTTP ${response.status}). Kiểm tra API và thử lại.`
       : `Yêu cầu thất bại (HTTP ${response.status}).`));

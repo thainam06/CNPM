@@ -41,6 +41,7 @@ public class PlatformState
     public List<AnalyticsDevice> AnalyticsDevices { get; set; } = [];
     public List<PresenceDevice> PresenceDevices { get; set; } = [];
     public Dictionary<string, DateTimeOffset> PresenceDepartures { get; set; } = [];
+    public Dictionary<string, DateTimeOffset> DeviceBlocks { get; set; } = [];
     public Dictionary<string, DateTimeOffset> AnalyticsRevocations { get; set; } = [];
     public List<RuntimeLocation> RuntimeLocations { get; set; } = [];
     public List<OwnerIdentity> OwnerIdentities { get; set; } = [];

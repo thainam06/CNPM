@@ -6,8 +6,20 @@ using ShortVideoTranslator.Business;
 namespace ShortVideoTranslator.Api.Controllers;
 
 [ApiController]
-public sealed class PresenceController(PresenceService presence) : ControllerBase
+public sealed class PresenceController(PresenceService presence, DeviceBlockService blocks) : ControllerBase
 {
+    [HttpGet("/api/presence/access")]
+    public IActionResult Access() { Response.Headers.CacheControl = "no-store"; return Ok(new { blockedUntil = blocks.Until(ShortVideoTranslator.Api.Services.DeviceBlockMiddleware.Device(HttpContext)) }); }
+    [HttpGet("/api/admin/presence/blocks"), Permission("user:update")]
+    public IActionResult Blocks() => Ok(blocks.List());
+    [HttpPost("/api/admin/presence/blocks"), Permission("user:update")]
+    public IActionResult Block(DeviceBlockRequest request) {
+        var own = ShortVideoTranslator.Api.Services.DeviceBlockMiddleware.Device(HttpContext);
+        if (Guid.TryParse(own, out var ownId) && Guid.TryParse(request.DeviceId, out var target) && ownId == target) return BadRequest(new { message = "Không tự chặn trình duyệt đang quản trị." });
+        return Ok(new { blockedUntil = blocks.Block(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value, request.DeviceId, request.Seconds) });
+    }
+    [HttpDelete("/api/admin/presence/blocks/{deviceId}"), Permission("user:update")]
+    public IActionResult Unblock(string deviceId) { blocks.Unblock(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value, deviceId); return NoContent(); }
     [HttpPost("/api/presence/heartbeat"), EnableRateLimiting("runtime")]
     public IActionResult Heartbeat(PresenceRequest request)
     { Response.Headers.CacheControl = "no-store"; presence.Heartbeat(request.DeviceId, request.Device, request.SessionId); return NoContent(); }
@@ -22,3 +34,4 @@ public sealed class PresenceController(PresenceService presence) : ControllerBas
 }
 public record PresenceRequest(string DeviceId, DeviceDescriptor? Device = null, string? SessionId = null);
 public record PresenceLeave(string DeviceId, string SessionId);
+public record DeviceBlockRequest(string DeviceId, int Seconds);

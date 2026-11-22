@@ -129,6 +129,7 @@ builder.Services.AddSingleton<IPlaceRepository>(s => (IPlaceRepository)s.GetRequ
 builder.Services.AddSingleton<PlatformService>();
 builder.Services.AddSingleton<DeviceActivityService>();
 builder.Services.AddSingleton<PresenceService>();
+builder.Services.AddSingleton<DeviceBlockService>();
 builder.Services.AddSingleton<TranslationReviewService>();
 builder.Services.AddAntiforgery(options => {
     options.HeaderName = "X-CSRF-Token";
@@ -264,6 +265,7 @@ app.Use(async (context, next) => {
     }
     catch (OperationCanceledException) when (context.RequestAborted.IsCancellationRequested) { }
 });
+app.UseMiddleware<DeviceBlockMiddleware>();
 app.UseRateLimiter();
 app.UseAuthorization();
 
