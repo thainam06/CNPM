@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test:browser": "npm run build && node tests/browser/member2.cjs"
+    "test:browser": "npm run build && node tests/browser/member2.cjs && node tests/browser/translationLocales.cjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
