@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { docApi, ghiApi } from "../services/dichVuApi.js";
 import { layMaTrinhDuyet } from '../utils/dinhDanhTruyCap.js';
+import LichSuTamChan from './LichSuTamChan.jsx';
 
 export default function ThietBiTrucTuyen({ canManage = false }) {
   const [blocks, setBlocks] = useState([]);
@@ -58,5 +59,6 @@ export default function ThietBiTrucTuyen({ canManage = false }) {
       {!data.items.length && <p>Không có thiết bị đang hoạt động trong trang này.</p>}
       <button disabled={page <= 1} onClick={() => setPage(value => value - 1)}>Trang trước</button> <span>Trang {page}</span> <button disabled={page * data.pageSize >= data.online} onClick={() => setPage(value => value + 1)}>Trang sau</button>
     </>}
+    {canManage && <LichSuTamChan key={revision} />}
   </section>;
 }

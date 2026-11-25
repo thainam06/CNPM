@@ -296,9 +296,10 @@ public class PlatformService(IPlatformStore store)
             Audit(s, actor, "menu.save", saved.Id); return saved;
         });
     }
-    public static void Audit(PlatformState state, string actor, string action, string resource)
+    public static void Audit(PlatformState state, string actor, string action, string resource,
+        DeviceBlockAudit? deviceBlock = null, DateTimeOffset? createdAt = null)
     {
-        state.Audit.Add(new(Id(), actor, action, resource, DateTimeOffset.UtcNow));
+        state.Audit.Add(new(Id(), actor, action, resource, createdAt ?? DateTimeOffset.UtcNow, deviceBlock));
         if (state.Audit.Count > 5000) state.Audit.RemoveRange(0, state.Audit.Count - 5000);
     }
 }

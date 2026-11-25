@@ -11,6 +11,46 @@ public class DeviceBlockTests
 {
     private sealed class Clock : TimeProvider { public DateTimeOffset Now = DateTimeOffset.UtcNow; public override DateTimeOffset GetUtcNow() => Now; }
     [Fact]
+    public void HistoryPreservesActorDurationAndDeadlineAcrossStoresAndExpiry()
+    {
+        var folder = Path.Combine(Path.GetTempPath(), "block-history-" + Guid.NewGuid().ToString("N"));
+        try {
+            var store = new SqlitePlatformStore(folder); var clock = new Clock();
+            var device = Guid.NewGuid().ToString();
+            store.Write(s => {
+                s.Users.Add(new("operator", "admin-demo", "Admin", "hash", "super_admin"));
+                s.Audit.Add(new("legacy", "operator", "device.block", device, clock.Now.AddHours(-1)));
+                PlatformService.Audit(s, "operator", "poi.update", "1");
+                return true;
+            });
+            new PresenceService(store, clock).Heartbeat(device, null);
+            var service = new DeviceBlockService(store, clock);
+            var until = service.Block("operator", device, 30);
+            clock.Now = clock.Now.AddSeconds(2);
+            service.Unblock("operator", device);
+            service.Unblock("operator", device); // A repeated no-op must not add a history row.
+            store.Write(s => { s.Users.Clear(); return true; });
+            var restarted = new DeviceBlockService(new SqlitePlatformStore(folder), clock);
+            var history = restarted.History(1, 1);
+            Assert.Equal(3, history.Total);
+            Assert.Equal("device.unblock", history.Items.Single().Action);
+            Assert.Equal("admin-demo", history.Items.Single().ActorName);
+            Assert.Equal(until, history.Items.Single().BlockedUntil);
+            var blocked = restarted.History(2, 1).Items.Single();
+            Assert.Equal(30, blocked.Seconds); Assert.Equal(until, blocked.BlockedUntil);
+            Assert.Null(restarted.History(3, 1).Items.Single().Seconds);
+            clock.Now = until.AddSeconds(1);
+            Assert.Equal(3, restarted.History().Total);
+            var decoded = PostgresStateCodec.Decode(PostgresStateCodec.Encode(store.Read(s => s)));
+            Assert.Equal(store.Read(s => s.Audit.ToArray()), decoded.Audit.ToArray());
+            // Older PostgreSQL rows have no deviceBlock key.
+            var legacySnapshot = PostgresStateCodec.Encode(store.Read(s => s));
+            foreach (var row in legacySnapshot["activity_logs"]!.AsArray().OfType<System.Text.Json.Nodes.JsonObject>())
+                if (row["details"] is System.Text.Json.Nodes.JsonObject details) details.Remove("deviceBlock");
+            Assert.All(PostgresStateCodec.Decode(legacySnapshot).Audit, a => Assert.Null(a.DeviceBlock));
+        } finally { if (Directory.Exists(folder)) Directory.Delete(folder, true); }
+    }
+    [Fact]
     public void BlocksPersistExpireAndRejectInvalidDurations()
     {
         var folder = Path.Combine(Path.GetTempPath(), "device-block-" + Guid.NewGuid().ToString("N"));
@@ -38,6 +78,7 @@ public class DeviceBlockTests
         target.DefaultRequestHeaders.Authorization = new("Bearer", "invalid");
         Assert.Equal(HttpStatusCode.Unauthorized, (await target.PostAsJsonAsync("/api/admin/presence/blocks", new { deviceId = device, seconds = 30 })).StatusCode);
         target.DefaultRequestHeaders.Authorization = null;
+        Assert.Equal(HttpStatusCode.Unauthorized, (await other.GetAsync("/api/admin/presence/blocks/history")).StatusCode);
         async Task Login(string password) {
             var response = await admin.PostAsJsonAsync("/api/auth/token", new { username = "admin", password }); response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadFromJsonAsync<JsonElement>(); admin.DefaultRequestHeaders.Authorization = new("Bearer", json.GetProperty("accessToken").GetString());
@@ -56,5 +97,10 @@ public class DeviceBlockTests
         Assert.Equal(HttpStatusCode.BadRequest, (await admin.PostAsJsonAsync("/api/admin/presence/blocks", new { deviceId = device, seconds = 30 })).StatusCode);
         (await admin.DeleteAsync($"/api/admin/presence/blocks/{device}")).EnsureSuccessStatusCode();
         Assert.Equal(HttpStatusCode.OK, (await target.GetAsync("/api/places")).StatusCode);
+        var history = await admin.GetFromJsonAsync<JsonElement>("/api/admin/presence/blocks/history?pageSize=1");
+        Assert.Equal(2, history.GetProperty("total").GetInt32());
+        Assert.Equal("device.unblock", history.GetProperty("items")[0].GetProperty("action").GetString());
+        var blockHistory = await admin.GetFromJsonAsync<JsonElement>("/api/admin/presence/blocks/history?page=2&pageSize=1");
+        Assert.Equal(30, blockHistory.GetProperty("items")[0].GetProperty("seconds").GetInt32());
     }
 }

@@ -11,7 +11,9 @@ public record Review(string Id, string Kind, string UserId, string Status, Place
     DateTimeOffset? ExpectedPlaceVersion = null, string ApplicantNote = "");
 public record OwnerNotification(string Id, string UserId, string Message, bool Read, DateTimeOffset CreatedAt,
     string? ReviewId = null, int? PlaceId = null);
-public record AuditEntry(string Id, string ActorId, string Action, string Resource, DateTimeOffset CreatedAt);
+public record DeviceBlockAudit(int? Seconds, DateTimeOffset? BlockedUntil, string ActorName);
+public record AuditEntry(string Id, string ActorId, string Action, string Resource, DateTimeOffset CreatedAt,
+    DeviceBlockAudit? DeviceBlock = null);
 public record RefreshSession(string Hash, string UserId, string SecurityStamp, DateTimeOffset ExpiresAt);
 public record MenuItem(string Id, int PlaceId, string Name, string Description, decimal? Price);
 public record AnalyticsEvent(string Id, string DeviceId, string Kind, int? PlaceId, string Language, DateTimeOffset CreatedAt);

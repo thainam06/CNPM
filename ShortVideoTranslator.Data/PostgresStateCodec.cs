@@ -115,7 +115,7 @@ public static class PostgresStateCodec
         for (var i=0; i<state.Audit.Count; i++) {
             var a = state.Audit[i]; logs.Add(new JsonObject { ["id"] = "audit:"+a.Id, ["kind"] = "admin", ["user_id"] = userIds.Contains(a.ActorId) ? a.ActorId : null,
                 ["device_id"] = null, ["place_id"] = null, ["consent"] = false, ["created_at"] = a.CreatedAt,
-                ["details"] = new JsonObject { ["auditId"] = a.Id, ["actorId"] = a.ActorId, ["action"] = a.Action, ["resource"] = a.Resource, ["__order"] = i, ["__createdAt"] = a.CreatedAt } });
+                ["details"] = new JsonObject { ["auditId"] = a.Id, ["actorId"] = a.ActorId, ["action"] = a.Action, ["resource"] = a.Resource, ["deviceBlock"] = JsonSerializer.SerializeToNode(a.DeviceBlock, Json), ["__order"] = i, ["__createdAt"] = a.CreatedAt } });
         }
         return tables;
     }
@@ -162,7 +162,7 @@ public static class PostgresStateCodec
         }
         state.Events = eventRows.OrderBy(x => x.Order).Select(x => x.Value).ToList();
         state.Audit = Ordered(new JsonArray(logs.OfType<JsonObject>().Where(r => r["id"]!.GetValue<string>().StartsWith("audit:")).Select(r => Copy(r)).ToArray()), "details")
-            .Select(r => { var d = r["details"]!; return new AuditEntry(d["auditId"]!.GetValue<string>(), d["actorId"]!.GetValue<string>(), d["action"]!.GetValue<string>(), d["resource"]!.GetValue<string>(), Timestamp(r, "created_at", d, "__createdAt")); }).ToList();
+            .Select(r => { var d = r["details"]!; return new AuditEntry(d["auditId"]!.GetValue<string>(), d["actorId"]!.GetValue<string>(), d["action"]!.GetValue<string>(), d["resource"]!.GetValue<string>(), Timestamp(r, "created_at", d, "__createdAt"), d["deviceBlock"]?.Deserialize<DeviceBlockAudit>(Json)); }).ToList();
         return state;
     }
 }

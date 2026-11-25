@@ -12,6 +12,9 @@ public sealed class PresenceController(PresenceService presence, DeviceBlockServ
     public IActionResult Access() { Response.Headers.CacheControl = "no-store"; return Ok(new { blockedUntil = blocks.Until(ShortVideoTranslator.Api.Services.DeviceBlockMiddleware.Device(HttpContext)) }); }
     [HttpGet("/api/admin/presence/blocks"), Permission("user:update")]
     public IActionResult Blocks() => Ok(blocks.List());
+    [HttpGet("/api/admin/presence/blocks/history"), Permission("user:update")]
+    public IActionResult BlockHistory([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+    { Response.Headers.CacheControl = "no-store"; return Ok(blocks.History(page, pageSize)); }
     [HttpPost("/api/admin/presence/blocks"), Permission("user:update")]
     public IActionResult Block(DeviceBlockRequest request) {
         var own = ShortVideoTranslator.Api.Services.DeviceBlockMiddleware.Device(HttpContext);
