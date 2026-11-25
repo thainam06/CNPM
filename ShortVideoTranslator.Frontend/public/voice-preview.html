@@ -33,6 +33,7 @@
 <script type="module">
   const $ = id => document.getElementById(id);
   let languages = [], pending, audioUrl;
+  const canListen = () => languages.length > 0 && $('text').value.trim().length > 0;
   function clearAudio() {
     $('audio').pause(); $('audio').removeAttribute('src'); $('audio').load(); $('audio').hidden = true;
     if (audioUrl) URL.revokeObjectURL(audioUrl);
@@ -40,7 +41,7 @@
   }
   function stop() {
     pending?.abort(); pending = null; clearAudio();
-    $('listen').disabled = !languages.length; $('stop').disabled = true; $('status').textContent = '';
+    $('listen').disabled = !canListen(); $('stop').disabled = true; $('status').textContent = '';
   }
   function selectLanguage() {
     stop(); $('voice').replaceChildren();
@@ -60,6 +61,7 @@
   $('stop').onclick = stop;
   $('form').onsubmit = async event => {
     event.preventDefault(); stop(); $('error').textContent = '';
+    if (!canListen()) return;
     const controller = new AbortController(); pending = controller;
     $('listen').disabled = true; $('stop').disabled = false; $('status').textContent = 'Đang tạo âm thanh nghe thử…';
     try {
@@ -75,7 +77,7 @@
       audioUrl = URL.createObjectURL(blob); $('audio').src = audioUrl; $('audio').hidden = false;
       $('status').textContent = 'Âm thanh đã sẵn sàng. Bấm phát để nghe.';
     } catch (error) { if (!controller.signal.aborted) { $('error').textContent = error.message; $('status').textContent = ''; } }
-    finally { if (pending === controller) { pending = null; $('listen').disabled = false; $('stop').disabled = $('audio').hidden; } }
+    finally { if (pending === controller) { pending = null; $('listen').disabled = !canListen(); $('stop').disabled = $('audio').hidden; } }
   };
   window.addEventListener('pagehide', stop);
   try {

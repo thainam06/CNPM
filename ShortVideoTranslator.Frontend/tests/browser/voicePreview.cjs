@@ -34,6 +34,11 @@ const server = http.createServer((req, res) => {
   assert.equal(await page.getByRole('button', { name:'Nghe thử', exact:true }).isDisabled(), true);
   authenticated = true; await page.reload();
   await page.waitForFunction(() => !document.getElementById('language').disabled);
+  assert.equal(await page.getByRole('button', { name:'Nghe thử', exact:true }).isDisabled(), true);
+  await page.getByLabel('Nội dung nghe thử').fill('   ');
+  assert.equal(await page.getByRole('button', { name:'Nghe thử', exact:true }).isDisabled(), true);
+  await page.locator('#form').evaluate(form => form.requestSubmit());
+  assert.deepEqual(calls, [], 'Blank input must not start speech generation');
   assert.equal(await page.locator('#language option').count(), 6);
   for (const code of ['vi','en','zh','ja','ko','fr']) {
     await page.getByLabel('Ngôn ngữ', { exact:true }).selectOption(code);
