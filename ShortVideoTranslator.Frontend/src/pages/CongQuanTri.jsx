@@ -61,6 +61,7 @@ function PortalContent({ language, onLanguage }) { const t = useChuQuanTri();
   const [data, setData] = useState(null);
   const [revision, setRevision] = useState(0);
   const [runtimeHours, setRuntimeHours] = useState(1);
+  const [analyticsHours, setAnalyticsHours] = useState(5);
   const [editor, setEditor] = useState(null);
   const [owners, setOwners] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -89,10 +90,10 @@ function PortalContent({ language, onLanguage }) { const t = useChuQuanTri();
     if (!user || user.mustChangePassword || tab === 'password' || (owner && tab === 'notifications')) return;
     const controller = new AbortController();
     const endpoints = owner ? { places: '/owner/places', overview: '/owner/analytics', submissions: '/owner/submissions', notifications: '/owner/notifications', identity: '/owner/identity' }
-      : { translations: '/admin/translations', overview: '/admin/analytics', places: '/admin/places', users: '/admin/users', roles: '/admin/roles', reviews: '/admin/reviews', audio: '/admin/audio-tasks', audit: '/admin/audit', runtime: `/runtime/window?hours=${runtimeHours}`, system: '/admin/system-status' };
+      : { translations: '/admin/translations', overview: `/admin/analytics?hours=${analyticsHours}`, places: '/admin/places', users: '/admin/users', roles: '/admin/roles', reviews: '/admin/reviews', audio: '/admin/audio-tasks', audit: '/admin/audit', runtime: `/runtime/window?hours=${runtimeHours}`, system: '/admin/system-status' };
     const path = owner && !user.verified && tab !== 'identity' ? '/owner/registration-status' : endpoints[tab];
     if (!path) return;
-    docApi(path, controller.signal).then(setData).catch(caught => {
+    docApi(path, controller.signal).then(value => { if (!controller.signal.aborted) setData(value); }).catch(caught => {
       if (!controller.signal.aborted) { setError(caught.message); if (caught.status === 401) setUser(null); }
     });
     if (!owner && user.permissions.includes('user:read') && (tab === 'users' || tab === 'places')) {
@@ -100,7 +101,7 @@ function PortalContent({ language, onLanguage }) { const t = useChuQuanTri();
       docApi('/admin/users', controller.signal).then(items => setOwners(items.filter(item => item.role === 'poi_owner' && item.verified && item.enabled))).catch(() => {});
     }
     return () => controller.abort();
-  }, [user, tab, revision, owner, runtimeHours]);
+  }, [user, tab, revision, owner, runtimeHours, analyticsHours]);
 
   useEffect(() => {
     if (!user || owner || tab !== 'audio' || user.mustChangePassword || !user.permissions.includes('poi:update')) return;
@@ -172,7 +173,8 @@ function PortalContent({ language, onLanguage }) { const t = useChuQuanTri();
           <h3>MP3 sẵn có theo ngôn ngữ</h3><Table headings={[t('Ngôn ngữ'), 'Audio đúng nội dung / địa điểm công khai']}>{data.audio.map(item => <tr key={item.language}><td>{item.language}</td><td>{item.ready}/{item.total}</td></tr>)}</Table><p className="muted">AI/thời tiết thiếu cấu hình không chặn đọc địa điểm và nghe MP3 đã tạo. Readiness không chứng minh hosting production hoặc dịch vụ ngoài đang kết nối được.</p>
         </section>}
         {tab === 'overview' && !owner && <ThongKeThietBi canManage={can('user:update')} />}
-        {tab === 'overview' && data && (owner ? <Table headings={[t('Địa điểm'), t('Sự kiện được đồng ý')]} >{data.map(item => <tr key={item.placeId}><td>{item.name}</td><td>{item.events}</td></tr>)}</Table> : <><div className="metric-grid">{[[t('Địa điểm'), data.places], [t('Đang công khai'), data.activePlaces], [t('Tài khoản'), data.users], [t('Chờ duyệt'), data.pendingReviews], [t('Lượt mở website · 5 giờ gần nhất'), data.pageViewsLast5Hours ?? 0], [t('Thiết bị đồng ý thống kê · 5 phút'), data.consentedOnlineDevices], [t('Thống kê đang chờ xử lý'), data.pendingAnalytics]].map(([label, value]) => <div className="metric-card" key={label}><strong>{value}</strong><span>{t(label)}</span></div>)}</div><p className="muted">Thống kê chỉ ghi nhận khi khách đồng ý. Không thu thập vị trí hoặc danh tính cá nhân.</p>{can('analytics:export') && <a href={diaChiApi('/admin/analytics/export')}>{t('Tải thống kê CSV')}</a>}</>)}
+        {tab === 'overview' && !owner && <section className="portal-card" aria-label="Khoảng thời gian thống kê lượt mở website"><label>Số giờ thống kê lượt mở website<select aria-label="Số giờ thống kê lượt mở website" value={analyticsHours} onChange={event => { setAnalyticsHours(Number(event.target.value)); setData(null); setError(''); }}>{Array.from({ length: 24 }, (_, index) => index + 1).map(hours => <option key={hours} value={hours}>{hours} giờ gần nhất</option>)}</select></label><p className="muted">Tính từ thời điểm hiện tại lùi lại số giờ đã chọn. Chỉ tính lượt mở/tải lại website được đồng ý thống kê, không cộng heartbeat hoặc lượt xem POI.</p>{!data && !error && <p role="status">Đang cập nhật thống kê…</p>}</section>}
+        {tab === 'overview' && data && (owner ? <Table headings={[t('Địa điểm'), t('Sự kiện được đồng ý')]} >{data.map(item => <tr key={item.placeId}><td>{item.name}</td><td>{item.events}</td></tr>)}</Table> : <><div className="metric-grid">{[[t('Địa điểm'), data.places], [t('Đang công khai'), data.activePlaces], [t('Tài khoản'), data.users], [t('Chờ duyệt'), data.pendingReviews], [`Lượt mở website · ${data.pageViewHours ?? analyticsHours} giờ gần nhất`, data.pageViews ?? 0], [t('Thiết bị đồng ý thống kê · 5 phút'), data.consentedOnlineDevices], [t('Thống kê đang chờ xử lý'), data.pendingAnalytics]].map(([label, value]) => <div className="metric-card" key={label}><strong>{value}</strong><span>{t(label)}</span></div>)}</div><p className="muted">Thống kê chỉ ghi nhận khi khách đồng ý. Không thu thập vị trí hoặc danh tính cá nhân.</p>{can('analytics:export') && <a href={diaChiApi('/admin/analytics/export')}>{t('Tải thống kê CSV')}</a>}</>)}
         {tab === 'places' && Array.isArray(data) && <>
           <QuanLyDiaDiem places={data} owner={owner} can={can} busy={busy} editing={!!editor} onCreate={() => setEditor({ ...blankPlace })} onEdit={setEditor}
             onToggle={item => run(() => ghiApi(`/admin/places/${item.id}`, 'PUT', { ...item, isActive: !(item.isActive || item.activationRequested) }), item.isActive || item.activationRequested ? 'Đã ẩn địa điểm khỏi trang khám phá.' : item.isDemo || item.audioStatus === 'ready' ? 'Đã công khai địa điểm.' : 'Đã gửi yêu cầu công khai. Đang chuẩn bị audio tiếng Anh.')}

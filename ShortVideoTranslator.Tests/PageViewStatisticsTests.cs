@@ -4,6 +4,23 @@ namespace ShortVideoTranslator.Tests;
 
 public class PageViewStatisticsTests
 {
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(5, 2)]
+    [InlineData(24, 3)]
+    public void SelectableHoursChangeTheRollingWindow(int hours, int expected)
+    {
+        var now = DateTimeOffset.UtcNow;
+        var events = new[] { 1, 4, 24, 25 }.Select(age => new AnalyticsEvent(age.ToString(), "a", "page_view", null, "vi", now.AddHours(-age)));
+        Assert.Equal(expected, PageViewStatistics.LastHours(events, now, hours));
+    }
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(25)]
+    public void RejectsOutOfRangeHours(int hours) => Assert.Equal(400,
+        Assert.Throws<PlatformException>(() => PageViewStatistics.LastHours([], DateTimeOffset.UtcNow, hours)).StatusCode);
+
     [Fact]
     public void RollingWindowCountsOnlyWebsiteOpensIncludingBoundaryAndExcludingFuture()
     {
