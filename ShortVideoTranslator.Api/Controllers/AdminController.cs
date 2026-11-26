@@ -62,17 +62,22 @@ public class AdminController(PlatformService platform, DeviceActivityService dev
     [HttpGet("audit"), Permission("audit:read")]
     public IActionResult Audit([FromQuery] int limit = 100) => Ok(platform.Store.Read(s => s.Audit.OrderByDescending(a => a.CreatedAt).Take(Math.Clamp(limit, 1, 500)).ToArray()));
     [HttpGet("analytics"), Permission("analytics:view")]
-    public IActionResult Analytics([FromQuery] int hours = 5) => Ok(platform.Store.Read(s => new {
+    public IActionResult Analytics([FromQuery] int hours = 5)
+    {
+        var now = DateTimeOffset.UtcNow;
+        return Ok(platform.Store.Read(s => new {
         places = s.Places.Count, activePlaces = s.Places.Count(p => p.IsActive), users = s.Users.Count,
         pendingReviews = s.Reviews.Count(r => r.Status == "pending"), events = s.Events.Count(e => e.Kind != "heartbeat"),
-        pageViewsLast5Hours = PageViewStatistics.LastFiveHours(s.Events, DateTimeOffset.UtcNow),
+        pageViewsLast5Hours = PageViewStatistics.LastFiveHours(s.Events, now),
         pageViewHours = hours,
-        pageViews = PageViewStatistics.LastHours(s.Events, DateTimeOffset.UtcNow, hours),
+        pageViews = PageViewStatistics.LastHours(s.Events, now, hours),
+        pageViewsByHours = PageViewStatistics.FirstFiveHours(s.Events, now),
         consentedOnlineDevices = s.AnalyticsHeartbeats.Where(e => e.LastSeen > DateTimeOffset.UtcNow.AddMinutes(-5)).Select(e => e.DeviceId).Distinct().Count(),
         pendingAnalytics = s.PendingAnalytics.Count,
         byPlace = s.Events.Where(e => e.Kind != "heartbeat" && e.PlaceId != null).GroupBy(e => e.PlaceId).Select(g => new { placeId = g.Key, count = g.Count() }).ToArray(),
         byKind = s.Events.Where(e => e.Kind != "heartbeat").GroupBy(e => e.Kind).Select(g => new { kind = g.Key, count = g.Count() }).ToArray()
-    }));
+        }));
+    }
     [HttpGet("analytics/export"), Permission("analytics:export")]
     public IActionResult Export() => File(System.Text.Encoding.UTF8.GetBytes("createdAt,kind,placeId,language\n" +
         string.Join('\n', platform.Store.Read(s => s.Events.Where(e => e.Kind != "heartbeat").ToArray()).Select(e => $"{e.CreatedAt:O},{e.Kind},{e.PlaceId},{e.Language}"))), "text/csv", "smarttour-events.csv");

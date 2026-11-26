@@ -4,6 +4,18 @@ namespace ShortVideoTranslator.Tests;
 
 public class PageViewStatisticsTests
 {
+    [Fact]
+    public void FiveRollingTotalsShareOneTimestampAndIncludeEachBoundary()
+    {
+        var now = DateTimeOffset.Parse("2026-11-26T08:00:00Z");
+        var events = Enumerable.Range(1, 6).Select(age => new AnalyticsEvent(age.ToString(), "a", "page_view", null, "vi", now.AddHours(-age)))
+            .Append(new("future", "a", "page_view", null, "vi", now.AddSeconds(1)))
+            .Append(new("poi", "a", "view", 1, "vi", now));
+        var totals = PageViewStatistics.FirstFiveHours(events, now);
+        Assert.Equal(new[] { 1, 2, 3, 4, 5 }, totals.Select(t => t.Hours));
+        Assert.Equal(new[] { 1, 2, 3, 4, 5 }, totals.Select(t => t.PageViews));
+        Assert.All(PageViewStatistics.FirstFiveHours([], now), t => Assert.Equal(0, t.PageViews));
+    }
     [Theory]
     [InlineData(1, 1)]
     [InlineData(5, 2)]
